@@ -3,15 +3,12 @@
 
 -- Archivo: biblioteca.sql
 -- Version: 1.0.2
--- Fecha de última modificacion: 2023-05-12 09:28pm
+-- Fecha de última modificacion: 2023-05-21 02:02pm
 
 -- Autores:
 -- alejandro.cano@correounivalle.edu.co -- 2179652
 -- juan.loaiza.santiago@correounivalle.edu.co -- 2177570
 -- juan.munoz.rojas@correounivalle.edu.co -- 2177436
-
--- Changelog:
--- Los atributos de profesor han cambiado de (carrera -> titulo) y (universidad -> dependencia) v1.0.2
 ------------------------------------------------
 DROP TABLE IF EXISTS area_conocimiento CASCADE;
 CREATE TABLE area_conocimiento (
@@ -478,16 +475,16 @@ VALUES ('USR011', 'EST001', 'Ingeniería Civil', 'Universidad Nacional de Colomb
 ------------------------------------------------
 --- PROFESORES 
 INSERT INTO profesor (id_usuario, id_profesor, titulo, dependencia)
-VALUES ('USR001', 'PRF001', 'Ingeniería Industrial', 'Universidad Nacional de Colombia'),
-      ('USR002', 'PRF002', 'Derecho', 'Universidad de Antioquia'),
-      ('USR003', 'PRF003', 'Medicina', 'Universidad del Rosario'),
-      ('USR004', 'PRF004', 'Administración de Empresas', 'Universidad de los Andes'),
-      ('USR005', 'PRF005', 'Ingeniería de Sistemas', 'Universidad de la Costa'),
-      ('USR006', 'PRF006', 'Economía', 'Universidad del Valle'),
-      ('USR007', 'PRF007', 'Arquitectura', 'Universidad de la Sabana'),
-      ('USR008', 'PRF008', 'Ciencias Políticas', 'Universidad Sergio Arboleda'),
-      ('USR009', 'PRF009', 'Psicología', 'Universidad del Norte'),
-      ('USR010', 'PRF010', 'Comunicación Social', 'Pontificia Universidad Javeriana');
+VALUES ('USR001', 'PRF001', 'Maestro', 'Departamento de Matematicas'),
+      ('USR002', 'PRF002', 'Licenciado', 'Departamento de Fisica'),
+      ('USR003', 'PRF003', 'Maestro', 'Departamento de Biologia'),
+      ('USR004', 'PRF004', 'Maestro', 'Departamento de Quimica'),
+      ('USR005', 'PRF005', 'Licenciado', 'Departamento de Informatica'),
+      ('USR006', 'PRF006', 'Doctor', 'Departamento de Biologia'),
+      ('USR007', 'PRF007', 'Mestro', 'Departamento de Quimica'),
+      ('USR008', 'PRF008', 'Licenciado', 'Departamento de Matematica'),
+      ('USR009', 'PRF009', 'Maestro', 'Departamento de Fisica'),
+      ('USR010', 'PRF010', 'Maestro', 'Departamento de Algebra');
 ------------------------------------------------
 --- PROFESORES Y AREAS DE INTERES
 INSERT INTO profesor_area_conocimiento (id_usuario, id_profesor, codigo_area)

@@ -18,7 +18,6 @@ package Controlador;
 import Modelo.*;
 import Vista.*;
 import Paneles.*;
-import BDManager.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

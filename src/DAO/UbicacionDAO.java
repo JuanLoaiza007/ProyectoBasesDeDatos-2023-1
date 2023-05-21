@@ -1,11 +1,13 @@
-package Modelo;
+package DAO;
+
+import Objetos.Ubicacion;
 
 /**
  * Bases de datos 750006C-01
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: SubmodeloUbicaciones.java
+ * Archivo: UbicacionDAO.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -15,7 +17,9 @@ package Modelo;
  * 
  */
 
-public class SubmodeloUbicaciones {
-    public SubmodeloUbicaciones(){
-    }
+/**
+ * Interfaz publica DAO de Ubicacion, especifica el Objeto y tipo de dato de la Primary Key
+ * Sirve para construir la clase de implementacion
+ */
+public interface UbicacionDAO extends DAO<Ubicacion, String>{
 }

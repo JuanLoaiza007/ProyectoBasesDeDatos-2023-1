@@ -18,7 +18,7 @@ package Main;
 import Modelo.*;
 import Vista.*;
 import Controlador.*;
-import BDManager.UsuariosManager;
+import BasesDeDatos.UsuariosManager;
 
         
 public class main {

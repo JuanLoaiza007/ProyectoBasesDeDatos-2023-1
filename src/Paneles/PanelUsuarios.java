@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  */
 
-public class PanelEjemplares extends javax.swing.JPanel {
+public class PanelUsuarios extends javax.swing.JPanel {
 
     /**
      * Creacion de un modelo de tabla NO editable
@@ -63,7 +63,7 @@ public class PanelEjemplares extends javax.swing.JPanel {
     }
     
     /** Creates new form PanelAdministrar */
-    public PanelEjemplares() {
+    public PanelUsuarios() {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
@@ -119,7 +119,7 @@ public class PanelEjemplares extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("San Francisco Text", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ejemplares");
+        jLabel1.setText("Usuarios");
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
 
@@ -411,8 +411,12 @@ public class PanelEjemplares extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtfBuscar(){
+    public JTextField getTxtf_buscar() {
         return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(JTextField txtf_buscar) {
+        this.txtf_buscar = txtf_buscar;
     }
     
     public void addListenerVolver(ActionListener listener){

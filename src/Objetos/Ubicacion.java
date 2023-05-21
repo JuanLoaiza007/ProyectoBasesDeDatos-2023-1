@@ -22,7 +22,7 @@ public class Ubicacion {
     private int nroPasillo;
     private int estante;
     private int nroCajon;
-    
+
     public Ubicacion(String idUbicacion, String nombreSala, int nroPasillo, int estante, int nroCajon) {
         this.idUbicacion = idUbicacion;
         this.nombreSala = nombreSala;

@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  */
 
-public class PanelEjemplares extends javax.swing.JPanel {
+public class PanelEmpleados extends javax.swing.JPanel {
 
     /**
      * Creacion de un modelo de tabla NO editable
@@ -63,7 +63,7 @@ public class PanelEjemplares extends javax.swing.JPanel {
     }
     
     /** Creates new form PanelAdministrar */
-    public PanelEjemplares() {
+    public PanelEmpleados() {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
@@ -119,7 +119,7 @@ public class PanelEjemplares extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("San Francisco Text", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ejemplares");
+        jLabel1.setText("Empleados");
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
 

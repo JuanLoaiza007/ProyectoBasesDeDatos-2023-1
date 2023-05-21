@@ -1,17 +1,11 @@
-package BDManager;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package BasesDeDatos;
 
 /**
  * Bases de datos 750006C-01
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: BibliotecaManager.java
+ * Archivo: postgres.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,17 +15,21 @@ import java.util.logging.Logger;
  * 
  */
 
-public class BibliotecaManager {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class UsuariosManager {
     
     private static String postgres_user = "postgres";
     private static String postgres_password = "postgres";
     private static String host = "localhost";
     private static String puerto = "5432";
-    private static String nombreBaseDatos = "biblioteca";
+    private static String nombreBaseDatos = "usuarios";
     private static Connection connection;   
     
-    public static Connection iniciarConexion() {
-        try {
+    public static Connection iniciarConexion() {      
+        try {       
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://"
                             + host + ":"
@@ -39,8 +37,6 @@ public class BibliotecaManager {
                             + nombreBaseDatos,
                     postgres_user,
                     postgres_password);
-            
-            System.out.println("Conexion exitosa a la base de datos: " + nombreBaseDatos);
         } catch (Exception e) {
             System.out.println("Error conectando a la base de datos " + nombreBaseDatos + ": \n"
                     + e.getMessage());
@@ -52,7 +48,6 @@ public class BibliotecaManager {
     public static void detenerConexion(Connection conexion) {
         try {
             conexion.close();
-            System.out.println("Conexion cerrada satisfactoriamente: " + conexion + "\n");
         } catch (SQLException ex) {
             System.out.println("Error cerrando la conexion " + conexion + ": \n"
                     + ex.getMessage());

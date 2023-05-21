@@ -15,7 +15,7 @@ package Controlador;
  * 
  */
 
-import BDManager.*;
+import BasesDeDatos.UsuariosManager;
 import java.sql.Connection;
 import Modelo.*;
 import Vista.*;
