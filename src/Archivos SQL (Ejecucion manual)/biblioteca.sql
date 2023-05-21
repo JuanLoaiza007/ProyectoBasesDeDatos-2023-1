@@ -11,7 +11,7 @@
 -- juan.munoz.rojas@correounivalle.edu.co -- 2177436
 
 -- Changelog:
--- Los atributos de profesor han cambiado de (carrera -> titulo) y (universidad -> dependencia)
+-- Los atributos de profesor han cambiado de (carrera -> titulo) y (universidad -> dependencia) v1.0.2
 ------------------------------------------------
 DROP TABLE IF EXISTS area_conocimiento CASCADE;
 CREATE TABLE area_conocimiento (
