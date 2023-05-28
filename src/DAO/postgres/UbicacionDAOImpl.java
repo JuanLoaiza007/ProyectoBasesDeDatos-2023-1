@@ -1,6 +1,5 @@
 package DAO.postgres;
 
-import DAO.UbicacionDAO;
 import Objetos.Ubicacion;
 import Paneles.AvisosEmergentes;
 import java.util.List;
@@ -14,14 +13,14 @@ import java.util.ArrayList;
  * 
  * Archivo: UbicacionDAOImpl.java
  * Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
  * @author Juan Sebastian Muñoz Rojas   (202177436-3743) {@literal <"juan.munoz.rojas@correounivalle.edu.co">} 
  * 
  */
-public class UbicacionDAOImpl implements UbicacionDAO {
+public class UbicacionDAOImpl {
 
     private Connection conexion;
 
@@ -47,33 +46,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
         ubicacion = new Ubicacion(id_ubicacion, nombre_sala, nro_pasillo, estante, nro_cajon);
 
         return ubicacion;
-    }
-
-    /**
-     * Obtiene la cantidad de registros de la tabla
-     * @return cantidadRegistros (int)
-     */
-    public int getCantidadRegistros() {
-        int cantidadRegistros = -1;
-
-        String COUNT = "SELECT COUNT(*) FROM ubicacion";
-
-        PreparedStatement statement = null;
-        ResultSet result = null;
-
-        try {
-            statement = conexion.prepareStatement(COUNT);
-            result = statement.executeQuery();
-
-            if (result.next()) {
-                cantidadRegistros = result.getInt("count");
-            }
-
-        } catch (SQLException ex) {
-            System.out.println("Excepcion en getNumeroRegistros(): " + ex);
-        }
-
-        return cantidadRegistros;
     }
 
     /**
@@ -108,7 +80,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
      * Inserta un nuevo registro a la tabla, usa un PreparedStatement interno
      * @param e (Ubicacion) La ubicacion a insertar en la base de datos
      */
-    @Override
     public void insertar(Ubicacion e) {
         String INSERT = "INSERT INTO ubicacion (id_ubicacion, nombre_sala, nro_pasillo, estante, nro_cajon) VALUES (?, ?, ?, ?, ?)";
 
@@ -139,7 +110,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
      * Modifica un registro de la tabla, usa un PreparedStatement interno
      * @param e (Ubicacion) La ubicacion a modificar en la base de datos, usa su Id para reconocer pero no modifica su Id
      */
-    @Override
     public void modificar(Ubicacion e) {
         String UPDATE = "UPDATE ubicacion SET nombre_sala = ?, nro_pasillo = ?, estante = ?, nro_cajon = ? WHERE id_ubicacion = ?";
 
@@ -170,7 +140,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
      * Elimina un registro de la tabla, usa un PreparedStatement interno
      * @param e (Ubicacion) La ubicacion a eliminar en la base de datos, usa su Id para reconocer pero no modifica su Id
      */
-    @Override
     public void eliminar(Ubicacion e) {
         String DELETE = "DELETE FROM ubicacion WHERE id_ubicacion = ?";
 
@@ -196,7 +165,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
      * Obtiene un ArrayList de todas las ubicaciones registradas en la base de datos
      * @return ubicaciones (List(Ubicaciones)) La lista de todos los registros; null si no hay registros
      */
-    @Override
     public List<Ubicacion> obtenerTodos() {
         List<Ubicacion> ubicaciones = new ArrayList<>();
 
@@ -229,7 +197,6 @@ public class UbicacionDAOImpl implements UbicacionDAO {
      * @param id (String) El id del a ubicacion a buscar
      * @return ubicacion (Ubicacion) La ubicacion si existe; null si no existe
      */
-    @Override
     public Ubicacion obtener(String id) {
         Ubicacion ubicacion = null;
 
