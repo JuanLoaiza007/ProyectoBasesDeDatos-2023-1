@@ -16,7 +16,6 @@ package Controlador;
  */
 
 import BasesDeDatos.BibliotecaManager;
-import DAO.UbicacionDAO;
 import Modelo.*;
 import Paneles.*;
 import Objetos.*;
@@ -73,7 +72,7 @@ public class SubcontroladorUbicaciones {
         
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
         
-        UbicacionDAO dao = new UbicacionDAOImpl(conexion);    
+        UbicacionDAOImpl dao = new UbicacionDAOImpl(conexion);    
         ubicaciones = dao.obtenerTodos();
         
         BibliotecaManager.detenerConexion(conexion);
@@ -95,7 +94,7 @@ public class SubcontroladorUbicaciones {
 
         String parametro = panel.getTxtf_buscar().getText();
 
-        UbicacionDAO dao = new UbicacionDAOImpl(conexion);
+        UbicacionDAOImpl dao = new UbicacionDAOImpl(conexion);
 
         if (parametro.isEmpty()) { // Si no hay parametro recargar la tabla
             panel.limpiarTabla();
@@ -170,7 +169,7 @@ public class SubcontroladorUbicaciones {
             if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
 
-                UbicacionDAO dao = new UbicacionDAOImpl(conexion);
+                UbicacionDAOImpl dao = new UbicacionDAOImpl(conexion);
 
                 dao.eliminar(ubicacionSeleccionada);
                 ubicacionSeleccionada = null;
@@ -216,7 +215,7 @@ public class SubcontroladorUbicaciones {
  
             if (datosValidados) {
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-                UbicacionDAO dao = new UbicacionDAOImpl(conexion);
+                UbicacionDAOImpl dao = new UbicacionDAOImpl(conexion);
                 if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
                    
                     dao.insertar(ubicacionSeleccionada);
