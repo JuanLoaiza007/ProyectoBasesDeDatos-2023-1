@@ -2,8 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.2
--- Fecha de última modificacion: 2023-05-21 02:02pm
+-- Version: 1.0.3
+-- Fecha de última modificacion: 2023-05-28 10:38am
+
+-- Registro de cambios
+-- Se elimino el atributo "direccion" de descarga_usuario_libro, ya estaba ip y url.
 
 -- Autores:
 -- alejandro.cano@correounivalle.edu.co -- 2179652
@@ -204,8 +207,7 @@ CREATE TABLE descarga_usuario_libro (
   id_descarga VARCHAR (15) NOT NULL PRIMARY KEY,
   isbn VARCHAR (15) NOT NULL,
   direccion_url VARCHAR (50) NOT NULL,
-  id_usuario VARCHAR (15) NOT NULL,
-  direccion VARCHAR (30),
+  id_usuario VARCHAR (15) NOT NULL,  
   direccion_ip VARCHAR (15),
   fecha DATE,
   hora TIME
@@ -500,18 +502,18 @@ VALUES ('USR001', 'PRF001', 'AC001'),
       ('USR010', 'PRF010', 'AC002');
 ------------------------------------------------
 --- LIBROS Y DESCARGAS DE USUARIOS
-INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion, direccion_ip, fecha, hora)
+INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora)
 VALUES 
-  ('DL001', '978-0307476463', 'http://falselibros.com/libro1', 'USR001', 'Av. 123, Lima', '192.168.0.1', '2023-05-14', '10:00:00'),
-  ('DL002', '978-8437620629', 'http://falselibros.com/libro2', 'USR002', 'Jr. 456, Lima', '192.168.0.2', '2023-05-14', '11:00:00'),
-  ('DL003', '978-9507317181', 'http://falselibros.com/libro3', 'USR003', 'Calle 789, Lima', '192.168.0.3', '2023-05-14', '12:00:00'),
-  ('DL004', '978-9875805174', 'http://falselibros.com/libro4', 'USR004', 'Av. 234, Lima', '192.168.0.4', '2023-05-14', '13:00:00'),
-  ('DL005', '978-8420471839', 'http://falselibros.com/libro5', 'USR005', 'Jr. 567, Lima', '192.168.0.5', '2023-05-14', '14:00:00'),
-  ('DL006', '978-8432248138', 'http://falselibros.com/libro6', 'USR006', 'Calle 890, Lima', '192.168.0.6', '2023-05-14', '15:00:00'),
-  ('DL007', '978-8432212429', 'http://falselibros.com/libro7', 'USR007', 'Av. 901, Lima', '192.168.0.7', '2023-05-14', '16:00:00'),
-  ('DL008', '978-8420441146', 'http://falselibros.com/libro8', 'USR008', 'Jr. 234, Lima', '192.168.0.8', '2023-05-14', '17:00:00'),
-  ('DL009', '978-6071502919', 'http://falselibros.com/libro9', 'USR009', 'Calle 567, Lima', '192.168.0.9', '2023-05-14', '18:00:00'),
-  ('DL010', '978-8433920228', 'http://falselibros.com/libro10', 'USR010', 'Av. 890, Lima', '192.168.0.10', '2023-05-14', '19:00:00');
+  ('DL001', '978-0307476463', 'http://falselibros.com/libro1', 'USR001', '192.168.0.1', '2023-05-14', '10:00:00'),
+  ('DL002', '978-8437620629', 'http://falselibros.com/libro2', 'USR002', '192.168.0.2', '2023-05-14', '11:00:00'),
+  ('DL003', '978-9507317181', 'http://falselibros.com/libro3', 'USR003', '192.168.0.3', '2023-05-14', '12:00:00'),
+  ('DL004', '978-9875805174', 'http://falselibros.com/libro4', 'USR004', '192.168.0.4', '2023-05-14', '13:00:00'),
+  ('DL005', '978-8420471839', 'http://falselibros.com/libro5', 'USR005', '192.168.0.5', '2023-05-14', '14:00:00'),
+  ('DL006', '978-8432248138', 'http://falselibros.com/libro6', 'USR006', '192.168.0.6', '2023-05-14', '15:00:00'),
+  ('DL007', '978-8432212429', 'http://falselibros.com/libro7', 'USR007', '192.168.0.7', '2023-05-14', '16:00:00'),
+  ('DL008', '978-8420441146', 'http://falselibros.com/libro8', 'USR008', '192.168.0.8', '2023-05-14', '17:00:00'),
+  ('DL009', '978-6071502919', 'http://falselibros.com/libro9', 'USR009', '192.168.0.9', '2023-05-14', '18:00:00'),
+  ('DL010', '978-8433920228', 'http://falselibros.com/libro10', 'USR010', '192.168.0.10', '2023-05-14', '19:00:00');
 ------------------------------------------------
 --- PRESTAMOS
 INSERT INTO prestamo (nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion)
