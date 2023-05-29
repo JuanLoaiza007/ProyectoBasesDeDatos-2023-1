@@ -196,5 +196,4 @@ public class AreaConocimientoDAOImpl{
         }
         return areaConocimiento;
     }
-
 }

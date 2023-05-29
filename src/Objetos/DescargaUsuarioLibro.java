@@ -24,17 +24,15 @@ public class DescargaUsuarioLibro {
     private String isbn;
     private String direccionUrl;
     private String idUsuario;
-    private String direccion;
     private String direccionIp;
     private LocalDate fecha;
     private LocalTime hora;
     
-    public DescargaUsuarioLibro(String idDescarga, String isbn, String direccionUrl, String idUsuario, String direccion, String direccionIp, LocalDate fecha, LocalTime hora) {
+    public DescargaUsuarioLibro(String idDescarga, String isbn, String direccionUrl, String idUsuario, String direccionIp, LocalDate fecha, LocalTime hora) {
         this.idDescarga = idDescarga;
         this.isbn = isbn;
         this.direccionUrl = direccionUrl;
         this.idUsuario = idUsuario;
-        this.direccion = direccion;
         this.direccionIp = direccionIp;
         this.fecha = fecha;
         this.hora = hora;
@@ -74,13 +72,6 @@ public class DescargaUsuarioLibro {
         this.idUsuario = idUsuario;
     }
     
-    public String getDireccion() {
-        return direccion;
-    }
-    
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
     
     public String getDireccionIp() {
         return direccionIp;
