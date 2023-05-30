@@ -1,6 +1,5 @@
 package DAO.postgres;
 
-import Objetos.Editorial;
 import Objetos.EjemplarUbicacion;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -151,8 +150,13 @@ public class EjemplarUbicacionDAOImpl {
         
     }
 
-    public EjemplarUbicacion obtener(String id) {
-        EjemplarUbicacion ejemplarUbicacion = null;
+    /**
+     * Busqueda por ISBN
+     * @param id El ISBN del ejemplar
+     * @return Un ArrayList con los ejemplares que tienen ese ISBN
+     */
+    public List<EjemplarUbicacion> obtener(String id) {
+        List<EjemplarUbicacion> ejemplarUbicacion = new ArrayList<>();
 
         String GETONE = "SELECT isbn, nro_ejemplar, id_ubicacion FROM ejemplar_ubicacion WHERE isbn = ?";
 
@@ -166,10 +170,8 @@ public class EjemplarUbicacionDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                ejemplarUbicacion = convertir(result);
-            } else {
-                System.out.println("No se ha encontrado un registro con ese Id");
-            }
+                ejemplarUbicacion.add(convertir(result));
+            } 
 
         } catch (SQLException ex) {
             System.out.println(ex);
