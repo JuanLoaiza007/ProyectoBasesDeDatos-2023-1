@@ -499,8 +499,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="lbl_isbn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtf_isbn" min="-2" max="-2" attributes="0"/>
@@ -538,7 +537,7 @@
                           <Component id="lbl_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -683,7 +682,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="N&#xfa;mero de p&#xe1;ginas:"/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero de p&#xe1;ginas"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtf_codigoEditorial">
