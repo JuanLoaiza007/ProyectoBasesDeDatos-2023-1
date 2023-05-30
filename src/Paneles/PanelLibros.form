@@ -22,7 +22,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,16,0,0,2,-77"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,120,0,0,2,-77"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -456,21 +456,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_id" max="32767" attributes="0"/>
-                                  <Component id="txtf_id" max="32767" attributes="0"/>
-                                  <Component id="lbl_nombreSala" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_nombreSala" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbl_nroPasillo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_nroPasillo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbl_estante" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_estante" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbl_nroCajon" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_nroCajon" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lbl_isbn" max="32767" attributes="0"/>
+                          <Component id="txtf_isbn" pref="327" max="32767" attributes="0"/>
+                          <Component id="lbl_idEmpleado" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_idEmpleado" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbl_titulo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_titulo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbl_anioPublicacion" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_anioPublicacion" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbl_nroPaginas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_nroPaginas" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="54" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -493,7 +488,12 @@
                               </Group>
                               <EmptySpace pref="54" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="lbl_codigoEditorial" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_codigoEditorial" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbl_codigoArea" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtf_codigoArea" alignment="0" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -501,25 +501,33 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl_id" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_isbn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_id" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_isbn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_nombreSala" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_codigoArea" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_nombreSala" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_codigoArea" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_nroPasillo" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_codigoEditorial" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_nroPasillo" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_codigoEditorial" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_estante" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_idEmpleado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_estante" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_idEmpleado" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_nroCajon" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_titulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_nroCajon" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_titulo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lbl_anioPublicacion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtf_anioPublicacion" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lbl_nroPaginas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtf_nroPaginas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn_guardar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -530,7 +538,7 @@
                           <Component id="lbl_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -610,7 +618,7 @@
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_id">
+            <Component class="javax.swing.JLabel" name="lbl_isbn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -618,15 +626,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Id:"/>
+                <Property name="text" type="java.lang.String" value="ISBN:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_id">
+            <Component class="javax.swing.JTextField" name="txtf_isbn">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_nombreSala">
+            <Component class="javax.swing.JLabel" name="lbl_idEmpleado">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -634,12 +642,12 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nombre Sala:"/>
+                <Property name="text" type="java.lang.String" value="Id Empleado:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_nombreSala">
+            <Component class="javax.swing.JTextField" name="txtf_idEmpleado">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_nroPasillo">
+            <Component class="javax.swing.JLabel" name="lbl_titulo">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -647,12 +655,12 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nro. Pasillo:"/>
+                <Property name="text" type="java.lang.String" value="Titulo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_nroPasillo">
+            <Component class="javax.swing.JTextField" name="txtf_titulo">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_estante">
+            <Component class="javax.swing.JLabel" name="lbl_anioPublicacion">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -660,14 +668,14 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Estante: "/>
+                <Property name="text" type="java.lang.String" value="A&#xf1;o publicaci&#xf3;n:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_estante">
+            <Component class="javax.swing.JTextField" name="txtf_anioPublicacion">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_nroCajon">
+            <Component class="javax.swing.JTextField" name="txtf_nroPaginas">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_nroCajon">
+            <Component class="javax.swing.JLabel" name="lbl_nroPaginas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -675,7 +683,39 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nro. Cajon"/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero de p&#xe1;ginas:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtf_codigoEditorial">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_codigoEditorialActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_codigoEditorial">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="San Francisco Text" size="16" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Codigo Editorial:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtf_codigoArea">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_codigoAreaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_codigoArea">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="San Francisco Text" size="16" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Codigo Area:"/>
               </Properties>
             </Component>
           </SubComponents>

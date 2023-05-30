@@ -39,7 +39,7 @@ public class PanelLibros extends javax.swing.JPanel {
      */
     public void configurarTabla() {
         
-        String[] titulosTabla = new String[]{"Id", "Nombre", "No. Pasillo", "Estante", "No. Cajon", };
+        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Empleado", "Titulo", "Año", "Páginas" };
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -50,9 +50,9 @@ public class PanelLibros extends javax.swing.JPanel {
         }
     }
     
-    public void nuevaFilaTabla(String id, String nombre, String pasillo, String estante, String cajon) {
+    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String idEmpleado, String titulo, String anio, String paginas) {
         modeloTabla.addRow(new Object[]{
-            id, nombre, pasillo, estante, cajon
+            isbn, codigoArea, codigoEditorial, idEmpleado, titulo, anio, paginas
         });
     }
     
@@ -101,16 +101,20 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_cancelar = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
         lbl_guardar = new javax.swing.JLabel();
-        lbl_id = new javax.swing.JLabel();
-        txtf_id = new javax.swing.JTextField();
-        lbl_nombreSala = new javax.swing.JLabel();
-        txtf_nombreSala = new javax.swing.JTextField();
-        lbl_nroPasillo = new javax.swing.JLabel();
-        txtf_nroPasillo = new javax.swing.JTextField();
-        lbl_estante = new javax.swing.JLabel();
-        txtf_estante = new javax.swing.JTextField();
-        txtf_nroCajon = new javax.swing.JTextField();
-        lbl_nroCajon = new javax.swing.JLabel();
+        lbl_isbn = new javax.swing.JLabel();
+        txtf_isbn = new javax.swing.JTextField();
+        lbl_idEmpleado = new javax.swing.JLabel();
+        txtf_idEmpleado = new javax.swing.JTextField();
+        lbl_titulo = new javax.swing.JLabel();
+        txtf_titulo = new javax.swing.JTextField();
+        lbl_anioPublicacion = new javax.swing.JLabel();
+        txtf_anioPublicacion = new javax.swing.JTextField();
+        txtf_nroPaginas = new javax.swing.JTextField();
+        lbl_nroPaginas = new javax.swing.JLabel();
+        txtf_codigoEditorial = new javax.swing.JTextField();
+        lbl_codigoEditorial = new javax.swing.JLabel();
+        txtf_codigoArea = new javax.swing.JTextField();
+        lbl_codigoArea = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -340,27 +344,47 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_guardar.setText("Guardar");
 
-        lbl_id.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_id.setText("Id:");
+        lbl_isbn.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_isbn.setText("ISBN:");
 
-        txtf_id.setEnabled(false);
+        txtf_isbn.setEnabled(false);
 
-        lbl_nombreSala.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nombreSala.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nombreSala.setText("Nombre Sala:");
+        lbl_idEmpleado.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_idEmpleado.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_idEmpleado.setText("Id Empleado:");
 
-        lbl_nroPasillo.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroPasillo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPasillo.setText("Nro. Pasillo:");
+        lbl_titulo.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_titulo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_titulo.setText("Titulo:");
 
-        lbl_estante.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_estante.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_estante.setText("Estante: ");
+        lbl_anioPublicacion.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_anioPublicacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_anioPublicacion.setText("Año publicación:");
 
-        lbl_nroCajon.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroCajon.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroCajon.setText("Nro. Cajon");
+        lbl_nroPaginas.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_nroPaginas.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_nroPaginas.setText("Número de páginas:");
+
+        txtf_codigoEditorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtf_codigoEditorialActionPerformed(evt);
+            }
+        });
+
+        lbl_codigoEditorial.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_codigoEditorial.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_codigoEditorial.setText("Codigo Editorial:");
+
+        txtf_codigoArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtf_codigoAreaActionPerformed(evt);
+            }
+        });
+
+        lbl_codigoArea.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_codigoArea.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_codigoArea.setText("Codigo Area:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -369,19 +393,16 @@ public class PanelLibros extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_id)
-                            .addComponent(lbl_nombreSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nombreSala)
-                            .addComponent(lbl_nroPasillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nroPasillo)
-                            .addComponent(lbl_estante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_estante)
-                            .addComponent(lbl_nroCajon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nroCajon))
-                        .addContainerGap())
+                    .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                    .addComponent(lbl_idEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_idEmpleado)
+                    .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_titulo)
+                    .addComponent(lbl_anioPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_anioPublicacion)
+                    .addComponent(lbl_nroPaginas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_nroPaginas)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,31 +418,44 @@ public class PanelLibros extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)))
-                        .addContainerGap(54, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
+                    .addComponent(lbl_codigoEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_codigoEditorial)
+                    .addComponent(lbl_codigoArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_codigoArea))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_id)
+                .addComponent(lbl_isbn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nombreSala)
+                .addComponent(lbl_codigoArea)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nombreSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_codigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroPasillo)
+                .addComponent(lbl_codigoEditorial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroPasillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_codigoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_estante)
+                .addComponent(lbl_idEmpleado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_estante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroCajon)
+                .addComponent(lbl_titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_anioPublicacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_anioPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_nroPaginas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_nroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -430,7 +464,7 @@ public class PanelLibros extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_cancelar)
                     .addComponent(lbl_guardar))
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -494,6 +528,14 @@ public class PanelLibros extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtf_codigoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoEditorialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtf_codigoEditorialActionPerformed
+
+    private void txtf_codigoAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtf_codigoAreaActionPerformed
+
     public JTextField getTxtf_buscar() {
         return txtf_buscar;
     }
@@ -501,45 +543,61 @@ public class PanelLibros extends javax.swing.JPanel {
     public void setTxtf_buscar(String texto) {
         txtf_buscar.setText(texto);
     }
-    
-    public JTextField getTxtf_id() {
-        return txtf_id;
+
+    public JTextField getTxtf_isbn() {
+        return txtf_isbn;
     }
-    
-    public void setId(String texto) {
-        txtf_id.setText(texto);
+        
+    public void setISBN(String texto) {
+        txtf_isbn.setText(texto);
     }
 
-    public JTextField getTxtf_estante() {
-        return txtf_estante;
+    public JTextField getTxtf_anioPublicacion() {
+        return txtf_anioPublicacion;
     }
     
-    public void setEstante(String texto) {
-        txtf_estante.setText(texto);
+    public void setAnioPublicacion(String texto) {
+        txtf_anioPublicacion.setText(texto);
     }
+    
+    public JTextField getTxtf_codigoArea() {
+        return txtf_codigoArea;
+    }
+    
+    public void setCodigoArea(String texto) {
+        txtf_codigoArea.setText(texto);
+    }    
 
-    public JTextField getTxtf_nombreSala() {
-        return txtf_nombreSala;
+    public JTextField getTxtf_codigoEditorial() {
+        return txtf_codigoEditorial;
     }
     
-    public void setNombreSala(String texto) {
-        txtf_nombreSala.setText(texto);
-    }
+    public void setCodigoEditorial(String texto) {
+        txtf_codigoEditorial.setText(texto);
+    }       
 
-    public JTextField getTxtf_nroCajon() {
-        return txtf_nroCajon;
+    public JTextField getTxtf_idEmpleado() {
+        return txtf_idEmpleado;
     }
     
-    public void setNroCajon(String texto) {
-        txtf_nroCajon.setText(texto);
+    public void setIdEmpleado(String texto) {
+        txtf_idEmpleado.setText(texto);
     }
+    
+    public JTextField getTxtf_nroPaginas() {
+        return txtf_nroPaginas;
+    }
+    
+    public void setNroPaginas(String texto) {
+        txtf_nroPaginas.setText(texto);
+    }    
 
-    public JTextField getTxtf_nroPasillo() {
-        return txtf_nroPasillo;
+    public JTextField getTxtf_titulo() {
+        return txtf_titulo;
     }
     
-    public void setNroPasillo(String texto) {
-        txtf_nroPasillo.setText(texto);
+    public void setTitulo(String texto) {
+        txtf_titulo.setText(texto);
     }
     
     public void addListenerVolver(ActionListener listener){
@@ -588,22 +646,22 @@ public class PanelLibros extends javax.swing.JPanel {
         btn_cancelar.setEnabled(true);
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
         
-        txtf_id.setEnabled(true);
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nombreSala.setEnabled(true);
-        lbl_nombreSala.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroPasillo.setEnabled(true);
-        lbl_nroPasillo.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_estante.setEnabled(true);
-        lbl_estante.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroCajon.setEnabled(true);
-        lbl_nroCajon.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_isbn.setEnabled(true);
+        lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_idEmpleado.setEnabled(true);
+        lbl_idEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_titulo.setEnabled(true);
+        lbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_anioPublicacion.setEnabled(true);
+        lbl_anioPublicacion.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_nroPaginas.setEnabled(true);
+        lbl_nroPaginas.setForeground(new java.awt.Color(0, 0, 0));
         
     }
     
     public void modoEditar(){
         modoInsertar();
-        txtf_id.setEnabled(false);
+        txtf_isbn.setEnabled(false);
     }
     
     public void modoRegistroTablaSeleccionado(){
@@ -629,28 +687,28 @@ public class PanelLibros extends javax.swing.JPanel {
         btn_cancelar.setEnabled(false);
         lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
         
-        txtf_id.setEnabled(false);
-        lbl_id.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nombreSala.setEnabled(false);
-        lbl_nombreSala.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroPasillo.setEnabled(false);
-        lbl_nroPasillo.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_estante.setEnabled(false);
-        lbl_estante.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroCajon.setEnabled(false);
-        lbl_nroCajon.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_isbn.setEnabled(false);
+        lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_idEmpleado.setEnabled(false);
+        lbl_idEmpleado.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_titulo.setEnabled(false);
+        lbl_titulo.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_anioPublicacion.setEnabled(false);
+        lbl_anioPublicacion.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_nroPaginas.setEnabled(false);
+        lbl_nroPaginas.setForeground(new java.awt.Color(102, 102, 102));
     }
     
     public void limpiarCampos(){
-        txtf_id.setText("");
-        txtf_nombreSala.setText("");
-        txtf_nroCajon.setText("");
-        txtf_estante.setText("");
-        txtf_nroPasillo.setText("");
+        txtf_isbn.setText("");
+        txtf_idEmpleado.setText("");
+        txtf_nroPaginas.setText("");
+        txtf_anioPublicacion.setText("");
+        txtf_titulo.setText("");
     }
     
     public boolean idEsManual(){
-        return txtf_id.isEnabled();
+        return txtf_isbn.isEnabled();
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -668,27 +726,31 @@ public class PanelLibros extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_anioPublicacion;
     private javax.swing.JLabel lbl_borrar;
     private javax.swing.JLabel lbl_cancelar;
+    private javax.swing.JLabel lbl_codigoArea;
+    private javax.swing.JLabel lbl_codigoEditorial;
     private javax.swing.JLabel lbl_editar;
-    private javax.swing.JLabel lbl_estante;
     private javax.swing.JLabel lbl_guardar;
-    private javax.swing.JLabel lbl_id;
-    private javax.swing.JLabel lbl_nombreSala;
-    private javax.swing.JLabel lbl_nroCajon;
-    private javax.swing.JLabel lbl_nroPasillo;
+    private javax.swing.JLabel lbl_idEmpleado;
+    private javax.swing.JLabel lbl_isbn;
+    private javax.swing.JLabel lbl_nroPaginas;
     private javax.swing.JLabel lbl_nuevo;
+    private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
+    private javax.swing.JTextField txtf_anioPublicacion;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_estante;
-    private javax.swing.JTextField txtf_id;
-    private javax.swing.JTextField txtf_nombreSala;
-    private javax.swing.JTextField txtf_nroCajon;
-    private javax.swing.JTextField txtf_nroPasillo;
+    private javax.swing.JTextField txtf_codigoArea;
+    private javax.swing.JTextField txtf_codigoEditorial;
+    private javax.swing.JTextField txtf_idEmpleado;
+    private javax.swing.JTextField txtf_isbn;
+    private javax.swing.JTextField txtf_nroPaginas;
+    private javax.swing.JTextField txtf_titulo;
     // End of variables declaration//GEN-END:variables
 
 }
