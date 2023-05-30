@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * 
  * Archivo: PrestamoEjemplar.java
  * Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -19,38 +19,46 @@ import java.time.LocalDateTime;
 
 public class PrestamoEjemplar {
     
-    private Prestamo prestamo;
-    private Ejemplar ejemplar;
+    private String nroConsecutivoPrestamo;
+    private String isbn;
+    private String nroEjemplar;
     private LocalDateTime fechaDevolucion;
-    
-    public PrestamoEjemplar(Prestamo prestamo, Ejemplar ejemplar, LocalDateTime fechaDevolucion) {
-        this.prestamo = prestamo;
-        this.ejemplar = ejemplar;
+
+    public PrestamoEjemplar(String nroConsecutivoPrestamo, String isbn, String nroEjemplar, LocalDateTime fechaDevolucion) {
+        this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
+        this.isbn = isbn;
+        this.nroEjemplar = nroEjemplar;
         this.fechaDevolucion = fechaDevolucion;
     }
-    
-    // getters y setters
-    
-    public Prestamo getPrestamo() {
-        return prestamo;
+
+    public String getNroConsecutivoPrestamo() {
+        return nroConsecutivoPrestamo;
     }
-    
-    public void setPrestamo(Prestamo prestamo) {
-        this.prestamo = prestamo;
+
+    public void setNroConsecutivoPrestamo(String nroConsecutivoPrestamo) {
+        this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
     }
-    
-    public Ejemplar getEjemplar() {
-        return ejemplar;
+
+    public String getIsbn() {
+        return isbn;
     }
-    
-    public void setEjemplar(Ejemplar ejemplar) {
-        this.ejemplar = ejemplar;
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
-    
+
+    public String getNroEjemplar() {
+        return nroEjemplar;
+    }
+
+    public void setNroEjemplar(String nroEjemplar) {
+        this.nroEjemplar = nroEjemplar;
+    }
+
     public LocalDateTime getFechaDevolucion() {
         return fechaDevolucion;
     }
-    
+
     public void setFechaDevolucion(LocalDateTime fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
