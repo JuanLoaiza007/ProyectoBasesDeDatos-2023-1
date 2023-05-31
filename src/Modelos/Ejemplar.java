@@ -19,25 +19,66 @@ public class Ejemplar {
     
     private String isbn;
     private String nroEjemplar;
-    
-    public Ejemplar(String isbn, String nroEjemplar) {
+    private String sala;
+    private int nroPasillo;
+    private int estante;
+    private int nroCajon;
+
+    public Ejemplar(String isbn, String nroEjemplar, String sala, int nroPasillo, int estante, int nroCajon) {
         this.isbn = isbn;
         this.nroEjemplar = nroEjemplar;
+        this.sala = sala;
+        this.nroPasillo = nroPasillo;
+        this.estante = estante;
+        this.nroCajon = nroCajon;
     }
-    
+
     public String getIsbn() {
         return isbn;
     }
-    
+
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    
+
     public String getNroEjemplar() {
         return nroEjemplar;
     }
-    
+
     public void setNroEjemplar(String nroEjemplar) {
         this.nroEjemplar = nroEjemplar;
     }
+
+    public String getSala() {
+        return sala;
+    }
+
+    public void setSala(String sala) {
+        this.sala = sala;
+    }
+
+    public int getNroPasillo() {
+        return nroPasillo;
+    }
+
+    public void setNroPasillo(int nroPasillo) {
+        this.nroPasillo = nroPasillo;
+    }
+
+    public int getEstante() {
+        return estante;
+    }
+
+    public void setEstante(int estante) {
+        this.estante = estante;
+    }
+
+    public int getNroCajon() {
+        return nroCajon;
+    }
+
+    public void setNroCajon(int nroCajon) {
+        this.nroCajon = nroCajon;
+    }
+    
 }

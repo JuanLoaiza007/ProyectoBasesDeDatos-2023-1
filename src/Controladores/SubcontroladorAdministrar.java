@@ -28,7 +28,6 @@ public class SubcontroladorAdministrar {
     public SubcontroladorAdministrar(PanelAdministrar panel){
         this.panel = panel;
         
-        panel.addListenerUbicaciones(oyenteMostrarPanelUbicaciones);
         panel.addListenerEditoriales(oyenteMostrarPanelEditoriales);
         panel.addListenerAutores(oyenteMostrarPanelAutores);
         panel.addListenerLibros(oyenteMostrarPanelLibros);
@@ -46,13 +45,6 @@ public class SubcontroladorAdministrar {
     public javax.swing.JPanel getPanel(){
         return panel;
     }
-    
-    ActionListener oyenteMostrarPanelUbicaciones = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelUbicaciones");
-        }
-    };
     
     ActionListener oyenteMostrarPanelEditoriales = new ActionListener(){
         @Override

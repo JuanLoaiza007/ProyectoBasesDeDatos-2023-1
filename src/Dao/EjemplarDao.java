@@ -13,7 +13,7 @@ import java.util.List;
  
  Archivo: EjemplarDao.java
  Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -34,8 +34,13 @@ public class EjemplarDao{
         
         String isbn = result.getString("isbn");
         String nroEjemplar = result.getString("nro_ejemplar");
+        String sala  = result.getString("sala");
+        int nroPasillo  = result.getInt("nro_pasillo");
+        int estante  = result.getInt("estante");
+        int nroCajon  = result.getInt("nro_cajon");  
         
-        ejemplar = new Ejemplar(isbn, nroEjemplar);
+        
+        ejemplar = new Ejemplar(isbn, nroEjemplar, sala, nroPasillo, estante, nroCajon);
         
         return ejemplar;
     }
@@ -69,7 +74,7 @@ public class EjemplarDao{
     }
     
     public void insertar(Ejemplar e) { 
-        String INSERT = "INSERT INTO ejemplar (isbn, nro_ejemplar) VALUES (?, ?)";
+        String INSERT = "INSERT INTO ejemplar (isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -78,6 +83,10 @@ public class EjemplarDao{
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, e.getIsbn());
             statement.setString(2, e.getNroEjemplar());
+            statement.setString(3, e.getSala());
+            statement.setString(4, Integer.toString(e.getNroPasillo()));
+            statement.setString(5, Integer.toString(e.getEstante()));
+            statement.setString(6, Integer.toString(e.getNroCajon()));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -92,9 +101,30 @@ public class EjemplarDao{
     }
 
     public void modificar(Ejemplar e) {
-        eliminar(e); // Se elimina porque se necesita cambiar su clave primaria 
-        
-        insertar(e); // Se inserta uno nuevo con la nueva PK;
+        String UPDATE = "UPDATE ejemplar SET sala = ? , nro_pasillo = ? , estante = ? , nro_cajon = ?  WHERE isbn = ? AND nro_ejemplar = ?";
+
+        PreparedStatement statement = null;
+
+        try {
+            statement = conexion.prepareStatement(UPDATE);         
+            statement.setString(1, e.getSala());
+            statement.setString(2, Integer.toString(e.getNroPasillo()));
+            statement.setString(3, Integer.toString(e.getEstante()));
+            statement.setString(4, Integer.toString(e.getNroCajon()));
+            statement.setString(5, e.getIsbn());
+            statement.setString(6, e.getNroEjemplar());
+            
+
+            if (statement.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya modificado el registro");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
     }
 
     public void eliminar(Ejemplar e) {
@@ -123,7 +153,7 @@ public class EjemplarDao{
     public List<Ejemplar> obtenerTodos() {
         List<Ejemplar> ejemplares = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, nro_ejemplar FROM ejemplar ORDER BY isbn, nro_ejemplar ASC";
+        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar ORDER BY isbn, nro_ejemplar ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -147,23 +177,21 @@ public class EjemplarDao{
         return ejemplares;
     }
 
-    public Ejemplar obtener(String isbn) {
-        Ejemplar ejemplar = null;
+    public List<Ejemplar> obtener(String isbn) {
+        List<Ejemplar> ejemplares = new ArrayList<>();
 
-        String GETONE = "SELECT isbn, nro_ejemplar FROM ejemplar WHERE isbn = ?";
+        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
 
-            statement = conexion.prepareStatement(GETONE);
-            statement.setString(1, isbn);
+            statement = conexion.prepareStatement(GETALL);
+            result = statement.executeQuery();
 
-            if (result.next()) {
-                ejemplar = convertir(result);
-            } else {
-                System.out.println("No se ha encontrado un ejemplar de ese isbn");
+            while (result.next()) {
+                ejemplares.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -172,7 +200,8 @@ public class EjemplarDao{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return ejemplar;
+
+        return ejemplares;
     }
 
 }

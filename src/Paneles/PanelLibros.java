@@ -39,7 +39,7 @@ public class PanelLibros extends javax.swing.JPanel {
      */
     public void configurarTabla() {
         
-        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Empleado", "Titulo", "Año", "Páginas" };
+        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -50,9 +50,9 @@ public class PanelLibros extends javax.swing.JPanel {
         }
     }
     
-    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String idEmpleado, String titulo, String anio, String paginas) {
+    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
         modeloTabla.addRow(new Object[]{
-            isbn, codigoArea, codigoEditorial, idEmpleado, titulo, anio, paginas
+            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
         });
     }
     
