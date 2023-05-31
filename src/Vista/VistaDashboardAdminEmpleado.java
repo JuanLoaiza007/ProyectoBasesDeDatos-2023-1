@@ -20,7 +20,6 @@ package Vista;
  * 
  */
 
-import Paneles.*;
 import java.awt.event.ActionListener;
 
 public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {

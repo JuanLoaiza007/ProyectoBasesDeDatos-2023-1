@@ -15,8 +15,8 @@ package Main;
  * 
  */
 
-import Vista.*;
-import Controlador.*;
+import Controladores.ControladorLogin;
+import Vista.VistaIngresarRegistrarse;
 import BasesDeDatos.UsuariosManager;
 
         
