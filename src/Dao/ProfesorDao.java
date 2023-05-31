@@ -13,7 +13,7 @@ import java.util.List;
  
  Archivo: ProfesorDao.java
  Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -37,7 +37,7 @@ public class ProfesorDao{
         String titulo = result.getString("titulo");
         String dependencia = result.getString("dependencia");
         
-        profesor = new Profesor(idUsuario, idProfesor, titulo, dependencia);
+        profesor = new Profesor(idUsuario, titulo, dependencia);
         
         return profesor;
     }
@@ -72,7 +72,7 @@ public class ProfesorDao{
 
     public void insertar(Profesor e) {
 //        profesor (id_usuario, id_profesor, titulo, dependencia)
-        String INSERT = "INSERT INTO profesor (id_usuario, id_profesor, titulo, dependencia) VALUES (?, ?, ?, ?)";
+        String INSERT = "INSERT INTO profesor (id_usuario, titulo, dependencia) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -80,9 +80,8 @@ public class ProfesorDao{
         try {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIdProfesor());
-            statement.setString(3, e.getTitulo());
-            statement.setString(4, e.getDependencia());
+            statement.setString(2, e.getTitulo());
+            statement.setString(3, e.getDependencia());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -97,16 +96,15 @@ public class ProfesorDao{
     }
 
     public void modificar(Profesor e) {
-        String UPDATE = "UPDATE profesor SET titulo = ?, dependencia = ? WHERE id_profesor = ?";
+        String UPDATE = "UPDATE profesor SET titulo = ?, dependencia = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getIdProfesor());
-            statement.setString(2, e.getTitulo());
-            statement.setString(3, e.getDependencia());
-            statement.setString(4, e.getIdUsuario());
+            statement.setString(1, e.getTitulo());
+            statement.setString(2, e.getDependencia());
+            statement.setString(3, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -121,13 +119,13 @@ public class ProfesorDao{
     }
 
     public void eliminar(Profesor e) {
-        String DELETE = "DELETE FROM profesor WHERE id_profesor = ?";
+        String DELETE = "DELETE FROM profesor WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdProfesor());
+            statement.setString(1, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -144,7 +142,7 @@ public class ProfesorDao{
     public List<Profesor> obtenerTodos() {
         List<Profesor> profesores = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor ORDER BY id_profesor ASC";
+        String GETALL = "SELECT id_usuario, titulo, dependencia FROM profesor ORDER BY id_usuario ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -171,7 +169,7 @@ public class ProfesorDao{
     public Profesor obtener(String id) {
         Profesor profesor = null;
 
-        String GETONE = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor WHERE id_profesor = ?";
+        String GETONE = "SELECT id_usuario, titulo, dependencia FROM profesor WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;

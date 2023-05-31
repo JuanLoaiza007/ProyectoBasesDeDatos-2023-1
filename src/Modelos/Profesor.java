@@ -18,13 +18,11 @@ package Modelos;
 public class Profesor {
     
     private String idUsuario;
-    private String idProfesor;
     private String titulo;
     private String dependencia;
 
-    public Profesor(String idUsuario, String idProfesor, String titulo, String dependencia) {
+    public Profesor(String idUsuario, String titulo, String dependencia) {
         this.idUsuario = idUsuario;
-        this.idProfesor = idProfesor;
         this.titulo = titulo;
         this.dependencia = dependencia;
     }
@@ -35,14 +33,6 @@ public class Profesor {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public String getIdProfesor() {
-        return idProfesor;
-    }
-
-    public void setIdProfesor(String idProfesor) {
-        this.idProfesor = idProfesor;
     }
 
     public String getTitulo() {
@@ -60,4 +50,6 @@ public class Profesor {
     public void setDependencia(String dependencia) {
         this.dependencia = dependencia;
     }
+
+    
 }

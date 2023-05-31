@@ -13,7 +13,7 @@ import java.util.List;
  
  Archivo: EstudianteDao.java
  Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -33,11 +33,10 @@ public class EstudianteDao{
         Estudiante estudiante = null;
         
         String idUsuario = result.getString("id_usuario");
-        String idEstudiante  = result.getString("id_estudiante");
         String carrera = result.getString("carrera");
         String universidad = result.getString("universidad");
         
-        estudiante = new Estudiante(idUsuario, idEstudiante, carrera, universidad);
+        estudiante = new Estudiante(idUsuario, carrera, universidad);
         
         return estudiante;
     }
@@ -71,8 +70,7 @@ public class EstudianteDao{
     }
 
     public void insertar(Estudiante e) {
-//        estudiante (id_usuario, id_estudiante, carrera, universidad)
-        String INSERT = "INSERT INTO estudiante (id_usuario, id_estudiante, carrera, universidad) VALUES (?, ?, ?, ?)";
+        String INSERT = "INSERT INTO estudiante (id_usuario, carrera, universidad) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -80,9 +78,8 @@ public class EstudianteDao{
         try {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIdEstudiante());
-            statement.setString(3, e.getCarrera());
-            statement.setString(4, e.getUniversidad());
+            statement.setString(2, e.getCarrera());
+            statement.setString(3, e.getUniversidad());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -97,16 +94,15 @@ public class EstudianteDao{
     }
 
     public void modificar(Estudiante e) {
-        String UPDATE = "UPDATE estudiante SET carrera = ?, universidad = ? WHERE id_estudiante = ?";
+        String UPDATE = "UPDATE estudiante SET carrera = ?, universidad = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getIdEstudiante());
-            statement.setString(2, e.getCarrera());
-            statement.setString(3, e.getUniversidad());
-            statement.setString(4, e.getIdUsuario());
+            statement.setString(1, e.getCarrera());
+            statement.setString(2, e.getUniversidad());
+            statement.setString(3, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -121,13 +117,13 @@ public class EstudianteDao{
     }
 
     public void eliminar(Estudiante e) {
-        String DELETE = "DELETE FROM estudiante WHERE id_estudiante = ?";
+        String DELETE = "DELETE FROM estudiante WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdEstudiante());
+            statement.setString(1, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -144,7 +140,7 @@ public class EstudianteDao{
     public List<Estudiante> obtenerTodos() {
         List<Estudiante> estudiantes = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, id_estudiante, carrera, universidad FROM estudiante ORDER BY id_estudiante ASC";
+        String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY id_usuario ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -171,7 +167,7 @@ public class EstudianteDao{
     public Estudiante obtener(String id) {
         Estudiante estudiante = null;
 
-        String GETONE = "SELECT id_usuario, id_estudiante, carrera, universidad FROM estudiante WHERE id_estudiante = ?";
+        String GETONE = "SELECT id_usuario, carrera, universidad FROM estudiante WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;

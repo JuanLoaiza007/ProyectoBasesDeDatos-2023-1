@@ -1,8 +1,6 @@
 package Dao;
 
 import Modelos.Libro;
-import Modelos.Libro;
-import Modelos.Libro;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ import java.util.List;
  
  Archivo: LibroDao.java
  Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -37,12 +35,11 @@ public class LibroDao{
         String isbn = result.getString("isbn");
         String codigoArea = result.getString("codigo_area");
         String codigoEditorial = result.getString("codigo_editorial");
-        String idEmpleado = result.getString("id_empleado");
         String titulo = result.getString("titulo");
         String anioPublicacion = result.getString("anio_publicacion");
         int nroPaginas = result.getInt("nro_paginas");
         
-        libro = new Libro(isbn, codigoArea, codigoEditorial, idEmpleado, titulo, anioPublicacion, nroPaginas);
+        libro = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, nroPaginas);
         
         return libro;
     }
@@ -75,9 +72,8 @@ public class LibroDao{
         }
     }
 
-    public void insertar(Libro e) {
-        //        libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas)
-        String INSERT = "INSERT INTO libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void insertar(Libro e) {        
+        String INSERT = "INSERT INTO libro (isbn, codigo_area, codigo_editorial, titulo, anio_publicacion, nro_paginas) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -87,10 +83,9 @@ public class LibroDao{
             statement.setString(1, e.getIsbn());
             statement.setString(2, e.getCodigoArea());
             statement.setString(3, e.getCodigoEditorial());
-            statement.setString(4, e.getIdEmpleado());
-            statement.setString(5, e.getTitulo());
-            statement.setString(6, e.getAnioPublicacion());
-            statement.setString(7, Integer.toString(e.getNroPaginas()));
+            statement.setString(4, e.getTitulo());
+            statement.setString(5, e.getAnioPublicacion());
+            statement.setString(6, Integer.toString(e.getNroPaginas()));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -105,7 +100,7 @@ public class LibroDao{
     }
 
     public void modificar(Libro e) {
-        String UPDATE = "UPDATE libro SET codigo_area = ?, codigo_editorial = ?, id_empleado = ?, titulo = ?, anio_publicacion = ?, nro_paginas = ? WHERE isbn = ?";
+        String UPDATE = "UPDATE libro SET codigo_area = ?, codigo_editorial = ?, titulo = ?, anio_publicacion = ?, nro_paginas = ? WHERE isbn = ?";
 
         PreparedStatement statement = null;
 
@@ -113,11 +108,10 @@ public class LibroDao{
             statement = conexion.prepareStatement(UPDATE);       
             statement.setString(1, e.getCodigoArea());
             statement.setString(2, e.getCodigoEditorial());
-            statement.setString(3, e.getIdEmpleado());
-            statement.setString(4, e.getTitulo());
-            statement.setString(5, e.getAnioPublicacion());
-            statement.setString(6, Integer.toString(e.getNroPaginas()));
-            statement.setString(7, e.getIsbn());
+            statement.setString(3, e.getTitulo());
+            statement.setString(4, e.getAnioPublicacion());
+            statement.setString(5, Integer.toString(e.getNroPaginas()));
+            statement.setString(6, e.getIsbn());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -155,7 +149,7 @@ public class LibroDao{
     public List<Libro> obtenerTodos() {
         List<Libro> libros = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro ORDER BY titulo ASC";
+        String GETALL = "SELECT isbn, codigo_area, codigo_editorial, titulo, anio_publicacion, nro_paginas FROM libro ORDER BY titulo ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -182,7 +176,7 @@ public class LibroDao{
     public Libro obtener(String id) {
         Libro libro = null;
 
-        String GETONE = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro WHERE isbn = ?";
+        String GETONE = "SELECT isbn, codigo_area, codigo_editorial, titulo, anio_publicacion, nro_paginas FROM libro WHERE isbn = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;

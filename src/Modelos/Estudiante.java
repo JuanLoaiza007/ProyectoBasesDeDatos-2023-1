@@ -18,13 +18,11 @@ package Modelos;
 public class Estudiante{
     
     private String idUsuario;
-    private String idEstudiante;
     private String carrera;
     private String universidad;
 
-    public Estudiante(String idUsuario, String idEstudiante, String carrera, String universidad) {
+    public Estudiante(String idUsuario, String carrera, String universidad) {
         this.idUsuario = idUsuario;
-        this.idEstudiante = idEstudiante;
         this.carrera = carrera;
         this.universidad = universidad;
     }
@@ -35,14 +33,6 @@ public class Estudiante{
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public String getIdEstudiante() {
-        return idEstudiante;
-    }
-
-    public void setIdEstudiante(String idEstudiante) {
-        this.idEstudiante = idEstudiante;
     }
 
     public String getCarrera() {
@@ -61,5 +51,5 @@ public class Estudiante{
         this.universidad = universidad;
     }
 
-    
+        
 }
