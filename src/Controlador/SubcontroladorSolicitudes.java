@@ -15,18 +15,15 @@ package Controlador;
  * 
  */
 
-import Modelo.*;
 import Paneles.*;
 
 public class SubcontroladorSolicitudes {
     
-    protected SubmodeloSolicitudes submodelo = new SubmodeloSolicitudes();
     protected PanelSolicitudes panel = new PanelSolicitudes();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
-    public SubcontroladorSolicitudes(SubmodeloSolicitudes submodelo, PanelSolicitudes panel){
-        this.submodelo = submodelo;
+    public SubcontroladorSolicitudes(PanelSolicitudes panel){        
         this.panel = panel;
         
     }

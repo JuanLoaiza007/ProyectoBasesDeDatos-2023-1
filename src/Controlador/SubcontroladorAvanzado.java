@@ -15,18 +15,15 @@ package Controlador;
  * 
  */
 
-import Modelo.*;
 import Paneles.*;
 
 public class SubcontroladorAvanzado {
     
-    protected SubmodeloAvanzado submodelo = new SubmodeloAvanzado();
     protected PanelAvanzado panel = new PanelAvanzado();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
-    public SubcontroladorAvanzado(SubmodeloAvanzado submodelo, PanelAvanzado panel){
-        this.submodelo = submodelo;
+    public SubcontroladorAvanzado(PanelAvanzado panel){        
         this.panel = panel;
         
     }

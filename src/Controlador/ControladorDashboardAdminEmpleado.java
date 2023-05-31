@@ -15,7 +15,6 @@ package Controlador;
  * 
  */
 
-import Modelo.*;
 import Vista.*;
 import Paneles.*;
 import java.awt.event.ActionEvent;
@@ -23,14 +22,10 @@ import java.awt.event.ActionListener;
 
 public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     
-    protected ModeloDashboardAdminEmpleado modelo = new ModeloDashboardAdminEmpleado();
     protected VistaDashboardAdminEmpleado vista = new VistaDashboardAdminEmpleado();
     
-    public ControladorDashboardAdminEmpleado(ModeloDashboardAdminEmpleado modelo, VistaDashboardAdminEmpleado vista){
-        this.modelo = modelo;
-        this.vista = vista;
-        
-        
+    public ControladorDashboardAdminEmpleado(VistaDashboardAdminEmpleado vista){
+        this.vista = vista;       
         
         // Añadir controladores
         vista.addActionAdministrar(oyenteAdministrar);
@@ -51,17 +46,15 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarALogin(){
-        ModeloLogin nuevoModelo = new ModeloLogin();
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
         vista.dispose();
         
-        ControladorLogin nuevoControlador = new ControladorLogin(nuevoModelo, nuevaVista);
+        ControladorLogin nuevoControlador = new ControladorLogin(nuevaVista);
     }
     
     public void cambiarAPanelUbicaciones(){
-        SubmodeloUbicaciones submodelo = new SubmodeloUbicaciones();
         PanelUbicaciones panel = new PanelUbicaciones();
-        SubcontroladorUbicaciones subcontrolador = new SubcontroladorUbicaciones(submodelo, panel);
+        SubcontroladorUbicaciones subcontrolador = new SubcontroladorUbicaciones(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -69,9 +62,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarAPanelEditoriales(){
-        SubmodeloEditoriales submodelo = new SubmodeloEditoriales();
         PanelEditoriales panel = new PanelEditoriales();
-        SubcontroladorEditoriales subcontrolador = new SubcontroladorEditoriales(submodelo, panel);
+        SubcontroladorEditoriales subcontrolador = new SubcontroladorEditoriales(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -79,19 +71,17 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarAPanelAutores(){
-        SubmodeloAutores submodelo = new SubmodeloAutores();
         PanelAutores panel = new PanelAutores();
-        SubcontroladorAutores subcontrolador = new SubcontroladorAutores(submodelo, panel);
+        SubcontroladorAutores subcontrolador = new SubcontroladorAutores(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
-    public void cambiarAPanelLibros(){
-        SubmodeloLibros submodelo = new SubmodeloLibros();
+    public void cambiarAPanelLibros(){        
         PanelLibros panel = new PanelLibros();
-        SubcontroladorLibros subcontrolador = new SubcontroladorLibros(submodelo, panel);
+        SubcontroladorLibros subcontrolador = new SubcontroladorLibros(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -99,9 +89,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarAPanelEjemplares(){
-        SubmodeloEjemplares submodelo = new SubmodeloEjemplares();
         PanelEjemplares panel = new PanelEjemplares();
-        SubcontroladorEjemplares subcontrolador = new SubcontroladorEjemplares(submodelo, panel);
+        SubcontroladorEjemplares subcontrolador = new SubcontroladorEjemplares(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -109,9 +98,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarAPanelLibrosDigitales(){
-        SubmodeloLibrosDigitales submodelo = new SubmodeloLibrosDigitales();
         PanelLibrosDigitales panel = new PanelLibrosDigitales();
-        SubcontroladorLibrosDigitales subcontrolador = new SubcontroladorLibrosDigitales(submodelo, panel);
+        SubcontroladorLibrosDigitales subcontrolador = new SubcontroladorLibrosDigitales( panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -119,9 +107,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     }
     
     public void cambiarAPanelAreasConocimiento(){
-        SubmodeloAreasConocimiento submodelo = new SubmodeloAreasConocimiento();
         PanelAreasConocimiento panel = new PanelAreasConocimiento();
-        SubcontroladorAreasConocimiento subcontrolador = new SubcontroladorAreasConocimiento(submodelo, panel);
+        SubcontroladorAreasConocimiento subcontrolador = new SubcontroladorAreasConocimiento(panel);
         
         subcontrolador.setListener(getComunicadorClases());
         
@@ -131,9 +118,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     ActionListener oyenteAdministrar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            SubmodeloAdministrar submodelo = new SubmodeloAdministrar();
             PanelAdministrar panel = new PanelAdministrar();
-            SubcontroladorAdministrar subcontrolador = new SubcontroladorAdministrar(submodelo, panel);
+            SubcontroladorAdministrar subcontrolador = new SubcontroladorAdministrar(panel);
             
             subcontrolador.setListener(getComunicadorClases());
             

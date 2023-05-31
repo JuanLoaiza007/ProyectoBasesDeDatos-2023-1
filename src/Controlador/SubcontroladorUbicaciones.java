@@ -16,7 +16,6 @@ package Controlador;
  */
 
 import BasesDeDatos.BibliotecaManager;
-import Modelo.*;
 import Paneles.*;
 import Objetos.*;
 import DAO.postgres.UbicacionDAOImpl;
@@ -30,7 +29,6 @@ import javax.swing.JTable;
 
 public class SubcontroladorUbicaciones {
     
-    protected SubmodeloUbicaciones submodelo = new SubmodeloUbicaciones();
     protected PanelUbicaciones panel = new PanelUbicaciones();
     
     protected ComunicadorClases decirAInstanciaSuperior;
@@ -39,8 +37,7 @@ public class SubcontroladorUbicaciones {
     protected int selectedRow;
     protected Ubicacion ubicacionSeleccionada = null;
     
-    public SubcontroladorUbicaciones(SubmodeloUbicaciones submodelo, PanelUbicaciones panel){
-        this.submodelo = submodelo;
+    public SubcontroladorUbicaciones(PanelUbicaciones panel){
         this.panel = panel;
         
         panel.addListenerVolver(oyenteMostrarPanelAdministrar);

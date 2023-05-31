@@ -15,20 +15,17 @@ package Controlador;
  * 
  */
 
-import Modelo.*;
 import Paneles.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SubcontroladorAreasConocimiento {
     
-    protected SubmodeloAreasConocimiento submodelo = new SubmodeloAreasConocimiento();
     protected PanelAreasConocimiento panel = new PanelAreasConocimiento();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
-    public SubcontroladorAreasConocimiento(SubmodeloAreasConocimiento submodelo, PanelAreasConocimiento panel){
-        this.submodelo = submodelo;
+    public SubcontroladorAreasConocimiento(PanelAreasConocimiento panel){
         this.panel = panel;
         
         panel.addListenerVolver(oyenteMostrarPanelAdministrar);

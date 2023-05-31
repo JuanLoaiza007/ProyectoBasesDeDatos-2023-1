@@ -18,18 +18,15 @@ import java.awt.event.ActionListener;
  * 
  */
 
-import Modelo.*;
 import Paneles.*;
 
 public class SubcontroladorIngresar {
     
-    protected SubmodeloIngresar modelo = new SubmodeloIngresar();
     protected PanelIngresar panel = new PanelIngresar();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
-    public SubcontroladorIngresar(SubmodeloIngresar modelo, PanelIngresar panel){
-        this.modelo = modelo;
+    public SubcontroladorIngresar(PanelIngresar panel){        
         this.panel = panel;
         
         panel.addActionIngresar(oyenteIngresar);

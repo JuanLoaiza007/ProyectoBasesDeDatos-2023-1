@@ -17,19 +17,16 @@ package Controlador;
 
 import BasesDeDatos.UsuariosManager;
 import java.sql.Connection;
-import Modelo.*;
 import Vista.*;
 import Paneles.*;
 import java.sql.SQLException;
 
 public class ControladorLogin implements ComunicadorClases{
     
-    protected ModeloLogin modelo = new ModeloLogin();
     protected VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();
     protected Connection connection;
     
-    public ControladorLogin(ModeloLogin modelo, VistaIngresarRegistrarse vista){
-        this.modelo = modelo;
+    public ControladorLogin(VistaIngresarRegistrarse vista){
         this.vista = vista;
         
         // CargarBase de datos
@@ -48,9 +45,8 @@ public class ControladorLogin implements ComunicadorClases{
     }
     
     public void cambiarALogin(){
-        SubmodeloIngresar submodelo = new SubmodeloIngresar();
         PanelIngresar panel = new PanelIngresar();
-        SubcontroladorIngresar subcontrolador = new SubcontroladorIngresar(submodelo, panel);
+        SubcontroladorIngresar subcontrolador = new SubcontroladorIngresar(panel);
 
         subcontrolador.setListener(this);
         
@@ -58,9 +54,8 @@ public class ControladorLogin implements ComunicadorClases{
     }
     
     public void cambiarARegistrarse(){
-        SubmodeloRegistrarse submodelo = new SubmodeloRegistrarse();
         PanelRegistrarse panel = new PanelRegistrarse();
-        SubcontroladorRegistrarse subcontrolador = new SubcontroladorRegistrarse(submodelo, panel);
+        SubcontroladorRegistrarse subcontrolador = new SubcontroladorRegistrarse(panel);
         
         subcontrolador.setListener(this);
         
@@ -69,10 +64,9 @@ public class ControladorLogin implements ComunicadorClases{
     
     public void cambiarADashboard(){
         vista.dispose();
-        
-        ModeloDashboardAdminEmpleado nuevoModelo = new ModeloDashboardAdminEmpleado();
+                
         VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
-        ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevoModelo, nuevaVista);
+        ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
         
         UsuariosManager.detenerConexion(connection);
     }

@@ -15,7 +15,6 @@ package Main;
  * 
  */
 
-import Modelo.*;
 import Vista.*;
 import Controlador.*;
 import BasesDeDatos.UsuariosManager;
@@ -23,8 +22,7 @@ import BasesDeDatos.UsuariosManager;
         
 public class main {
     public static void main(String[] args) {       
-        ModeloLogin modelo = new ModeloLogin();
         VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();
-        ControladorLogin controlador = new ControladorLogin(modelo, vista);
+        ControladorLogin controlador = new ControladorLogin(vista);
     }
 }

@@ -15,7 +15,6 @@ package Controlador;
  * 
  */
 
-import Modelo.*;
 import Paneles.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,13 +22,11 @@ import javax.swing.JComboBox;
 
 public class SubcontroladorRegistrarse {
     
-    protected SubmodeloRegistrarse modelo = new SubmodeloRegistrarse();
     protected PanelRegistrarse panel = new PanelRegistrarse();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
-    public SubcontroladorRegistrarse(SubmodeloRegistrarse modelo, PanelRegistrarse panel){
-        this.modelo = modelo;
+    public SubcontroladorRegistrarse(PanelRegistrarse panel){
         this.panel = panel;
         
         panel.addActionRegistrar(oyenteRegistrar);
