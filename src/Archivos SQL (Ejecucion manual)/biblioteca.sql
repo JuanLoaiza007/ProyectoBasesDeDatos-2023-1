@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.5
+-- Version: 1.0.6
 -- Fecha de última modificacion: 2023-05-31 10:33am
 
 -- Registro de cambios
+-- Las tablas de devuelve_usuario_ejemplar, multa y descarga_usuario_libro ya no tienen id propio si no una PK compuesta (v1.0.6)
 -- El ejemplar ahora tiene los atributos de la ubicacion donde está (v1.0.5)
 -- Tabla de ejemplar_ubicacion y ubicacion eliminada (v1.0.5)
 -- Tabla de publica_editorial_libros eliminada por redundancia, libro ya tiene el codigo de la editorial (v1.0.4)
@@ -159,13 +160,11 @@ ALTER TABLE profesor_area_conocimiento
 ------------------------------------------------
 DROP TABLE IF EXISTS descarga_usuario_libro CASCADE;
 CREATE TABLE descarga_usuario_libro (
-  id_descarga VARCHAR (15) NOT NULL PRIMARY KEY,
   isbn VARCHAR (15) NOT NULL,
   direccion_url VARCHAR (50) NOT NULL,
   id_usuario VARCHAR (15) NOT NULL,  
-  direccion_ip VARCHAR (15),
-  fecha DATE,
-  hora TIME
+  fecha TIMESTAMP,
+  direccion_ip VARCHAR (15)  
 );
 
 ALTER TABLE descarga_usuario_libro
@@ -173,6 +172,9 @@ ALTER TABLE descarga_usuario_libro
 
 ALTER TABLE descarga_usuario_libro
   ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+
+ALTER TABLE descarga_usuario_libro
+  ADD CONSTRAINT descarga_usuario_libro_pk PRIMARY KEY (isbn, direccion_url, id_usuario, fecha);
 ------------------------------------------------
 DROP TABLE IF EXISTS prestamo CASCADE;
 CREATE TABLE prestamo (
@@ -207,7 +209,6 @@ ALTER TABLE prestamo_ejemplar
 ------------------------------------------------
 DROP TABLE IF EXISTS devuelve_usuario_ejemplar CASCADE;
 CREATE TABLE devuelve_usuario_ejemplar (
-  id_devolucion VARCHAR (15) NOT NULL PRIMARY KEY,
   id_usuario VARCHAR (15) NOT NULL,
   isbn VARCHAR (15) NOT NULL,
   nro_ejemplar VARCHAR (15) NOT NULL,
@@ -219,6 +220,9 @@ ALTER TABLE devuelve_usuario_ejemplar
 
 ALTER TABLE devuelve_usuario_ejemplar
   ADD CONSTRAINT ejemplar_fk FOREIGN KEY (isbn, nro_ejemplar) REFERENCES ejemplar(isbn, nro_ejemplar);
+
+ALTER TABLE devuelve_usuario_ejemplar
+  ADD CONSTRAINT devuelve_usuario_ejemplar_pk PRIMARY KEY (id_usuario, isbn, nro_ejemplar, fecha);
 -----------------------------------------------
 DROP TABLE IF EXISTS solicitud CASCADE;
 CREATE TABLE solicitud (
@@ -239,8 +243,8 @@ ALTER TABLE solicitud
 ------------------------------------------------
 DROP TABLE IF EXISTS multa CASCADE;
 CREATE TABLE multa (
-  id_multa VARCHAR (15) NOT NULL PRIMARY KEY,
   id_usuario VARCHAR (15) NOT NULL,
+  nro_consecutivo_prestamo VARCHAR (15),
   fecha TIMESTAMP,
   valor INTEGER,
   descripcion VARCHAR (250)
@@ -248,6 +252,12 @@ CREATE TABLE multa (
 
 ALTER TABLE multa
   ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+
+ALTER TABLE multa
+  ADD CONSTRAINT prestamo_fk FOREIGN KEY (nro_consecutivo_prestamo) REFERENCES prestamo(nro_consecutivo_prestamo);
+
+ALTER TABLE multa 
+  ADD CONSTRAINT multa_pk PRIMARY KEY (id_usuario, nro_consecutivo_prestamo, fecha);
 ------------------------------------------------
 --- INSERCION DE REGISTROS ---
 ------------------------------------------------
@@ -354,7 +364,6 @@ VALUES ('978-0307476463', '1'),
        ('978-8432212429', '6'),
        ('978-8420441146', '6');
 ------------------------------------------------
-------------------------------------------------
 --- USUARIOS       
 INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email)
 VALUES ('1', 'Juan Perez', '555-1234', 'Av. 123, Lima', 'juan.perez@gmail.com'),
@@ -418,18 +427,18 @@ VALUES ('1', '1'),
       ('10', '2');
 ------------------------------------------------
 --- LIBROS Y DESCARGAS DE USUARIOS
-INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora)
+INSERT INTO descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip)
 VALUES 
-  ('1', '978-0307476463', 'http://falselibros.com/libro1', '1', '192.168.0.1', '2023-05-14', '10:00:00'),
-  ('2', '978-8437620629', 'http://falselibros.com/libro2', '2', '192.168.0.2', '2023-05-14', '11:00:00'),
-  ('3', '978-9507317181', 'http://falselibros.com/libro3', '3', '192.168.0.3', '2023-05-14', '12:00:00'),
-  ('4', '978-9875805174', 'http://falselibros.com/libro4', '4', '192.168.0.4', '2023-05-14', '13:00:00'),
-  ('5', '978-8420471839', 'http://falselibros.com/libro5', '5', '192.168.0.5', '2023-05-14', '14:00:00'),
-  ('6', '978-8432248138', 'http://falselibros.com/libro6', '6', '192.168.0.6', '2023-05-14', '15:00:00'),
-  ('7', '978-8432212429', 'http://falselibros.com/libro7', '7', '192.168.0.7', '2023-05-14', '16:00:00'),
-  ('8', '978-8420441146', 'http://falselibros.com/libro8', '8', '192.168.0.8', '2023-05-14', '17:00:00'),
-  ('9', '978-6071502919', 'http://falselibros.com/libro9', '9', '192.168.0.9', '2023-05-14', '18:00:00'),
-  ('10', '978-8433920228', 'http://falselibros.com/libro10', '10', '192.168.0.10', '2023-05-14', '19:00:00');
+  ('978-0307476463', 'http://falselibros.com/libro1', '1', '2023-05-14 10:00:00', '192.168.0.1' ),
+  ('978-8437620629', 'http://falselibros.com/libro2', '2', '2023-05-14 11:00:00', '192.168.0.2' ),
+  ('978-9507317181', 'http://falselibros.com/libro3', '3', '2023-05-14 12:00:00', '192.168.0.3' ),
+  ('978-9875805174', 'http://falselibros.com/libro4', '4', '2023-05-14 13:00:00', '192.168.0.4' ),
+  ('978-8420471839', 'http://falselibros.com/libro5', '5', '2023-05-14 14:00:00', '192.168.0.5' ),
+  ('978-8432248138', 'http://falselibros.com/libro6', '6', '2023-05-14 15:00:00', '192.168.0.6' ),
+  ('978-8432212429', 'http://falselibros.com/libro7', '7', '2023-05-14 16:00:00', '192.168.0.7' ),
+  ('978-8420441146', 'http://falselibros.com/libro8', '8', '2023-05-14 17:00:00', '192.168.0.8' ),
+  ('978-6071502919', 'http://falselibros.com/libro9', '9', '2023-05-14 18:00:00', '192.168.0.9' ),
+  ('978-8433920228', 'http://falselibros.com/libro10', '10', '2023-05-14 19:00:00', '192.168.0.10');
 ------------------------------------------------
 --- PRESTAMOS
 INSERT INTO prestamo (nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion)
@@ -458,18 +467,18 @@ VALUES ('1', '978-0307476463', '1', '2023-05-16 10:30:00'),
       ('10', '978-8433920228', '10', '2023-05-23 16:00:00');
 ------------------------------------------------
 --- DEVOLUCIONES EJEMPLARES
-INSERT INTO devuelve_usuario_ejemplar (id_devolucion, id_usuario, isbn, nro_ejemplar, fecha)
+INSERT INTO devuelve_usuario_ejemplar (id_usuario, isbn, nro_ejemplar, fecha)
 VALUES 
-      ('1', '1', '978-0307476463', '1', '2023-05-16 10:35:00'),
-      ('2', '2', '978-8437620629', '2', '2023-05-16 10:40:00'),
-      ('3', '3', '978-9507317181', '3', '2023-05-17 11:05:00'),
-      ('4', '4', '978-9875805174', '4', '2023-05-18 11:35:00'),
-      ('5', '5', '978-8420471839', '5', '2023-05-18 11:35:00'),
-      ('6', '6', '978-8432248138', '6', '2023-05-19 12:15:00'),
-      ('7', '7', '978-8432212429', '7', '2023-05-20 13:10:00'),
-      ('8', '8', '978-8420441146', '8', '2023-05-21 14:20:00'),
-      ('9', '9', '978-6071502919', '9', '2023-05-22 15:30:00'),
-      ('10', '10', '978-8433920228', '10', '2023-05-23 16:40:00');  
+      ('1', '978-0307476463', '1', '2023-05-16 10:35:00'),
+      ('2', '978-8437620629', '2', '2023-05-16 10:40:00'),
+      ('3', '978-9507317181', '3', '2023-05-17 11:05:00'),
+      ('4', '978-9875805174', '4', '2023-05-18 11:35:00'),
+      ('5', '978-8420471839', '5', '2023-05-18 11:35:00'),
+      ('6', '978-8432248138', '6', '2023-05-19 12:15:00'),
+      ('7', '978-8432212429', '7', '2023-05-20 13:10:00'),
+      ('8', '978-8420441146', '8', '2023-05-21 14:20:00'),
+      ('9', '978-6071502919', '9', '2023-05-22 15:30:00'),
+      ('10', '978-8433920228', '10', '2023-05-23 16:40:00');  
 ------------------------------------------------
 --- SOLICITUDES  
 INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
@@ -486,15 +495,15 @@ VALUES
 ('10', '10', '3', '978-8498383620', 'Los hombres que no amaban a las mujeres', 'Solicitud de préstamo para el libro Los hombres que no amaban a las mujeres', '2023-05-18 13:00:00');
 ------------------------------------------------
 --- MULTAS
-INSERT INTO multa (id_multa, id_usuario, fecha, valor, descripcion)
+INSERT INTO multa (id_usuario, nro_consecutivo_prestamo, fecha, valor, descripcion)
 VALUES 
-      ('1', '1', '2023-05-16 10:35:00', 40000, 'Retraso en la devolución'),
-      ('2', '2', '2023-05-16 10:40:00', 40000, 'Retraso en la devolución'),
-      ('3', '3', '2023-05-17 11:05:00', 40000, 'Retraso en la devolución'),
-      ('4', '4', '2023-05-18 11:35:00', 40000, 'Retraso en la devolución'),
-      ('5', '5', '2023-05-18 11:35:00', 40000, 'Retraso en la devolución'),
-      ('6', '6', '2023-05-19 12:15:00', 40000, 'Retraso en la devolución'),
-      ('7', '7', '2023-05-20 13:10:00', 40000, 'Retraso en la devolución'),
-      ('8', '8', '2023-05-21 14:20:00', 40000, 'Retraso en la devolución'),
-      ('9', '9', '2023-05-22 15:30:00', 40000, 'Retraso en la devolución'),
-      ('10', '10', '2023-05-23 16:40:00', 40000, 'Retraso en la devolución');
+      ('1', '1', '2023-05-16 10:35:00', 40000, 'Retraso en devolución'),
+      ('2', '2', '2023-05-16 10:40:00', 40000, 'Retraso en devolución'),
+      ('3', '3', '2023-05-17 11:05:00', 40000, 'Retraso en devolución'),
+      ('4', '4', '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
+      ('5', '5', '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
+      ('6', '6', '2023-05-19 12:15:00', 40000, 'Retraso en devolución'),
+      ('7', '7', '2023-05-20 13:10:00', 40000, 'Retraso en devolución'),
+      ('8', '8', '2023-05-21 14:20:00', 40000, 'Retraso en devolución'),
+      ('9', '9', '2023-05-22 15:30:00', 40000, 'Retraso en devolución'),
+      ('10', '10', '2023-05-23 16:40:00', 40000, 'Retraso en devolución');
