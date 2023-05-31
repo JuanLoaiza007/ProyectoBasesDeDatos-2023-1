@@ -1,8 +1,10 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.AreaConocimiento;
+import Objetos.PrestamoEjemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: AreaConocimientoDAOImpl.java
+ * Archivo: PrestamoEjemplarDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,25 +23,28 @@ import java.util.List;
  * 
  */
 
-public class AreaConocimientoDAOImpl{
-
+public class PrestamoEjemplarDAOImpl {
+    
     private Connection conexion;
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
-    public AreaConocimientoDAOImpl(Connection conexion) {
+    public PrestamoEjemplarDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private AreaConocimiento convertir(ResultSet result) throws SQLException{
-        AreaConocimiento areaConocimiento = null;
+    private PrestamoEjemplar convertir(ResultSet result) throws SQLException{
+        PrestamoEjemplar prestamoEjemplar = null;
         
-        String codigoArea = result.getString("codigo_area");
-        String codigoAreaPadre = result.getString("codigo_area_padre");
-        String nombre = result.getString("nombre");
-        String descripcion = result.getString("descripcion");
         
-        areaConocimiento = new AreaConocimiento(codigoArea, codigoAreaPadre, nombre, descripcion);
+        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
+        String isbn = result.getString("nro_consecutivo_prestamo");
+        String nroEjemplar = result.getString("nro_consecutivo_prestamo");
+        LocalDateTime fechaDevolucion = LocalDateTime.parse(result.getString("nro_consecutivo_prestamo"));
+       
         
-        return areaConocimiento;
+        prestamoEjemplar = new PrestamoEjemplar(nroConsecutivoPrestamo, isbn, nroEjemplar, fechaDevolucion);
+        
+        return prestamoEjemplar;
     }
     
     /**
@@ -69,19 +74,19 @@ public class AreaConocimientoDAOImpl{
             }
         }
     }
-    
-    public void insertar(AreaConocimiento e) {
-        String INSERT = "INSERT INTO area_conocimiento (codigo_area, codigo_area_padre, nombre, descripcion) VALUES (?, ?, ?, ?)";
+
+    public void insertar(PrestamoEjemplar e) {
+        String INSERT = "INSERT INTO prestamo_ejemplar (nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getCodigoArea());
-            statement.setString(2, e.getCodigoAreaPadre());
-            statement.setString(3, e.getNombre());
-            statement.setString(4, e.getDescripcion());
+            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setString(2, e.getIsbn());
+            statement.setString(3, e.getNroEjemplar());
+            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -94,40 +99,23 @@ public class AreaConocimientoDAOImpl{
             cerrarStatement(statement);
         }
     }
-    
-    public void modificar(AreaConocimiento e) {
-       
-        String UPDATE = "UPDATE area_conocimiento SET codigo_area_padre = ?, nombre = ?, descripcion = ? WHERE codigo_area = ?";
 
-        PreparedStatement statement = null;
-
-        try {
-            statement = conexion.prepareStatement(UPDATE);
-            statement.setString(1, e.getCodigoAreaPadre());
-            statement.setString(2, e.getNombre());
-            statement.setString(3, e.getDescripcion());
-            statement.setString(4, e.getCodigoArea());
-
-            if (statement.executeUpdate() == 0) {
-                System.out.println("Es posible que no se haya modificado el registro");
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            cerrarConexion(conexion);
-            cerrarStatement(statement);
-        }
+    public void modificar(PrestamoEjemplar antiguo, PrestamoEjemplar nuevo) {
+        eliminar(antiguo);
+        insertar(nuevo);
     }
-    
-    public void eliminar(AreaConocimiento e) {
-        String DELETE = "DELETE FROM area_conocimiento WHERE codigo_area = ?";
+
+    public void eliminar(PrestamoEjemplar e) {
+        String DELETE = "DELETE FROM prestamo_ejemplar WHERE nro_consecutivo_prestamo = ? AND isbn = ? AND nro_ejemplar = ? AND fecha_devolucion = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getCodigoArea());
+            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setString(2, e.getIsbn());
+            statement.setString(3, e.getNroEjemplar());
+            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -140,11 +128,11 @@ public class AreaConocimientoDAOImpl{
             cerrarStatement(statement);
         }
     }
-    
-    public List<AreaConocimiento> obtenerTodos() {
-        List<AreaConocimiento> areasConocimiento = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY codigo_area ASC";
+    public List<PrestamoEjemplar> obtenerTodos() {
+        List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
+
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo ORDER BY fecha_devolucion ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -155,7 +143,7 @@ public class AreaConocimientoDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                areasConocimiento.add(convertir(result));
+                prestamosEjemplares.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -165,27 +153,29 @@ public class AreaConocimientoDAOImpl{
             cerrarStatement(statement);
         }
 
-        return areasConocimiento;
+        return prestamosEjemplares;
     }
-    
-    public AreaConocimiento obtener(String id) {
-        AreaConocimiento areaConocimiento = null;
 
-        String GETONE = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento WHERE codigo_area = ?";
+    /**
+     * Obtener por nroConsecutivoPrestamo
+     * @param id nroConsecutivoPrestamo
+     * @return Los prestamoEjemplar de ese nroConsecutivoPrestamo
+     */
+    public List<PrestamoEjemplar> obtener(String id) {
+        List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
+
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
 
-            statement = conexion.prepareStatement(GETONE);
-            statement.setString(1, id);
+            statement = conexion.prepareStatement(GETALL);
             result = statement.executeQuery();
 
-            if (result.next()) {
-                areaConocimiento = convertir(result);
-            } else {
-                System.out.println("No se ha encontrado un registro con ese Id");
+            while (result.next()) {
+                prestamosEjemplares.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -194,7 +184,7 @@ public class AreaConocimientoDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return areaConocimiento;
-    }
 
+        return prestamosEjemplares;
+    }
 }

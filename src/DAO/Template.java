@@ -25,7 +25,7 @@ import java.util.List;
  * @param <pkTipoDato> El tipo de dato de la Primary Key: String, Int, Long, etc...
  */
 
-public interface DAO<Objeto, pkTipoDato>{
+public interface Template<Objeto, pkTipoDato>{
     
     void insertar(Objeto e);
     

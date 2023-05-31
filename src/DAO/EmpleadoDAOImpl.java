@@ -1,14 +1,8 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.DescargaUsuarioLibro;
+import Objetos.Empleado;
 import Paneles.AvisosEmergentes;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: DescargaUsuarioLibroDAOImpl.java
+ * Archivo: EmpleadoDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -27,30 +21,24 @@ import java.util.List;
  * 
  */
 
-public class DescargaUsuarioLibroDAOImpl {
-
+public class EmpleadoDAOImpl{
+    
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d");
-    private DateTimeFormatter timeFormato = DateTimeFormatter.ofPattern("H:mm:ss");
 
-    public DescargaUsuarioLibroDAOImpl(Connection conexion) {
+    public EmpleadoDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private DescargaUsuarioLibro convertir(ResultSet result) throws SQLException{
-        DescargaUsuarioLibro descargaUsuarioLibro = null;
+    private Empleado convertir(ResultSet result) throws SQLException{
+        Empleado empleado = null;
         
-        String idDescarga = result.getString("id_descarga");
-        String isbn = result.getString("isbn");
-        String direccionUrl = result.getString("direccion_url");
-        String idUsuario = result.getString("id_usuario");
-        String direccionIp = result.getString("direccion_ip");
-        LocalDate fecha = LocalDate.parse(result.getString("fecha"), dateFormato);
-        LocalTime hora = LocalTime.parse(result.getString("hora"), timeFormato);
+        String idEmpleado = result.getString("id_empleado");
+        String nombre = result.getString("nombre");
+        String cargo = result.getString("cargo");
         
-        descargaUsuarioLibro = new DescargaUsuarioLibro(idDescarga, isbn, direccionUrl, idUsuario, direccionIp, fecha, hora);
+        empleado = new Empleado(idEmpleado, nombre, cargo);
         
-        return descargaUsuarioLibro;
+        return empleado;
     }
     
     /**
@@ -80,23 +68,18 @@ public class DescargaUsuarioLibroDAOImpl {
             }
         }
     }
-    
-    public void insertar(DescargaUsuarioLibro e) {
-        //        descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion, direccion_ip, fecha, hora)
-        String INSERT = "INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    public void insertar(Empleado e) {
+        String INSERT = "INSERT INTO empleado (id_empleado, nombre, cargo) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdDescarga());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getDireccionUrl());
-            statement.setString(4, e.getIdUsuario());
-            statement.setString(5, e.getDireccionIp());
-            statement.setString(6, e.getFecha().format(dateFormato));
-            statement.setString(7, e.getHora().format(timeFormato));
+            statement.setString(1, e.getIdEmpleado());
+            statement.setString(2, e.getNombre());
+            statement.setString(3, e.getCargo());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -110,20 +93,16 @@ public class DescargaUsuarioLibroDAOImpl {
         }
     }
 
-    public void modificar(DescargaUsuarioLibro e) {
-        String UPDATE = "UPDATE descarga_usuario_libro SET isbn = ?, direccion_url = ?, id_usuario = ?, direccion_ip = ?, fecha = ?, hora = ? WHERE id_descarga = ?";
+    public void modificar(Empleado e) {
+        String UPDATE = "UPDATE empleado SET nombre = ?, cargo = ? WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);
-            statement.setString(1, e.getIdDescarga());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getDireccionUrl());
-            statement.setString(4, e.getIdUsuario());
-            statement.setString(5, e.getDireccionIp());
-            statement.setString(6, e.getFecha().format(dateFormato));
-            statement.setString(7, e.getHora().format(timeFormato));
+            statement = conexion.prepareStatement(UPDATE);          
+            statement.setString(1, e.getNombre());
+            statement.setString(2, e.getCargo());
+            statement.setString(3, e.getIdEmpleado());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -137,14 +116,14 @@ public class DescargaUsuarioLibroDAOImpl {
         }
     }
 
-    public void eliminar(DescargaUsuarioLibro e) {
-        String DELETE = "DELETE FROM descarga_usuario_libro WHERE id_descarga = ?";
+    public void eliminar(Empleado e) {
+        String DELETE = "DELETE FROM empleado WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdDescarga());
+            statement.setString(1, e.getIdEmpleado());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -157,11 +136,11 @@ public class DescargaUsuarioLibroDAOImpl {
             cerrarStatement(statement);
         }
     }
+   
+    public List<Empleado> obtenerTodos() {
+        List<Empleado> empleados = new ArrayList<>();
 
-    public List<DescargaUsuarioLibro> obtenerTodos() {
-        List<DescargaUsuarioLibro> descargasUsuarioLibro = new ArrayList<>();
-
-        String GETALL = "SELECT id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora FROM descarga_usuario_libro ORDER BY id_descarga ASC";
+        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY id_empleado ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -172,7 +151,7 @@ public class DescargaUsuarioLibroDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                descargasUsuarioLibro.add(convertir(result));
+                empleados.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -182,13 +161,13 @@ public class DescargaUsuarioLibroDAOImpl {
             cerrarStatement(statement);
         }
 
-        return descargasUsuarioLibro;
+        return empleados;
     }
 
-    public DescargaUsuarioLibro obtener(String id) {
-        DescargaUsuarioLibro descarga = null;
+    public Empleado obtener(String id) {
+        Empleado empleado = null;
 
-        String GETONE = "SELECT id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora FROM descarga_usuario_libro WHERE id_descarga = ?";
+        String GETONE = "SELECT id_empleado, nombre, cargo FROM empleado WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -200,7 +179,7 @@ public class DescargaUsuarioLibroDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                descarga = convertir(result);
+                empleado = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -211,7 +190,6 @@ public class DescargaUsuarioLibroDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return descarga;
+        return empleado;
     }
-
 }

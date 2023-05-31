@@ -1,4 +1,4 @@
-package DAO.postgres;
+package DAO;
 
 import Objetos.Ejemplar;
 import Paneles.AvisosEmergentes;

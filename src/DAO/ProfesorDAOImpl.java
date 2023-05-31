@@ -1,6 +1,6 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Autor;
+import Objetos.Profesor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: AutorDAOImpl.java
+ * Archivo: ProfesorDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,26 +21,25 @@ import java.util.List;
  * 
  */
 
-public class AutorDAOImpl {
-
+public class ProfesorDAOImpl{
+    
     private Connection conexion;
 
-    public AutorDAOImpl(Connection conexion) {
+    public ProfesorDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Autor convertir(ResultSet result) throws SQLException{
-        Autor autor = null;
+    private Profesor convertir(ResultSet result) throws SQLException{
+        Profesor profesor = null;
         
-        String codigoAutor = result.getString("codigo_autor");
-        String primerNombre = result.getString("primer_nombre");
-        String segundoNombre = result.getString("segundo_nombre");
-        String primerApellido = result.getString("primer_apellido");
-        String segundoApellido = result.getString("segundo_apellido");
+        String idUsuario = result.getString("id_usuario");
+        String idProfesor  = result.getString("id_profesor");
+        String titulo = result.getString("titulo");
+        String dependencia = result.getString("dependencia");
         
-        autor = new Autor(codigoAutor, primerNombre, segundoNombre, primerApellido, segundoApellido);
+        profesor = new Profesor(idUsuario, idProfesor, titulo, dependencia);
         
-        return autor;
+        return profesor;
     }
     
     /**
@@ -70,21 +69,20 @@ public class AutorDAOImpl {
             }
         }
     }
-    
-    public void insertar(Autor e) {
-        //        autor (codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) 
-        String INSERT = "INSERT INTO autor (codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES (?, ?, ?, ?, ?)";
+
+    public void insertar(Profesor e) {
+//        profesor (id_usuario, id_profesor, titulo, dependencia)
+        String INSERT = "INSERT INTO profesor (id_usuario, id_profesor, titulo, dependencia) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getCodigoAutor());
-            statement.setString(2, e.getPrimerNombre());
-            statement.setString(3, e.getSegundoNombre());
-            statement.setString(4, e.getPrimerApellido());
-            statement.setString(5, e.getSegundoApellido());
+            statement.setString(1, e.getIdUsuario());
+            statement.setString(2, e.getIdProfesor());
+            statement.setString(3, e.getTitulo());
+            statement.setString(4, e.getDependencia());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -96,21 +94,19 @@ public class AutorDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        
     }
-  
-    public void modificar(Autor e) {
-        String UPDATE = "UPDATE autor SET primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?, segundo_apellido = ? WHERE codigo_autor = ?";
+
+    public void modificar(Profesor e) {
+        String UPDATE = "UPDATE profesor SET titulo = ?, dependencia = ? WHERE id_profesor = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);            
-            statement.setString(1, e.getPrimerNombre());
-            statement.setString(2, e.getSegundoNombre());
-            statement.setString(3, e.getPrimerApellido());
-            statement.setString(4, e.getSegundoApellido());
-            statement.setString(5, e.getCodigoAutor());
+            statement = conexion.prepareStatement(UPDATE);          
+            statement.setString(1, e.getIdProfesor());
+            statement.setString(2, e.getTitulo());
+            statement.setString(3, e.getDependencia());
+            statement.setString(4, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -123,15 +119,15 @@ public class AutorDAOImpl {
             cerrarStatement(statement);
         }
     }
-   
-    public void eliminar(Autor e) {
-        String DELETE = "DELETE FROM autor WHERE codigo_autor = ?";
+
+    public void eliminar(Profesor e) {
+        String DELETE = "DELETE FROM profesor WHERE id_profesor = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getCodigoAutor());
+            statement.setString(1, e.getIdProfesor());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -144,11 +140,11 @@ public class AutorDAOImpl {
             cerrarStatement(statement);
         }
     }
-    
-    public List<Autor> obtenerTodos() {
-        List<Autor> autores = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY codigo_autor ASC";
+    public List<Profesor> obtenerTodos() {
+        List<Profesor> profesores = new ArrayList<>();
+
+        String GETALL = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor ORDER BY id_profesor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -159,7 +155,7 @@ public class AutorDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                autores.add(convertir(result));
+                profesores.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -169,13 +165,13 @@ public class AutorDAOImpl {
             cerrarStatement(statement);
         }
 
-        return autores;
+        return profesores;
     }
 
-    public Autor obtener(String id) {
-        Autor autor = null;
+    public Profesor obtener(String id) {
+        Profesor profesor = null;
 
-        String GETONE = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor WHERE codigo_autor = ?";
+        String GETONE = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor WHERE id_profesor = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -187,7 +183,7 @@ public class AutorDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                autor = convertir(result);
+                profesor = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -198,7 +194,8 @@ public class AutorDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return autor;
+        return profesor;
     }
 
 }
+

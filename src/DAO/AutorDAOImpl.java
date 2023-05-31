@@ -1,6 +1,6 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.LibroAutor;
+import Objetos.Autor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: LibroAutorDAOImpl.java
+ * Archivo: AutorDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,23 +21,26 @@ import java.util.List;
  * 
  */
 
-public class LibroAutorDAOImpl{
-    
+public class AutorDAOImpl {
+
     private Connection conexion;
 
-    public LibroAutorDAOImpl(Connection conexion) {
+    public AutorDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private LibroAutor convertir(ResultSet result) throws SQLException{
-        LibroAutor libroAutor = null;
+    private Autor convertir(ResultSet result) throws SQLException{
+        Autor autor = null;
         
-        String isbn = result.getString("isbn");
-        String codigoAutor  = result.getString("codigo_autor");
+        String codigoAutor = result.getString("codigo_autor");
+        String primerNombre = result.getString("primer_nombre");
+        String segundoNombre = result.getString("segundo_nombre");
+        String primerApellido = result.getString("primer_apellido");
+        String segundoApellido = result.getString("segundo_apellido");
         
-        libroAutor = new LibroAutor(isbn, codigoAutor);
+        autor = new Autor(codigoAutor, primerNombre, segundoNombre, primerApellido, segundoApellido);
         
-        return libroAutor;
+        return autor;
     }
     
     /**
@@ -67,18 +70,21 @@ public class LibroAutorDAOImpl{
             }
         }
     }
-
-    public void insertar(LibroAutor e) {
-        String INSERT = "INSERT INTO libro_autor (isbn, codigo_autor) VALUES (?, ?)";
+    
+    public void insertar(Autor e) {
+        //        autor (codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) 
+        String INSERT = "INSERT INTO autor (codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIsbn());
-            statement.setString(2, e.getCodigoAutor());
-
+            statement.setString(1, e.getCodigoAutor());
+            statement.setString(2, e.getPrimerNombre());
+            statement.setString(3, e.getSegundoNombre());
+            statement.setString(4, e.getPrimerApellido());
+            statement.setString(5, e.getSegundoApellido());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -90,22 +96,42 @@ public class LibroAutorDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
+        
     }
+  
+    public void modificar(Autor e) {
+        String UPDATE = "UPDATE autor SET primer_nombre = ?, segundo_nombre = ?, primer_apellido = ?, segundo_apellido = ? WHERE codigo_autor = ?";
 
-    public void modificar(LibroAutor antiguo, LibroAutor nuevo) {
-        eliminar(antiguo);
-        insertar(nuevo);
+        PreparedStatement statement = null;
+
+        try {
+            statement = conexion.prepareStatement(UPDATE);            
+            statement.setString(1, e.getPrimerNombre());
+            statement.setString(2, e.getSegundoNombre());
+            statement.setString(3, e.getPrimerApellido());
+            statement.setString(4, e.getSegundoApellido());
+            statement.setString(5, e.getCodigoAutor());
+
+            if (statement.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya modificado el registro");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
     }
-
-    public void eliminar(LibroAutor e) {
-        String DELETE = "DELETE FROM libro_autor WHERE isbn = ? AND codigo_autor = ?";
+   
+    public void eliminar(Autor e) {
+        String DELETE = "DELETE FROM autor WHERE codigo_autor = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIsbn());
-            statement.setString(2, e.getCodigoAutor());
+            statement.setString(1, e.getCodigoAutor());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -118,11 +144,11 @@ public class LibroAutorDAOImpl{
             cerrarStatement(statement);
         }
     }
+    
+    public List<Autor> obtenerTodos() {
+        List<Autor> autores = new ArrayList<>();
 
-    public List<LibroAutor> obtenerTodos() {
-        List<LibroAutor> librosAutoress = new ArrayList<>();
-
-        String GETALL = "SELECT isbn, codigo_autor FROM librosAutores ORDER BY isbn, codigo_autor ASC";
+        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -133,7 +159,7 @@ public class LibroAutorDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                librosAutoress.add(convertir(result));
+                autores.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -143,19 +169,13 @@ public class LibroAutorDAOImpl{
             cerrarStatement(statement);
         }
 
-        return librosAutoress;
+        return autores;
     }
-    
 
-    /**
-     * Busqueda por Isbn
-     * @param id El isbn del Libro
-     * @return Un ArrayList con los autores de ese isbn
-     */
-    public List<LibroAutor> obtener(String id) {
-        List<LibroAutor> libroAutor = new ArrayList<>();
+    public Autor obtener(String id) {
+        Autor autor = null;
 
-        String GETONE = "SELECT isbn, codigo_autor FROM librosAutores WHERE isbn = ? ORDER BY codigo_autor ASC";
+        String GETONE = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor WHERE codigo_autor = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -167,7 +187,9 @@ public class LibroAutorDAOImpl{
             result = statement.executeQuery();
 
             if (result.next()) {
-                libroAutor.add(convertir(result));
+                autor = convertir(result);
+            } else {
+                System.out.println("No se ha encontrado un registro con ese Id");
             }
 
         } catch (SQLException ex) {
@@ -176,7 +198,7 @@ public class LibroAutorDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return libroAutor;
+        return autor;
     }
 
 }

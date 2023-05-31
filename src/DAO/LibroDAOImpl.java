@@ -1,6 +1,8 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Empleado;
+import Objetos.Libro;
+import Objetos.Libro;
+import Objetos.Libro;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: EmpleadoDAOImpl.java
+ * Archivo: LibroDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,24 +23,28 @@ import java.util.List;
  * 
  */
 
-public class EmpleadoDAOImpl{
+public class LibroDAOImpl{
     
     private Connection conexion;
 
-    public EmpleadoDAOImpl(Connection conexion) {
+    public LibroDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Empleado convertir(ResultSet result) throws SQLException{
-        Empleado empleado = null;
-        
+    private Libro convertir(ResultSet result) throws SQLException{
+        Libro libro = null;
+
+        String isbn = result.getString("isbn");
+        String codigoArea = result.getString("codigo_area");
+        String codigoEditorial = result.getString("codigo_editorial");
         String idEmpleado = result.getString("id_empleado");
-        String nombre = result.getString("nombre");
-        String cargo = result.getString("cargo");
+        String titulo = result.getString("titulo");
+        String anioPublicacion = result.getString("anio_publicacion");
+        int nroPaginas = result.getInt("nro_paginas");
         
-        empleado = new Empleado(idEmpleado, nombre, cargo);
+        libro = new Libro(isbn, codigoArea, codigoEditorial, idEmpleado, titulo, anioPublicacion, nroPaginas);
         
-        return empleado;
+        return libro;
     }
     
     /**
@@ -69,17 +75,22 @@ public class EmpleadoDAOImpl{
         }
     }
 
-    public void insertar(Empleado e) {
-        String INSERT = "INSERT INTO empleado (id_empleado, nombre, cargo) VALUES (?, ?, ?)";
+    public void insertar(Libro e) {
+        //        libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas)
+        String INSERT = "INSERT INTO libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdEmpleado());
-            statement.setString(2, e.getNombre());
-            statement.setString(3, e.getCargo());
+            statement.setString(1, e.getIsbn());
+            statement.setString(2, e.getCodigoArea());
+            statement.setString(3, e.getCodigoEditorial());
+            statement.setString(4, e.getIdEmpleado());
+            statement.setString(5, e.getTitulo());
+            statement.setString(6, e.getAnioPublicacion());
+            statement.setString(7, Integer.toString(e.getNroPaginas()));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -93,16 +104,20 @@ public class EmpleadoDAOImpl{
         }
     }
 
-    public void modificar(Empleado e) {
-        String UPDATE = "UPDATE empleado SET nombre = ?, cargo = ? WHERE id_empleado = ?";
+    public void modificar(Libro e) {
+        String UPDATE = "UPDATE libro SET codigo_area = ?, codigo_editorial = ?, id_empleado = ?, titulo = ?, anio_publicacion = ?, nro_paginas = ? WHERE isbn = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getNombre());
-            statement.setString(2, e.getCargo());
+            statement = conexion.prepareStatement(UPDATE);       
+            statement.setString(1, e.getCodigoArea());
+            statement.setString(2, e.getCodigoEditorial());
             statement.setString(3, e.getIdEmpleado());
+            statement.setString(4, e.getTitulo());
+            statement.setString(5, e.getAnioPublicacion());
+            statement.setString(6, Integer.toString(e.getNroPaginas()));
+            statement.setString(7, e.getIsbn());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -116,14 +131,14 @@ public class EmpleadoDAOImpl{
         }
     }
 
-    public void eliminar(Empleado e) {
-        String DELETE = "DELETE FROM empleado WHERE id_empleado = ?";
+    public void eliminar(Libro e) {
+        String DELETE = "DELETE FROM libro WHERE isbn = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdEmpleado());
+            statement.setString(1, e.getIsbn());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -136,11 +151,11 @@ public class EmpleadoDAOImpl{
             cerrarStatement(statement);
         }
     }
-   
-    public List<Empleado> obtenerTodos() {
-        List<Empleado> empleados = new ArrayList<>();
 
-        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY id_empleado ASC";
+    public List<Libro> obtenerTodos() {
+        List<Libro> libros = new ArrayList<>();
+
+        String GETALL = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro ORDER BY titulo ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -151,7 +166,7 @@ public class EmpleadoDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                empleados.add(convertir(result));
+                libros.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -161,13 +176,13 @@ public class EmpleadoDAOImpl{
             cerrarStatement(statement);
         }
 
-        return empleados;
+        return libros;
     }
 
-    public Empleado obtener(String id) {
-        Empleado empleado = null;
+    public Libro obtener(String id) {
+        Libro libro = null;
 
-        String GETONE = "SELECT id_empleado, nombre, cargo FROM empleado WHERE id_empleado = ?";
+        String GETONE = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro WHERE isbn = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -179,7 +194,7 @@ public class EmpleadoDAOImpl{
             result = statement.executeQuery();
 
             if (result.next()) {
-                empleado = convertir(result);
+                libro = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -190,6 +205,7 @@ public class EmpleadoDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return empleado;
+        return libro;
     }
+
 }

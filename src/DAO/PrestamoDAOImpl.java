@@ -1,11 +1,8 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.DevuelveUsuarioEjemplar;
+import Objetos.Prestamo;
 import Paneles.AvisosEmergentes;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: DevuelveUsuarioEjemplarDAOImpl.java
+ * Archivo: PrestamoDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -26,28 +23,27 @@ import java.util.List;
  * 
  */
 
-public class DevuelveUsuarioEjemplarDAOImpl {
+public class PrestamoDAOImpl{
     
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss");    
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
-    public DevuelveUsuarioEjemplarDAOImpl(Connection conexion) {
+    public PrestamoDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
+
     
-    private DevuelveUsuarioEjemplar convertir(ResultSet result) throws SQLException{
+    private Prestamo convertir(ResultSet result) throws SQLException{
+        Prestamo prestamo = null;
         
-        DevuelveUsuarioEjemplar devolucion = null;
-        
-        String idDevolucion = result.getString("id_devolucion");
+        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
         String idUsuario = result.getString("id_usuario");
-        String isbn = result.getString("isbn");
-        String nroEjemplar = result.getString("nro_ejemplar");
-        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"), dateFormato);
+        String idEmpleado = result.getString("id_empleado");
+        LocalDateTime fechaRealizacion = LocalDateTime.parse(result.getString("fecha_realizacion"));      
         
-        devolucion = new DevuelveUsuarioEjemplar(idDevolucion, idUsuario, isbn, nroEjemplar, fecha);
+        prestamo = new Prestamo(nroConsecutivoPrestamo, idUsuario, idEmpleado, fechaRealizacion);
         
-        return devolucion;
+        return prestamo;
     }
     
     /**
@@ -77,21 +73,19 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             }
         }
     }
-
-    public void insertar(DevuelveUsuarioEjemplar e) {
-//        devuelve_usuario_ejemplar (id_devolucion, id_usuario, isbn, nro_ejemplar, fecha)
-        String INSERT = "INSERT INTO devuelve_usuario_ejemplar (id_devolucion, id_usuario, isbn, nro_ejemplar, fecha) VALUES (?, ?, ?, ?, ?)";
+    
+    public void insertar(Prestamo e) {
+        String INSERT = "INSERT INTO prestamo (nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdDevolucion());
+            statement.setString(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIdUsuario());
-            statement.setString(3, e.getIsbn());
-            statement.setString(4, e.getNroEjemplar());
-            statement.setString(5, e.getFecha().format(dateFormato));
+            statement.setString(3, e.getIdEmpleado());
+            statement.setString(4, e.getFechaRealizacion().format(dateFormato));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -104,19 +98,18 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             cerrarStatement(statement);
         }
     }
-
-    public void modificar(DevuelveUsuarioEjemplar e) {
-        String UPDATE = "UPDATE devuelve_usuario_ejemplar SET id_usuario = ?, isbn = ?, nro_ejemplar = ?, fecha = ? WHERE id_devolucion = ?";
+    
+    public void modificar(Prestamo e) {
+        String UPDATE = "UPDATE prestamo SET id_usuario = ?, id_empleado = ?, fecha_realizacion = ? WHERE nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);     
+            statement = conexion.prepareStatement(UPDATE);       
             statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFecha().format(dateFormato));
-            statement.setString(5, e.getIdDevolucion());
+            statement.setString(2, e.getIdEmpleado());
+            statement.setString(3, e.getFechaRealizacion().format(dateFormato));
+            statement.setString(4, e.getNroConsecutivoPrestamo());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -130,14 +123,14 @@ public class DevuelveUsuarioEjemplarDAOImpl {
         }
     }
 
-    public void eliminar(DevuelveUsuarioEjemplar e) {
-        String DELETE = "DELETE FROM devuelve_usuario_ejemplar WHERE id_devolucion = ?";
+    public void eliminar(Prestamo e) {
+        String DELETE = "DELETE FROM prestamo WHERE nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdDevolucion());
+            statement.setString(1, e.getNroConsecutivoPrestamo());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -151,10 +144,10 @@ public class DevuelveUsuarioEjemplarDAOImpl {
         }
     }
 
-    public List<DevuelveUsuarioEjemplar> obtenerTodos() {
-        List<DevuelveUsuarioEjemplar> devoluciones = new ArrayList<>();
+    public List<Prestamo> obtenerTodos() {
+        List<Prestamo> prestamos = new ArrayList<>();
 
-        String GETALL = "SELECT id_devolucion, id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar ORDER BY id_devolucion ASC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion FROM prestamo ORDER BY fecha_realizacion ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -165,7 +158,7 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                devoluciones.add(convertir(result));
+                prestamos.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -175,13 +168,13 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             cerrarStatement(statement);
         }
 
-        return devoluciones;
+        return prestamos;
     }
 
-    public DevuelveUsuarioEjemplar obtener(String id) {
-        DevuelveUsuarioEjemplar devolucion = null;
+    public Prestamo obtener(String id) {
+        Prestamo prestamo = null;
 
-        String GETONE = "SELECT id_devolucion, id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar WHERE id_devolucion = ?";
+        String GETONE = "SELECT nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion FROM prestamo WHERE nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -193,7 +186,7 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                devolucion = convertir(result);
+                prestamo = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -204,7 +197,7 @@ public class DevuelveUsuarioEjemplarDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return devolucion;
+        return prestamo;
     }
 
 }

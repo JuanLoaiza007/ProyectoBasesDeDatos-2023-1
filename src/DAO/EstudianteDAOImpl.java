@@ -1,11 +1,8 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Editorial;
+import Objetos.Estudiante;
 import Paneles.AvisosEmergentes;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: EditorialDAOImpl.java
+ * Archivo: EstudianteDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -24,25 +21,25 @@ import java.util.List;
  * 
  */
 
-public class EditorialDAOImpl {
-
+public class EstudianteDAOImpl{
+    
     private Connection conexion;
 
-    public EditorialDAOImpl(Connection conexion) {
+    public EstudianteDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Editorial convertir(ResultSet result) throws SQLException{
-        Editorial editorial = null;
+    private Estudiante convertir(ResultSet result) throws SQLException{
+        Estudiante estudiante = null;
         
-        String codigoEditorial = result.getString("codigo_editorial");
-        String nombre = result.getString("nombre");
-        String paginaWeb = result.getString("pagina_web");
-        String paisOrigen = result.getString("pais_origen");
+        String idUsuario = result.getString("id_usuario");
+        String idEstudiante  = result.getString("id_estudiante");
+        String carrera = result.getString("carrera");
+        String universidad = result.getString("universidad");
         
-        editorial = new Editorial(codigoEditorial, nombre, paginaWeb, paisOrigen);
+        estudiante = new Estudiante(idUsuario, idEstudiante, carrera, universidad);
         
-        return editorial;
+        return estudiante;
     }
     
     /**
@@ -72,20 +69,20 @@ public class EditorialDAOImpl {
             }
         }
     }
-    
-    public void insertar(Editorial e) {
-        // editorial (codigo_editorial, nombre, pagina_web, pais_origen) 
-        String INSERT = "INSERT INTO editorial (codigo_editorial, nombre, pagina_web, pais_origen) VALUES (?, ?, ?, ?)";
+
+    public void insertar(Estudiante e) {
+//        estudiante (id_usuario, id_estudiante, carrera, universidad)
+        String INSERT = "INSERT INTO estudiante (id_usuario, id_estudiante, carrera, universidad) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getCodigoEditorial());
-            statement.setString(2, e.getNombre());
-            statement.setString(3, e.getPaginaWeb());
-            statement.setString(4, e.getPaisOrigen());
+            statement.setString(1, e.getIdUsuario());
+            statement.setString(2, e.getIdEstudiante());
+            statement.setString(3, e.getCarrera());
+            statement.setString(4, e.getUniversidad());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -99,17 +96,17 @@ public class EditorialDAOImpl {
         }
     }
 
-    public void modificar(Editorial e) {
-        String UPDATE = "UPDATE editorial SET nombre = ?, pagina_web = ?, pais_origen = ? WHERE codigo_editorial = ?";
+    public void modificar(Estudiante e) {
+        String UPDATE = "UPDATE estudiante SET carrera = ?, universidad = ? WHERE id_estudiante = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getNombre());
-            statement.setString(2, e.getPaginaWeb());
-            statement.setString(3, e.getPaisOrigen());
-            statement.setString(4, e.getCodigoEditorial());
+            statement.setString(1, e.getIdEstudiante());
+            statement.setString(2, e.getCarrera());
+            statement.setString(3, e.getUniversidad());
+            statement.setString(4, e.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -123,14 +120,14 @@ public class EditorialDAOImpl {
         }
     }
 
-    public void eliminar(Editorial e) {
-        String DELETE = "DELETE FROM editorial WHERE codigo_editorial = ?";
+    public void eliminar(Estudiante e) {
+        String DELETE = "DELETE FROM estudiante WHERE id_estudiante = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getCodigoEditorial());
+            statement.setString(1, e.getIdEstudiante());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -144,10 +141,10 @@ public class EditorialDAOImpl {
         }
     }
 
-    public List<Editorial> obtenerTodos() {
-        List<Editorial> editoriales = new ArrayList<>();
+    public List<Estudiante> obtenerTodos() {
+        List<Estudiante> estudiantes = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY codigo_editorial ASC";
+        String GETALL = "SELECT id_usuario, id_estudiante, carrera, universidad FROM estudiante ORDER BY id_estudiante ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -158,7 +155,7 @@ public class EditorialDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                editoriales.add(convertir(result));
+                estudiantes.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -168,13 +165,13 @@ public class EditorialDAOImpl {
             cerrarStatement(statement);
         }
 
-        return editoriales;
+        return estudiantes;
     }
 
-    public Editorial obtener(String id) {
-        Editorial editorial = null;
+    public Estudiante obtener(String id) {
+        Estudiante estudiante = null;
 
-        String GETONE = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial WHERE codigo_editorial = ?";
+        String GETONE = "SELECT id_usuario, id_estudiante, carrera, universidad FROM estudiante WHERE id_estudiante = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -186,7 +183,7 @@ public class EditorialDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                editorial = convertir(result);
+                estudiante = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -197,7 +194,7 @@ public class EditorialDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return editorial;
+        return estudiante;
     }
 
 }

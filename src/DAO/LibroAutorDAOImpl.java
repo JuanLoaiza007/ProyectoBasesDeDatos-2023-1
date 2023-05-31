@@ -1,10 +1,8 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.PrestamoEjemplar;
+import Objetos.LibroAutor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: PrestamoEjemplarDAOImpl.java
+ * Archivo: LibroAutorDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -23,28 +21,23 @@ import java.util.List;
  * 
  */
 
-public class PrestamoEjemplarDAOImpl {
+public class LibroAutorDAOImpl{
     
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
-    public PrestamoEjemplarDAOImpl(Connection conexion) {
+    public LibroAutorDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private PrestamoEjemplar convertir(ResultSet result) throws SQLException{
-        PrestamoEjemplar prestamoEjemplar = null;
+    private LibroAutor convertir(ResultSet result) throws SQLException{
+        LibroAutor libroAutor = null;
         
+        String isbn = result.getString("isbn");
+        String codigoAutor  = result.getString("codigo_autor");
         
-        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
-        String isbn = result.getString("nro_consecutivo_prestamo");
-        String nroEjemplar = result.getString("nro_consecutivo_prestamo");
-        LocalDateTime fechaDevolucion = LocalDateTime.parse(result.getString("nro_consecutivo_prestamo"));
-       
+        libroAutor = new LibroAutor(isbn, codigoAutor);
         
-        prestamoEjemplar = new PrestamoEjemplar(nroConsecutivoPrestamo, isbn, nroEjemplar, fechaDevolucion);
-        
-        return prestamoEjemplar;
+        return libroAutor;
     }
     
     /**
@@ -75,18 +68,17 @@ public class PrestamoEjemplarDAOImpl {
         }
     }
 
-    public void insertar(PrestamoEjemplar e) {
-        String INSERT = "INSERT INTO prestamo_ejemplar (nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion) VALUES (?, ?, ?, ?)";
+    public void insertar(LibroAutor e) {
+        String INSERT = "INSERT INTO libro_autor (isbn, codigo_autor) VALUES (?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
+            statement.setString(1, e.getIsbn());
+            statement.setString(2, e.getCodigoAutor());
+
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -100,22 +92,20 @@ public class PrestamoEjemplarDAOImpl {
         }
     }
 
-    public void modificar(PrestamoEjemplar antiguo, PrestamoEjemplar nuevo) {
+    public void modificar(LibroAutor antiguo, LibroAutor nuevo) {
         eliminar(antiguo);
         insertar(nuevo);
     }
 
-    public void eliminar(PrestamoEjemplar e) {
-        String DELETE = "DELETE FROM prestamo_ejemplar WHERE nro_consecutivo_prestamo = ? AND isbn = ? AND nro_ejemplar = ? AND fecha_devolucion = ?";
+    public void eliminar(LibroAutor e) {
+        String DELETE = "DELETE FROM libro_autor WHERE isbn = ? AND codigo_autor = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
+            statement.setString(1, e.getIsbn());
+            statement.setString(2, e.getCodigoAutor());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -129,10 +119,10 @@ public class PrestamoEjemplarDAOImpl {
         }
     }
 
-    public List<PrestamoEjemplar> obtenerTodos() {
-        List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
+    public List<LibroAutor> obtenerTodos() {
+        List<LibroAutor> librosAutoress = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo ORDER BY fecha_devolucion ASC";
+        String GETALL = "SELECT isbn, codigo_autor FROM librosAutores ORDER BY isbn, codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -143,7 +133,7 @@ public class PrestamoEjemplarDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                prestamosEjemplares.add(convertir(result));
+                librosAutoress.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -153,29 +143,31 @@ public class PrestamoEjemplarDAOImpl {
             cerrarStatement(statement);
         }
 
-        return prestamosEjemplares;
+        return librosAutoress;
     }
+    
 
     /**
-     * Obtener por nroConsecutivoPrestamo
-     * @param id nroConsecutivoPrestamo
-     * @return Los prestamoEjemplar de ese nroConsecutivoPrestamo
+     * Busqueda por Isbn
+     * @param id El isbn del Libro
+     * @return Un ArrayList con los autores de ese isbn
      */
-    public List<PrestamoEjemplar> obtener(String id) {
-        List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
+    public List<LibroAutor> obtener(String id) {
+        List<LibroAutor> libroAutor = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion ASC";
+        String GETONE = "SELECT isbn, codigo_autor FROM librosAutores WHERE isbn = ? ORDER BY codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
 
-            statement = conexion.prepareStatement(GETALL);
+            statement = conexion.prepareStatement(GETONE);
+            statement.setString(1, id);
             result = statement.executeQuery();
 
-            while (result.next()) {
-                prestamosEjemplares.add(convertir(result));
+            if (result.next()) {
+                libroAutor.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -184,7 +176,7 @@ public class PrestamoEjemplarDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-
-        return prestamosEjemplares;
+        return libroAutor;
     }
+
 }

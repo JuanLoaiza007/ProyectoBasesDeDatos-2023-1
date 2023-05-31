@@ -1,8 +1,11 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.EjemplarUbicacion;
+import Objetos.Editorial;
 import Paneles.AvisosEmergentes;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +14,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: EjemplarUbicacionDAOImpl.java
+ * Archivo: EditorialDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,24 +24,25 @@ import java.util.List;
  * 
  */
 
-public class EjemplarUbicacionDAOImpl {
-    
+public class EditorialDAOImpl {
+
     private Connection conexion;
 
-    public EjemplarUbicacionDAOImpl(Connection conexion) {
+    public EditorialDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private EjemplarUbicacion convertir(ResultSet result) throws SQLException{
-        EjemplarUbicacion ejemplarUbicacion = null;
+    private Editorial convertir(ResultSet result) throws SQLException{
+        Editorial editorial = null;
         
-        String isbn = result.getString("isbn");
-        String nroEjemplar = result.getString("nro_ejemplar");
-        String idUbicacion = result.getString("id_ubicacion");
+        String codigoEditorial = result.getString("codigo_editorial");
+        String nombre = result.getString("nombre");
+        String paginaWeb = result.getString("pagina_web");
+        String paisOrigen = result.getString("pais_origen");
         
-        ejemplarUbicacion = new EjemplarUbicacion(isbn, nroEjemplar, idUbicacion);
+        editorial = new Editorial(codigoEditorial, nombre, paginaWeb, paisOrigen);
         
-        return ejemplarUbicacion;
+        return editorial;
     }
     
     /**
@@ -68,18 +72,20 @@ public class EjemplarUbicacionDAOImpl {
             }
         }
     }
-
-    public void insertar(EjemplarUbicacion e) {
-        String INSERT = "INSERT INTO ejemplar_ubicacion (isbn, nro_ejemplar, id_ubicacion) VALUES (?, ?, ?)";
+    
+    public void insertar(Editorial e) {
+        // editorial (codigo_editorial, nombre, pagina_web, pais_origen) 
+        String INSERT = "INSERT INTO editorial (codigo_editorial, nombre, pagina_web, pais_origen) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIsbn());
-            statement.setString(2, e.getNroEjemplar());
-            statement.setString(3, e.getIdUbicacion());            
+            statement.setString(1, e.getCodigoEditorial());
+            statement.setString(2, e.getNombre());
+            statement.setString(3, e.getPaginaWeb());
+            statement.setString(4, e.getPaisOrigen());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -93,21 +99,38 @@ public class EjemplarUbicacionDAOImpl {
         }
     }
 
-    public void modificar(EjemplarUbicacion e) {
-        eliminar(e); // Se elimina el registro porque se modificará su PK
-        insertar(e); // Se inserta uno nuevo
+    public void modificar(Editorial e) {
+        String UPDATE = "UPDATE editorial SET nombre = ?, pagina_web = ?, pais_origen = ? WHERE codigo_editorial = ?";
+
+        PreparedStatement statement = null;
+
+        try {
+            statement = conexion.prepareStatement(UPDATE);          
+            statement.setString(1, e.getNombre());
+            statement.setString(2, e.getPaginaWeb());
+            statement.setString(3, e.getPaisOrigen());
+            statement.setString(4, e.getCodigoEditorial());
+
+            if (statement.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya modificado el registro");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
     }
 
-    public void eliminar(EjemplarUbicacion e) {
-        String DELETE = "DELETE FROM ejemplar_ubicacion WHERE isbn = ? AND nro_ejemplar = ? AND id_ubicacion = ?";
+    public void eliminar(Editorial e) {
+        String DELETE = "DELETE FROM editorial WHERE codigo_editorial = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIsbn());
-            statement.setString(1, e.getNroEjemplar());
-            statement.setString(1, e.getIdUbicacion());
+            statement.setString(1, e.getCodigoEditorial());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -119,13 +142,12 @@ public class EjemplarUbicacionDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        
     }
 
-    public List<EjemplarUbicacion> obtenerTodos() {
-        List<EjemplarUbicacion> ejemplarUbicacion = new ArrayList<>();
+    public List<Editorial> obtenerTodos() {
+        List<Editorial> editoriales = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, nro_ejemplar, id_ubicacion FROM ejemplar_ubicacion ORDER BY isbn, nro_ejemplar, id_ubicacion ASC";
+        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY codigo_editorial ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -136,7 +158,7 @@ public class EjemplarUbicacionDAOImpl {
             result = statement.executeQuery();
 
             while (result.next()) {
-                ejemplarUbicacion.add(convertir(result));
+                editoriales.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -146,19 +168,13 @@ public class EjemplarUbicacionDAOImpl {
             cerrarStatement(statement);
         }
 
-        return ejemplarUbicacion;
-        
+        return editoriales;
     }
 
-    /**
-     * Busqueda por ISBN
-     * @param id El ISBN del ejemplar
-     * @return Un ArrayList con los ejemplares que tienen ese ISBN
-     */
-    public List<EjemplarUbicacion> obtener(String id) {
-        List<EjemplarUbicacion> ejemplarUbicacion = new ArrayList<>();
+    public Editorial obtener(String id) {
+        Editorial editorial = null;
 
-        String GETONE = "SELECT isbn, nro_ejemplar, id_ubicacion FROM ejemplar_ubicacion WHERE isbn = ?";
+        String GETONE = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial WHERE codigo_editorial = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -170,8 +186,10 @@ public class EjemplarUbicacionDAOImpl {
             result = statement.executeQuery();
 
             if (result.next()) {
-                ejemplarUbicacion.add(convertir(result));
-            } 
+                editorial = convertir(result);
+            } else {
+                System.out.println("No se ha encontrado un registro con ese Id");
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -179,7 +197,7 @@ public class EjemplarUbicacionDAOImpl {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return ejemplarUbicacion;        
+        return editorial;
     }
 
 }

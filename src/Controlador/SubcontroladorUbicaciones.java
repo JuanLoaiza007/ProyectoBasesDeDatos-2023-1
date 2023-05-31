@@ -18,7 +18,7 @@ package Controlador;
 import BasesDeDatos.BibliotecaManager;
 import Paneles.*;
 import Objetos.*;
-import DAO.postgres.UbicacionDAOImpl;
+import DAO.UbicacionDAOImpl;
 import java.awt.Point;
 import java.util.*;
 import java.awt.event.ActionEvent;

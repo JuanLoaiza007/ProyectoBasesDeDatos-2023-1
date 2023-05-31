@@ -1,8 +1,6 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Libro;
-import Objetos.Libro;
-import Objetos.Libro;
+import Objetos.AreaConocimiento;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: LibroDAOImpl.java
+ * Archivo: AreaConocimientoDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -23,28 +21,25 @@ import java.util.List;
  * 
  */
 
-public class LibroDAOImpl{
-    
+public class AreaConocimientoDAOImpl{
+
     private Connection conexion;
 
-    public LibroDAOImpl(Connection conexion) {
+    public AreaConocimientoDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Libro convertir(ResultSet result) throws SQLException{
-        Libro libro = null;
-
-        String isbn = result.getString("isbn");
+    private AreaConocimiento convertir(ResultSet result) throws SQLException{
+        AreaConocimiento areaConocimiento = null;
+        
         String codigoArea = result.getString("codigo_area");
-        String codigoEditorial = result.getString("codigo_editorial");
-        String idEmpleado = result.getString("id_empleado");
-        String titulo = result.getString("titulo");
-        String anioPublicacion = result.getString("anio_publicacion");
-        int nroPaginas = result.getInt("nro_paginas");
+        String codigoAreaPadre = result.getString("codigo_area_padre");
+        String nombre = result.getString("nombre");
+        String descripcion = result.getString("descripcion");
         
-        libro = new Libro(isbn, codigoArea, codigoEditorial, idEmpleado, titulo, anioPublicacion, nroPaginas);
+        areaConocimiento = new AreaConocimiento(codigoArea, codigoAreaPadre, nombre, descripcion);
         
-        return libro;
+        return areaConocimiento;
     }
     
     /**
@@ -74,23 +69,19 @@ public class LibroDAOImpl{
             }
         }
     }
-
-    public void insertar(Libro e) {
-        //        libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas)
-        String INSERT = "INSERT INTO libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    public void insertar(AreaConocimiento e) {
+        String INSERT = "INSERT INTO area_conocimiento (codigo_area, codigo_area_padre, nombre, descripcion) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIsbn());
-            statement.setString(2, e.getCodigoArea());
-            statement.setString(3, e.getCodigoEditorial());
-            statement.setString(4, e.getIdEmpleado());
-            statement.setString(5, e.getTitulo());
-            statement.setString(6, e.getAnioPublicacion());
-            statement.setString(7, Integer.toString(e.getNroPaginas()));
+            statement.setString(1, e.getCodigoArea());
+            statement.setString(2, e.getCodigoAreaPadre());
+            statement.setString(3, e.getNombre());
+            statement.setString(4, e.getDescripcion());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -103,21 +94,19 @@ public class LibroDAOImpl{
             cerrarStatement(statement);
         }
     }
-
-    public void modificar(Libro e) {
-        String UPDATE = "UPDATE libro SET codigo_area = ?, codigo_editorial = ?, id_empleado = ?, titulo = ?, anio_publicacion = ?, nro_paginas = ? WHERE isbn = ?";
+    
+    public void modificar(AreaConocimiento e) {
+       
+        String UPDATE = "UPDATE area_conocimiento SET codigo_area_padre = ?, nombre = ?, descripcion = ? WHERE codigo_area = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);       
-            statement.setString(1, e.getCodigoArea());
-            statement.setString(2, e.getCodigoEditorial());
-            statement.setString(3, e.getIdEmpleado());
-            statement.setString(4, e.getTitulo());
-            statement.setString(5, e.getAnioPublicacion());
-            statement.setString(6, Integer.toString(e.getNroPaginas()));
-            statement.setString(7, e.getIsbn());
+            statement = conexion.prepareStatement(UPDATE);
+            statement.setString(1, e.getCodigoAreaPadre());
+            statement.setString(2, e.getNombre());
+            statement.setString(3, e.getDescripcion());
+            statement.setString(4, e.getCodigoArea());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -130,15 +119,15 @@ public class LibroDAOImpl{
             cerrarStatement(statement);
         }
     }
-
-    public void eliminar(Libro e) {
-        String DELETE = "DELETE FROM libro WHERE isbn = ?";
+    
+    public void eliminar(AreaConocimiento e) {
+        String DELETE = "DELETE FROM area_conocimiento WHERE codigo_area = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIsbn());
+            statement.setString(1, e.getCodigoArea());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -151,11 +140,11 @@ public class LibroDAOImpl{
             cerrarStatement(statement);
         }
     }
+    
+    public List<AreaConocimiento> obtenerTodos() {
+        List<AreaConocimiento> areasConocimiento = new ArrayList<>();
 
-    public List<Libro> obtenerTodos() {
-        List<Libro> libros = new ArrayList<>();
-
-        String GETALL = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro ORDER BY titulo ASC";
+        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY codigo_area ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -166,7 +155,7 @@ public class LibroDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                libros.add(convertir(result));
+                areasConocimiento.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -176,13 +165,13 @@ public class LibroDAOImpl{
             cerrarStatement(statement);
         }
 
-        return libros;
+        return areasConocimiento;
     }
+    
+    public AreaConocimiento obtener(String id) {
+        AreaConocimiento areaConocimiento = null;
 
-    public Libro obtener(String id) {
-        Libro libro = null;
-
-        String GETONE = "SELECT isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas FROM libro WHERE isbn = ?";
+        String GETONE = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento WHERE codigo_area = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -194,7 +183,7 @@ public class LibroDAOImpl{
             result = statement.executeQuery();
 
             if (result.next()) {
-                libro = convertir(result);
+                areaConocimiento = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -205,7 +194,7 @@ public class LibroDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return libro;
+        return areaConocimiento;
     }
 
 }

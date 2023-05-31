@@ -1,12 +1,13 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Multa;
+import Objetos.DescargaUsuarioLibro;
 import Paneles.AvisosEmergentes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: MultaDAOImpl.java
+ * Archivo: DescargaUsuarioLibroDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -26,29 +27,32 @@ import java.util.List;
  * 
  */
 
-public class MultaDAOImpl{
-    
-    private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
+public class DescargaUsuarioLibroDAOImpl {
 
-    public MultaDAOImpl(Connection conexion) {
+    private Connection conexion;
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d");
+    private DateTimeFormatter timeFormato = DateTimeFormatter.ofPattern("H:mm:ss");
+
+    public DescargaUsuarioLibroDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Multa convertir(ResultSet result) throws SQLException{
-        Multa multa = null;
+    private DescargaUsuarioLibro convertir(ResultSet result) throws SQLException{
+        DescargaUsuarioLibro descargaUsuarioLibro = null;
         
-        String idMulta  = result.getString("id_multa");
+        String idDescarga = result.getString("id_descarga");
+        String isbn = result.getString("isbn");
+        String direccionUrl = result.getString("direccion_url");
         String idUsuario = result.getString("id_usuario");
-        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"));
-        int valor = result.getInt("valor");
-        String descripcion = result.getString("descripcion");
-    
-        multa = new Multa(idMulta, idUsuario, fecha, valor, descripcion);
+        String direccionIp = result.getString("direccion_ip");
+        LocalDate fecha = LocalDate.parse(result.getString("fecha"), dateFormato);
+        LocalTime hora = LocalTime.parse(result.getString("hora"), timeFormato);
         
-        return multa;
+        descargaUsuarioLibro = new DescargaUsuarioLibro(idDescarga, isbn, direccionUrl, idUsuario, direccionIp, fecha, hora);
+        
+        return descargaUsuarioLibro;
     }
-
+    
     /**
      * Cierra la conexion que se le pase como parametro
      * @param conexion (Connection) La conexion a cerrar
@@ -77,19 +81,22 @@ public class MultaDAOImpl{
         }
     }
     
-    public void insertar(Multa e) {
-        String INSERT = "INSERT INTO multa (id_multa, id_usuario, fecha, valor, descripcion) VALUES (?, ?, ?, ?, ?)";
+    public void insertar(DescargaUsuarioLibro e) {
+        //        descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion, direccion_ip, fecha, hora)
+        String INSERT = "INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdMulta());
-            statement.setString(2, e.getIdUsuario());
-            statement.setString(3, e.getFecha().format(dateFormato));
-            statement.setString(4, Integer.toString(e.getValor()));
-            statement.setString(5, e.getDescripcion());
+            statement.setString(1, e.getIdDescarga());
+            statement.setString(2, e.getIsbn());
+            statement.setString(3, e.getDireccionUrl());
+            statement.setString(4, e.getIdUsuario());
+            statement.setString(5, e.getDireccionIp());
+            statement.setString(6, e.getFecha().format(dateFormato));
+            statement.setString(7, e.getHora().format(timeFormato));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -103,18 +110,20 @@ public class MultaDAOImpl{
         }
     }
 
-    public void modificar(Multa e) {
-        String UPDATE = "UPDATE multa SET id_usuario = ?, fecha = ?, valor = ?, descripcion = ? WHERE id_multa = ?";
+    public void modificar(DescargaUsuarioLibro e) {
+        String UPDATE = "UPDATE descarga_usuario_libro SET isbn = ?, direccion_url = ?, id_usuario = ?, direccion_ip = ?, fecha = ?, hora = ? WHERE id_descarga = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);                 
-            statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getFecha().format(dateFormato));
-            statement.setString(3, Integer.toString(e.getValor()));
-            statement.setString(4, e.getDescripcion());
-            statement.setString(5, e.getIdMulta());
+            statement = conexion.prepareStatement(UPDATE);
+            statement.setString(1, e.getIdDescarga());
+            statement.setString(2, e.getIsbn());
+            statement.setString(3, e.getDireccionUrl());
+            statement.setString(4, e.getIdUsuario());
+            statement.setString(5, e.getDireccionIp());
+            statement.setString(6, e.getFecha().format(dateFormato));
+            statement.setString(7, e.getHora().format(timeFormato));
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -128,14 +137,14 @@ public class MultaDAOImpl{
         }
     }
 
-    public void eliminar(Multa e) {
-        String DELETE = "DELETE FROM multa WHERE id_multa = ?";
+    public void eliminar(DescargaUsuarioLibro e) {
+        String DELETE = "DELETE FROM descarga_usuario_libro WHERE id_descarga = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdMulta());
+            statement.setString(1, e.getIdDescarga());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -149,10 +158,10 @@ public class MultaDAOImpl{
         }
     }
 
-    public List<Multa> obtenerTodos() {
-        List<Multa> multas = new ArrayList<>();
+    public List<DescargaUsuarioLibro> obtenerTodos() {
+        List<DescargaUsuarioLibro> descargasUsuarioLibro = new ArrayList<>();
 
-        String GETALL = "SELECT id_multa, id_usuario, fecha, valor, descripcion FROM multa ORDER BY fecha ASC";
+        String GETALL = "SELECT id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora FROM descarga_usuario_libro ORDER BY id_descarga ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -163,7 +172,7 @@ public class MultaDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                multas.add(convertir(result));
+                descargasUsuarioLibro.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -173,13 +182,13 @@ public class MultaDAOImpl{
             cerrarStatement(statement);
         }
 
-        return multas;
+        return descargasUsuarioLibro;
     }
 
-    public Multa obtener(String id) {
-        Multa multa = null;
+    public DescargaUsuarioLibro obtener(String id) {
+        DescargaUsuarioLibro descarga = null;
 
-        String GETONE = "SELECT id_multa, id_usuario, fecha, valor, descripcion FROM multa WHERE id_multa = ?";
+        String GETONE = "SELECT id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora FROM descarga_usuario_libro WHERE id_descarga = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -191,7 +200,7 @@ public class MultaDAOImpl{
             result = statement.executeQuery();
 
             if (result.next()) {
-                multa = convertir(result);
+                descarga = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -202,6 +211,7 @@ public class MultaDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return multa;
+        return descarga;
     }
+
 }

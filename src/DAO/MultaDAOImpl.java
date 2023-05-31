@@ -1,8 +1,13 @@
-package DAO.postgres;
+package DAO;
 
-import Objetos.Profesor;
+import Objetos.Multa;
 import Paneles.AvisosEmergentes;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +16,7 @@ import java.util.List;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: ProfesorDAOImpl.java
+ * Archivo: MultaDAOImpl.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -21,27 +26,29 @@ import java.util.List;
  * 
  */
 
-public class ProfesorDAOImpl{
+public class MultaDAOImpl{
     
     private Connection conexion;
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
-    public ProfesorDAOImpl(Connection conexion) {
+    public MultaDAOImpl(Connection conexion) {
         this.conexion = conexion;
     }
     
-    private Profesor convertir(ResultSet result) throws SQLException{
-        Profesor profesor = null;
+    private Multa convertir(ResultSet result) throws SQLException{
+        Multa multa = null;
         
+        String idMulta  = result.getString("id_multa");
         String idUsuario = result.getString("id_usuario");
-        String idProfesor  = result.getString("id_profesor");
-        String titulo = result.getString("titulo");
-        String dependencia = result.getString("dependencia");
-        
-        profesor = new Profesor(idUsuario, idProfesor, titulo, dependencia);
-        
-        return profesor;
-    }
+        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"));
+        int valor = result.getInt("valor");
+        String descripcion = result.getString("descripcion");
     
+        multa = new Multa(idMulta, idUsuario, fecha, valor, descripcion);
+        
+        return multa;
+    }
+
     /**
      * Cierra la conexion que se le pase como parametro
      * @param conexion (Connection) La conexion a cerrar
@@ -69,20 +76,20 @@ public class ProfesorDAOImpl{
             }
         }
     }
-
-    public void insertar(Profesor e) {
-//        profesor (id_usuario, id_profesor, titulo, dependencia)
-        String INSERT = "INSERT INTO profesor (id_usuario, id_profesor, titulo, dependencia) VALUES (?, ?, ?, ?)";
+    
+    public void insertar(Multa e) {
+        String INSERT = "INSERT INTO multa (id_multa, id_usuario, fecha, valor, descripcion) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIdProfesor());
-            statement.setString(3, e.getTitulo());
-            statement.setString(4, e.getDependencia());
+            statement.setString(1, e.getIdMulta());
+            statement.setString(2, e.getIdUsuario());
+            statement.setString(3, e.getFecha().format(dateFormato));
+            statement.setString(4, Integer.toString(e.getValor()));
+            statement.setString(5, e.getDescripcion());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -96,17 +103,18 @@ public class ProfesorDAOImpl{
         }
     }
 
-    public void modificar(Profesor e) {
-        String UPDATE = "UPDATE profesor SET titulo = ?, dependencia = ? WHERE id_profesor = ?";
+    public void modificar(Multa e) {
+        String UPDATE = "UPDATE multa SET id_usuario = ?, fecha = ?, valor = ?, descripcion = ? WHERE id_multa = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getIdProfesor());
-            statement.setString(2, e.getTitulo());
-            statement.setString(3, e.getDependencia());
-            statement.setString(4, e.getIdUsuario());
+            statement = conexion.prepareStatement(UPDATE);                 
+            statement.setString(1, e.getIdUsuario());
+            statement.setString(2, e.getFecha().format(dateFormato));
+            statement.setString(3, Integer.toString(e.getValor()));
+            statement.setString(4, e.getDescripcion());
+            statement.setString(5, e.getIdMulta());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -120,14 +128,14 @@ public class ProfesorDAOImpl{
         }
     }
 
-    public void eliminar(Profesor e) {
-        String DELETE = "DELETE FROM profesor WHERE id_profesor = ?";
+    public void eliminar(Multa e) {
+        String DELETE = "DELETE FROM multa WHERE id_multa = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdProfesor());
+            statement.setString(1, e.getIdMulta());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
@@ -141,10 +149,10 @@ public class ProfesorDAOImpl{
         }
     }
 
-    public List<Profesor> obtenerTodos() {
-        List<Profesor> profesores = new ArrayList<>();
+    public List<Multa> obtenerTodos() {
+        List<Multa> multas = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor ORDER BY id_profesor ASC";
+        String GETALL = "SELECT id_multa, id_usuario, fecha, valor, descripcion FROM multa ORDER BY fecha ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -155,7 +163,7 @@ public class ProfesorDAOImpl{
             result = statement.executeQuery();
 
             while (result.next()) {
-                profesores.add(convertir(result));
+                multas.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -165,13 +173,13 @@ public class ProfesorDAOImpl{
             cerrarStatement(statement);
         }
 
-        return profesores;
+        return multas;
     }
 
-    public Profesor obtener(String id) {
-        Profesor profesor = null;
+    public Multa obtener(String id) {
+        Multa multa = null;
 
-        String GETONE = "SELECT id_usuario, id_profesor, titulo, dependencia FROM profesor WHERE id_profesor = ?";
+        String GETONE = "SELECT id_multa, id_usuario, fecha, valor, descripcion FROM multa WHERE id_multa = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -183,7 +191,7 @@ public class ProfesorDAOImpl{
             result = statement.executeQuery();
 
             if (result.next()) {
-                profesor = convertir(result);
+                multa = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese Id");
             }
@@ -194,8 +202,6 @@ public class ProfesorDAOImpl{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-        return profesor;
+        return multa;
     }
-
 }
-
