@@ -180,14 +180,11 @@ public class PanelUbicaciones extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Buscar:");
 
-        txtf_buscar.setBackground(new java.awt.Color(255, 255, 255));
-        txtf_buscar.setForeground(new java.awt.Color(0, 0, 0));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -345,38 +342,24 @@ public class PanelUbicaciones extends javax.swing.JPanel {
 
         lbl_id.setBackground(new java.awt.Color(0, 0, 0));
         lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
         lbl_id.setText("Id:");
 
-        txtf_id.setBackground(new java.awt.Color(255, 255, 255));
         txtf_id.setEnabled(false);
 
         lbl_nombreSala.setBackground(new java.awt.Color(0, 0, 0));
         lbl_nombreSala.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nombreSala.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nombreSala.setText("Nombre Sala:");
-
-        txtf_nombreSala.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_nroPasillo.setBackground(new java.awt.Color(0, 0, 0));
         lbl_nroPasillo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPasillo.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nroPasillo.setText("Nro. Pasillo:");
-
-        txtf_nroPasillo.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_estante.setBackground(new java.awt.Color(0, 0, 0));
         lbl_estante.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_estante.setForeground(new java.awt.Color(0, 0, 0));
         lbl_estante.setText("Estante: ");
-
-        txtf_estante.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtf_nroCajon.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_nroCajon.setBackground(new java.awt.Color(0, 0, 0));
         lbl_nroCajon.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroCajon.setForeground(new java.awt.Color(0, 0, 0));
         lbl_nroCajon.setText("Nro. Cajon");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -405,15 +388,13 @@ public class PanelUbicaciones extends javax.swing.JPanel {
                             .addComponent(lbl_guardar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)))
-                        .addGap(88, 88, 88)
+                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(89, 89, 89)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lbl_cancelar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)))
                         .addContainerGap(54, Short.MAX_VALUE))))
@@ -466,7 +447,7 @@ public class PanelUbicaciones extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

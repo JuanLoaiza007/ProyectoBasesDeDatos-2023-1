@@ -22,7 +22,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-12,0,0,2,-81"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,16,0,0,2,-77"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -65,9 +65,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_volver" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="98" max="32767" attributes="0"/>
+                      <EmptySpace pref="100" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="428" max="-2" attributes="0"/>
-                      <EmptySpace pref="133" max="32767" attributes="0"/>
+                      <EmptySpace pref="135" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -172,7 +172,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="409" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="411" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -237,14 +237,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtf_buscar">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="0" type="rgb"/>
-                    </Property>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -262,22 +254,22 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_nuevo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_editar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_borrar" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="btn_aprobar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_nuevo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="btn_negar1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_editar" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="btn_negar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_borrar" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="98" max="32767" attributes="0"/>
+                          <EmptySpace pref="102" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -286,15 +278,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btn_negar" max="32767" attributes="0"/>
-                              <Component id="btn_negar1" max="32767" attributes="0"/>
-                              <Component id="btn_aprobar" max="32767" attributes="0"/>
+                              <Component id="btn_borrar" max="32767" attributes="0"/>
+                              <Component id="btn_editar" max="32767" attributes="0"/>
+                              <Component id="btn_nuevo" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_nuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_editar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_borrar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -302,7 +294,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="btn_negar">
+                <Component class="javax.swing.JButton" name="btn_borrar">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="0" red="cc" type="rgb"/>
@@ -327,7 +319,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btn_aprobar">
+                <Component class="javax.swing.JButton" name="btn_nuevo">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="99" red="0" type="rgb"/>
@@ -352,7 +344,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel3">
+                <Component class="javax.swing.JLabel" name="lbl_nuevo">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="San Francisco Text" size="16" style="1"/>
@@ -364,7 +356,7 @@
                     <Property name="text" type="java.lang.String" value="Nuevo"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel4">
+                <Component class="javax.swing.JLabel" name="lbl_editar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="San Francisco Text" size="16" style="1"/>
@@ -376,7 +368,7 @@
                     <Property name="text" type="java.lang.String" value="Editar"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel5">
+                <Component class="javax.swing.JLabel" name="lbl_borrar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="San Francisco Text" size="16" style="1"/>
@@ -388,7 +380,7 @@
                     <Property name="text" type="java.lang.String" value="Borrar"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btn_negar1">
+                <Component class="javax.swing.JButton" name="btn_editar">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="66" green="66" red="0" type="rgb"/>
@@ -462,37 +454,63 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="86" max="32767" attributes="0"/>
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_isbn" max="32767" attributes="0"/>
+                                  <Component id="txtf_isbn" max="32767" attributes="0"/>
+                                  <Component id="lbl_numeroEjemplar" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtf_numeroEjemplar" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                              <Component id="btn_negar2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btn_negar3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="54" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_guardar" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                      <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="lbl_cancelar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btn_cancelar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="54" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="314" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbl_isbn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtf_isbn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lbl_numeroEjemplar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtf_numeroEjemplar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btn_negar2" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btn_negar3" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_guardar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_cancelar" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -500,7 +518,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btn_negar2">
+            <Component class="javax.swing.JButton" name="btn_guardar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="66" green="cc" red="0" type="rgb"/>
@@ -525,7 +543,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="lbl_cancelar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
@@ -537,7 +555,7 @@
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btn_negar3">
+            <Component class="javax.swing.JButton" name="btn_cancelar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="0" red="cc" type="rgb"/>
@@ -562,7 +580,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="lbl_guardar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="San Francisco Text" size="16" style="1"/>
@@ -573,6 +591,35 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_isbn">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="San Francisco Text" size="16" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="ISBN:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtf_isbn">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lbl_numeroEjemplar">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="San Francisco Text" size="16" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero ejemplar:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtf_numeroEjemplar">
             </Component>
           </SubComponents>
         </Container>
@@ -586,7 +633,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="334" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="340" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -607,11 +654,38 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
-                        <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                        <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                        <Column editable="false" title="Title 1" type="java.lang.Object"/>
+                        <Column editable="false" title="Title 2" type="java.lang.Object"/>
+                        <Column editable="false" title="Title 3" type="java.lang.Object"/>
+                        <Column editable="false" title="Title 4" type="java.lang.Object"/>
                       </Table>
+                    </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                 </Component>

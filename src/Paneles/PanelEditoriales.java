@@ -39,7 +39,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
      */
     public void configurarTabla() {
         
-        String[] titulosTabla = new String[]{"Id", "Nombre", "No. Pasillo", "Estante", "No. Cajon", };
+        String[] titulosTabla = new String[]{"Id", "Nombre", "Web", "Pais"};
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -50,9 +50,9 @@ public class PanelEditoriales extends javax.swing.JPanel {
         }
     }
     
-    public void nuevaFilaTabla(String id, String nombre, String pasillo, String estante, String cajon) {
+    public void nuevaFilaTabla(String id, String nombre, String paginaWeb, String paisOrigen) {
         modeloTabla.addRow(new Object[]{
-            id, nombre, pasillo, estante, cajon
+            id, nombre, paginaWeb, paisOrigen
         });
     }
     
@@ -103,14 +103,12 @@ public class PanelEditoriales extends javax.swing.JPanel {
         lbl_guardar = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
         txtf_id = new javax.swing.JTextField();
-        lbl_nombreSala = new javax.swing.JLabel();
-        txtf_nombreSala = new javax.swing.JTextField();
-        lbl_nroPasillo = new javax.swing.JLabel();
-        txtf_nroPasillo = new javax.swing.JTextField();
-        lbl_estante = new javax.swing.JLabel();
-        txtf_estante = new javax.swing.JTextField();
-        txtf_nroCajon = new javax.swing.JTextField();
-        lbl_nroCajon = new javax.swing.JLabel();
+        lbl_nombreEditorial = new javax.swing.JLabel();
+        txtf_nombreEditorial = new javax.swing.JTextField();
+        lbl_paginaWeb = new javax.swing.JLabel();
+        txtf_paginaWeb = new javax.swing.JTextField();
+        lbl_paisOrigen = new javax.swing.JLabel();
+        txtf_paisOrigen = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -180,14 +178,11 @@ public class PanelEditoriales extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Buscar:");
 
-        txtf_buscar.setBackground(new java.awt.Color(255, 255, 255));
-        txtf_buscar.setForeground(new java.awt.Color(0, 0, 0));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -345,39 +340,21 @@ public class PanelEditoriales extends javax.swing.JPanel {
 
         lbl_id.setBackground(new java.awt.Color(0, 0, 0));
         lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_id.setText("Id:");
+        lbl_id.setText("Id Editorial:");
 
-        txtf_id.setBackground(new java.awt.Color(255, 255, 255));
         txtf_id.setEnabled(false);
 
-        lbl_nombreSala.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nombreSala.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nombreSala.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_nombreSala.setText("Nombre Sala:");
+        lbl_nombreEditorial.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_nombreEditorial.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_nombreEditorial.setText("Nombre Editorial:");
 
-        txtf_nombreSala.setBackground(new java.awt.Color(255, 255, 255));
+        lbl_paginaWeb.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_paginaWeb.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_paginaWeb.setText("Pagina web:");
 
-        lbl_nroPasillo.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroPasillo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPasillo.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_nroPasillo.setText("Nro. Pasillo:");
-
-        txtf_nroPasillo.setBackground(new java.awt.Color(255, 255, 255));
-
-        lbl_estante.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_estante.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_estante.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_estante.setText("Estante: ");
-
-        txtf_estante.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtf_nroCajon.setBackground(new java.awt.Color(255, 255, 255));
-
-        lbl_nroCajon.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroCajon.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroCajon.setForeground(new java.awt.Color(0, 0, 0));
-        lbl_nroCajon.setText("Nro. Cajon");
+        lbl_paisOrigen.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_paisOrigen.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_paisOrigen.setText("País de origen:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -390,14 +367,12 @@ public class PanelEditoriales extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtf_id)
-                            .addComponent(lbl_nombreSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nombreSala)
-                            .addComponent(lbl_nroPasillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nroPasillo)
-                            .addComponent(lbl_estante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_estante)
-                            .addComponent(lbl_nroCajon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nroCajon))
+                            .addComponent(lbl_nombreEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_nombreEditorial)
+                            .addComponent(lbl_paginaWeb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_paginaWeb)
+                            .addComponent(lbl_paisOrigen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_paisOrigen))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -405,15 +380,13 @@ public class PanelEditoriales extends javax.swing.JPanel {
                             .addComponent(lbl_guardar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)))
-                        .addGap(88, 88, 88)
+                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(89, 89, 89)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lbl_cancelar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)))
                         .addContainerGap(54, Short.MAX_VALUE))))
@@ -426,22 +399,18 @@ public class PanelEditoriales extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nombreSala)
+                .addComponent(lbl_nombreEditorial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nombreSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_nombreEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroPasillo)
+                .addComponent(lbl_paginaWeb)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroPasillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_paginaWeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_estante)
+                .addComponent(lbl_paisOrigen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_estante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroCajon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtf_paisOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -466,7 +435,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -529,36 +498,28 @@ public class PanelEditoriales extends javax.swing.JPanel {
         txtf_id.setText(texto);
     }
 
-    public JTextField getTxtf_estante() {
-        return txtf_estante;
+    public JTextField getTxtf_paisOrigen() {
+        return txtf_paisOrigen;
     }
     
-    public void setEstante(String texto) {
-        txtf_estante.setText(texto);
+    public void setPaisOrigen(String texto) {
+        txtf_paisOrigen.setText(texto);
     }
 
-    public JTextField getTxtf_nombreSala() {
-        return txtf_nombreSala;
+    public JTextField getTxtf_nombreEditorial() {
+        return txtf_nombreEditorial;
     }
     
-    public void setNombreSala(String texto) {
-        txtf_nombreSala.setText(texto);
+    public void setNnombreEditorial(String texto) {
+        txtf_nombreEditorial.setText(texto);
     }
 
-    public JTextField getTxtf_nroCajon() {
-        return txtf_nroCajon;
+    public JTextField getTxtf_paginaWeb() {
+        return txtf_paginaWeb;
     }
     
-    public void setNroCajon(String texto) {
-        txtf_nroCajon.setText(texto);
-    }
-
-    public JTextField getTxtf_nroPasillo() {
-        return txtf_nroPasillo;
-    }
-    
-    public void setNroPasillo(String texto) {
-        txtf_nroPasillo.setText(texto);
+    public void setPaginaWeb(String texto) {
+        txtf_paginaWeb.setText(texto);
     }
     
     public void addListenerVolver(ActionListener listener){
@@ -609,15 +570,12 @@ public class PanelEditoriales extends javax.swing.JPanel {
         
         txtf_id.setEnabled(true);
         lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nombreSala.setEnabled(true);
-        lbl_nombreSala.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroPasillo.setEnabled(true);
-        lbl_nroPasillo.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_estante.setEnabled(true);
-        lbl_estante.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroCajon.setEnabled(true);
-        lbl_nroCajon.setForeground(new java.awt.Color(0, 0, 0));
-        
+        txtf_nombreEditorial.setEnabled(true);
+        lbl_nombreEditorial.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_paginaWeb.setEnabled(true);
+        lbl_paginaWeb.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_paisOrigen.setEnabled(true);
+        lbl_paisOrigen.setForeground(new java.awt.Color(0, 0, 0));
     }
     
     public void modoEditar(){
@@ -650,22 +608,19 @@ public class PanelEditoriales extends javax.swing.JPanel {
         
         txtf_id.setEnabled(false);
         lbl_id.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nombreSala.setEnabled(false);
-        lbl_nombreSala.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroPasillo.setEnabled(false);
-        lbl_nroPasillo.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_estante.setEnabled(false);
-        lbl_estante.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroCajon.setEnabled(false);
-        lbl_nroCajon.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_nombreEditorial.setEnabled(false);
+        lbl_nombreEditorial.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_paginaWeb.setEnabled(false);
+        lbl_paginaWeb.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_paisOrigen.setEnabled(false);
+        lbl_paisOrigen.setForeground(new java.awt.Color(102, 102, 102));
     }
     
     public void limpiarCampos(){
         txtf_id.setText("");
-        txtf_nombreSala.setText("");
-        txtf_nroCajon.setText("");
-        txtf_estante.setText("");
-        txtf_nroPasillo.setText("");
+        txtf_nombreEditorial.setText("");
+        txtf_paisOrigen.setText("");
+        txtf_paginaWeb.setText("");
     }
     
     public boolean idEsManual(){
@@ -690,24 +645,22 @@ public class PanelEditoriales extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_borrar;
     private javax.swing.JLabel lbl_cancelar;
     private javax.swing.JLabel lbl_editar;
-    private javax.swing.JLabel lbl_estante;
     private javax.swing.JLabel lbl_guardar;
     private javax.swing.JLabel lbl_id;
-    private javax.swing.JLabel lbl_nombreSala;
-    private javax.swing.JLabel lbl_nroCajon;
-    private javax.swing.JLabel lbl_nroPasillo;
+    private javax.swing.JLabel lbl_nombreEditorial;
     private javax.swing.JLabel lbl_nuevo;
+    private javax.swing.JLabel lbl_paginaWeb;
+    private javax.swing.JLabel lbl_paisOrigen;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_estante;
     private javax.swing.JTextField txtf_id;
-    private javax.swing.JTextField txtf_nombreSala;
-    private javax.swing.JTextField txtf_nroCajon;
-    private javax.swing.JTextField txtf_nroPasillo;
+    private javax.swing.JTextField txtf_nombreEditorial;
+    private javax.swing.JTextField txtf_paginaWeb;
+    private javax.swing.JTextField txtf_paisOrigen;
     // End of variables declaration//GEN-END:variables
 
 }
