@@ -2,11 +2,13 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.3
--- Fecha de última modificacion: 2023-05-28 10:38am
+-- Version: 1.0.4
+-- Fecha de última modificacion: 2023-05-31 10:33am
 
 -- Registro de cambios
--- Se elimino el atributo "direccion" de descarga_usuario_libro, ya estaba ip y url.
+-- Tabla de publica_editorial_libros eliminada por redundancia, libro ya tiene el codigo de la editorial
+-- Tablas estudiante y profesor tienen como pk unicamente id_usuario, el id_estudiante e id_profesor fueron eliminadas
+-- El id_empleado se eliminó de la tabla libro, la implementacion en Java será diferente
 
 -- Autores:
 -- alejandro.cano@correounivalle.edu.co -- 2179652
@@ -62,7 +64,6 @@ CREATE TABLE libro (
   isbn VARCHAR (15) NOT NULL PRIMARY KEY,
   codigo_area VARCHAR (15) NOT NULL,
   codigo_editorial VARCHAR (15) NOT NULL,
-  id_empleado VARCHAR (15),
   titulo VARCHAR (50),
   anio_publicacion VARCHAR (4),
   nro_paginas INTEGER
@@ -73,9 +74,6 @@ ALTER TABLE libro
 
 ALTER TABLE libro
   ADD CONSTRAINT codigo_editorial_fk FOREIGN KEY (codigo_editorial) REFERENCES editorial(codigo_editorial);
-
-ALTER TABLE libro 
-  ADD CONSTRAINT id_empleado FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
 ------------------------------------------------
 DROP TABLE IF EXISTS libro_digital CASCADE;
 CREATE TABLE libro_digital (
@@ -134,21 +132,6 @@ ALTER TABLE libro_autor
 ALTER TABLE libro_autor
   ADD CONSTRAINT libro_autor_pk PRIMARY KEY (isbn, codigo_autor);
 ------------------------------------------------
-DROP TABLE IF EXISTS publica_editorial_libro CASCADE;
-CREATE TABLE publica_editorial_libro (
-  codigo_editorial VARCHAR (15) NOT NULL,
-  isbn VARCHAR (15) NOT NULL
-);
-
-ALTER TABLE publica_editorial_libro
-  ADD CONSTRAINT editorial_fk FOREIGN KEY (codigo_editorial) REFERENCES editorial(codigo_editorial);
-
-ALTER TABLE publica_editorial_libro 
-  ADD CONSTRAINT libro_fk FOREIGN KEY (isbn) REFERENCES libro(isbn);
-
-ALTER TABLE publica_editorial_libro
-  ADD CONSTRAINT publica_editorial_libro_pk PRIMARY KEY (codigo_editorial, isbn);
-------------------------------------------------
 DROP TABLE IF EXISTS usuario CASCADE;
 CREATE TABLE usuario (
   id_usuario VARCHAR (15) NOT NULL PRIMARY KEY,
@@ -160,47 +143,38 @@ CREATE TABLE usuario (
 ------------------------------------------------
 DROP TABLE IF EXISTS estudiante CASCADE;
 CREATE TABLE estudiante (
-  id_usuario VARCHAR (15) NOT NULL UNIQUE,
-  id_estudiante VARCHAR (15) NOT NULL UNIQUE,
+  id_usuario VARCHAR (15) NOT NULL PRIMARY KEY,
   carrera VARCHAR (50),
   universidad VARCHAR (50)
 );
 
 ALTER TABLE estudiante
   ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
-
-ALTER TABLE estudiante
-  ADD CONSTRAINT estudiante_pk PRIMARY KEY (id_usuario, id_estudiante);
 ------------------------------------------------
 DROP TABLE IF EXISTS profesor CASCADE;
 CREATE TABLE profesor (
-  id_usuario VARCHAR (15) NOT NULL UNIQUE,
-  id_profesor VARCHAR (15) NOT NULL UNIQUE,
+  id_usuario VARCHAR (15) NOT NULL PRIMARY KEY,
   titulo VARCHAR (50),
   dependencia VARChAR (50)
 );
 
 ALTER TABLE profesor
   ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
-
-ALTER TABLE profesor
-  ADD CONSTRAINT profesor_pk PRIMARY KEY (id_usuario, id_profesor);
 ------------------------------------------------
 DROP TABLE IF EXISTS profesor_area_conocimiento CASCADE;
 CREATE TABLE profesor_area_conocimiento (
   id_usuario VARCHAR (15) NOT NULL,
-  id_profesor VARCHAR (15) NOT NULL,
   codigo_area VARCHAR (15) NOT NULL
 );
 
 ALTER TABLE profesor_area_conocimiento
-  ADD CONSTRAINT profesor_fk FOREIGN KEY (id_usuario, id_profesor) REFERENCES profesor(id_usuario, id_profesor);
+  ADD CONSTRAINT profesor_fk FOREIGN KEY (id_usuario) REFERENCES profesor(id_usuario);
 
 ALTER TABLE profesor_area_conocimiento
   ADD CONSTRAINT area_conocimiento_fk FOREIGN KEY (codigo_area) REFERENCES area_conocimiento(codigo_area);
 
 ALTER TABLE profesor_area_conocimiento
-  ADD CONSTRAINT profesor_area_conocimiento_pk PRIMARY KEY (id_usuario, id_profesor, codigo_area);
+  ADD CONSTRAINT profesor_area_conocimiento_pk PRIMARY KEY (id_usuario, codigo_area);
 ------------------------------------------------
 DROP TABLE IF EXISTS descarga_usuario_libro CASCADE;
 CREATE TABLE descarga_usuario_libro (
@@ -362,17 +336,17 @@ VALUES ('E1', 'Editorial Santillana', 'www.santillana.com', 'España'),
        ('E10', 'Editorial Oxford', 'www.oup.com', 'Reino Unido');
 ------------------------------------------------
 --- LIBROS
-INSERT INTO libro (isbn, codigo_area, codigo_editorial, id_empleado, titulo, anio_publicacion, nro_paginas)
-VALUES ('978-0307476463', 'AC001', 'E1', 'EMP003', 'Cien años de soledad', '1967', 417),
-       ('978-8437620629', 'AC001', 'E3', 'EMP003', 'El amor en los tiempos del cólera', '1985', 368),
-       ('978-9507317181', 'AC001', 'E4', 'EMP003', 'Rayuela', '1963', 620),
-       ('978-9875805174', 'AC001', 'E4', 'EMP003', 'Bestiario', '1951', 177),
-       ('978-8420471839', 'AC001', 'E3', 'EMP003', 'La ciudad y los perros', '1963', 432),
-       ('978-8432248138', 'AC002', 'E2', 'EMP003', 'La casa de los espíritus', '1982', 496),
-       ('978-8432212429', 'AC002', 'E2', 'EMP003', 'De amor y de sombra', '1984', 252),
-       ('978-8420441146', 'AC002', 'E3', 'EMP003', 'La sombra del viento', '2001', 576),
-       ('978-6071502919', 'AC003', 'E8', 'EMP003', 'Pedro Páramo', '1955', 124),
-       ('978-8433920228', 'AC003', 'E3', 'EMP003', 'Aura', '1962', 80);
+INSERT INTO libro (isbn, codigo_area, codigo_editorial, titulo, anio_publicacion, nro_paginas)
+VALUES ('978-0307476463', 'AC001', 'E1', 'Cien años de soledad', '1967', 417),
+       ('978-8437620629', 'AC001', 'E3', 'El amor en los tiempos del cólera', '1985', 368),
+       ('978-9507317181', 'AC001', 'E4', 'Rayuela', '1963', 620),
+       ('978-9875805174', 'AC001', 'E4', 'Bestiario', '1951', 177),
+       ('978-8420471839', 'AC001', 'E3', 'La ciudad y los perros', '1963', 432),
+       ('978-8432248138', 'AC002', 'E2', 'La casa de los espíritus', '1982', 496),
+       ('978-8432212429', 'AC002', 'E2', 'De amor y de sombra', '1984', 252),
+       ('978-8420441146', 'AC002', 'E3', 'La sombra del viento', '2001', 576),
+       ('978-6071502919', 'AC003', 'E8', 'Pedro Páramo', '1955', 124),
+       ('978-8433920228', 'AC003', 'E3', 'Aura', '1962', 80);
 ------------------------------------------------
 --- LIBROS DIGITALES    
 INSERT INTO libro_digital (isbn, direccion_url, tamanio_bytes, formato)
@@ -426,18 +400,6 @@ VALUES ('978-0307476463', 'AU001'),
        ('978-8432212429', 'AU006'),
        ('978-8420441146', 'AU006');
 ------------------------------------------------
---- EDITORIALES PUBLICAN LIBROS
-INSERT INTO publica_editorial_libro (codigo_editorial, isbn) 
-VALUES ('E1', '978-0307476463'),
-       ('E3', '978-8437620629'),
-       ('E4', '978-9507317181'),
-       ('E4', '978-9875805174'),
-       ('E3', '978-8420471839'),
-       ('E2', '978-8432248138'),
-       ('E2', '978-8432212429'),
-       ('E3', '978-8420441146'),
-       ('E8', '978-6071502919'),
-       ('E3', '978-8433920228');
 ------------------------------------------------
 --- USUARIOS       
 INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email)
@@ -463,43 +425,43 @@ VALUES ('USR001', 'Juan Perez', '555-1234', 'Av. 123, Lima', 'juan.perez@gmail.c
       ('USR020', 'Gabriel Rodriguez', '555-2345', 'Jr. 123, Lima', 'gabriel.rodriguez@yahoo.com');    
 ------------------------------------------------
 --- ESTUDIANTES 
-INSERT INTO estudiante (id_usuario, id_estudiante, carrera, universidad)
-VALUES ('USR011', 'EST001', 'Ingeniería Civil', 'Universidad Nacional de Colombia'),
-      ('USR012', 'EST002', 'Medicina Veterinaria', 'Universidad de Antioquia'),
-      ('USR013', 'EST003', 'Derecho', 'Universidad del Rosario'),
-      ('USR014', 'EST004', 'Psicología', 'Universidad de los Andes'),
-      ('USR015', 'EST005', 'Administración de Empresas', 'Universidad de la Costa'),
-      ('USR016', 'EST006', 'Ingeniería de Sistemas', 'Universidad del Valle'),
-      ('USR017', 'EST007', 'Comunicación Social', 'Universidad de la Sabana'),
-      ('USR018', 'EST008', 'Arquitectura', 'Universidad Sergio Arboleda'),
-      ('USR019', 'EST009', 'Ciencias Políticas', 'Universidad del Norte'),
-      ('USR020', 'EST010', 'Economía', 'Pontificia Universidad Javeriana');  
+INSERT INTO estudiante (id_usuario, carrera, universidad)
+VALUES ('USR011', 'Ingeniería Civil', 'Universidad Nacional de Colombia'),
+      ('USR012', 'Medicina Veterinaria', 'Universidad de Antioquia'),
+      ('USR013', 'Derecho', 'Universidad del Rosario'),
+      ('USR014', 'Psicología', 'Universidad de los Andes'),
+      ('USR015', 'Administración de Empresas', 'Universidad de la Costa'),
+      ('USR016', 'Ingeniería de Sistemas', 'Universidad del Valle'),
+      ('USR017', 'Comunicación Social', 'Universidad de la Sabana'),
+      ('USR018', 'Arquitectura', 'Universidad Sergio Arboleda'),
+      ('USR019', 'Ciencias Políticas', 'Universidad del Norte'),
+      ('USR020', 'Economía', 'Pontificia Universidad Javeriana');  
 ------------------------------------------------
 --- PROFESORES 
-INSERT INTO profesor (id_usuario, id_profesor, titulo, dependencia)
-VALUES ('USR001', 'PRF001', 'Maestro', 'Departamento de Matematicas'),
-      ('USR002', 'PRF002', 'Licenciado', 'Departamento de Fisica'),
-      ('USR003', 'PRF003', 'Maestro', 'Departamento de Biologia'),
-      ('USR004', 'PRF004', 'Maestro', 'Departamento de Quimica'),
-      ('USR005', 'PRF005', 'Licenciado', 'Departamento de Informatica'),
-      ('USR006', 'PRF006', 'Doctor', 'Departamento de Biologia'),
-      ('USR007', 'PRF007', 'Mestro', 'Departamento de Quimica'),
-      ('USR008', 'PRF008', 'Licenciado', 'Departamento de Matematica'),
-      ('USR009', 'PRF009', 'Maestro', 'Departamento de Fisica'),
-      ('USR010', 'PRF010', 'Maestro', 'Departamento de Algebra');
+INSERT INTO profesor (id_usuario, titulo, dependencia)
+VALUES ('USR001', 'Maestro', 'Departamento de Matematicas'),
+      ('USR002', 'Licenciado', 'Departamento de Fisica'),
+      ('USR003', 'Maestro', 'Departamento de Biologia'),
+      ('USR004', 'Maestro', 'Departamento de Quimica'),
+      ('USR005', 'Licenciado', 'Departamento de Informatica'),
+      ('USR006', 'Doctor', 'Departamento de Biologia'),
+      ('USR007', 'Mestro', 'Departamento de Quimica'),
+      ('USR008', 'Licenciado', 'Departamento de Matematica'),
+      ('USR009', 'Maestro', 'Departamento de Fisica'),
+      ('USR010', 'Maestro', 'Departamento de Algebra');
 ------------------------------------------------
 --- PROFESORES Y AREAS DE INTERES
-INSERT INTO profesor_area_conocimiento (id_usuario, id_profesor, codigo_area)
-VALUES ('USR001', 'PRF001', 'AC001'),
-      ('USR002', 'PRF002', 'AC007'),
-      ('USR003', 'PRF003', 'AC005'),
-      ('USR004', 'PRF004', 'AC006'),
-      ('USR005', 'PRF005', 'AC003'),
-      ('USR006', 'PRF006', 'AC006'),
-      ('USR007', 'PRF007', 'AC008'),
-      ('USR008', 'PRF008', 'AC007'),
-      ('USR009', 'PRF009', 'AC005'),
-      ('USR010', 'PRF010', 'AC002');
+INSERT INTO profesor_area_conocimiento (id_usuario, codigo_area)
+VALUES ('USR001', 'AC001'),
+      ('USR002', 'AC007'),
+      ('USR003', 'AC005'),
+      ('USR004', 'AC006'),
+      ('USR005', 'AC003'),
+      ('USR006', 'AC006'),
+      ('USR007', 'AC008'),
+      ('USR008', 'AC007'),
+      ('USR009', 'AC005'),
+      ('USR010', 'AC002');
 ------------------------------------------------
 --- LIBROS Y DESCARGAS DE USUARIOS
 INSERT INTO descarga_usuario_libro (id_descarga, isbn, direccion_url, id_usuario, direccion_ip, fecha, hora)
