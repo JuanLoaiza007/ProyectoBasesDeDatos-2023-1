@@ -17,8 +17,6 @@ package Main;
 
 import Controladores.ControladorLogin;
 import Vista.VistaIngresarRegistrarse;
-import BasesDeDatos.UsuariosManager;
-
         
 public class main {
     public static void main(String[] args) {       

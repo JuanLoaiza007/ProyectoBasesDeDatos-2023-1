@@ -34,35 +34,6 @@ public class PanelEditoriales extends javax.swing.JPanel {
         }
     };
     
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"Id", "Nombre", "Web", "Pais"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String id, String nombre, String paginaWeb, String paisOrigen) {
-        modeloTabla.addRow(new Object[]{
-            id, nombre, paginaWeb, paisOrigen
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelEditoriales() {
         initComponents();
@@ -128,7 +99,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("San Francisco Text", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ubicaciones");
+        jLabel1.setText("Editoriales");
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
 
@@ -481,7 +452,189 @@ public class PanelEditoriales extends javax.swing.JPanel {
 
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Id", "Nombre", "Web", "Pais"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }
+    
+    public void nuevaFilaTabla(String id, String nombre, String paginaWeb, String paisOrigen) {
+        modeloTabla.addRow(new Object[]{
+            id, nombre, paginaWeb, paisOrigen
+        });
+    }
+    
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    /**
+     * Elimina todos los registros de la tabla en la GUI
+     */
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }
+    
+    /**
+     * Limpiar el contenido de todos los campos de teto
+     */
+    public void limpiarCampos(){
+        txtf_id.setText("");
+        txtf_nombreEditorial.setText("");
+        txtf_paisOrigen.setText("");
+        txtf_paginaWeb.setText("");
+    }
+    
+    
+    // ------------------ MODOS ------------------
+    /**
+     * Este modo se activa cuando se va a crear un registro nuevo.
+     * 
+     * La tabla esta deshabilitada, todos los campos estan disponibles.
+     * Los botones de guardar, borrar y cancelar estan activos.
+     */
+    public void modoInsertar(){
+        table_principal.setEnabled(false);
+        
+        btn_nuevo.setEnabled(false);
+        lbl_nuevo.setForeground(new java.awt.Color(102, 102, 102));
+        btn_editar.setEnabled(false);
+        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_borrar.setEnabled(false);
+        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_guardar.setEnabled(true);
+        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_cancelar.setEnabled(true);
+        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
+        
+        txtf_id.setEnabled(true);
+        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_nombreEditorial.setEnabled(true);
+        lbl_nombreEditorial.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_paginaWeb.setEnabled(true);
+        lbl_paginaWeb.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_paisOrigen.setEnabled(true);
+        lbl_paisOrigen.setForeground(new java.awt.Color(0, 0, 0));
+    }
+    
+    /**
+     * Este modo se activa cuando se va a modificar un registro existente.
+     * 
+     * La tabla esta deshabilitada, todos los campos estan disponibles 
+     * A EXCEPCION de los campos que representan la PK en la base de datos.
+     * 
+     * Los botones de guardar, borrar y cancelar estan activos.
+     */
+    public void modoEditar(){
+        modoInsertar();
+        txtf_id.setEnabled(false);
+    }
+    
+    /**
+     * Este modo se activa cuando se selecciona un registro de la tabla.
+     * 
+     * En este modo solo esta habilitado la seleccion de elementos en la tabla,
+     * el boton para empezar a insertar registros y los botones para editar y borrar
+     */
+    public void modoRegistroTablaSeleccionado(){
+        modoPasivo();
+        
+        btn_editar.setEnabled(true);
+        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_borrar.setEnabled(true);
+        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
+    }
+    
+    /**
+     * Este modo se activa cuando no hay ningun registro de la tabla seleccionado
+     * ni se está editando algun registro.
+     * 
+     * En este modo solo esta habilitado la seleccion de elementos en la tabla
+     * y el boton para empezar a insertar registros
+     */
+    public void modoPasivo(){
+        table_principal.setEnabled(true);
+        
+        btn_nuevo.setEnabled(true);
+        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
+        btn_editar.setEnabled(false);
+        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_borrar.setEnabled(false);
+        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_guardar.setEnabled(false);
+        lbl_guardar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cancelar.setEnabled(false);
+        lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
+        
+        txtf_id.setEnabled(false);
+        lbl_id.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_nombreEditorial.setEnabled(false);
+        lbl_nombreEditorial.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_paginaWeb.setEnabled(false);
+        lbl_paginaWeb.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_paisOrigen.setEnabled(false);
+        lbl_paisOrigen.setForeground(new java.awt.Color(102, 102, 102));
+    }
+    
+    
+    // ------------------ OTROS ------------------
+    /**
+     * Revisa si el campo asociado al id del registro esta activo y permite escribir.
+     * @return true, si el campo esta activo; false, si el campo no esta activo.
+     */
+    public boolean idEsManual(){
+        return txtf_id.isEnabled();
+    }
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
     public JTextField getTxtf_buscar() {
         return txtf_buscar;
     }
@@ -510,7 +663,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
         return txtf_nombreEditorial;
     }
     
-    public void setNnombreEditorial(String texto) {
+    public void setNombreEditorial(String texto) {
         txtf_nombreEditorial.setText(texto);
     }
 
@@ -520,111 +673,6 @@ public class PanelEditoriales extends javax.swing.JPanel {
     
     public void setPaginaWeb(String texto) {
         txtf_paginaWeb.setText(texto);
-    }
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscarUbicacion(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
-    public void modoInsertar(){
-        table_principal.setEnabled(false);
-        
-        btn_nuevo.setEnabled(false);
-        lbl_nuevo.setForeground(new java.awt.Color(102, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(true);
-        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_cancelar.setEnabled(true);
-        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
-        
-        txtf_id.setEnabled(true);
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nombreEditorial.setEnabled(true);
-        lbl_nombreEditorial.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_paginaWeb.setEnabled(true);
-        lbl_paginaWeb.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_paisOrigen.setEnabled(true);
-        lbl_paisOrigen.setForeground(new java.awt.Color(0, 0, 0));
-    }
-    
-    public void modoEditar(){
-        modoInsertar();
-        txtf_id.setEnabled(false);
-    }
-    
-    public void modoRegistroTablaSeleccionado(){
-        modoPasivo();
-        
-        btn_editar.setEnabled(true);
-        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_borrar.setEnabled(true);
-        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-    }
-    
-    public void modoPasivo(){
-        table_principal.setEnabled(true);
-        
-        btn_nuevo.setEnabled(true);
-        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(false);
-        lbl_guardar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_cancelar.setEnabled(false);
-        lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
-        
-        txtf_id.setEnabled(false);
-        lbl_id.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nombreEditorial.setEnabled(false);
-        lbl_nombreEditorial.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_paginaWeb.setEnabled(false);
-        lbl_paginaWeb.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_paisOrigen.setEnabled(false);
-        lbl_paisOrigen.setForeground(new java.awt.Color(102, 102, 102));
-    }
-    
-    public void limpiarCampos(){
-        txtf_id.setText("");
-        txtf_nombreEditorial.setText("");
-        txtf_paisOrigen.setText("");
-        txtf_paginaWeb.setText("");
-    }
-    
-    public boolean idEsManual(){
-        return txtf_id.isEnabled();
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

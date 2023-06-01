@@ -7,7 +7,7 @@ package Controladores;
  
  Archivo: ControladorDashboardAdminEmpleado.java
  Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -15,18 +15,8 @@ package Controladores;
  * 
  */
 
-import Paneles.PanelLibros;
-import Paneles.PanelSolicitudes;
-import Paneles.PanelAvanzado;
-import Paneles.PanelAutores;
-import Paneles.PanelEditoriales;
-import Paneles.PanelEjemplares;
-import Paneles.PanelUbicaciones;
-import Paneles.PanelAdministrar;
-import Paneles.PanelLibrosDigitales;
-import Paneles.PanelAreasConocimiento;
-import Vista.VistaDashboardAdminEmpleado;
-import Vista.VistaIngresarRegistrarse;
+import Paneles.*;
+import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -60,16 +50,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.dispose();
         
         ControladorLogin nuevoControlador = new ControladorLogin(nuevaVista);
-    }
-    
-    public void cambiarAPanelUbicaciones(){
-        PanelUbicaciones panel = new PanelUbicaciones();
-        SubcontroladorUbicaciones subcontrolador = new SubcontroladorUbicaciones(panel);
-        
-        subcontrolador.setListener(getComunicadorClases());
-        
-        vista.cambiarPanel(subcontrolador.getPanel());
-    }
+    }    
     
     public void cambiarAPanelEditoriales(){
         PanelEditoriales panel = new PanelEditoriales();
@@ -173,9 +154,6 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             case "SolicitudMostrarPanelSolicitudes":
                 break;
             case "SolicitudMostrarPanelAvanzado":
-                break;
-            case "SolicitudMostrarPanelUbicaciones":
-                cambiarAPanelUbicaciones();
                 break;
             case "SolicitudMostrarPanelEditoriales":
                 cambiarAPanelEditoriales();

@@ -196,5 +196,5 @@ public class AreaConocimientoDao{
         }
         return areaConocimiento;
     }
-
+    
 }

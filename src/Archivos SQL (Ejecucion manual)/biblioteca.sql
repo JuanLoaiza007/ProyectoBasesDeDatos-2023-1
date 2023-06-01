@@ -121,7 +121,7 @@ CREATE TABLE usuario (
   nombre VARCHAR (50),
   telefono VARCHAR (15),
   direccion VARCHAR (40),
-  email VARCHAR (40) UNIQUE
+  email VARCHAR (40) UNIQUE  
 );
 ------------------------------------------------
 DROP TABLE IF EXISTS estudiante CASCADE;
