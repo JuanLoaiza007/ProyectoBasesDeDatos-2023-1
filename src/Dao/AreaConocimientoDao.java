@@ -144,7 +144,7 @@ public class AreaConocimientoDao{
     public List<AreaConocimiento> obtenerTodos() {
         List<AreaConocimiento> areasConocimiento = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY codigo_area ASC";
+        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY nombre ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;

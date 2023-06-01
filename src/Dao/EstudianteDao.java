@@ -140,7 +140,7 @@ public class EstudianteDao{
     public List<Estudiante> obtenerTodos() {
         List<Estudiante> estudiantes = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY id_usuario ASC";
+        String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY carrera ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;

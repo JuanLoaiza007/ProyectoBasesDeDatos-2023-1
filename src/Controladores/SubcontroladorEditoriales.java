@@ -75,6 +75,15 @@ public class SubcontroladorEditoriales {
         return panel;
     }
     
+    public void cargarModoInicial(){
+        registroSeleccionado = null;
+
+        panel.limpiarTabla();
+        panel.limpiarCampos();
+        cargarRegistros();
+        panel.modoPasivo();
+    }
+    
     /**
      * Transforma un objeto a una fila de la tabla y lo agrega
      * @param e El objeto que transformará 
@@ -258,60 +267,39 @@ public class SubcontroladorEditoriales {
        
             // Obtencion de campos dificiles
             boolean datosValidados = false;
-//            try {
-//                nroPasillo = Integer.parseInt(panel.getTxtf_nroPasillo().getText());
-//                try {
-//                    estante = Integer.parseInt(panel.getTxtf_estante().getText());
-//                    try {
-//                        nroCajon = Integer.parseInt(panel.getTxtf_nroCajon().getText());
-//                        ubicacionSeleccionada = new Ubicacion(id, nombreSala, nroPasillo, estante, nroCajon);
-//                        
-//                        datosValidados = true;
-//                    } catch (NumberFormatException ex) {
-//                        AvisosEmergentes.mostrarMensaje("Nro Cajon no es valido: " + panel.getTxtf_nroCajon().getText());
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    AvisosEmergentes.mostrarMensaje("Estante no es valido: " + panel.getTxtf_estante().getText());
-//                }
-//
-//            } catch (NumberFormatException ex) {
-//                AvisosEmergentes.mostrarMensaje("Nro Pasillo no es valido: " + panel.getTxtf_nroPasillo().getText());
-//            }          
-// 
-//            if (datosValidados) {
-//                java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-//                UbicacionDao dao = new UbicacionDao(conexion);
-//                if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
-//                   
-//                    dao.insertar(ubicacionSeleccionada);
-//                    ubicacionSeleccionada = null;
-//
-//                    panel.limpiarTabla();
-//                    panel.limpiarCampos();
-//                    cargarUbicaciones();
-//                    panel.modoPasivo();
-//
-//                    BibliotecaManager.detenerConexion(conexion);
-//                } else{ // El id es fijo por lo que se esta realizando una actualizacion
-//                    String mensaje = "¿Seguro que deseas editar la informacion de este registro? \n"
-//                            + "Esta operacion es irreversible";
-//
-//                    if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-//
-//                        dao.modificar(ubicacionSeleccionada);
-//                        ubicacionSeleccionada = null;
-//
-//                        panel.limpiarTabla();
-//                        panel.limpiarCampos();
-//                        cargarUbicaciones();
-//                        panel.modoPasivo();
-//
-//                        
-//                    }
-//                }
-//                
-//                BibliotecaManager.detenerConexion(conexion);
-//            }
+            datosValidados = true;
+            
+            
+            // Insercion o modificacion
+            
+            registroSeleccionado = new Editorial(id, nombre, paginaWeb, paisOrigen);
+            
+            if (datosValidados) {
+                
+                java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+                EditorialDao dao = new EditorialDao(conexion);
+                
+                if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
+
+                    dao.insertar(registroSeleccionado);
+                    
+                    cargarModoInicial();
+
+                    BibliotecaManager.detenerConexion(conexion);
+                } else{ // El id es fijo por lo que se esta realizando una actualizacion
+                    String mensaje = "¿Seguro que deseas editar la informacion de este registro? \n"
+                            + "Esta operacion es irreversible";
+
+                    if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
+
+                        dao.modificar(registroSeleccionado);
+                        
+                        cargarModoInicial();
+                    }
+                }
+
+                BibliotecaManager.detenerConexion(conexion);
+            }
             
         }
     };

@@ -132,7 +132,7 @@ public class PrestamoEjemplarDao {
     public List<PrestamoEjemplar> obtenerTodos() {
         List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo ORDER BY fecha_devolucion ASC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo ORDER BY fecha_devolucion DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -164,7 +164,7 @@ public class PrestamoEjemplarDao {
     public List<PrestamoEjemplar> obtener(String id) {
         List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion ASC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;

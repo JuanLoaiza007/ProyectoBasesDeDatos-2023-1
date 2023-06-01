@@ -148,7 +148,7 @@ public class AutorDao {
     public List<Autor> obtenerTodos() {
         List<Autor> autores = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY codigo_autor ASC";
+        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY primer_nombre, segundo_nombre, primer_apellido, segundo_apellido ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
