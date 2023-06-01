@@ -5,8 +5,6 @@ package Paneles;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 
-
-
 import java.awt.event.ActionListener;
 
 /**
@@ -18,7 +16,6 @@ import java.awt.event.ActionListener;
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
  * 
  */
-
 
 /**
  * Este objeto se creo como un objeto de tipo JPane Form por lo que puede ser importado en un objeto de JFrameForm

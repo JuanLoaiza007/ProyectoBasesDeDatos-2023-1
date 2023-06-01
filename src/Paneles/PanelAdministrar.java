@@ -44,14 +44,12 @@ public class PanelAdministrar extends javax.swing.JPanel {
         panelAdministrar_titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelAdministrar_contenido = new javax.swing.JPanel();
-        btn_ubicaciones = new javax.swing.JButton();
         btn_editoriales = new javax.swing.JButton();
         btn_autores = new javax.swing.JButton();
         btn_libros = new javax.swing.JButton();
         btn_ejemplares = new javax.swing.JButton();
         btn_librosDigitales = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -96,20 +94,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         panelAdministrar_contenido.setOpaque(false);
         panelAdministrar_contenido.setPreferredSize(new java.awt.Dimension(687, 500));
 
-        btn_ubicaciones.setBackground(new java.awt.Color(255, 255, 255));
-        btn_ubicaciones.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_ubicaciones.setForeground(new java.awt.Color(255, 255, 255));
-        btn_ubicaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/marker_64p.png"))); // NOI18N
-        btn_ubicaciones.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btn_ubicaciones.setMaximumSize(new java.awt.Dimension(120, 120));
-        btn_ubicaciones.setMinimumSize(new java.awt.Dimension(120, 120));
-        btn_ubicaciones.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_ubicaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ubicacionesActionPerformed(evt);
-            }
-        });
-
         btn_editoriales.setBackground(new java.awt.Color(255, 255, 255));
         btn_editoriales.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         btn_editoriales.setForeground(new java.awt.Color(255, 255, 255));
@@ -148,6 +132,11 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_libros.setMaximumSize(new java.awt.Dimension(120, 120));
         btn_libros.setMinimumSize(new java.awt.Dimension(120, 120));
         btn_libros.setPreferredSize(new java.awt.Dimension(120, 120));
+        btn_libros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_librosActionPerformed(evt);
+            }
+        });
 
         btn_ejemplares.setBackground(new java.awt.Color(255, 255, 255));
         btn_ejemplares.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -184,11 +173,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Editoriales");
-
-        jLabel3.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Ubicaciones");
 
         jLabel4.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -236,47 +220,36 @@ public class PanelAdministrar extends javax.swing.JPanel {
         panelAdministrar_contenidoLayout.setHorizontalGroup(
             panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_ubicaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_editoriales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_autores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(107, Short.MAX_VALUE)
+                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_libros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_editoriales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_ejemplares, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_autores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_areasConocimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_libros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_ejemplares, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_librosDigitales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btn_librosDigitales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         panelAdministrar_contenidoLayout.setVerticalGroup(
             panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                        .addComponent(btn_ubicaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3))
                     .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdministrar_contenidoLayout.createSequentialGroup()
                             .addComponent(btn_autores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,7 +263,7 @@ public class PanelAdministrar extends javax.swing.JPanel {
                     .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(jLabel2)))
-                .addGap(18, 24, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_ejemplares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_librosDigitales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,18 +299,14 @@ public class PanelAdministrar extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_librosDigitalesActionPerformed
 
-    private void btn_ubicacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ubicacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ubicacionesActionPerformed
-
     private void btn_areasConocimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_areasConocimientoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_areasConocimientoActionPerformed
 
-    
-    public void addListenerUbicaciones(ActionListener listener){
-        btn_ubicaciones.addActionListener(listener);
-    }
+    private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_librosActionPerformed
+
     
     public void addListenerEditoriales(ActionListener listener){
         btn_editoriales.addActionListener(listener);
@@ -370,10 +339,8 @@ public class PanelAdministrar extends javax.swing.JPanel {
     private javax.swing.JButton btn_ejemplares;
     private javax.swing.JButton btn_libros;
     private javax.swing.JButton btn_librosDigitales;
-    private javax.swing.JButton btn_ubicaciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
