@@ -496,6 +496,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
         txtf_nombreEditorial.setText("");
         txtf_paisOrigen.setText("");
         txtf_paginaWeb.setText("");
+        txtf_buscar.setText("");
     }
     
     

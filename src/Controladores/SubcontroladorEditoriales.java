@@ -47,7 +47,7 @@ public class SubcontroladorEditoriales {
         this.panel = panel;
         
         panel.addListenerVolver(oyenteMostrarPanelAdministrar);
-//        panel.addListenerBuscar(oyenteBuscar);
+        panel.addListenerBuscar(oyenteBuscar);
         panel.addListenerNuevo(oyenteNuevo);
         panel.addListenerEditar(oyenteEditar);
         panel.addListenerBorrar(oyenteBorrar);
@@ -76,8 +76,6 @@ public class SubcontroladorEditoriales {
     }
     
     public void cargarModoInicial(){
-        registroSeleccionado = null;
-
         panel.limpiarTabla();
         panel.limpiarCampos();
         cargarRegistros();
@@ -117,7 +115,7 @@ public class SubcontroladorEditoriales {
      * Busca un objeto a partir del parametro que se escribió en el txtf_buscar
      * del panel.
      */
-    public void buscarRegistro(){
+    public void buscar(){
         
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
         
@@ -126,18 +124,18 @@ public class SubcontroladorEditoriales {
         EditorialDao dao = new EditorialDao(conexion);
         
         if (parametro.isEmpty()) { // Si no hay parametro recargar la tabla
-            panel.limpiarTabla();
-            cargarRegistros();            
+            cargarModoInicial();            
         } else {
 
             Editorial editorialBuscada = dao.obtener(parametro);
             
             if (editorialBuscada == null) { // Si no se encontró una ubicacion entonces recargar la tabla
                 AvisosEmergentes.mostrarMensaje("No se ha encontrado ningun registro con ese Id");
-                panel.limpiarTabla();
-                panel.modoPasivo();
+                
+                cargarModoInicial();
             } else {
-                panel.limpiarTabla();                
+                panel.limpiarTabla();   
+                panel.limpiarCampos();
                 cargarObjetoEnTabla(editorialBuscada);
             }
         }
@@ -193,10 +191,10 @@ public class SubcontroladorEditoriales {
         }
     };
     
-    ActionListener oyenteBuscarRegistro = new ActionListener(){
+    ActionListener oyenteBuscar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            buscarRegistro();
+            buscar();
         }
     };
     
@@ -283,6 +281,7 @@ public class SubcontroladorEditoriales {
 
                     dao.insertar(registroSeleccionado);
                     
+                    registroSeleccionado = null;
                     cargarModoInicial();
 
                     BibliotecaManager.detenerConexion(conexion);
@@ -294,6 +293,7 @@ public class SubcontroladorEditoriales {
 
                         dao.modificar(registroSeleccionado);
                         
+                        registroSeleccionado = null;
                         cargarModoInicial();
                     }
                 }
