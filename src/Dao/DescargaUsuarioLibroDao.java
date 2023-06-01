@@ -15,7 +15,7 @@ import java.util.List;
  * 
  * Archivo: DescargaUsuarioLibroDao.java
  * Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -79,7 +79,7 @@ public class DescargaUsuarioLibroDao {
 
     public void insertar(DescargaUsuarioLibro e) {
 //        descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip)
-        String INSERT = "INSERT INTO descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip)) VALUES (?, ?, ?, ?, ?)";
+        String INSERT = "INSERT INTO descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -147,6 +147,7 @@ public class DescargaUsuarioLibroDao {
         try {
 
             statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, id);
             result = statement.executeQuery();
 
             while (result.next()) {
