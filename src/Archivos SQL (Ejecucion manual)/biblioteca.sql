@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.6
--- Fecha de última modificacion: 2023-05-31 10:33am
+-- Version: 1.0.6.1
+-- Fecha de última modificacion: 2023-06-01 09:18am
 
 -- Registro de cambios
+-- Clausula UNIQUE para email en la tabla usuario (v1.0.7)
 -- Las tablas de devuelve_usuario_ejemplar, multa y descarga_usuario_libro ya no tienen id propio si no una PK compuesta (v1.0.6)
 -- El ejemplar ahora tiene los atributos de la ubicacion donde está (v1.0.5)
 -- Tabla de ejemplar_ubicacion y ubicacion eliminada (v1.0.5)
@@ -120,7 +121,7 @@ CREATE TABLE usuario (
   nombre VARCHAR (50),
   telefono VARCHAR (15),
   direccion VARCHAR (40),
-  email VARCHAR (40)
+  email VARCHAR (40) UNIQUE
 );
 ------------------------------------------------
 DROP TABLE IF EXISTS estudiante CASCADE;
