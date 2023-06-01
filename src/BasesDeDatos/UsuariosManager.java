@@ -21,8 +21,8 @@ import java.sql.SQLException;
 
 public class UsuariosManager {
     
-    private static String postgres_user = "alejandro";
-    private static String postgres_password = "alejandro";
+    private static String postgres_user = "postgres";
+    private static String postgres_password = "postgres";
     private static String host = "localhost";
     private static String puerto = "5432";
     private static String nombreBaseDatos = "usuarios";
