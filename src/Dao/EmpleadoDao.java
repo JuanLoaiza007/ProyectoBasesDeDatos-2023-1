@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Empleado;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -140,7 +141,7 @@ public class EmpleadoDao{
     public List<Empleado> obtenerTodos() {
         List<Empleado> empleados = new ArrayList<>();
 
-        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY cargo ASC";
+        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY id_empleado ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -191,5 +192,32 @@ public class EmpleadoDao{
             cerrarStatement(statement);
         }
         return empleado;
+    }
+    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        EmpleadoDao dao = new EmpleadoDao(conexion);
+        /*
+        Empleado empleado = new Empleado("20","Ronaldo","Nazario");
+        dao.eliminar(empleado);
+        */
+        
+        String id = "21"; 
+        Empleado empleado = dao.obtener(id);
+        if (empleado != null) {
+            System.out.println("ID empleado: " + empleado.getIdEmpleado());
+            System.out.println("Nombre: " + empleado.getNombre());
+            System.out.println("Cargo: " + empleado.getCargo());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        
+        /*
+        List<Empleado> empleado = dao.obtenerTodos();
+        for (Empleado empleados : empleado) {
+            System.out.println(empleados.getCargo());
+        }
+        */
     }
 }

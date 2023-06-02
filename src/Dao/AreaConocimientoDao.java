@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.AreaConocimiento;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -144,7 +145,7 @@ public class AreaConocimientoDao{
     public List<AreaConocimiento> obtenerTodos() {
         List<AreaConocimiento> areasConocimiento = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY nombre ASC";
+        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY codigo_area ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -196,5 +197,34 @@ public class AreaConocimientoDao{
         }
         return areaConocimiento;
     }
-    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        AreaConocimientoDao dao = new AreaConocimientoDao(conexion);
+        /*
+        AreaConocimiento areaConocimiento = new AreaConocimiento("51",null,"Baloncesto","El mundo del baloncesto");
+        dao.eliminar(areaConocimiento);
+        */
+        
+        String id = "10"; // Reemplaza "ID_DEL_AREA_CONOCIMIENTO" con el valor real del ID que deseas obtener
+        AreaConocimiento areaConocimiento = dao.obtener(id);
+        if (areaConocimiento != null) {
+            // El objeto AreaConocimiento ha sido obtenido correctamente
+            // Puedes acceder a los atributos del objeto y realizar las operaciones deseadas
+            System.out.println("Código de Área: " + areaConocimiento.getCodigoArea());
+            System.out.println("Código de Área Padre: " + areaConocimiento.getCodigoAreaPadre());
+            System.out.println("Nombre: " + areaConocimiento.getNombre());
+            System.out.println("Descripción: " + areaConocimiento.getDescripcion());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        
+        /*
+        List<AreaConocimiento> areasConocimiento = dao.obtenerTodos();
+        for (AreaConocimiento area : areasConocimiento) {
+            System.out.println(area.getNombre());
+        }
+        */
+    }
+
 }

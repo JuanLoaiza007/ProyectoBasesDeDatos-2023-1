@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.LibroAutor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -122,7 +123,7 @@ public class LibroAutorDAOImpl{
     public List<LibroAutor> obtenerTodos() {
         List<LibroAutor> librosAutoress = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, codigo_autor FROM librosAutores ORDER BY isbn, codigo_autor ASC";
+        String GETALL = "SELECT isbn, codigo_autor FROM libro_autor ORDER BY isbn, codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -177,6 +178,32 @@ public class LibroAutorDAOImpl{
             cerrarStatement(statement);
         }
         return libroAutor;
+    }
+    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        LibroAutorDAOImpl dao = new LibroAutorDAOImpl(conexion);
+        /*
+        LibroAutor libroAutor = new LibroAutor("978-9875805176","51");
+        dao.insertar(libroAutor);
+        */
+        /*
+        String id = "1"; 
+        LibroAutor libroAutor = dao.obtener(id);
+        if (libroAutor != null) {
+            System.out.println("ID empleado: " + libroAutor.getIsbn());
+            System.out.println("Nombre: " + libroAutor.getCodigoAutor();
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        
+        List<LibroAutor> libroAutor = dao.obtenerTodos();
+        for (LibroAutor libroAutores : libroAutor) {
+            System.out.println(libroAutores.getIsbn());
+        }
+        
     }
 
 }

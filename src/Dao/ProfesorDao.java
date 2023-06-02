@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Profesor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -33,7 +34,7 @@ public class ProfesorDao{
         Profesor profesor = null;
         
         String idUsuario = result.getString("id_usuario");
-        String idProfesor  = result.getString("id_profesor");
+        //String idProfesor  = result.getString("id_profesor");
         String titulo = result.getString("titulo");
         String dependencia = result.getString("dependencia");
         
@@ -142,7 +143,7 @@ public class ProfesorDao{
     public List<Profesor> obtenerTodos() {
         List<Profesor> profesores = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, titulo, dependencia FROM profesor ORDER BY dependencia ASC";
+        String GETALL = "SELECT id_usuario, titulo, dependencia FROM profesor ORDER BY id_usuario ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -194,6 +195,31 @@ public class ProfesorDao{
         }
         return profesor;
     }
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        ProfesorDao dao = new ProfesorDao(conexion);
+        /*
+        Profesor profesor = new Profesor("25","G.O.A.T CR7","Departamento de Fútbol");
+        dao.modificar(profesor);
+        */
+        /*
+        String id = "25"; 
+        Profesor profesor = dao.obtener(id);
+        if (profesor != null) {
+            System.out.println("ID empleado: " + profesor.getIdUsuario());
+            System.out.println("Nombre: " + profesor.getTitulo());
+            System.out.println("Cargo: " + profesor.getDependencia());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        
+        List<Profesor> profesor = dao.obtenerTodos();
+        for (Profesor profesores : profesor) {
+            System.out.println(profesores.getTitulo());
+        }
+        
+    }
 
 }
-

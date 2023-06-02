@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.DescargaUsuarioLibro;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -10,12 +11,12 @@ import java.util.List;
 
 /**
  * Bases de datos 750006C-01
- * Proyecto de curso
- * Profesor: Oswaldo Solarte
- * 
- * Archivo: DescargaUsuarioLibroDao.java
- * Licencia: GNU-GPL
- * @version 1.0.1
+ Proyecto de curso
+ Profesor: Oswaldo Solarte
+ 
+ Archivo: DescargaUsuarioLibroDao.java
+ Licencia: GNU-GPL
+ * @version 1.0
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -24,9 +25,10 @@ import java.util.List;
  */
 
 public class DescargaUsuarioLibroDao {
-    
+
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d");
+    private DateTimeFormatter timeFormato = DateTimeFormatter.ofPattern("H:mm:ss");
 
     public DescargaUsuarioLibroDao(Connection conexion) {
         this.conexion = conexion;
@@ -163,4 +165,37 @@ public class DescargaUsuarioLibroDao {
 
         return descargas;
     }
+    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        DescargaUsuarioLibroDao dao = new DescargaUsuarioLibroDao(conexion);
+        /*
+        DescargaUsuarioLibro descarga = new DescargaUsuarioLibro("50","Ronaldo","de","Assis","Moreira");
+        dao.eliminar(descarga);
+        */
+        /*
+        String id = "51"; 
+        DescargaUsuarioLibro descarga = dao.obtener(id);
+        if (autor != null) {
+            System.out.println("Código de autor: " + descarga.getIdDescarga());
+            System.out.println("Primer nombre: " + descarga.getIsbn());
+            System.out.println("Segundo nombre: " + descarga.getSegundoNombre());
+            System.out.println("Primer apellido: " + descarga.getDireccionUrl());
+            System.out.println("Segundo apellido: " + descarga.getIdUsuario());
+            System.out.println("Segundo apellido: " + descarga.getDireccionIp());
+            System.out.println("Segundo apellido: " + descarga.getFecha());
+            System.out.println("Segundo apellido: " + descarga.getHora());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        /*
+        List<DescargaUsuarioLibro> descarga = dao.obtenerTodos();
+        for (DescargaUsuarioLibro descargas : descarga) {
+            System.out.println(descargas.getIsbn());
+        }
+        */
+    }
+
 }

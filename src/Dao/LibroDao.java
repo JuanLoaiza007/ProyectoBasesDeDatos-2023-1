@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Libro;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -201,5 +202,36 @@ public class LibroDao{
         }
         return libro;
     }
+    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        LibroDao dao = new LibroDao(conexion);
+        /*
+        Libro libro = new Libro("978-9875805174", "1", "4", "Bestiario", "1951", 177);
+        dao.eliminar(libro);
+        */
+        /*
+        String id = "978-9507317181"; 
+        Libro libro = dao.obtener(id);
+        if (libro != null) {
+            System.out.println("ISBN: " + libro.getIsbn());
+            System.out.println("Nombre: " + libro.getCodigoArea());
+            System.out.println("Código editorial: " + libro.getCodigoEditorial());
+            System.out.println("Título: " + libro.getTitulo());
+            System.out.println("Año de publicación: " + libro.getAnioPublicacion());
+            System.out.println("Número de páginas: " + libro.getNroPaginas());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        
+        List<Libro> libro = dao.obtenerTodos();
+        for (Libro libros : libro) {
+            System.out.println(libros.getIsbn());
+        }
+        
+    }
 
 }
+

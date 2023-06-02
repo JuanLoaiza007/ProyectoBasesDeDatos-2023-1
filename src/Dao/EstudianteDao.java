@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Estudiante;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -140,7 +141,7 @@ public class EstudianteDao{
     public List<Estudiante> obtenerTodos() {
         List<Estudiante> estudiantes = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY carrera ASC";
+        String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY id_usuario ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -191,6 +192,31 @@ public class EstudianteDao{
             cerrarStatement(statement);
         }
         return estudiante;
+    }    
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        EstudianteDao dao = new EstudianteDao(conexion);
+        /*
+        Estudiante estudiante = new Estudiante("21","Deportes","Valle");
+        dao.eliminar(estudiante);
+        */
+        /*
+        String id = "12"; 
+        Estudiante estudiante = dao.obtener(id);
+        if (estudiante != null) {
+            System.out.println("ID Usuario: " + estudiante.getIdUsuario());
+            System.out.println("Carrera: " + estudiante.getCarrera());
+            System.out.println("Universidad: " + estudiante.getUniversidad());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        
+        List<Estudiante> estudiante = dao.obtenerTodos();
+        for (Estudiante estudiantes : estudiante) {
+            System.out.println(estudiantes.getCarrera());
+        }
+        
     }
-
 }

@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Editorial;
 import Paneles.AvisosEmergentes;
 import java.sql.Connection;
@@ -147,7 +148,7 @@ public class EditorialDao {
     public List<Editorial> obtenerTodos() {
         List<Editorial> editoriales = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY nombre ASC";
+        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY codigo_editorial ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -198,6 +199,33 @@ public class EditorialDao {
             cerrarStatement(statement);
         }
         return editorial;
+    }
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        EditorialDao dao = new EditorialDao(conexion);
+        
+        Editorial editorial = new Editorial("22","Comfandi","www.Comfandi.com","Colombia");
+        dao.insertar(editorial);
+        
+        /*
+        String id = "1"; 
+        Editorial editorial = dao.obtener(id);
+        if (editorial != null) {
+            System.out.println("Código de editorial: " + editorial.getCodigoEditorial());
+            System.out.println("Nombre: " + editorial.getNombre());
+            System.out.println("Página web: " + editorial.getPaginaWeb());
+            System.out.println("País Origen: " + editorial.getPaisOrigen());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        /*
+        List<Editorial> editorial = dao.obtenerTodos();
+        for (Editorial editoriales : editorial) {
+            System.out.println(editoriales.getPaisOrigen());
+        }
+        */
     }
 
 }

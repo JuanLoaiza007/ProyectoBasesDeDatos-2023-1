@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Ejemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -203,5 +204,33 @@ public class EjemplarDao{
 
         return ejemplares;
     }
-
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        EjemplarDao dao = new EjemplarDao(conexion);
+        
+        Ejemplar ejemplar = new Ejemplar("978-978-9875805175","2","Sala de manga",2,1,1);
+        dao.insertar(ejemplar);
+        
+        /*
+        String isbn = "51"; 
+        Ejemplar ejemplar = dao.obtener(isbn);
+        if (ejemplar != null) {
+            System.out.println("Código de autor: " + ejemplar.getIsbn());
+            System.out.println("Primer nombre: " + ejemplar.getNroEjemplar());
+            System.out.println("Segundo nombre: " + ejemplar.getSala());
+            System.out.println("Primer apellido: " + ejemplar.getNroPasillo());
+            System.out.println("Segundo apellido: " + ejemplar.getEstante());
+            System.out.println("Segundo apellido: " + ejemplar.getNroCajon());
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        /*
+        List<Ejemplar> ejemplar = dao.obtenerTodos();
+        for (Ejemplar ejemplares : ejemplar) {
+            System.out.println(ejemplares.getNroEjemplar());
+        }
+        */
+    }
 }

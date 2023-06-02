@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Autor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -148,7 +149,7 @@ public class AutorDao {
     public List<Autor> obtenerTodos() {
         List<Autor> autores = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY primer_nombre, segundo_nombre, primer_apellido, segundo_apellido ASC";
+        String GETALL = "SELECT codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido FROM autor ORDER BY codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -199,6 +200,33 @@ public class AutorDao {
             cerrarStatement(statement);
         }
         return autor;
+    }
+    public static void main(String[] args) {
+        Connection conexion = BibliotecaManager.iniciarConexion();
+        AutorDao dao = new AutorDao(conexion);
+        /*
+        Autor autor = new Autor("50","Ronaldo","de","Assis","Moreira");
+        dao.eliminar(autor);
+        */
+        /*
+        String id = "51"; 
+        Autor autor = dao.obtener(id);
+        if (autor != null) {
+            System.out.println("Código de autor: " + autor.getCodigoAutor());
+            System.out.println("Primer nombre: " + autor.getPrimerNombre());
+            System.out.println("Segundo nombre: " + autor.getSegundoNombre());
+            System.out.println("Primer apellido: " + autor.getPrimerApellido());
+            System.out.println("Segundo apellido: " + autor.getSegundoApellido());            
+        } else {
+            // No se encontró un registro con el ID especificado
+            System.out.println("No se encontró un registro con el ID especificado");
+        }
+        */
+        
+        List<Autor> autor = dao.obtenerTodos();
+        for (Autor autores : autor) {
+            System.out.println(autores.getPrimerApellido());
+        }
     }
 
 }
