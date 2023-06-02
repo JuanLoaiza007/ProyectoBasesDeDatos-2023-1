@@ -22,8 +22,9 @@ public class Usuario {
     private String telefono;
     private String direccion;
     private String email;
+    private String password;
     
-    public Usuario(String idUsuario, String nombre, String telefono, String direccion, String email) {
+    public Usuario(String idUsuario, String nombre, String telefono, String direccion, String email, String password) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -70,5 +71,12 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }    
 }
