@@ -85,14 +85,14 @@ public class LibroDao{
             statement.setString(3, e.getCodigoEditorial());
             statement.setString(4, e.getTitulo());
             statement.setString(5, e.getAnioPublicacion());
-            statement.setString(6, Integer.toString(e.getNroPaginas()));
+            statement.setInt(6, e.getNroPaginas());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -110,7 +110,7 @@ public class LibroDao{
             statement.setString(2, e.getCodigoEditorial());
             statement.setString(3, e.getTitulo());
             statement.setString(4, e.getAnioPublicacion());
-            statement.setString(5, Integer.toString(e.getNroPaginas()));
+            statement.setInt(5, e.getNroPaginas());
             statement.setString(6, e.getIsbn());
 
             if (statement.executeUpdate() == 0) {
