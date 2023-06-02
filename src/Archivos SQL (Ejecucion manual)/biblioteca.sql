@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.6.1
+-- Version: 1.0.8
 -- Fecha de última modificacion: 2023-06-01 09:18am
 
 -- Registro de cambios
+-- Añadido el campo de password para la tabla usuario (v1.0.8)
 -- Clausula UNIQUE para email en la tabla usuario (v1.0.7)
 -- Las tablas de devuelve_usuario_ejemplar, multa y descarga_usuario_libro ya no tienen id propio si no una PK compuesta (v1.0.6)
 -- El ejemplar ahora tiene los atributos de la ubicacion donde está (v1.0.5)
@@ -121,7 +122,8 @@ CREATE TABLE usuario (
   nombre VARCHAR (50),
   telefono VARCHAR (15),
   direccion VARCHAR (40),
-  email VARCHAR (40) UNIQUE  
+  email VARCHAR (40) UNIQUE,
+  password VARCHAR (60)
 );
 ------------------------------------------------
 DROP TABLE IF EXISTS estudiante CASCADE;
@@ -366,27 +368,27 @@ VALUES ('978-0307476463', '1'),
        ('978-8420441146', '6');
 ------------------------------------------------
 --- USUARIOS       
-INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email)
-VALUES ('1', 'Juan Perez', '555-1234', 'Av. 123, Lima', 'juan.perez@gmail.com'),
-      ('2', 'Maria Rodriguez', '555-5678', 'Jr. 456, Lima', 'maria.rodriguez@yahoo.com'),
-      ('3', 'Pedro Gomez', '555-9876', 'Calle 789, Lima', 'pedro.gomez@hotmail.com'),
-      ('4', 'Ana Garcia', '555-4321', 'Av. 234, Lima', 'ana.garcia@gmail.com'),
-      ('5', 'Luisa Ramirez', '555-8765', 'Jr. 567, Lima', 'luisa.ramirez@outlook.com'),
-      ('6', 'Mario Chavez', '555-3456', 'Calle 890, Lima', 'mario.chavez@gmail.com'),
-      ('7', 'Sofia Fernandez', '555-6543', 'Av. 901, Lima', 'sofia.fernandez@yahoo.com'),
-      ('8', 'Jorge Torres', '555-7890', 'Jr. 234, Lima', 'jorge.torres@hotmail.com'),
-      ('9', 'Carla Diaz', '555-2109', 'Calle 567, Lima', 'carla.diaz@gmail.com'),
-      ('10', 'Fernando Perez', '555-9012', 'Av. 890, Lima', 'fernando.perez@outlook.com'),
-      ('11', 'Silvia Rodriguez', '555-1092', 'Jr. 123, Lima', 'silvia.rodriguez@gmail.com'),
-      ('12', 'Jose Gomez', '555-9201', 'Calle 456, Lima', 'jose.gomez@yahoo.com'),
-      ('13', 'Laura Garcia', '555-5643', 'Av. 789, Lima', 'laura.garcia@hotmail.com'),
-      ('14', 'Carlos Ramirez', '555-9810', 'Jr. 567, Lima', 'carlos.ramirez@gmail.com'),
-      ('15', 'Paola Chavez', '555-3465', 'Calle 890, Lima', 'paola.chavez@yahoo.com'),
-      ('16', 'Ricardo Fernandez', '555-5467', 'Av. 901, Lima', 'ricardo.fernandez@hotmail.com'),
-      ('17', 'Julia Torres', '555-8765', 'Jr. 234, Lima', 'julia.torres@gmail.com'),
-      ('18', 'Daniel Diaz', '555-0987', 'Calle 567, Lima', 'daniel.diaz@outlook.com'),
-      ('19', 'Camila Perez', '555-8901', 'Av. 890, Lima', 'camila.perez@gmail.com'),
-      ('20', 'Gabriel Rodriguez', '555-2345', 'Jr. 123, Lima', 'gabriel.rodriguez@yahoo.com');    
+INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email, password)
+VALUES  ('1', 'Juan Perez', '555-1234', 'Av. 123, Lima', 'juan.perez@gmail.com', 'miGato123'),
+        ('2', 'Maria Rodriguez', '555-5678', 'Jr. 456, Lima', 'maria.rodriguez@yahoo.com', '12345678'),
+        ('3', 'Pedro Gomez', '555-9876', 'Calle 789, Lima', 'pedro.gomez@hotmail.com', 'contraseña1'),
+        ('4', 'Ana Garcia', '555-4321', 'Av. 234, Lima', 'ana.garcia@gmail.com', 'soyAna'),
+        ('5', 'Luisa Ramirez', '555-8765', 'Jr. 567, Lima', 'luisa.ramirez@outlook.com', '123456789'),
+        ('6', 'Mario Chavez', '555-3456', 'Calle 890, Lima', 'mario.chavez@gmail.com', 'micontraseña'),
+        ('7', 'Sofia Fernandez', '555-6543', 'Av. 901, Lima', 'sofia.fernandez@yahoo.com', 'abcdefg'),
+        ('8', 'Jorge Torres', '555-7890', 'Jr. 234, Lima', 'jorge.torres@hotmail.com', 'contraseña123'),
+        ('9', 'Carla Diaz', '555-2109', 'Calle 567, Lima', 'carla.diaz@gmail.com', 'carla123'),
+        ('10', 'Fernando Perez', '555-9012', 'Av. 890, Lima', 'fernando.perez@outlook.com', 'holamundo'),
+        ('11', 'Silvia Rodriguez', '555-1092', 'Jr. 123, Lima', 'silvia.rodriguez@gmail.com', 'pass1234'),
+        ('12', 'Jose Gomez', '555-9201', 'Calle 456, Lima', 'jose.gomez@yahoo.com', 'contraseña'),
+        ('13', 'Laura Garcia', '555-5643', 'Av. 789, Lima', 'laura.garcia@hotmail.com', 'laura2023'),
+        ('14', 'Carlos Ramirez', '555-9810', 'Jr. 567, Lima', 'carlos.ramirez@gmail.com', 'abc123'),
+        ('15', 'Paola Chavez', '555-3465', 'Calle 890, Lima', 'paola.chavez@yahoo.com', 'paola123'),
+        ('16', 'Ricardo Fernandez', '555-5467', 'Av. 901, Lima', 'ricardo.fernandez@hotmail.com', 'contraseña567'),
+        ('17', 'Julia Torres', '555-8765', 'Jr. 234, Lima', 'julia.torres@gmail.com', 'julia123'),
+        ('18', 'Daniel Diaz', '555-0987', 'Calle 567, Lima', 'daniel.diaz@outlook.com', '123456'),
+        ('19', 'Camila Perez', '555-8901', 'Av. 890, Lima', 'camila.perez@gmail.com', 'camila2023'),
+        ('20', 'Gabriel Rodriguez', '555-2345', 'Jr. 123, Lima', 'gabriel.rodriguez@yahoo.com', 'gabriel123');    
 ------------------------------------------------
 --- ESTUDIANTES 
 INSERT INTO estudiante (id_usuario, carrera, universidad)
