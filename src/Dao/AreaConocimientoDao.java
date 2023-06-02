@@ -1,7 +1,6 @@
 package Dao;
 
 import Modelos.AreaConocimiento;
-import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +87,7 @@ public class AreaConocimientoDao{
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
