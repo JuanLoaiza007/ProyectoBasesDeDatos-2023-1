@@ -91,7 +91,7 @@ public class AutorDao {
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
