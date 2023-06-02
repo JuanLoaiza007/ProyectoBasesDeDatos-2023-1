@@ -1,5 +1,6 @@
 package Dao;
 
+import Modelos.AreaConocimiento;
 import Modelos.Profesor;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -33,7 +34,6 @@ public class ProfesorDao{
         Profesor profesor = null;
         
         String idUsuario = result.getString("id_usuario");
-        String idProfesor  = result.getString("id_profesor");
         String titulo = result.getString("titulo");
         String dependencia = result.getString("dependencia");
         
@@ -71,7 +71,6 @@ public class ProfesorDao{
     }
 
     public void insertar(Profesor e) {
-//        profesor (id_usuario, id_profesor, titulo, dependencia)
         String INSERT = "INSERT INTO profesor (id_usuario, titulo, dependencia) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -194,6 +193,45 @@ public class ProfesorDao{
         }
         return profesor;
     }
+    
+    public List<AreaConocimiento> otenerAreasProfesor(String id){
+        java.util.List<AreaConocimiento> areas = new ArrayList<>();
+        
+        String GETALL = "SELECT A.codigo_area, A.codigo_area_padre, A.nombre, A.descripcion "
+                + "FROM profesor AS P, profesor_area_conocimiento AS PA, area_conocimiento A "
+                + "WHERE P.id_usuario = PA.id_usuario "
+                + "AND PA.codigo_area = A.codigo_area "
+                + "AND P.id_usuario = ?";
 
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, id);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                AreaConocimiento areaActual;
+                
+                String codigoArea = result.getString("codigo_area");
+                String codigoAreaPadre = result.getString("codigo_area_padre");
+                String nombre = result.getString("nombre");
+                String descripcion = result.getString("descripcion");
+
+                areaActual = new AreaConocimiento(codigoArea, codigoAreaPadre, nombre, descripcion);
+                areas.add(areaActual);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return areas;
+        
+    }    
 }
-
