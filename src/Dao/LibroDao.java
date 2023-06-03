@@ -1,5 +1,6 @@
 package Dao;
 
+import Modelos.Autor;
 import Modelos.Libro;
 import java.sql.*;
 import java.util.ArrayList;
@@ -199,5 +200,46 @@ public class LibroDao{
             cerrarStatement(statement);
         }
         return libro;
+    }
+    
+    public List<Autor> otenerAutoresLibro(String isbn){
+        java.util.List<Autor> autores = new ArrayList<>();
+        
+        String GETALL = "SELECT A.codigo_autor, A.primer_nombre, A.segundo_nombre, A.primer_apellido, A.segundo_apellido "
+                + "FROM autor AS A, libro_autor AS LA "
+                + "WHERE A.codigo_autor = LA.codigo_autor "
+                + "AND LA.isbn = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, isbn);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                Autor autorActual;
+                
+                String codigoAutor = result.getString("codigo_autor");
+                String primerNombre = result.getString("primer_nombre");
+                String segundoNombre = result.getString("segundo_nombre");
+                String primerApellido = result.getString("primer_apellido");
+                String segundoApellido = result.getString("segundo_apellido");
+
+                autorActual = new Autor(codigoAutor, primerNombre, segundoNombre, primerApellido, segundoApellido);
+                autores.add(autorActual);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return autores;
+        
     }
 }

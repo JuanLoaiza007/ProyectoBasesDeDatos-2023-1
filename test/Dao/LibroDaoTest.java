@@ -1,6 +1,7 @@
 package Dao;
 
 import BasesDeDatos.BibliotecaManager;
+import Modelos.Autor;
 import Modelos.Libro;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class LibroDaoTest {
         pruebaObtener();
         pruebaEliminar();
         pruebaObtenerTodos();
+        pruebaObtenerAutoresLibro();
     }
 
     public static void pruebaInsertar() {
@@ -75,5 +77,23 @@ public class LibroDaoTest {
             System.out.println();
         }
     }
+   
+    public static void pruebaObtenerAutoresLibro() {
+        String isbn = "978-0307476463";
 
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+
+        LibroDao libroDao = new LibroDao(conexion);
+
+        List<Autor> autores = libroDao.otenerAutoresLibro(isbn);
+
+        if (!autores.isEmpty()) {
+            System.out.println("Autores del libro con ISBN " + isbn + ":");
+            for (Autor autor : autores) {
+                System.out.println("Nombre: " + autor.getPrimerNombre() + " " + autor.getSegundoNombre() + " " + autor.getPrimerApellido() + " " + autor.getSegundoApellido());
+            }
+        } else {
+            System.out.println("El libro con ISBN " + isbn + " no tiene autores asociados.");
+        }
+    }
 }
