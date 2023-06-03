@@ -93,7 +93,7 @@ public class DevuelveUsuarioEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex + " - Error en insertar()");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

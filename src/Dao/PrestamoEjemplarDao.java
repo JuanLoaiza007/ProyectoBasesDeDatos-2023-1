@@ -3,7 +3,6 @@ package Dao;
 import Modelos.PrestamoEjemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +34,9 @@ public class PrestamoEjemplarDao {
         
         
         String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
-        String isbn = result.getString("nro_consecutivo_prestamo");
-        String nroEjemplar = result.getString("nro_consecutivo_prestamo");
-        Timestamp fechaDevolucion = result.getTimestamp("nro_consecutivo_prestamo");
+        String isbn = result.getString("isbn");
+        String nroEjemplar = result.getString("nro_ejemplar");
+        Timestamp fechaDevolucion = result.getTimestamp("fecha_devolucion");
        
         
         prestamoEjemplar = new PrestamoEjemplar(nroConsecutivoPrestamo, isbn, nroEjemplar, fechaDevolucion);
@@ -91,16 +90,11 @@ public class PrestamoEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex + " - Error en insertar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-    }
-
-    public void modificar(PrestamoEjemplar antiguo, PrestamoEjemplar nuevo) {
-        eliminar(antiguo);
-        insertar(nuevo);
     }
 
     public void eliminar(PrestamoEjemplar e) {
@@ -120,7 +114,7 @@ public class PrestamoEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Error en modificar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -130,7 +124,7 @@ public class PrestamoEjemplarDao {
     public List<PrestamoEjemplar> obtenerTodos() {
         List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo ORDER BY fecha_devolucion DESC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo_ejemplar ORDER BY fecha_devolucion DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -145,7 +139,7 @@ public class PrestamoEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Error en obtener todos");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -162,7 +156,7 @@ public class PrestamoEjemplarDao {
     public List<PrestamoEjemplar> obtener(String id) {
         List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
 
-        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion DESC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo_ejemplar WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -170,6 +164,7 @@ public class PrestamoEjemplarDao {
         try {
 
             statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, id);
             result = statement.executeQuery();
 
             while (result.next()) {
@@ -177,7 +172,7 @@ public class PrestamoEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Error en obtener");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

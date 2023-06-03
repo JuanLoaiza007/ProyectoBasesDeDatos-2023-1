@@ -1,10 +1,7 @@
 package Dao;
 
 import Modelos.Prestamo;
-import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +23,6 @@ import java.util.List;
 public class PrestamoDao{
     
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
     public PrestamoDao(Connection conexion) {
         this.conexion = conexion;
@@ -39,7 +35,7 @@ public class PrestamoDao{
         String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
         String idUsuario = result.getString("id_usuario");
         String idEmpleado = result.getString("id_empleado");
-        LocalDateTime fechaRealizacion = LocalDateTime.parse(result.getString("fecha_realizacion"));      
+        Timestamp fechaRealizacion = result.getTimestamp("fecha_realizacion");      
         
         prestamo = new Prestamo(nroConsecutivoPrestamo, idUsuario, idEmpleado, fechaRealizacion);
         
@@ -85,14 +81,14 @@ public class PrestamoDao{
             statement.setString(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIdUsuario());
             statement.setString(3, e.getIdEmpleado());
-            statement.setString(4, e.getFechaRealizacion().format(dateFormato));
+            statement.setTimestamp(4, e.getFechaRealizacion());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex + " - Error en insertar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -108,7 +104,7 @@ public class PrestamoDao{
             statement = conexion.prepareStatement(UPDATE);       
             statement.setString(1, e.getIdUsuario());
             statement.setString(2, e.getIdEmpleado());
-            statement.setString(3, e.getFechaRealizacion().format(dateFormato));
+            statement.setTimestamp(3, e.getFechaRealizacion());
             statement.setString(4, e.getNroConsecutivoPrestamo());
 
             if (statement.executeUpdate() == 0) {
@@ -116,7 +112,7 @@ public class PrestamoDao{
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Error en modificar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

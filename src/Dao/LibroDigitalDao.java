@@ -82,16 +82,16 @@ public class LibroDigitalDao {
     }
 
     public void modificar(LibroDigital libroDigital) {
-        String UPDATE = "UPDATE libro_digital SET direccion_url = ?, tamanio_bytes = ?, formato = ? WHERE isbn = ?";
+        String UPDATE = "UPDATE libro_digital SET tamanio_bytes = ?, formato = ? WHERE isbn = ? AND direccion_url = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);
-            statement.setString(1, libroDigital.getDireccionUrl());
-            statement.setInt(2, libroDigital.getTamanioBytes());
-            statement.setString(3, libroDigital.getFormato());
-            statement.setString(4, libroDigital.getIsbn());
+            statement = conexion.prepareStatement(UPDATE);            
+            statement.setInt(1, libroDigital.getTamanioBytes());
+            statement.setString(2, libroDigital.getFormato());
+            statement.setString(3, libroDigital.getIsbn());
+            statement.setString(4, libroDigital.getDireccionUrl());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -106,13 +106,14 @@ public class LibroDigitalDao {
     }
 
     public void eliminar(LibroDigital libroDigital) {
-        String DELETE = "DELETE FROM libro_digital WHERE isbn = ?";
+        String DELETE = "DELETE FROM libro_digital WHERE isbn = ? AND direccion_url = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
             statement.setString(1, libroDigital.getIsbn());
+            statement.setString(2, libroDigital.getDireccionUrl());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");

@@ -2,7 +2,6 @@ package Dao;
 
 import Modelos.Multa;
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,7 +112,7 @@ public class MultaDao {
         }
     }
     
-        public void eliminar(Multa multa) {
+    public void eliminar(Multa multa) {
         String DELETE = "DELETE FROM multa WHERE id_usuario = ? AND nro_consecutivo_prestamo = ? AND fecha = ?";
 
         PreparedStatement statement = null;
