@@ -7,7 +7,7 @@ package Modelos;
  * 
  * Archivo: Usuario.java
  * Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.0.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -30,6 +30,7 @@ public class Usuario {
         this.telefono = telefono;
         this.direccion = direccion;
         this.email = email;
+        this.password = password;
     }
   
     public String getIdUsuario() {
