@@ -8,11 +8,11 @@ import java.util.List;
 
 /**
  * Bases de datos 750006C-01
- Proyecto de curso
- Profesor: Oswaldo Solarte
- 
- Archivo: EmpleadoDao.java
- Licencia: GNU-GPL
+ * Proyecto de curso
+ * Profesor: Oswaldo Solarte
+ * 
+ * Archivo: EmpleadoDao.java
+ * Licencia: GNU-GPL
  * @version 1.0
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 

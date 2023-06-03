@@ -17,7 +17,6 @@ package Dao;
 
 import Modelos.Solicitud;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class SolicitudDao {
         String isbn = result.getString("isbn");
         String titulo = result.getString("titulo");
         String descripcion = result.getString("descripcion");
-        LocalDateTime fecha = result.getTimestamp("fecha").toLocalDateTime();
+        Timestamp fecha = result.getTimestamp("fecha");
 
         return new Solicitud(nroConsecutivoSolicitud, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha);
     }
@@ -76,7 +75,7 @@ public class SolicitudDao {
             statement.setString(4, solicitud.getIsbn());
             statement.setString(5, solicitud.getTitulo());
             statement.setString(6, solicitud.getDescripcion());
-            statement.setTimestamp(7, Timestamp.valueOf(solicitud.getFecha()));
+            statement.setTimestamp(7, solicitud.getFecha());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Error al insertar registro");
@@ -102,7 +101,7 @@ public class SolicitudDao {
             statement.setString(3, solicitud.getIsbn());
             statement.setString(4, solicitud.getTitulo());
             statement.setString(5, solicitud.getDescripcion());
-            statement.setTimestamp(6, Timestamp.valueOf(solicitud.getFecha()));
+            statement.setTimestamp(6, solicitud.getFecha());
             statement.setString(7, solicitud.getNroConsecutivoSolicitud());
 
             if (statement.executeUpdate() == 0) {

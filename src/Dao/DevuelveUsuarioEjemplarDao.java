@@ -3,7 +3,6 @@ package Dao;
 import Modelos.DevuelveUsuarioEjemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class DevuelveUsuarioEjemplarDao {
         String idUsuario = result.getString("id_usuario");
         String isbn = result.getString("isbn");
         String nroEjemplar = result.getString("nro_ejemplar");
-        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"));
+        Timestamp fecha = result.getTimestamp("fecha");
     
         
         devolucion = new DevuelveUsuarioEjemplar(idUsuario, isbn, nroEjemplar, fecha);
@@ -86,7 +85,7 @@ public class DevuelveUsuarioEjemplarDao {
             statement.setString(1, e.getIdUsuario());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFecha().format(dateFormato));
+            statement.setTimestamp(4, e.getFecha());
             
 
             if (statement.executeUpdate() == 0) {
@@ -111,7 +110,7 @@ public class DevuelveUsuarioEjemplarDao {
             statement.setString(1, e.getIdUsuario());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFecha().format(dateFormato));
+            statement.setTimestamp(4, e.getFecha());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");

@@ -3,18 +3,17 @@ package Dao;
 import Modelos.PrestamoEjemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Bases de datos 750006C-01
- Proyecto de curso
- Profesor: Oswaldo Solarte
- 
- Archivo: PrestamoEjemplarDao.java
- Licencia: GNU-GPL
+ * Proyecto de curso
+ * Profesor: Oswaldo Solarte
+ * 
+ * Archivo: PrestamoEjemplarDao.java
+ * Licencia: GNU-GPL
  * @version 1.0
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
@@ -26,7 +25,6 @@ import java.util.List;
 public class PrestamoEjemplarDao {
     
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
 
     public PrestamoEjemplarDao(Connection conexion) {
         this.conexion = conexion;
@@ -39,7 +37,7 @@ public class PrestamoEjemplarDao {
         String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
         String isbn = result.getString("nro_consecutivo_prestamo");
         String nroEjemplar = result.getString("nro_consecutivo_prestamo");
-        LocalDateTime fechaDevolucion = LocalDateTime.parse(result.getString("nro_consecutivo_prestamo"));
+        Timestamp fechaDevolucion = result.getTimestamp("nro_consecutivo_prestamo");
        
         
         prestamoEjemplar = new PrestamoEjemplar(nroConsecutivoPrestamo, isbn, nroEjemplar, fechaDevolucion);
@@ -86,7 +84,7 @@ public class PrestamoEjemplarDao {
             statement.setString(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
+            statement.setTimestamp(4, e.getFechaDevolucion());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -115,7 +113,7 @@ public class PrestamoEjemplarDao {
             statement.setString(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
-            statement.setString(4, e.getFechaDevolucion().format(dateFormato));
+            statement.setTimestamp(4, e.getFechaDevolucion());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");

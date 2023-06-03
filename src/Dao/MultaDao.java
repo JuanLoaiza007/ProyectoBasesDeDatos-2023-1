@@ -2,7 +2,6 @@ package Dao;
 
 import Modelos.Multa;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,7 @@ import java.util.List;
 
 public class MultaDao {
     
-    private Connection conexion;
-    
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
+    private Connection conexion;  
 
     public MultaDao(Connection conexion) {
         this.conexion = conexion;
@@ -37,7 +34,7 @@ public class MultaDao {
         
         String idUsuario = result.getString("id_usuario");
         String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
-        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"));
+        Timestamp fecha = result.getTimestamp("fecha");
         int valor = result.getInt("valor");
         String descripcion = result.getString("descripcion");
     
@@ -75,7 +72,7 @@ public class MultaDao {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, multa.getIdUsuario());
             statement.setString(2, multa.getNroConsecutivoPrestamo());
-            statement.setString(3, multa.getFecha().format(dateFormato));
+            statement.setTimestamp(3, multa.getFecha());
             statement.setInt(4, multa.getValor());
             statement.setString(5, multa.getDescripcion());
 
@@ -102,7 +99,7 @@ public class MultaDao {
             statement.setString(2, multa.getDescripcion());
             statement.setString(3, multa.getIdUsuario());
             statement.setString(4, multa.getNroConsecutivoPrestamo());
-            statement.setString(5, multa.getFecha().format(dateFormato));
+            statement.setTimestamp(5, multa.getFecha());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya actualizado el registro");
@@ -125,7 +122,7 @@ public class MultaDao {
             statement = conexion.prepareStatement(DELETE);
             statement.setString(1, multa.getIdUsuario());
             statement.setString(2, multa.getNroConsecutivoPrestamo());
-            statement.setString(3, multa.getFecha().format(dateFormato));
+            statement.setTimestamp(3, multa.getFecha());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");

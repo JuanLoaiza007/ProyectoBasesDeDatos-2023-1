@@ -1,21 +1,18 @@
 package Dao;
 
 import Modelos.DescargaUsuarioLibro;
-import Paneles.AvisosEmergentes;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Bases de datos 750006C-01
- Proyecto de curso
- Profesor: Oswaldo Solarte
- 
- Archivo: DescargaUsuarioLibroDao.java
- Licencia: GNU-GPL
- * @version 1.0
+ * Proyecto de curso
+ * Profesor: Oswaldo Solarte
+ * 
+ * Archivo: DescargaUsuarioLibroDao.java
+ * Licencia: GNU-GPL
+ * @version 1.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -26,29 +23,26 @@ import java.util.List;
 public class DescargaUsuarioLibroDao {
 
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d");
-    private DateTimeFormatter timeFormato = DateTimeFormatter.ofPattern("H:mm:ss");
 
     public DescargaUsuarioLibroDao(Connection conexion) {
         this.conexion = conexion;
     }
-    
-    private DescargaUsuarioLibro convertir(ResultSet result) throws SQLException{
+
+    private DescargaUsuarioLibro convertir(ResultSet result) throws SQLException {
         DescargaUsuarioLibro descarga = null;
-        
+
         String isbn = result.getString("isbn");
         String direccionUrl = result.getString("direccion_url");
         String idUsuario = result.getString("id_usuario");
-        LocalDateTime fecha = LocalDateTime.parse(result.getString("fecha"));
+        Timestamp fecha = result.getTimestamp("fecha");
         String direccionIp = result.getString("direccion_ip");
-    
-        String codigoArea = result.getString("codigo_area");
-        
-        
+
         descarga = new DescargaUsuarioLibro(isbn, direccionUrl, idUsuario, fecha, direccionIp);
-        
+
         return descarga;
     }
+
+
     
     /**
      * Cierra la conexion que se le pase como parametro
@@ -79,7 +73,6 @@ public class DescargaUsuarioLibroDao {
     }
 
     public void insertar(DescargaUsuarioLibro e) {
-//        descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip)
         String INSERT = "INSERT INTO descarga_usuario_libro (isbn, direccion_url, id_usuario, fecha, direccion_ip) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -90,7 +83,7 @@ public class DescargaUsuarioLibroDao {
             statement.setString(1, e.getIsbn());
             statement.setString(2, e.getDireccionUrl());
             statement.setString(3, e.getIdUsuario());
-            statement.setString(4, e.getFecha().format(dateFormato));
+            statement.setTimestamp(4, e.getFecha());
             statement.setString(5, e.getDireccionIp());
 
             if (statement.executeUpdate() == 0) {
@@ -98,7 +91,7 @@ public class DescargaUsuarioLibroDao {
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex + " - Error en funcion insertar()");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -108,7 +101,9 @@ public class DescargaUsuarioLibroDao {
     public List<DescargaUsuarioLibro> obtenerTodos() {
         List<DescargaUsuarioLibro> descargas = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, direccion_url, id_usuario, fecha, direccion_ip FROM descarga_usuario_libro ORDER BY fecha DESC";
+        String GETALL = "SELECT isbn, direccion_url, id_usuario, fecha, direccion_ip "
+                + "FROM descarga_usuario_libro "
+                + "ORDER BY fecha DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -140,7 +135,10 @@ public class DescargaUsuarioLibroDao {
     public List<DescargaUsuarioLibro> obtener(String id) {
         List<DescargaUsuarioLibro> descargas = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, direccion_url, id_usuario, fecha, direccion_ip FROM descarga_usuario_libro ORDER BY fecha DESC WHERE id_usuario = ?";
+        String GETALL = "SELECT isbn, direccion_url, id_usuario, fecha, direccion_ip "
+                + "FROM descarga_usuario_libro "
+                + "WHERE id_usuario = ?"
+                + "ORDER BY fecha DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
