@@ -1,6 +1,6 @@
 package Modelos;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * Bases de datos 750006C-01
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * 
  * Archivo: DescargaUsuarioLibro.java
  * Licencia: GNU-GPL
- * @version 1.0
+ * @version 1.1
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -17,15 +17,16 @@ import java.time.LocalDateTime;
  * 
  */
 
+
 public class DescargaUsuarioLibro {
 
     private String isbn;
     private String direccionUrl;
     private String idUsuario;
-    private LocalDateTime fecha;
+    private Timestamp fecha;
     private String direccionIp;
 
-    public DescargaUsuarioLibro(String isbn, String direccionUrl, String idUsuario, LocalDateTime fecha, String direccionIp) {
+    public DescargaUsuarioLibro(String isbn, String direccionUrl, String idUsuario, Timestamp fecha, String direccionIp) {
         this.isbn = isbn;
         this.direccionUrl = direccionUrl;
         this.idUsuario = idUsuario;
@@ -57,11 +58,11 @@ public class DescargaUsuarioLibro {
         this.idUsuario = idUsuario;
     }
 
-    public LocalDateTime getFecha() {
+    public Timestamp getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
 
