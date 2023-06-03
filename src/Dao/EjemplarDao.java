@@ -1,8 +1,6 @@
 package Dao;
 
-import BasesDeDatos.BibliotecaManager;
 import Modelos.Ejemplar;
-import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,16 +83,16 @@ public class EjemplarDao{
             statement.setString(1, e.getIsbn());
             statement.setString(2, e.getNroEjemplar());
             statement.setString(3, e.getSala());
-            statement.setString(4, Integer.toString(e.getNroPasillo()));
-            statement.setString(5, Integer.toString(e.getEstante()));
-            statement.setString(6, Integer.toString(e.getNroCajon()));
+            statement.setInt(4, e.getNroPasillo());
+            statement.setInt(5, e.getEstante());
+            statement.setInt(6, e.getNroCajon());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex + " - Excepcion en insertar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -109,19 +107,18 @@ public class EjemplarDao{
         try {
             statement = conexion.prepareStatement(UPDATE);         
             statement.setString(1, e.getSala());
-            statement.setString(2, Integer.toString(e.getNroPasillo()));
-            statement.setString(3, Integer.toString(e.getEstante()));
-            statement.setString(4, Integer.toString(e.getNroCajon()));
+            statement.setInt(2, e.getNroPasillo());
+            statement.setInt(3, e.getEstante());
+            statement.setInt(4, e.getNroCajon());
             statement.setString(5, e.getIsbn());
             statement.setString(6, e.getNroEjemplar());
-            
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Excepcion en modificar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -144,7 +141,7 @@ public class EjemplarDao{
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " - Excepcion en eliminar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -178,10 +175,10 @@ public class EjemplarDao{
         return ejemplares;
     }
 
-    public List<Ejemplar> obtener(String isbn) {
+    public List<Ejemplar> obtener(String isbn, String nro_ejemplar) {
         List<Ejemplar> ejemplares = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ?";
+        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ? AND nro_ejemplar = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -189,6 +186,8 @@ public class EjemplarDao{
         try {
 
             statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, isbn);
+            statement.setString(2, nro_ejemplar);
             result = statement.executeQuery();
 
             while (result.next()) {
