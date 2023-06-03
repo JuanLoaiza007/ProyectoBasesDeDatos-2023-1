@@ -1,6 +1,6 @@
 package Modelos;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * Bases de datos 750006C-01
@@ -22,9 +22,9 @@ public class PrestamoEjemplar {
     private String nroConsecutivoPrestamo;
     private String isbn;
     private String nroEjemplar;
-    private LocalDateTime fechaDevolucion;
+    private Timestamp fechaDevolucion;
 
-    public PrestamoEjemplar(String nroConsecutivoPrestamo, String isbn, String nroEjemplar, LocalDateTime fechaDevolucion) {
+    public PrestamoEjemplar(String nroConsecutivoPrestamo, String isbn, String nroEjemplar, Timestamp fechaDevolucion) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
         this.isbn = isbn;
         this.nroEjemplar = nroEjemplar;
@@ -55,11 +55,11 @@ public class PrestamoEjemplar {
         this.nroEjemplar = nroEjemplar;
     }
 
-    public LocalDateTime getFechaDevolucion() {
+    public Timestamp getFechaDevolucion() {
         return fechaDevolucion;
     }
 
-    public void setFechaDevolucion(LocalDateTime fechaDevolucion) {
+    public void setFechaDevolucion(Timestamp fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
     
