@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.AreaConocimiento;
 import java.sql.*;
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class AreaConocimientoDao{
     public List<AreaConocimiento> obtenerTodos() {
         List<AreaConocimiento> areasConocimiento = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY nombre ASC";
+        String GETALL = "SELECT codigo_area, codigo_area_padre, nombre, descripcion FROM area_conocimiento ORDER BY codigo_area ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -195,5 +196,5 @@ public class AreaConocimientoDao{
         }
         return areaConocimiento;
     }
-    
+
 }

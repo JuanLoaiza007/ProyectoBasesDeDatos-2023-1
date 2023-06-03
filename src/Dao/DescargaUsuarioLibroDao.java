@@ -10,12 +10,12 @@ import java.util.List;
 
 /**
  * Bases de datos 750006C-01
- * Proyecto de curso
- * Profesor: Oswaldo Solarte
- * 
- * Archivo: DescargaUsuarioLibroDao.java
- * Licencia: GNU-GPL
- * @version 1.0.1
+ Proyecto de curso
+ Profesor: Oswaldo Solarte
+ 
+ Archivo: DescargaUsuarioLibroDao.java
+ Licencia: GNU-GPL
+ * @version 1.0
  * 
  * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
@@ -24,9 +24,10 @@ import java.util.List;
  */
 
 public class DescargaUsuarioLibroDao {
-    
+
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss"); 
+    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d");
+    private DateTimeFormatter timeFormato = DateTimeFormatter.ofPattern("H:mm:ss");
 
     public DescargaUsuarioLibroDao(Connection conexion) {
         this.conexion = conexion;

@@ -147,7 +147,7 @@ public class EditorialDao {
     public List<Editorial> obtenerTodos() {
         List<Editorial> editoriales = new ArrayList<>();
 
-        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY nombre ASC";
+        String GETALL = "SELECT codigo_editorial, nombre, pagina_web, pais_origen FROM editorial ORDER BY codigo_editorial ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -198,6 +198,6 @@ public class EditorialDao {
             cerrarStatement(statement);
         }
         return editorial;
-    }
+    }   
 
 }

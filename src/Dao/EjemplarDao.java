@@ -1,5 +1,6 @@
 package Dao;
 
+import BasesDeDatos.BibliotecaManager;
 import Modelos.Ejemplar;
 import Paneles.AvisosEmergentes;
 import java.sql.*;
@@ -203,5 +204,4 @@ public class EjemplarDao{
 
         return ejemplares;
     }
-
 }

@@ -122,7 +122,7 @@ public class LibroAutorDAOImpl{
     public List<LibroAutor> obtenerTodos() {
         List<LibroAutor> librosAutoress = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, codigo_autor FROM librosAutores ORDER BY isbn, codigo_autor ASC";
+        String GETALL = "SELECT isbn, codigo_autor FROM libro_autor ORDER BY isbn, codigo_autor ASC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -178,5 +178,5 @@ public class LibroAutorDAOImpl{
         }
         return libroAutor;
     }
-
+    
 }
