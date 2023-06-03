@@ -17,14 +17,12 @@ package Dao;
 
 import Modelos.Solicitud;
 import java.sql.*;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SolicitudDao {
 
     private Connection conexion;
-    private DateTimeFormatter dateFormato = DateTimeFormatter.ofPattern("yyyy/MM/d H:mm:ss");
 
     public SolicitudDao(Connection conexion) {
         this.conexion = conexion;
