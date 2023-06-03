@@ -98,8 +98,6 @@ public class UsuarioDao {
             statement.setString(4, usuario.getEmail());
             statement.setString(5, usuario.getPassword());
             statement.setString(6, usuario.getIdUsuario());
-            System.out.println(statement);
-            System.out.println("Id del usuario que se deberia modificar: " + usuario.getIdUsuario());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya actualizado el usuario");
