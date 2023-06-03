@@ -1,6 +1,6 @@
 package Modelos;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 /**
  * Bases de datos 750006C-01
@@ -22,9 +22,9 @@ public class Prestamo {
     private String nroConsecutivoPrestamo;
     private String idUsuario;
     private String idEmpleado;
-    private LocalDateTime fechaRealizacion;
+    private Timestamp fechaRealizacion;
     
-    public Prestamo(String nroConsecutivoPrestamo, String idUsuario, String idEmpleado, LocalDateTime fechaRealizacion) {
+    public Prestamo(String nroConsecutivoPrestamo, String idUsuario, String idEmpleado, Timestamp fechaRealizacion) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
         this.idUsuario = idUsuario;
         this.idEmpleado = idEmpleado;
@@ -57,11 +57,11 @@ public class Prestamo {
         this.idEmpleado = idEmpleado;
     }
     
-    public LocalDateTime getFechaRealizacion() {
+    public Timestamp getFechaRealizacion() {
         return fechaRealizacion;
     }
     
-    public void setFechaRealizacion(LocalDateTime fechaRealizacion) {
+    public void setFechaRealizacion(Timestamp fechaRealizacion) {
         this.fechaRealizacion = fechaRealizacion;
     }
     
