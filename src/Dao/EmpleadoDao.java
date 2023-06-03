@@ -140,8 +140,8 @@ public class EmpleadoDao{
     public List<Empleado> obtenerTodos() {
         List<Empleado> empleados = new ArrayList<>();
 
-        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY id_empleado ASC";
-
+        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY cargo ASC";
+        
         PreparedStatement statement = null;
         ResultSet result = null;
 
