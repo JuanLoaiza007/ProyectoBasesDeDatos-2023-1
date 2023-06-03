@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.8
--- Fecha de última modificacion: 2023-06-01 09:18am
+-- Version: 1.0.9
+-- Fecha de última modificacion: 2023-06-02 19:45
 
 -- Registro de cambios
+-- Longitud de nombres y apellidos de autor aumentada (v1.0.9)
 -- Añadido el campo de password para la tabla usuario (v1.0.8)
 -- Clausula UNIQUE para email en la tabla usuario (v1.0.7)
 -- Las tablas de devuelve_usuario_ejemplar, multa y descarga_usuario_libro ya no tienen id propio si no una PK compuesta (v1.0.6)
@@ -40,11 +41,11 @@ CREATE TABLE empleado (
 ------------------------------------------------
 DROP TABLE IF EXISTS autor CASCADE;
 CREATE TABLE autor (
-  codigo_autor VARCHAR (15) NOT NULL PRIMARY KEY,
-  primer_nombre VARCHAR (15),
-  segundo_nombre VARCHAR (15),
-  primer_apellido VARCHAR (15),
-  segundo_apellido VARCHAR (15)
+  codigo_autor VARCHAR (20) NOT NULL PRIMARY KEY,
+  primer_nombre VARCHAR (20),
+  segundo_nombre VARCHAR (20),
+  primer_apellido VARCHAR (20),
+  segundo_apellido VARCHAR (20)
 );
 ------------------------------------------------
 DROP TABLE IF EXISTS editorial CASCADE;
