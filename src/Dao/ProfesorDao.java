@@ -70,7 +70,12 @@ public class ProfesorDao{
         }
     }
 
-    public void insertar(Profesor e) {
+    public void insertar(Profesor e) throws SQLException{
+        
+        if (estudianteYaTieneIdUsuario(e.getIdUsuario())) {
+            throw new SQLException("Este id esta asociado a un estudiante");
+        }
+        
         String INSERT = "INSERT INTO profesor (id_usuario, titulo, dependencia) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -95,6 +100,7 @@ public class ProfesorDao{
     }
 
     public void modificar(Profesor e) {
+        
         String UPDATE = "UPDATE profesor SET titulo = ?, dependencia = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
@@ -233,5 +239,32 @@ public class ProfesorDao{
 
         return areas;
         
-    }    
+    }  
+    
+    public boolean estudianteYaTieneIdUsuario(String idUsuario) {
+        boolean respuesta = true;
+
+        String GETONE = "SELECT COUNT(*) FROM estudiante WHERE id_usuario = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GETONE);
+            statement.setString(1, idUsuario);
+            result = statement.executeQuery();
+
+            result.next();
+            int cantidad = Integer.parseInt(result.getString("count"));
+            
+            if (cantidad == 0) 
+                respuesta = false;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        return respuesta;
+    }
 }

@@ -69,7 +69,12 @@ public class EstudianteDao{
         }
     }
 
-    public void insertar(Estudiante e) {
+    public void insertar(Estudiante e) throws SQLException{
+        
+        if (profesorYaTieneIdUsuario(e.getIdUsuario())) {
+            throw new SQLException("Este id esta asociado a un profesor");
+        }
+        
         String INSERT = "INSERT INTO estudiante (id_usuario, carrera, universidad) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -86,20 +91,21 @@ public class EstudianteDao{
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
-    }
+    } 
 
     public void modificar(Estudiante e) {
+        
         String UPDATE = "UPDATE estudiante SET carrera = ?, universidad = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
 
         try {
-            statement = conexion.prepareStatement(UPDATE);          
+            statement = conexion.prepareStatement(UPDATE);
             statement.setString(1, e.getCarrera());
             statement.setString(2, e.getUniversidad());
             statement.setString(3, e.getIdUsuario());
@@ -114,9 +120,11 @@ public class EstudianteDao{
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
+
     }
 
     public void eliminar(Estudiante e) {
+        
         String DELETE = "DELETE FROM estudiante WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
@@ -138,6 +146,7 @@ public class EstudianteDao{
     }
 
     public List<Estudiante> obtenerTodos() {
+        
         List<Estudiante> estudiantes = new ArrayList<>();
 
         String GETALL = "SELECT id_usuario, carrera, universidad FROM estudiante ORDER BY carrera ASC";
@@ -165,6 +174,7 @@ public class EstudianteDao{
     }
 
     public Estudiante obtener(String id) {
+        
         Estudiante estudiante = null;
 
         String GETONE = "SELECT id_usuario, carrera, universidad FROM estudiante WHERE id_usuario = ?";
@@ -191,6 +201,33 @@ public class EstudianteDao{
             cerrarStatement(statement);
         }
         return estudiante;
+    }
+    
+    public boolean profesorYaTieneIdUsuario(String idUsuario) {
+        boolean respuesta = true;
+
+        String GETONE = "SELECT COUNT(*) FROM profesor WHERE id_usuario = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GETONE);
+            statement.setString(1, idUsuario);
+            result = statement.executeQuery();
+
+            result.next();
+            int cantidad = Integer.parseInt(result.getString("count"));
+            
+            if (cantidad == 0) 
+                respuesta = false;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        
+        return respuesta;
     }
 
 }
