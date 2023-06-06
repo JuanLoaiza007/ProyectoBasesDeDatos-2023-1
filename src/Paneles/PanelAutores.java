@@ -102,14 +102,14 @@ public class PanelAutores extends javax.swing.JPanel {
         btn_cancelar = new javax.swing.JButton();
         lbl_guardar = new javax.swing.JLabel();
         lbl_id = new javax.swing.JLabel();
-        txtf_id = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
         lbl_primerNombre = new javax.swing.JLabel();
-        txtf_primerNombre = new javax.swing.JTextField();
+        primerNombre = new javax.swing.JTextField();
         lbl_segundoNombre = new javax.swing.JLabel();
-        txtf_segundoNombre = new javax.swing.JTextField();
+        segundoNombre = new javax.swing.JTextField();
         lbl_primerApellido = new javax.swing.JLabel();
-        txtf_primerApellido = new javax.swing.JTextField();
-        txtf_segundoApellido = new javax.swing.JTextField();
+        primerApellido = new javax.swing.JTextField();
+        segundoApellido = new javax.swing.JTextField();
         lbl_segundoApellido = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -344,7 +344,7 @@ public class PanelAutores extends javax.swing.JPanel {
         lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_id.setText("Id:");
 
-        txtf_id.setEnabled(false);
+        id.setEnabled(false);
 
         lbl_primerNombre.setBackground(new java.awt.Color(0, 0, 0));
         lbl_primerNombre.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -372,15 +372,15 @@ public class PanelAutores extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_id)
+                            .addComponent(id)
                             .addComponent(lbl_primerNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_primerNombre)
+                            .addComponent(primerNombre)
                             .addComponent(lbl_segundoNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_segundoNombre)
+                            .addComponent(segundoNombre)
                             .addComponent(lbl_primerApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_primerApellido)
+                            .addComponent(primerApellido)
                             .addComponent(lbl_segundoApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_segundoApellido))
+                            .addComponent(segundoApellido))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -405,23 +405,23 @@ public class PanelAutores extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lbl_id)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_primerNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_primerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(primerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_segundoNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_segundoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(segundoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_primerApellido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_primerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(primerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_segundoApellido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_segundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(segundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -502,51 +502,51 @@ public class PanelAutores extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
     
-    public JTextField getTxtf_id() {
-        return txtf_id;
+    public JTextField getId() {
+        return id;
     }
     
     public void setId(String texto) {
-        txtf_id.setText(texto);
+        id.setText(texto);
     }
 
-    public JTextField getTxtf_primerApellido() {
-        return txtf_primerApellido;
+    public JTextField getPrimerApellido() {
+        return primerApellido;
     }
     
     public void setPrimerApellido(String texto) {
-        txtf_primerApellido.setText(texto);
+        primerApellido.setText(texto);
     }
 
-    public JTextField getTxtf_primerNombre() {
-        return txtf_primerNombre;
+    public JTextField getPrimerNombre() {
+        return primerNombre;
     }
     
     public void setPrimerNombre(String texto) {
-        txtf_primerNombre.setText(texto);
+        primerNombre.setText(texto);
     }
 
-    public JTextField getTxtf_segundoApellido() {
-        return txtf_segundoApellido;
+    public JTextField getSegundoApellido() {
+        return segundoApellido;
     }
     
     public void setSegundoApellido(String texto) {
-        txtf_segundoApellido.setText(texto);
+        segundoApellido.setText(texto);
     }
 
-    public JTextField getTxtf_segundoNombre() {
-        return txtf_segundoNombre;
+    public JTextField getSegundoNombre() {
+        return segundoNombre;
     }
     
     public void setSegundoNombre(String texto) {
-        txtf_segundoNombre.setText(texto);
+        segundoNombre.setText(texto);
     }
     
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
@@ -588,22 +588,22 @@ public class PanelAutores extends javax.swing.JPanel {
         btn_cancelar.setEnabled(true);
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
         
-        txtf_id.setEnabled(true);
+        id.setEnabled(true);
         lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_primerNombre.setEnabled(true);
+        primerNombre.setEnabled(true);
         lbl_primerNombre.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_segundoNombre.setEnabled(true);
+        segundoNombre.setEnabled(true);
         lbl_segundoNombre.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_primerApellido.setEnabled(true);
+        primerApellido.setEnabled(true);
         lbl_primerApellido.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_segundoApellido.setEnabled(true);
+        segundoApellido.setEnabled(true);
         lbl_segundoApellido.setForeground(new java.awt.Color(0, 0, 0));
         
     }
     
     public void modoEditar(){
         modoInsertar();
-        txtf_id.setEnabled(false);
+        id.setEnabled(false);
     }
     
     public void modoRegistroTablaSeleccionado(){
@@ -629,28 +629,28 @@ public class PanelAutores extends javax.swing.JPanel {
         btn_cancelar.setEnabled(false);
         lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
         
-        txtf_id.setEnabled(false);
+        id.setEnabled(false);
         lbl_id.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_primerNombre.setEnabled(false);
+        primerNombre.setEnabled(false);
         lbl_primerNombre.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_segundoNombre.setEnabled(false);
+        segundoNombre.setEnabled(false);
         lbl_segundoNombre.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_primerApellido.setEnabled(false);
+        primerApellido.setEnabled(false);
         lbl_primerApellido.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_segundoApellido.setEnabled(false);
+        segundoApellido.setEnabled(false);
         lbl_segundoApellido.setForeground(new java.awt.Color(102, 102, 102));
     }
     
     public void limpiarCampos(){
-        txtf_id.setText("");
-        txtf_primerNombre.setText("");
-        txtf_segundoApellido.setText("");
-        txtf_primerApellido.setText("");
-        txtf_segundoNombre.setText("");
+        id.setText("");
+        primerNombre.setText("");
+        segundoApellido.setText("");
+        primerApellido.setText("");
+        segundoNombre.setText("");
     }
     
     public boolean idEsManual(){
-        return txtf_id.isEnabled();
+        return id.isEnabled();
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -661,6 +661,7 @@ public class PanelAutores extends javax.swing.JPanel {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_nuevo;
     private javax.swing.JButton btn_volver;
+    private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -682,13 +683,12 @@ public class PanelAutores extends javax.swing.JPanel {
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
+    private javax.swing.JTextField primerApellido;
+    private javax.swing.JTextField primerNombre;
+    private javax.swing.JTextField segundoApellido;
+    private javax.swing.JTextField segundoNombre;
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_id;
-    private javax.swing.JTextField txtf_primerApellido;
-    private javax.swing.JTextField txtf_primerNombre;
-    private javax.swing.JTextField txtf_segundoApellido;
-    private javax.swing.JTextField txtf_segundoNombre;
     // End of variables declaration//GEN-END:variables
 
 }

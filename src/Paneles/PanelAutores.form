@@ -459,15 +459,15 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbl_id" max="32767" attributes="0"/>
-                                  <Component id="txtf_id" max="32767" attributes="0"/>
+                                  <Component id="id" max="32767" attributes="0"/>
                                   <Component id="lbl_primerNombre" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_primerNombre" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="primerNombre" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lbl_segundoNombre" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_segundoNombre" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="segundoNombre" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lbl_primerApellido" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_primerApellido" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="primerApellido" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lbl_segundoApellido" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_segundoApellido" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="segundoApellido" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -503,23 +503,23 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbl_id" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_id" min="-2" max="-2" attributes="0"/>
+                      <Component id="id" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbl_primerNombre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_primerNombre" min="-2" max="-2" attributes="0"/>
+                      <Component id="primerNombre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbl_segundoNombre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_segundoNombre" min="-2" max="-2" attributes="0"/>
+                      <Component id="segundoNombre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbl_primerApellido" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_primerApellido" min="-2" max="-2" attributes="0"/>
+                      <Component id="primerApellido" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbl_segundoApellido" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_segundoApellido" min="-2" max="-2" attributes="0"/>
+                      <Component id="segundoApellido" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn_guardar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -621,7 +621,7 @@
                 <Property name="text" type="java.lang.String" value="Id:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_id">
+            <Component class="javax.swing.JTextField" name="id">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -637,7 +637,7 @@
                 <Property name="text" type="java.lang.String" value="Primer nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_primerNombre">
+            <Component class="javax.swing.JTextField" name="primerNombre">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_segundoNombre">
               <Properties>
@@ -650,7 +650,7 @@
                 <Property name="text" type="java.lang.String" value="Segundo nombre:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_segundoNombre">
+            <Component class="javax.swing.JTextField" name="segundoNombre">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_primerApellido">
               <Properties>
@@ -663,9 +663,9 @@
                 <Property name="text" type="java.lang.String" value="Primer apellido:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_primerApellido">
+            <Component class="javax.swing.JTextField" name="primerApellido">
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_segundoApellido">
+            <Component class="javax.swing.JTextField" name="segundoApellido">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_segundoApellido">
               <Properties>
