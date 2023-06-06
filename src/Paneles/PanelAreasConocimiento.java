@@ -490,7 +490,7 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
     
-    public JTextField getTxtf_codigoArea() {
+    public JTextField getCodigoArea() {
         return txtf_codigoArea;
     }
     
@@ -498,7 +498,7 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         txtf_codigoArea.setText(texto);
     }
 
-    public JTextField getTxtf_descripcion() {
+    public JTextField getDescripcion() {
         return txtf_descripcion;
     }
     
@@ -506,7 +506,7 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         txtf_descripcion.setText(texto);
     }
 
-    public JTextField getTxtf_codigoAreaPadre() {
+    public JTextField getCodigoAreaPadre() {
         return txtf_codigoAreaPadre;
     }
     
@@ -514,11 +514,11 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         txtf_codigoAreaPadre.setText(texto);
     }
 
-    public JTextField getTxtf_nombreArea() {
+    public JTextField getNombre() {
         return txtf_nombreArea;
     }
     
-    public void setNombreArea(String texto) {
+    public void setNombre(String texto) {
         txtf_nombreArea.setText(texto);
     }
     
@@ -526,7 +526,7 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
