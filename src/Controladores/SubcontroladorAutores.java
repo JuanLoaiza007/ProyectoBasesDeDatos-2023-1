@@ -245,7 +245,7 @@ public class SubcontroladorAutores {
             if(!txtfEstaVacio(id, "id")){ 
                 if(!txtfEstaVacio(primerNombre, "Primer Nombre")){  
                     if(!txtfEstaVacio(primerApellido, "Primer Apellido")){                           
-                        if(!txtfEstaVacio(segundoApellido, "Segundo Apelldio")){                           
+                        if(!txtfEstaVacio(segundoApellido, "Segundo Apellido")){                           
 
                             camposVacios = false;
                         }
