@@ -25,12 +25,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 public class SubcontroladorEditoriales {
     
@@ -166,19 +163,7 @@ public class SubcontroladorEditoriales {
             AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
         }
         return resultado;
-    }
-    
-    public boolean txtfTieneFecha(String contenido, String nombreCampo){
-        boolean resultado = false;        
-        
-        try{
-            LocalDateTime.parse(contenido);
-        } catch (DateTimeParseException ex){
-            AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es una fecha válida");
-        }
-        return resultado;
-    }
-    
+    }   
     
     // ------------------ LISTENERS ------------------
     /**
@@ -272,7 +257,7 @@ public class SubcontroladorEditoriales {
             
             registroSeleccionado = new Editorial(id, nombre, paginaWeb, paisOrigen);
             
-            if (datosValidados) {
+            if (datosValidados && !camposVacios) {
                 
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                 EditorialDao dao = new EditorialDao(conexion);
