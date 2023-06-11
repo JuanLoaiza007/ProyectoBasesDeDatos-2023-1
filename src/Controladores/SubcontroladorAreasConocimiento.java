@@ -242,7 +242,6 @@ public class SubcontroladorAreasConocimiento {
             if(!txtfEstaVacio(id, "Codigo Area")){ 
                 if(!txtfEstaVacio(nombre, "Nombre")){  
                     if(!txtfEstaVacio(descripcion, "Descripcion")){                           
-
                             camposVacios = false;
                     }
                 }
@@ -254,7 +253,7 @@ public class SubcontroladorAreasConocimiento {
             
             // Insercion o modificacion
             
-            registroSeleccionado = new AreaConocimiento(id, nombre, codigoAreaPadre, descripcion);
+            registroSeleccionado = new AreaConocimiento(id, codigoAreaPadre, nombre, descripcion);
             
             if (datosValidados && !camposVacios) {
                 
@@ -317,11 +316,16 @@ public class SubcontroladorAreasConocimiento {
 
             if (Mouse_evt.getClickCount() == 1) {
                 String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String codigoAreaPadre = table.getValueAt(table.getSelectedRow(), 2).toString();
+                String codigoAreaPadre = "";
+                try {
+                    codigoAreaPadre = table.getValueAt(table.getSelectedRow(), 1).toString();
+                } catch (java.lang.NullPointerException ex){
+                    // No hace nada
+                }
+                String nombre = table.getValueAt(table.getSelectedRow(), 2).toString();
                 String descripcion = table.getValueAt(table.getSelectedRow(), 3).toString();
                 
-                registroSeleccionado = new AreaConocimiento(id, nombre, codigoAreaPadre, descripcion);
+                registroSeleccionado = new AreaConocimiento(id, codigoAreaPadre, nombre, descripcion);
                 
                 panel.limpiarCampos();
                 panel.modoRegistroTablaSeleccionado();

@@ -622,6 +622,7 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         txtf_codigoAreaPadre.setText("");
         txtf_descripcion.setText("");
         txtf_nombreArea.setText("");
+        txtf_buscar.setText("");
     }
     
     public boolean idEsManual(){

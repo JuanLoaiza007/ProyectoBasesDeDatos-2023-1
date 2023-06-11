@@ -1,6 +1,7 @@
 package Dao;
 
 import Modelos.AreaConocimiento;
+import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,10 @@ public class AreaConocimientoDao{
         try {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, e.getCodigoArea());
-            statement.setString(2, e.getCodigoAreaPadre());
+            if(!e.getCodigoAreaPadre().isEmpty())
+                statement.setString(2, e.getCodigoAreaPadre());
+            else    
+                statement.setNull(2, java.sql.Types.VARCHAR);
             statement.setString(3, e.getNombre());
             statement.setString(4, e.getDescripcion());
 
@@ -87,7 +91,7 @@ public class AreaConocimientoDao{
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex + " " + e.getCodigoArea());
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -102,7 +106,12 @@ public class AreaConocimientoDao{
 
         try {
             statement = conexion.prepareStatement(UPDATE);
-            statement.setString(1, e.getCodigoAreaPadre());
+            
+            if(!e.getCodigoAreaPadre().isEmpty())
+                statement.setString(1, e.getCodigoAreaPadre());
+            else
+                statement.setNull(1, java.sql.Types.VARCHAR);
+            
             statement.setString(2, e.getNombre());
             statement.setString(3, e.getDescripcion());
             statement.setString(4, e.getCodigoArea());
@@ -134,6 +143,9 @@ public class AreaConocimientoDao{
 
         } catch (SQLException ex) {
             System.out.println(ex);
+            if(ex.getMessage().contains("violates foreign key constraint"))
+                AvisosEmergentes.mostrarError("Hay otros registros que dependen de este.\n"
+                        + "Por motivos de seguridad, antes de eliminar este debe desvincularlo de los demás registros.");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
