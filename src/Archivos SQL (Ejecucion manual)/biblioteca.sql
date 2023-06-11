@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.9
--- Fecha de última modificacion: 2023-06-02 19:45
+-- Version: 1.0.10
+-- Fecha de última modificacion: 2023-06-11 10:45
 
 -- Registro de cambios
+-- Longitud email aumentada en la tabla usuario (v1.0.10)
 -- Longitud de nombres y apellidos de autor aumentada (v1.0.9)
 -- Añadido el campo de password para la tabla usuario (v1.0.8)
 -- Clausula UNIQUE para email en la tabla usuario (v1.0.7)
@@ -123,7 +124,7 @@ CREATE TABLE usuario (
   nombre VARCHAR (50),
   telefono VARCHAR (15),
   direccion VARCHAR (40),
-  email VARCHAR (40) UNIQUE,
+  email VARCHAR (250) UNIQUE,
   password VARCHAR (60)
 );
 ------------------------------------------------
