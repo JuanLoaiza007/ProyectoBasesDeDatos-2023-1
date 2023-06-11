@@ -23,6 +23,10 @@ public class AvisosEmergentes {
         JOptionPane.showMessageDialog(null, mensaje);
     }
     
+    public static void mostrarError(String mensajeError){
+        JOptionPane.showMessageDialog(null, "Error: " + mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
     public static boolean preguntarYesOrNo(String mensaje){
         int respuesta = JOptionPane.showConfirmDialog(null,
                 mensaje,
