@@ -16,6 +16,7 @@ package Dao;
  */
 
 import Modelos.Usuario;
+import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class UsuarioDao {
         }
     }
 
-    public void insertar(Usuario usuario) {
+    public void insertar(Usuario usuario) throws SQLException {
         String INSERT = "INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email, password) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -76,16 +77,13 @@ public class UsuarioDao {
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la inserción");
             }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
     
-    public void modificar(Usuario usuario) {
+    public void modificar(Usuario usuario) throws SQLException {
         String UPDATE = "UPDATE usuario SET nombre = ?, telefono = ?, direccion = ?, email = ?, password = ? WHERE id_usuario = ?";
 
         PreparedStatement statement = null;
@@ -111,7 +109,7 @@ public class UsuarioDao {
         }
     }
 
-    public void eliminar(String id) {
+    public void eliminar(String id) throws SQLException {
         String DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
 
         PreparedStatement statement = null;

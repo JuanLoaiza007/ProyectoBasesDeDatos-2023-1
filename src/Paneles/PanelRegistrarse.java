@@ -8,6 +8,10 @@ package Paneles;
 
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 /**
  * 
@@ -30,6 +34,17 @@ public class PanelRegistrarse extends javax.swing.JPanel{
     /** Creates new form VistaLogin */
     public PanelRegistrarse() {
         initComponents();
+        
+        txtf_telefono.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     /** This method is called from within the constructor to
@@ -385,6 +400,69 @@ public class PanelRegistrarse extends javax.swing.JPanel{
         lbl_usuarioAtrib1.setText("Titulo: *");
         lbl_usuarioAtrib2.setText("Dependencia: *");
     }
+
+    // ------------------ GETTERS Y SETTERS  ------------------
+    public JTextField getTxtf_contrasena() {
+        return txtf_contrasena;
+    }
+
+    public void setTxtf_contrasena(String contrasena) {
+        txtf_contrasena.setText(contrasena);
+    }
+
+    public JTextField getTxtf_correo() {
+        return txtf_correo;
+    }
+
+    public void setTxtf_correo(String correo) {
+        txtf_correo.setText(correo);
+    }
+
+    public JTextField getTxtf_direccion() {
+        return txtf_direccion;
+    }
+
+    public void setTxtf_direccion(String direccion) {
+        txtf_direccion.setText(direccion);
+    }
+
+    public JTextField getTxtf_nombre() {
+        return txtf_nombre;
+    }
+
+    public void setTxtf_nombre(String nombre) {
+        txtf_nombre.setText(nombre);
+    }
+
+    public JTextField getTxtf_telefono() {
+        return txtf_telefono;
+    }
+
+    public void setTxtf_telefono(String telefono) {
+        txtf_telefono.setText(telefono);
+    }
+
+    public String getBox_tipoUsuario() {
+        return box_tipoUsuario.getSelectedItem().toString();
+    }
+    
+    public JTextField getTxtf_usuarioAtrib1() {
+        return txtf_usuarioAtrib1;
+    }
+
+    public void setTxtf_usuarioAtrib1(String atrib1) {
+        txtf_usuarioAtrib1.setText(atrib1);
+    }
+
+    public JTextField getTxtf_usuarioAtrib2() {
+        return txtf_usuarioAtrib2;
+    }
+
+    public void setTxtf_usuarioAtrib2(String atrib2) {
+        txtf_usuarioAtrib2.setText(atrib2);
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> box_tipoUsuario;

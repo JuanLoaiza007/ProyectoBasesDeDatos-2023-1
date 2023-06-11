@@ -2,7 +2,10 @@ package Dao;
 
 import BasesDeDatos.BibliotecaManager;
 import Modelos.Usuario;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UsuarioDaoTest {
     
@@ -19,7 +22,11 @@ public class UsuarioDaoTest {
         UsuarioDao daoInsertar = new UsuarioDao(conexionInsertar);
 
         Usuario usuarioInsertar = new Usuario("2100", "Nombre", "123456789", "Dirección", "exemplo_email@example.com", "password");
-        daoInsertar.insertar(usuarioInsertar);
+        try {
+            daoInsertar.insertar(usuarioInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Usuario insertado correctamente.");
     }
 
@@ -28,7 +35,11 @@ public class UsuarioDaoTest {
         UsuarioDao daoModificar = new UsuarioDao(conexionModificar);
 
         Usuario usuarioModificar = new Usuario("2100", "Nuevo Nombre", "987654321", "Nueva Dirección", "nuevo_exemplo@example.com", "nuevo_password");
-        daoModificar.modificar(usuarioModificar);
+        try {
+            daoModificar.modificar(usuarioModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Usuario modificado correctamente.");
     }
 
@@ -54,7 +65,11 @@ public class UsuarioDaoTest {
         java.sql.Connection conexionEliminar = BibliotecaManager.iniciarConexion();
         UsuarioDao daoEliminar = new UsuarioDao(conexionEliminar);
 
-        daoEliminar.eliminar("2100");
+        try {
+            daoEliminar.eliminar("2100");
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Usuario eliminado correctamente.");
     }
 
