@@ -59,7 +59,7 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("San Francisco Text", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Bienvenido Juan");
+        jLabel1.setText("Panel de Control");
 
         btn_salir.setBackground(new java.awt.Color(0, 153, 153));
         btn_salir.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,6 +195,13 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
 
     public void doClickAdministrar(){
         btn_administrar.doClick();
+    }
+    
+    public void doClickSoliciutdes(){
+        btn_solicitudes.doClick();
+    }
+    public void doClickAvanzado(){
+        btn_avanzado.doClick();
     }
     
     public void cambiarPanel(javax.swing.JPanel nuevoPanel){    

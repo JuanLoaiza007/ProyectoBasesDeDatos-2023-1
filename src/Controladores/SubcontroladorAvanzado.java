@@ -15,7 +15,10 @@ package Controladores;
  * 
  */
 
+import Paneles.AvisosEmergentes;
 import Paneles.PanelAvanzado;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SubcontroladorAvanzado {
     
@@ -26,6 +29,9 @@ public class SubcontroladorAvanzado {
     public SubcontroladorAvanzado(PanelAvanzado panel){        
         this.panel = panel;
         
+        panel.addListenerUsuarios(oyenteMostrarPanelUsuarios);        
+        panel.addListenerEmpleados(oyenteMostrarPanelEmpleados);      
+        panel.addListenerCambiarContrasena(oyenteCambiarContrasena);
     }
     
     // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
@@ -36,6 +42,29 @@ public class SubcontroladorAvanzado {
     public javax.swing.JPanel getPanel(){
         return panel;
     }
-
+    
+    
+    // ------------------ LISTENERS ------------------
+    ActionListener oyenteMostrarPanelUsuarios = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelUsuarios");
+        }
+    };
+    
+    ActionListener oyenteMostrarPanelEmpleados = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEmpleados");
+        }
+    };
+    
+    ActionListener oyenteCambiarContrasena = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            AvisosEmergentes.mostrarMensaje("Esta opción aún está en desarrollo, consulte a su administrador \n"
+                    + " de bases de datos para hacer el cambio de contraseña manualmente.");
+        }
+    };
 }
 

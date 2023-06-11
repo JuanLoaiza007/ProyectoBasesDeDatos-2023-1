@@ -106,6 +106,24 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarAPanelUsuarios(){
+        PanelUsuarios panel = new PanelUsuarios();
+        SubcontroladorUsuarios subcontrolador = new SubcontroladorUsuarios(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelEmpleados(){
+        PanelEmpleados panel = new PanelEmpleados();
+        SubcontroladorEmpleados subcontrolador = new SubcontroladorEmpleados(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     ActionListener oyenteAdministrar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -130,7 +148,11 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         @Override
         public void actionPerformed(ActionEvent e) {
             PanelAvanzado panel = new PanelAvanzado();
-            vista.cambiarPanel(panel);
+            SubcontroladorAvanzado subcontrolador = new SubcontroladorAvanzado(panel);
+            
+            subcontrolador.setListener(getComunicadorClases());
+            
+            vista.cambiarPanel(subcontrolador.getPanel());
         }
     };
     
@@ -145,6 +167,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     // Capturador de solicitudes de controladores internos
     @Override
     public void mensaje(String solicitud) {
+        System.out.println("Capture algo: " + solicitud);
         String opcion = solicitud;
 
         switch (opcion) {
@@ -152,8 +175,10 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 vista.doClickAdministrar();
                 break;
             case "SolicitudMostrarPanelSolicitudes":
+                vista.doClickSoliciutdes();
                 break;
             case "SolicitudMostrarPanelAvanzado":
+                vista.doClickAvanzado();
                 break;
             case "SolicitudMostrarPanelEditoriales":
                 cambiarAPanelEditoriales();
@@ -172,6 +197,12 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 break;
             case "SolicitudMostrarPanelAreasConocimiento":
                 cambiarAPanelAreasConocimiento();
+                break;
+            case "SolicitudMostrarPanelUsuarios":
+                cambiarAPanelUsuarios();
+                break;
+            case "SolicitudMostrarPanelEmpleados":
+                cambiarAPanelEmpleados();
                 break;
             default:
                 System.out.println("Solicitud " + solicitud + " imposible de atender");

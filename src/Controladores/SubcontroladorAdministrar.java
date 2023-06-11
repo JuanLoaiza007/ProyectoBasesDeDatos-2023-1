@@ -46,6 +46,8 @@ public class SubcontroladorAdministrar {
         return panel;
     }
     
+    
+    // ------------------ LISTENERS ------------------
     ActionListener oyenteMostrarPanelEditoriales = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {

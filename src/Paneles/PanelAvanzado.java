@@ -5,6 +5,8 @@
 
 package Paneles;
 
+import java.awt.event.ActionListener;
+
 /**
  * Bases de datos 750006C-01
  * Proyecto de curso
@@ -43,9 +45,9 @@ public class PanelAvanzado extends javax.swing.JPanel {
         panelAdministrar_contenido = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         btn_usuarios = new javax.swing.JButton();
-        btn_usuarios1 = new javax.swing.JButton();
+        btn_empleados = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btn_usuarios2 = new javax.swing.JButton();
+        btn_cambiarContrasena = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -106,19 +108,19 @@ public class PanelAvanzado extends javax.swing.JPanel {
             }
         });
 
-        btn_usuarios1.setBackground(new java.awt.Color(255, 255, 255));
-        btn_usuarios1.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_usuarios1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_usuarios1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/userBlue_64px.png"))); // NOI18N
-        btn_usuarios1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btn_usuarios1.setMaximumSize(new java.awt.Dimension(120, 120));
-        btn_usuarios1.setMinimumSize(new java.awt.Dimension(120, 120));
-        btn_usuarios1.setOpaque(true);
-        btn_usuarios1.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_usuarios1.setVerifyInputWhenFocusTarget(false);
-        btn_usuarios1.addActionListener(new java.awt.event.ActionListener() {
+        btn_empleados.setBackground(new java.awt.Color(255, 255, 255));
+        btn_empleados.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_empleados.setForeground(new java.awt.Color(255, 255, 255));
+        btn_empleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/userBlue_64px.png"))); // NOI18N
+        btn_empleados.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_empleados.setMaximumSize(new java.awt.Dimension(120, 120));
+        btn_empleados.setMinimumSize(new java.awt.Dimension(120, 120));
+        btn_empleados.setOpaque(true);
+        btn_empleados.setPreferredSize(new java.awt.Dimension(120, 120));
+        btn_empleados.setVerifyInputWhenFocusTarget(false);
+        btn_empleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuarios1ActionPerformed(evt);
+                btn_empleadosActionPerformed(evt);
             }
         });
 
@@ -127,19 +129,19 @@ public class PanelAvanzado extends javax.swing.JPanel {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Gestionar empleados");
 
-        btn_usuarios2.setBackground(new java.awt.Color(255, 255, 255));
-        btn_usuarios2.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_usuarios2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_usuarios2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/key_64px.png"))); // NOI18N
-        btn_usuarios2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btn_usuarios2.setMaximumSize(new java.awt.Dimension(120, 120));
-        btn_usuarios2.setMinimumSize(new java.awt.Dimension(120, 120));
-        btn_usuarios2.setOpaque(true);
-        btn_usuarios2.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_usuarios2.setVerifyInputWhenFocusTarget(false);
-        btn_usuarios2.addActionListener(new java.awt.event.ActionListener() {
+        btn_cambiarContrasena.setBackground(new java.awt.Color(255, 255, 255));
+        btn_cambiarContrasena.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_cambiarContrasena.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cambiarContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/key_64px.png"))); // NOI18N
+        btn_cambiarContrasena.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_cambiarContrasena.setMaximumSize(new java.awt.Dimension(120, 120));
+        btn_cambiarContrasena.setMinimumSize(new java.awt.Dimension(120, 120));
+        btn_cambiarContrasena.setOpaque(true);
+        btn_cambiarContrasena.setPreferredSize(new java.awt.Dimension(120, 120));
+        btn_cambiarContrasena.setVerifyInputWhenFocusTarget(false);
+        btn_cambiarContrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuarios2ActionPerformed(evt);
+                btn_cambiarContrasenaActionPerformed(evt);
             }
         });
 
@@ -159,11 +161,11 @@ public class PanelAvanzado extends javax.swing.JPanel {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_usuarios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_empleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_usuarios2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_cambiarContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
@@ -173,12 +175,12 @@ public class PanelAvanzado extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                        .addComponent(btn_usuarios2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_cambiarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
                     .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
-                            .addComponent(btn_usuarios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel5))
                         .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
@@ -195,23 +197,35 @@ public class PanelAvanzado extends javax.swing.JPanel {
         add(panelScrolleable);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_usuarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuarios1ActionPerformed
+    private void btn_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_empleadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_usuarios1ActionPerformed
+    }//GEN-LAST:event_btn_empleadosActionPerformed
 
     private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_usuariosActionPerformed
 
-    private void btn_usuarios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuarios2ActionPerformed
+    private void btn_cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarContrasenaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_usuarios2ActionPerformed
+    }//GEN-LAST:event_btn_cambiarContrasenaActionPerformed
 
 
+    public void addListenerUsuarios(ActionListener listener){
+        btn_usuarios.addActionListener(listener);
+    }
+    
+    public void addListenerEmpleados(ActionListener listener){
+        btn_empleados.addActionListener(listener);
+    }
+    
+    public void addListenerCambiarContrasena(ActionListener listener){
+        btn_cambiarContrasena.addActionListener(listener);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cambiarContrasena;
+    private javax.swing.JButton btn_empleados;
     private javax.swing.JButton btn_usuarios;
-    private javax.swing.JButton btn_usuarios1;
-    private javax.swing.JButton btn_usuarios2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
