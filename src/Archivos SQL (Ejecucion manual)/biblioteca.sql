@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.10
--- Fecha de última modificacion: 2023-06-11 10:45
+-- Version: 1.0.11
+-- Fecha de última modificacion: 2023-06-12 14:30
 
 -- Registro de cambios
+-- Atributo de nro_consecutivo_prestamo añadido a devuelve_usuario_ejemplar (v1.0.11)
 -- Longitud email aumentada en la tabla usuario (v1.0.10)
 -- Longitud de nombres y apellidos de autor aumentada (v1.0.9)
 -- Añadido el campo de password para la tabla usuario (v1.0.8)
@@ -214,12 +215,15 @@ ALTER TABLE prestamo_ejemplar
 ------------------------------------------------
 DROP TABLE IF EXISTS devuelve_usuario_ejemplar CASCADE;
 CREATE TABLE devuelve_usuario_ejemplar (
+  nro_consecutivo_prestamo VARCHAR(15) NOT NULL,
   id_usuario VARCHAR (15) NOT NULL,
   isbn VARCHAR (15) NOT NULL,
   nro_ejemplar VARCHAR (15) NOT NULL,
   fecha TIMESTAMP
 );
 
+ALTER TABLE devuelve_usuario_ejemplar
+  ADD CONSTRAINT prestamo_fk FOREIGN KEY (nro_consecutivo_prestamo) REFERENCES prestamo(nro_consecutivo_prestamo);
 ALTER TABLE devuelve_usuario_ejemplar
   ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
 
@@ -280,7 +284,8 @@ VALUES ('1', NULL, 'Ciencias Naturales', 'Área de conocimiento que estudia los 
        ('10','5', 'Zoología', 'Estudio de los animales');
 --- EMPLEADOS
 INSERT INTO empleado (id_empleado, nombre, cargo)
-VALUES ('1', 'Juan Pérez', 'Bibliotecario'),
+VALUES ('soyElAdmin', 'admin', 'admin'),
+      ('1', 'Juan Pérez', 'Bibliotecario'),
       ('2', 'María González', 'Asistente de Biblioteca'),
       ('3', 'Pedro Martínez', 'Encargado de Adquisiciones'),
       ('4', 'Luisa Rodríguez', 'Catalogadora'),
@@ -472,18 +477,18 @@ VALUES ('1', '978-0307476463', '1', '2023-05-16 10:30:00'),
       ('10', '978-8433920228', '10', '2023-05-23 16:00:00');
 ------------------------------------------------
 --- DEVOLUCIONES EJEMPLARES
-INSERT INTO devuelve_usuario_ejemplar (id_usuario, isbn, nro_ejemplar, fecha)
+INSERT INTO devuelve_usuario_ejemplar (nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar, fecha)
 VALUES 
-      ('1', '978-0307476463', '1', '2023-05-16 10:35:00'),
-      ('2', '978-8437620629', '2', '2023-05-16 10:40:00'),
-      ('3', '978-9507317181', '3', '2023-05-17 11:05:00'),
-      ('4', '978-9875805174', '4', '2023-05-18 11:35:00'),
-      ('5', '978-8420471839', '5', '2023-05-18 11:35:00'),
-      ('6', '978-8432248138', '6', '2023-05-19 12:15:00'),
-      ('7', '978-8432212429', '7', '2023-05-20 13:10:00'),
-      ('8', '978-8420441146', '8', '2023-05-21 14:20:00'),
-      ('9', '978-6071502919', '9', '2023-05-22 15:30:00'),
-      ('10', '978-8433920228', '10', '2023-05-23 16:40:00');  
+      ('1', '1', '978-0307476463', '1', '2023-05-16 10:35:00'),
+      ('2', '2', '978-8437620629', '2', '2023-05-16 10:40:00'),
+      ('3', '3', '978-9507317181', '3', '2023-05-17 11:05:00'),
+      ('4', '4', '978-9875805174', '4', '2023-05-18 11:35:00'),
+      ('5', '5', '978-8420471839', '5', '2023-05-18 11:35:00'),
+      ('6', '6', '978-8432248138', '6', '2023-05-19 12:15:00'),
+      ('7', '7', '978-8432212429', '7', '2023-05-20 13:10:00'),
+      ('8', '8', '978-8420441146', '8', '2023-05-21 14:20:00'),
+      ('9', '9', '978-6071502919', '9', '2023-05-22 15:30:00'),
+      ('10', '10', '978-8433920228', '10', '2023-05-23 16:40:00');  
 ------------------------------------------------
 --- SOLICITUDES  
 INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
