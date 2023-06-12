@@ -34,13 +34,14 @@ public class DevuelveUsuarioEjemplarDao {
     private DevuelveUsuarioEjemplar convertir(ResultSet result) throws SQLException{
         DevuelveUsuarioEjemplar devolucion = null;
         
+        String nroPrestamo = result.getString("nro_consecutivo_prestamo");
         String idUsuario = result.getString("id_usuario");
         String isbn = result.getString("isbn");
         String nroEjemplar = result.getString("nro_ejemplar");
         Timestamp fecha = result.getTimestamp("fecha");
     
         
-        devolucion = new DevuelveUsuarioEjemplar(idUsuario, isbn, nroEjemplar, fecha);
+        devolucion = new DevuelveUsuarioEjemplar(nroPrestamo, idUsuario, isbn, nroEjemplar, fecha);
         
         return devolucion;
     }
@@ -75,17 +76,18 @@ public class DevuelveUsuarioEjemplarDao {
     
     public void insertar(DevuelveUsuarioEjemplar e) {
 //        devuelve_usuario_ejemplar (id_usuario, isbn, nro_ejemplar, fecha)
-        String INSERT = "INSERT INTO devuelve_usuario_ejemplar (id_usuario, isbn, nro_ejemplar, fecha) VALUES (?, ?, ?, ?)";
+        String INSERT = "INSERT INTO devuelve_usuario_ejemplar (nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar, fecha) VALUES (?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getNroEjemplar());
-            statement.setTimestamp(4, e.getFecha());
+            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setString(2, e.getIdUsuario());
+            statement.setString(3, e.getIsbn());
+            statement.setString(4, e.getNroEjemplar());
+            statement.setTimestamp(5, e.getFecha());
             
 
             if (statement.executeUpdate() == 0) {
@@ -93,31 +95,7 @@ public class DevuelveUsuarioEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex + " - Error en insertar()");
-        } finally {
-            cerrarConexion(conexion);
-            cerrarStatement(statement);
-        }
-    }
-
-    public void eliminar(DevuelveUsuarioEjemplar e) {
-        String DELETE = "DELETE FROM devuelve_usuario_ejemplar WHERE id_usuario  = ? AND isbn = ? AND nro_ejemplar = ? AND fecha = ?";
-
-        PreparedStatement statement = null;
-
-        try {
-            statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getIdUsuario());
-            statement.setString(2, e.getIsbn());
-            statement.setString(3, e.getNroEjemplar());
-            statement.setTimestamp(4, e.getFecha());
-
-            if (statement.executeUpdate() == 0) {
-                System.out.println("Es posible que no se haya eliminado el registro");
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error en insertar: " + ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -127,7 +105,7 @@ public class DevuelveUsuarioEjemplarDao {
     public List<DevuelveUsuarioEjemplar> obtenerTodos() {
         List<DevuelveUsuarioEjemplar> devoluciones = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar ORDER BY fecha DESC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar ORDER BY fecha DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -142,7 +120,7 @@ public class DevuelveUsuarioEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error en obtenerTodos: " + ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -159,7 +137,7 @@ public class DevuelveUsuarioEjemplarDao {
     public List<DevuelveUsuarioEjemplar> obtener(String id) {
         List<DevuelveUsuarioEjemplar> devoluciones = new ArrayList<>();
 
-        String GETALL = "SELECT id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar WHERE id_usuario = ? ORDER BY fecha DESC";
+        String GETALL = "SELECT nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar, fecha FROM devuelve_usuario_ejemplar WHERE id_usuario = ? ORDER BY fecha DESC";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -175,7 +153,7 @@ public class DevuelveUsuarioEjemplarDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error en obtener: " + ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

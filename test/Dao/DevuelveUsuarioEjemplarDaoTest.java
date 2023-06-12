@@ -26,7 +26,6 @@ public class DevuelveUsuarioEjemplarDaoTest {
     public static void main(String[] args) {
         pruebaInsertar();
         pruebaObtener();
-        pruebaEliminar();
         pruebaObtenerTodos();
     }
     
@@ -34,7 +33,7 @@ public class DevuelveUsuarioEjemplarDaoTest {
         Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         DevuelveUsuarioEjemplarDao daoInsertar = new DevuelveUsuarioEjemplarDao(conexionInsertar);
 
-        DevuelveUsuarioEjemplar devolucionInsertar = new DevuelveUsuarioEjemplar("1", "978-0307476463", "1", new Timestamp(System.currentTimeMillis()));
+        DevuelveUsuarioEjemplar devolucionInsertar = new DevuelveUsuarioEjemplar("11", "1", "978-0307476463", "1", new Timestamp(System.currentTimeMillis()));
         daoInsertar.insertar(devolucionInsertar);
         System.out.println("Devolución insertada correctamente.");
     }
@@ -56,15 +55,6 @@ public class DevuelveUsuarioEjemplarDaoTest {
         } else {
             System.out.println("No se encontraron devoluciones para ese ID de usuario.");
         }
-    }
-    
-    public static void pruebaEliminar() {
-        Connection conexionEliminar = BibliotecaManager.iniciarConexion();
-        DevuelveUsuarioEjemplarDao daoEliminar = new DevuelveUsuarioEjemplarDao(conexionEliminar);
-
-        DevuelveUsuarioEjemplar devolucionEliminar = new DevuelveUsuarioEjemplar("1", "1234567890", "A1", new Timestamp(System.currentTimeMillis()));
-        daoEliminar.eliminar(devolucionEliminar);
-        System.out.println("Devolución eliminada correctamente.");
     }
     
     public static void pruebaObtenerTodos() {
