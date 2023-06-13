@@ -20,11 +20,13 @@ public class Empleado {
     private String idEmpleado;
     private String nombre;
     private String cargo;
+    private String password;
     
-    public Empleado(String idEmpleado, String nombre, String cargo) {
+    public Empleado(String idEmpleado, String nombre, String cargo, String password) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.cargo = cargo;
+        this.password = password;
     }
     
     // getters y setters
@@ -52,6 +54,13 @@ public class Empleado {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
-    
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }    
 }
 

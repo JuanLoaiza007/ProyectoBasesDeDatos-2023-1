@@ -35,8 +35,9 @@ public class EmpleadoDao{
         String idEmpleado = result.getString("id_empleado");
         String nombre = result.getString("nombre");
         String cargo = result.getString("cargo");
+        String password= result.getString("password");
         
-        empleado = new Empleado(idEmpleado, nombre, cargo);
+        empleado = new Empleado(idEmpleado, nombre, cargo, password);
         
         return empleado;
     }
@@ -70,7 +71,7 @@ public class EmpleadoDao{
     }
 
     public void insertar(Empleado e) throws SQLException{
-        String INSERT = "INSERT INTO empleado (id_empleado, nombre, cargo) VALUES (?, ?, ?)";
+        String INSERT = "INSERT INTO empleado (id_empleado, nombre, cargo, password) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -80,6 +81,7 @@ public class EmpleadoDao{
             statement.setString(1, e.getIdEmpleado());
             statement.setString(2, e.getNombre());
             statement.setString(3, e.getCargo());
+            statement.setString(4, e.getPassword());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
@@ -92,7 +94,7 @@ public class EmpleadoDao{
     }
 
     public void modificar(Empleado e) throws SQLException{
-        String UPDATE = "UPDATE empleado SET nombre = ?, cargo = ? WHERE id_empleado = ?";
+        String UPDATE = "UPDATE empleado SET nombre = ?, cargo = ?, password = ? WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
 
@@ -100,7 +102,8 @@ public class EmpleadoDao{
             statement = conexion.prepareStatement(UPDATE);          
             statement.setString(1, e.getNombre());
             statement.setString(2, e.getCargo());
-            statement.setString(3, e.getIdEmpleado());
+            statement.setString(3, e.getPassword());
+            statement.setString(4, e.getIdEmpleado());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -134,7 +137,7 @@ public class EmpleadoDao{
     public List<Empleado> obtenerTodos() {
         List<Empleado> empleados = new ArrayList<>();
 
-        String GETALL = "SELECT id_empleado, nombre, cargo FROM empleado ORDER BY cargo ASC";
+        String GETALL = "SELECT id_empleado, nombre, cargo, password FROM empleado ORDER BY cargo ASC";
         
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -161,7 +164,7 @@ public class EmpleadoDao{
     public Empleado obtener(String id) {
         Empleado empleado = null;
 
-        String GETONE = "SELECT id_empleado, nombre, cargo FROM empleado WHERE id_empleado = ?";
+        String GETONE = "SELECT id_empleado, nombre, cargo, password FROM empleado WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -186,4 +189,59 @@ public class EmpleadoDao{
         }
         return empleado;
     }
+    
+    public boolean existeId(String id) {
+        String GET_BY_ID = "SELECT * FROM empleado WHERE id_empleado = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_BY_ID);
+            statement.setString(1, id);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return false;
+    }
+    
+    public boolean correspondePasswordId(String password, String id) {
+        String GET_BY_ID = "SELECT id_empleado, nombre, cargo, password FROM empleado WHERE id_empleado = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_BY_ID);
+            statement.setString(1, id);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                Empleado actual = convertir(result);
+                
+                if(password.equals(actual.getPassword()))
+                    return true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return false;
+    }
+    
+    
 }

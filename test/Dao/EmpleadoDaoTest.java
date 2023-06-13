@@ -17,7 +17,10 @@ package Dao;
 
 import BasesDeDatos.BibliotecaManager;
 import Modelos.Empleado;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmpleadoDaoTest {
     
@@ -33,8 +36,12 @@ public class EmpleadoDaoTest {
         java.sql.Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         EmpleadoDao daoInsertar = new EmpleadoDao(conexionInsertar);
 
-        Empleado empleadoInsertar = new Empleado("2100", "Nombre Empleado", "Cargo Empleado");
-        daoInsertar.insertar(empleadoInsertar);
+        Empleado empleadoInsertar = new Empleado("2100", "Nombre Empleado", "Cargo Empleado", "password");
+        try {
+            daoInsertar.insertar(empleadoInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Empleado insertado correctamente.");
     }
     
@@ -42,8 +49,12 @@ public class EmpleadoDaoTest {
         java.sql.Connection conexionModificar = BibliotecaManager.iniciarConexion();
         EmpleadoDao daoModificar = new EmpleadoDao(conexionModificar);
 
-        Empleado empleadoModificar = new Empleado("2100", "Nuevo Nombre Empleado", "Nuevo Cargo Empleado");
-        daoModificar.modificar(empleadoModificar);
+        Empleado empleadoModificar = new Empleado("2100", "Nuevo Nombre Empleado", "Nuevo Cargo Empleado", "newPassword");
+        try {
+            daoModificar.modificar(empleadoModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Empleado modificado correctamente.");
     }
     
@@ -66,8 +77,12 @@ public class EmpleadoDaoTest {
         java.sql.Connection conexionEliminar = BibliotecaManager.iniciarConexion();
         EmpleadoDao daoEliminar = new EmpleadoDao(conexionEliminar);
 
-        Empleado empleadoEliminar = new Empleado("2100", "", "");
-        daoEliminar.eliminar(empleadoEliminar);
+        Empleado empleadoEliminar = new Empleado("2100", "", "", "");
+        try {
+            daoEliminar.eliminar(empleadoEliminar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpleadoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Empleado eliminado correctamente.");
     }
     

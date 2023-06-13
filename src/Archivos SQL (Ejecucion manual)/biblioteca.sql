@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.11
--- Fecha de última modificacion: 2023-06-12 14:30
+-- Version: 1.0.12
+-- Fecha de última modificacion: 2023-06-13 13:55
 
 -- Registro de cambios
+-- Atributo de password añadido a empleado (v.1.0.12)
 -- Atributo de nro_consecutivo_prestamo añadido a devuelve_usuario_ejemplar (v1.0.11)
 -- Longitud email aumentada en la tabla usuario (v1.0.10)
 -- Longitud de nombres y apellidos de autor aumentada (v1.0.9)
@@ -38,7 +39,8 @@ DROP TABLE IF EXISTS empleado CASCADE;
 CREATE TABLE empleado (
   id_empleado VARCHAR (15) NOT NULL PRIMARY KEY,
   nombre VARCHAR (50),
-  cargo VARCHAR (50)
+  cargo VARCHAR (50),
+  password VARCHAR (60)
 );
 ------------------------------------------------
 DROP TABLE IF EXISTS autor CASCADE;
@@ -283,18 +285,18 @@ VALUES ('1', NULL, 'Ciencias Naturales', 'Área de conocimiento que estudia los 
        ('9', '5', 'Botánica', 'Estudio de las plantas'),
        ('10','5', 'Zoología', 'Estudio de los animales');
 --- EMPLEADOS
-INSERT INTO empleado (id_empleado, nombre, cargo)
-VALUES ('soyElAdmin', 'admin', 'admin'),
-      ('1', 'Juan Pérez', 'Bibliotecario'),
-      ('2', 'María González', 'Asistente de Biblioteca'),
-      ('3', 'Pedro Martínez', 'Encargado de Adquisiciones'),
-      ('4', 'Luisa Rodríguez', 'Catalogadora'),
-      ('5', 'Carlos Gómez', 'Técnico de Mantenimiento'),
-      ('6', 'Ana Ortiz', 'Asistente de Investigación'),
-      ('7', 'Manuel Sánchez', 'Asistente de Préstamo'),
-      ('8', 'Carmen Torres', 'Encargada de Eventos'),
-      ('9', 'Diego Ruiz', 'Asistente de Sistemas'),
-      ('10', 'Sofía Hernández', 'Encargada de Archivo');
+INSERT INTO empleado (id_empleado, nombre, cargo, password)
+VALUES ('admin', 'admin', 'admin', 'admin'),
+      ('1', 'Juan Pérez', 'Bibliotecario', 'Juanpe2012'),
+      ('2', 'María González', 'Asistente de Biblioteca', 'PedroTeQuiero'),
+      ('3', 'Pedro Martínez', 'Encargado de Adquisiciones', 'ElLoboSolitario123'),
+      ('4', 'Luisa Rodríguez', 'Catalogadora', 'SailorMoon123'),
+      ('5', 'Carlos Gómez', 'Técnico de Mantenimiento', 'VegettaMayorQueGoku'),
+      ('6', 'Ana Ortiz', 'Asistente de Investigación', 'KimetsuNoYaiba'),
+      ('7', 'Manuel Sánchez', 'Asistente de Préstamo', 'MiVencinoToretto'),
+      ('8', 'Carmen Torres', 'Encargada de Eventos', 'MiContrasenaUwU'),
+      ('9', 'Diego Ruiz', 'Asistente de Sistemas', 'elPatronDelMal'),
+      ('10', 'Sofía Hernández', 'Encargada de Archivo', 'misHijosLosQuiero');
 ------------------------------------------------
 --- AUTORES DE LIBROS
 INSERT INTO autor (codigo_autor, primer_nombre, segundo_nombre, primer_apellido, segundo_apellido) 
