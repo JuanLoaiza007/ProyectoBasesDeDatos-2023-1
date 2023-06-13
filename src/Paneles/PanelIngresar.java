@@ -6,6 +6,8 @@ package Paneles;
  */
 
 import java.awt.event.ActionListener;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  * 
@@ -197,6 +199,22 @@ public class PanelIngresar extends javax.swing.JPanel{
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    public String getPassF_password() {
+        return new String(passF_password.getPassword());
+    }
+
+    public void setPassF_password(String password) {
+        passF_password.setText(password);
+    }
+
+    public String getTxtf_email() {
+        return txtf_email.getText();
+    }
+
+    public void setTxtf_email(String email) {
+        txtf_email.setText(email);
+    }
     
     public void addActionIngresar(ActionListener listener){
         btn_ingresar.addActionListener(listener);

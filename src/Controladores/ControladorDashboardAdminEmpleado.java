@@ -21,11 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
-    
+
     protected VistaDashboardAdminEmpleado vista = new VistaDashboardAdminEmpleado();
     
+    private String id;
+    
     public ControladorDashboardAdminEmpleado(VistaDashboardAdminEmpleado vista){
-        this.vista = vista;       
+        this.vista = vista;      
         
         // Añadir controladores
         vista.addActionAdministrar(oyenteAdministrar);
@@ -44,6 +46,14 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     public ComunicadorClases getComunicadorClases(){
         return this;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }    
     
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();

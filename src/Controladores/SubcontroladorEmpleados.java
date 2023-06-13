@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import java.sql.SQLException;
+import java.util.Random;
 import javax.swing.JTable;
 
 public class SubcontroladorEmpleados {
@@ -159,6 +160,23 @@ public class SubcontroladorEmpleados {
         return resultado;
     }       
     
+    
+    public static String generarPasswordAleatorio() {
+
+        Random random = new Random();
+        int longitud = 8 + random.nextInt(7) ; // longitud entre 8 y 14 caracteres
+        StringBuilder conjunto = new StringBuilder(); // Nota: Esto es una clase de String más eficiente para meter caracteres usando append
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
+
+        for (int i = 0; i < longitud; i++) {
+            int indice = random.nextInt(caracteres.length());
+            conjunto.append(caracteres.charAt(indice));
+        }
+
+        return conjunto.toString();
+    }
+    
+    
     // ------------------ LISTENERS ------------------
     /**
      * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
@@ -185,7 +203,7 @@ public class SubcontroladorEmpleados {
         }
     };
 
-        ActionListener oyenteEditar = new ActionListener(){
+    ActionListener oyenteEditar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
             panel.setId(registroSeleccionado.getIdEmpleado());
@@ -248,8 +266,9 @@ public class SubcontroladorEmpleados {
             datosValidados = true;
             
             // Insercion o modificacion
+            String password = generarPasswordAleatorio();
             
-            registroSeleccionado = new Empleado(id, nombre, cargo);
+            registroSeleccionado = new Empleado(id, nombre, cargo, password);
             
             try{
                 if (datosValidados && !camposVacios) {
@@ -260,6 +279,7 @@ public class SubcontroladorEmpleados {
                     if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
 
                         dao.insertar(registroSeleccionado);
+                        AvisosEmergentes.mostrarMensaje("Su contraseña de ingreso será: " + password);
 
                         registroSeleccionado = null;
                         cargarModoInicial();
@@ -272,6 +292,8 @@ public class SubcontroladorEmpleados {
                         if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
 
                             dao.modificar(registroSeleccionado);
+                            
+                            AvisosEmergentes.mostrarMensaje("Su contraseña se actualizó a: " + password);
 
                             registroSeleccionado = null;
                             cargarModoInicial();
@@ -323,7 +345,7 @@ public class SubcontroladorEmpleados {
                 String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
                 String cargo = table.getValueAt(table.getSelectedRow(), 2).toString();
                 
-                registroSeleccionado = new Empleado(id, nombre, cargo);
+                registroSeleccionado = new Empleado(id, nombre, cargo, "");
                 
                 panel.limpiarCampos();
                 panel.modoRegistroTablaSeleccionado();

@@ -199,5 +199,62 @@ public class UsuarioDao {
 
         return null;
     }
+    
+    public boolean existeCorreo(String correo){
+        String GET_BY_ID = "SELECT * FROM usuario WHERE email = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_BY_ID);
+            statement.setString(1, correo);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return false;
+    }
+    
+    public boolean correspondePasswordEmail(String password, String email){
+        String GET_BY_ID = "SELECT id_usuario, nombre, telefono, direccion, email, password FROM usuario WHERE email = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_BY_ID);
+            statement.setString(1, email);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                
+                Usuario actual = convertir(result);
+                
+                if(password.equals(actual.getPassword())){
+                    System.out.println("Coincide el password");
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return false;
+    }
+    
 }
 

@@ -17,11 +17,9 @@ package Controladores;
 
 import Paneles.PanelRegistrarse;
 import Paneles.PanelIngresar;
-import Vista.VistaDashboardAdminEmpleado;
-import Vista.VistaIngresarRegistrarse;
+import Vista.*;
 import BasesDeDatos.UsuariosManager;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class ControladorLogin implements ComunicadorClases{
     
@@ -64,13 +62,32 @@ public class ControladorLogin implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
-    public void cambiarADashboard(){
+    public void cambiarADashboardUsuario(String id){
+        vista.dispose();
+                
+        VistaDashboardUsuario nuevaVista = new VistaDashboardUsuario();
+        ControladorDashboardUsuario nuevoControlador = new ControladorDashboardUsuario(nuevaVista);
+        nuevoControlador.setId(id);
+        
+        UsuariosManager.detenerConexion(connection);
+    }
+    
+    public void cambiarADashboardEmpleado(String id){
         vista.dispose();
                 
         VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
         ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
+        nuevoControlador.setId(id);
         
         UsuariosManager.detenerConexion(connection);
+    }
+    
+    public String obtenerIdUsuarioEmpleado(String cadena) {
+        int indiceArroba = cadena.indexOf("@");
+        if (indiceArroba >= 0 && indiceArroba < cadena.length() - 1) {
+            return cadena.substring(indiceArroba + 1);
+        }
+        return "";
     }
     
     // Capturador de solicitudes de controladores internos
@@ -79,17 +96,23 @@ public class ControladorLogin implements ComunicadorClases{
         String opcion = solicitud;
 
         switch (opcion) {
-            case"SolicitudCambioVistaDashboard":
-                cambiarADashboard();            
-            break;
-            case"SolicitudCambioPanelIngresar":
-                cambiarALogin();            
-            break;
-            case"SolicitudCambioPanelRegistrarse":
-                cambiarARegistrarse();            
-            break;
+            case "SolicitudCambioPanelIngresar":
+                cambiarALogin();
+                break;
+            case "SolicitudCambioPanelRegistrarse":
+                cambiarARegistrarse();
+                break;
             default:
-                System.out.println("Solicitud " + solicitud + " imposible de atender");
+                if (opcion.contains("SolicitudCambioVistaDashboardUsuario")) {
+                    String id = obtenerIdUsuarioEmpleado(opcion);
+                    cambiarADashboardUsuario(id);
+                } else if (opcion.contains("SolicitudCambioVistaDashboardEmpleado")) {
+                    String id = obtenerIdUsuarioEmpleado(opcion);
+                    cambiarADashboardEmpleado(id);
+                } else {
+                    System.out.println("Solicitud " + opcion + " imposible de atender");
+                }
+
                 break;
         }
     }

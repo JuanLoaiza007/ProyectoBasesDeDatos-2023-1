@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 public class ControladorDashboardUsuario implements ComunicadorClases{
     
     protected VistaDashboardUsuario vista = new VistaDashboardUsuario();
+    private String id;
     
     public ControladorDashboardUsuario(VistaDashboardUsuario vista){
         this.vista = vista;       
@@ -44,6 +45,16 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     public ComunicadorClases getComunicadorClases(){
         return this;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    
     
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
