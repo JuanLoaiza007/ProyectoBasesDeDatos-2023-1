@@ -140,7 +140,9 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         @Override
         public void actionPerformed(ActionEvent e) {
             PanelSolicitudes panel = new PanelSolicitudes();
-            vista.cambiarPanel(panel);
+            SubcontroladorSolicitudes subcontrolador = new SubcontroladorSolicitudes(panel);
+            
+            vista.cambiarPanel(subcontrolador.getPanel());
         }
     };
     
