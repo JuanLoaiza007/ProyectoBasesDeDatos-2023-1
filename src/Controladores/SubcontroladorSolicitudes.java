@@ -82,7 +82,7 @@ public final class SubcontroladorSolicitudes {
         String descripcion = e.getDescripcion();
         Timestamp fecha = e.getFecha();
         
-        panel.nuevaFilaTabla(nroConsecutivo, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha);
+        panel.nuevaFilaTabla(nroConsecutivo, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha);      
         
         
     }      
