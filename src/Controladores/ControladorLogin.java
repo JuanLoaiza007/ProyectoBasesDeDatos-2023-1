@@ -18,22 +18,13 @@ package Controladores;
 import Paneles.PanelRegistrarse;
 import Paneles.PanelIngresar;
 import Vista.*;
-import BasesDeDatos.UsuariosManager;
-import java.sql.Connection;
 
 public class ControladorLogin implements ComunicadorClases{
     
-    protected VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();
-    protected Connection connection;
+    protected VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();    
     
     public ControladorLogin(VistaIngresarRegistrarse vista){
         this.vista = vista;
-        
-        // CargarBase de datos
-        connection = UsuariosManager.iniciarConexion();
-        
-        // Añadir controladores
-        
         
         // Cargar panel inicial
         cambiarALogin();
@@ -41,7 +32,10 @@ public class ControladorLogin implements ComunicadorClases{
         // Configurar vista para mostrar
         vista.setLocationRelativeTo(null);
         vista.setResizable(false);
-        vista.setVisible(true);       
+        vista.setVisible(true);   
+        
+        // Rutina para actualizar multas
+        Modelos.GenerarMultasDao.generarMultas(BasesDeDatos.BibliotecaManager.iniciarConexion());
     }
     
     public void cambiarALogin(){
@@ -68,8 +62,6 @@ public class ControladorLogin implements ComunicadorClases{
         VistaDashboardUsuario nuevaVista = new VistaDashboardUsuario();
         ControladorDashboardUsuario nuevoControlador = new ControladorDashboardUsuario(nuevaVista);
         nuevoControlador.setId(id);
-        
-        UsuariosManager.detenerConexion(connection);
     }
     
     public void cambiarADashboardEmpleado(String id){
@@ -78,8 +70,6 @@ public class ControladorLogin implements ComunicadorClases{
         VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
         ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
         nuevoControlador.setId(id);
-        
-        UsuariosManager.detenerConexion(connection);
     }
     
     public String obtenerIdUsuarioEmpleado(String cadena) {
