@@ -78,7 +78,7 @@ public class EmpleadoDao{
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getIdEmpleado());
+            statement.setString(1, e.getIdEmpleado().toLowerCase());
             statement.setString(2, e.getNombre());
             statement.setString(3, e.getCargo());
             statement.setString(4, e.getPassword());
@@ -100,7 +100,7 @@ public class EmpleadoDao{
 
         try {
             statement = conexion.prepareStatement(UPDATE);          
-            statement.setString(1, e.getNombre());
+            statement.setString(1, e.getNombre().toLowerCase());
             statement.setString(2, e.getCargo());
             statement.setString(3, e.getPassword());
             statement.setString(4, e.getIdEmpleado());
