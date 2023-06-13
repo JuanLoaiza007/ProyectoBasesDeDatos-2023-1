@@ -101,14 +101,14 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         lbl_cancelar = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
         lbl_guardar = new javax.swing.JLabel();
-        lbl_id = new javax.swing.JLabel();
-        txtf_id = new javax.swing.JTextField();
-        lbl_nombreSala = new javax.swing.JLabel();
-        txtf_nombreSala = new javax.swing.JTextField();
-        lbl_nroPasillo = new javax.swing.JLabel();
-        txtf_nroPasillo = new javax.swing.JTextField();
-        lbl_estante = new javax.swing.JLabel();
-        txtf_estante = new javax.swing.JTextField();
+        lbl_isbn = new javax.swing.JLabel();
+        txtf_isbn = new javax.swing.JTextField();
+        lbl_url = new javax.swing.JLabel();
+        txtf_url = new javax.swing.JTextField();
+        lbl_bytes = new javax.swing.JLabel();
+        txtf_bytes = new javax.swing.JTextField();
+        lbl_formato = new javax.swing.JLabel();
+        txtf_formato = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -338,23 +338,23 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_guardar.setText("Guardar");
 
-        lbl_id.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_id.setText("ISBN:");
+        lbl_isbn.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_isbn.setText("ISBN:");
 
-        txtf_id.setEnabled(false);
+        txtf_isbn.setEnabled(false);
 
-        lbl_nombreSala.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nombreSala.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nombreSala.setText("Dirección URL:");
+        lbl_url.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_url.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_url.setText("Dirección URL:");
 
-        lbl_nroPasillo.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroPasillo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPasillo.setText("Tamaño en Bytes:");
+        lbl_bytes.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_bytes.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_bytes.setText("Tamaño en Bytes:");
 
-        lbl_estante.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_estante.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_estante.setText("Formato: ");
+        lbl_formato.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_formato.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_formato.setText("Formato: ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -365,14 +365,14 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_id)
-                            .addComponent(lbl_nombreSala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nombreSala)
-                            .addComponent(lbl_nroPasillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_nroPasillo)
-                            .addComponent(lbl_estante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_estante))
+                            .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_isbn)
+                            .addComponent(lbl_url, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_url)
+                            .addComponent(lbl_bytes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_bytes)
+                            .addComponent(lbl_formato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_formato))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -395,21 +395,21 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_id)
+                .addComponent(lbl_isbn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nombreSala)
+                .addComponent(lbl_url)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nombreSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroPasillo)
+                .addComponent(lbl_bytes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroPasillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_bytes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_estante)
+                .addComponent(lbl_formato)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_estante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_formato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -490,43 +490,43 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
     
-    public JTextField getTxtf_id() {
-        return txtf_id;
+    public JTextField getIsbn() {
+        return txtf_isbn;
     }
     
-    public void setId(String texto) {
-        txtf_id.setText(texto);
+    public void setIsbn(String texto) {
+        txtf_isbn.setText(texto);
     }
 
-    public JTextField getTxtf_estante() {
-        return txtf_estante;
+    public JTextField getFormato() {
+        return txtf_formato;
     }
     
-    public void setEstante(String texto) {
-        txtf_estante.setText(texto);
+    public void setFormato(String texto) {
+        txtf_formato.setText(texto);
     }
 
-    public JTextField getTxtf_nombreSala() {
-        return txtf_nombreSala;
+    public JTextField getDireccionUrl() {
+        return txtf_url;
     }
     
-    public void setNombreSala(String texto) {
-        txtf_nombreSala.setText(texto);
+    public void setDireccionUrl(String texto) {
+        txtf_url.setText(texto);
     }
 
-    public JTextField getTxtf_nroPasillo() {
-        return txtf_nroPasillo;
+    public JTextField getTamanioBytes() {
+        return txtf_bytes;
     }
     
-    public void setNroPasillo(String texto) {
-        txtf_nroPasillo.setText(texto);
+    public void setTamanioBytes(String texto) {
+        txtf_bytes.setText(texto);
     }
     
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
@@ -568,19 +568,19 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         btn_cancelar.setEnabled(true);
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
         
-        txtf_id.setEnabled(true);
-        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nombreSala.setEnabled(true);
-        lbl_nombreSala.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroPasillo.setEnabled(true);
-        lbl_nroPasillo.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_estante.setEnabled(true);
-        lbl_estante.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_isbn.setEnabled(true);
+        lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_url.setEnabled(true);
+        lbl_url.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_bytes.setEnabled(true);
+        lbl_bytes.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_formato.setEnabled(true);
+        lbl_formato.setForeground(new java.awt.Color(0, 0, 0));
     }
     
     public void modoEditar(){
         modoInsertar();
-        txtf_id.setEnabled(false);
+        txtf_isbn.setEnabled(false);
     }
     
     public void modoRegistroTablaSeleccionado(){
@@ -606,25 +606,25 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         btn_cancelar.setEnabled(false);
         lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
         
-        txtf_id.setEnabled(false);
-        lbl_id.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nombreSala.setEnabled(false);
-        lbl_nombreSala.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroPasillo.setEnabled(false);
-        lbl_nroPasillo.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_estante.setEnabled(false);
-        lbl_estante.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_isbn.setEnabled(false);
+        lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_url.setEnabled(false);
+        lbl_url.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_bytes.setEnabled(false);
+        lbl_bytes.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_formato.setEnabled(false);
+        lbl_formato.setForeground(new java.awt.Color(102, 102, 102));
     }
     
     public void limpiarCampos(){
-        txtf_id.setText("");
-        txtf_nombreSala.setText("");
-        txtf_estante.setText("");
-        txtf_nroPasillo.setText("");
+        txtf_isbn.setText("");
+        txtf_url.setText("");
+        txtf_formato.setText("");
+        txtf_bytes.setText("");
     }
     
     public boolean idEsManual(){
-        return txtf_id.isEnabled();
+        return txtf_isbn.isEnabled();
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -643,24 +643,24 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_borrar;
+    private javax.swing.JLabel lbl_bytes;
     private javax.swing.JLabel lbl_cancelar;
     private javax.swing.JLabel lbl_editar;
-    private javax.swing.JLabel lbl_estante;
+    private javax.swing.JLabel lbl_formato;
     private javax.swing.JLabel lbl_guardar;
-    private javax.swing.JLabel lbl_id;
-    private javax.swing.JLabel lbl_nombreSala;
-    private javax.swing.JLabel lbl_nroPasillo;
+    private javax.swing.JLabel lbl_isbn;
     private javax.swing.JLabel lbl_nuevo;
+    private javax.swing.JLabel lbl_url;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_estante;
-    private javax.swing.JTextField txtf_id;
-    private javax.swing.JTextField txtf_nombreSala;
-    private javax.swing.JTextField txtf_nroPasillo;
+    private javax.swing.JTextField txtf_bytes;
+    private javax.swing.JTextField txtf_formato;
+    private javax.swing.JTextField txtf_isbn;
+    private javax.swing.JTextField txtf_url;
     // End of variables declaration//GEN-END:variables
 
 }

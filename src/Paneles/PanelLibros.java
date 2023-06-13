@@ -103,8 +103,6 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_guardar = new javax.swing.JLabel();
         lbl_isbn = new javax.swing.JLabel();
         txtf_isbn = new javax.swing.JTextField();
-        lbl_idEmpleado = new javax.swing.JLabel();
-        txtf_idEmpleado = new javax.swing.JTextField();
         lbl_titulo = new javax.swing.JLabel();
         txtf_titulo = new javax.swing.JTextField();
         lbl_anioPublicacion = new javax.swing.JLabel();
@@ -350,10 +348,6 @@ public class PanelLibros extends javax.swing.JPanel {
 
         txtf_isbn.setEnabled(false);
 
-        lbl_idEmpleado.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_idEmpleado.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_idEmpleado.setText("Id Empleado:");
-
         lbl_titulo.setBackground(new java.awt.Color(0, 0, 0));
         lbl_titulo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_titulo.setText("Titulo:");
@@ -395,8 +389,6 @@ public class PanelLibros extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtf_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(lbl_idEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_idEmpleado)
                     .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtf_titulo)
                     .addComponent(lbl_anioPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -439,11 +431,7 @@ public class PanelLibros extends javax.swing.JPanel {
                 .addComponent(lbl_codigoEditorial)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_codigoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_idEmpleado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -543,7 +531,7 @@ public class PanelLibros extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
 
-    public JTextField getTxtf_isbn() {
+    public JTextField getIsbn() {
         return txtf_isbn;
     }
         
@@ -551,7 +539,7 @@ public class PanelLibros extends javax.swing.JPanel {
         txtf_isbn.setText(texto);
     }
 
-    public JTextField getTxtf_anioPublicacion() {
+    public JTextField getAnioPublicacion() {
         return txtf_anioPublicacion;
     }
     
@@ -559,7 +547,7 @@ public class PanelLibros extends javax.swing.JPanel {
         txtf_anioPublicacion.setText(texto);
     }
     
-    public JTextField getTxtf_codigoArea() {
+    public JTextField getCodigoArea() {
         return txtf_codigoArea;
     }
     
@@ -567,23 +555,15 @@ public class PanelLibros extends javax.swing.JPanel {
         txtf_codigoArea.setText(texto);
     }    
 
-    public JTextField getTxtf_codigoEditorial() {
+    public JTextField getCodigoEditorial() {
         return txtf_codigoEditorial;
     }
     
     public void setCodigoEditorial(String texto) {
         txtf_codigoEditorial.setText(texto);
     }       
-
-    public JTextField getTxtf_idEmpleado() {
-        return txtf_idEmpleado;
-    }
     
-    public void setIdEmpleado(String texto) {
-        txtf_idEmpleado.setText(texto);
-    }
-    
-    public JTextField getTxtf_nroPaginas() {
+    public JTextField getNroPaginas() {
         return txtf_nroPaginas;
     }
     
@@ -591,7 +571,7 @@ public class PanelLibros extends javax.swing.JPanel {
         txtf_nroPaginas.setText(texto);
     }    
 
-    public JTextField getTxtf_titulo() {
+    public JTextField getTitulo() {
         return txtf_titulo;
     }
     
@@ -603,7 +583,7 @@ public class PanelLibros extends javax.swing.JPanel {
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
@@ -647,8 +627,10 @@ public class PanelLibros extends javax.swing.JPanel {
         
         txtf_isbn.setEnabled(true);
         lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_idEmpleado.setEnabled(true);
-        lbl_idEmpleado.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_codigoArea.setEnabled(true);
+        lbl_codigoArea.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_codigoEditorial.setEnabled(true);
+        lbl_codigoEditorial.setForeground(new java.awt.Color(0, 0, 0));           
         txtf_titulo.setEnabled(true);
         lbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
         txtf_anioPublicacion.setEnabled(true);
@@ -688,8 +670,10 @@ public class PanelLibros extends javax.swing.JPanel {
         
         txtf_isbn.setEnabled(false);
         lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_idEmpleado.setEnabled(false);
-        lbl_idEmpleado.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_codigoArea.setEnabled(false);
+        lbl_codigoArea.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_codigoEditorial.setEnabled(false);
+        lbl_codigoEditorial.setForeground(new java.awt.Color(102, 102, 102));        
         txtf_titulo.setEnabled(false);
         lbl_titulo.setForeground(new java.awt.Color(102, 102, 102));
         txtf_anioPublicacion.setEnabled(false);
@@ -700,7 +684,8 @@ public class PanelLibros extends javax.swing.JPanel {
     
     public void limpiarCampos(){
         txtf_isbn.setText("");
-        txtf_idEmpleado.setText("");
+        txtf_codigoArea.setText("");
+        txtf_codigoEditorial.setText("");
         txtf_nroPaginas.setText("");
         txtf_anioPublicacion.setText("");
         txtf_titulo.setText("");
@@ -732,7 +717,6 @@ public class PanelLibros extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_codigoEditorial;
     private javax.swing.JLabel lbl_editar;
     private javax.swing.JLabel lbl_guardar;
-    private javax.swing.JLabel lbl_idEmpleado;
     private javax.swing.JLabel lbl_isbn;
     private javax.swing.JLabel lbl_nroPaginas;
     private javax.swing.JLabel lbl_nuevo;
@@ -746,7 +730,6 @@ public class PanelLibros extends javax.swing.JPanel {
     private javax.swing.JTextField txtf_buscar;
     private javax.swing.JTextField txtf_codigoArea;
     private javax.swing.JTextField txtf_codigoEditorial;
-    private javax.swing.JTextField txtf_idEmpleado;
     private javax.swing.JTextField txtf_isbn;
     private javax.swing.JTextField txtf_nroPaginas;
     private javax.swing.JTextField txtf_titulo;

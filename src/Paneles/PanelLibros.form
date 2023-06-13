@@ -458,8 +458,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_isbn" max="32767" attributes="0"/>
                           <Component id="txtf_isbn" pref="327" max="32767" attributes="0"/>
-                          <Component id="lbl_idEmpleado" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtf_idEmpleado" alignment="0" max="32767" attributes="0"/>
                           <Component id="lbl_titulo" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtf_titulo" alignment="0" max="32767" attributes="0"/>
                           <Component id="lbl_anioPublicacion" alignment="0" max="32767" attributes="0"/>
@@ -511,11 +509,7 @@
                       <Component id="lbl_codigoEditorial" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtf_codigoEditorial" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_idEmpleado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_idEmpleado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lbl_titulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtf_titulo" min="-2" max="-2" attributes="0"/>
@@ -537,7 +531,7 @@
                           <Component id="lbl_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbl_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="72" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -632,19 +626,6 @@
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lbl_idEmpleado">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="San Francisco Text" size="16" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Id Empleado:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtf_idEmpleado">
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_titulo">
               <Properties>

@@ -19,6 +19,8 @@ import BasesDeDatos.BibliotecaManager;
 import Modelos.Ejemplar;
 import java.sql.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EjemplarDaoTest {
     
@@ -27,7 +29,11 @@ public class EjemplarDaoTest {
         EjemplarDao daoInsertar = new EjemplarDao(conexionInsertar);
 
         Ejemplar ejemplarInsertar = new Ejemplar("978-0307476463", "2100", "Sala A", 1, 2, 3);
-        daoInsertar.insertar(ejemplarInsertar);
+        try {
+            daoInsertar.insertar(ejemplarInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Ejemplar insertado correctamente.");
     }
     
@@ -36,7 +42,11 @@ public class EjemplarDaoTest {
         EjemplarDao daoModificar = new EjemplarDao(conexionModificar);
 
         Ejemplar ejemplarModificar = new Ejemplar("978-0307476463", "2100", "Sala B", 4, 5, 6);
-        daoModificar.modificar(ejemplarModificar);
+        try {
+            daoModificar.modificar(ejemplarModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Ejemplar modificado correctamente.");
     }
     
@@ -44,7 +54,7 @@ public class EjemplarDaoTest {
         Connection conexionObtener = BibliotecaManager.iniciarConexion();
         EjemplarDao daoObtener = new EjemplarDao(conexionObtener);
 
-        List<Ejemplar> ejemplaresObtenidos = daoObtener.obtener("978-0307476463", "2100");
+        List<Ejemplar> ejemplaresObtenidos = daoObtener.obtener("978-0307476463");
         if (!ejemplaresObtenidos.isEmpty()) {
             System.out.println("Ejemplares encontrados:");
             for (Ejemplar ejemplar : ejemplaresObtenidos) {
@@ -66,7 +76,11 @@ public class EjemplarDaoTest {
         EjemplarDao daoEliminar = new EjemplarDao(conexionEliminar);
 
         Ejemplar ejemplarEliminar = new Ejemplar("978-0307476463", "2100", "", 0, 0, 0);
-        daoEliminar.eliminar(ejemplarEliminar);
+        try {
+            daoEliminar.eliminar(ejemplarEliminar);
+        } catch (SQLException ex) {
+            Logger.getLogger(EjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Ejemplar eliminado correctamente.");
     }
     

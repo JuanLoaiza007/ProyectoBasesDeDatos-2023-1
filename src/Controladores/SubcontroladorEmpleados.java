@@ -15,9 +15,19 @@ package Controladores;
  * 
  */
 
+import BasesDeDatos.BibliotecaManager;
+import Dao.EmpleadoDao;
+import Modelos.Empleado;
+import Paneles.AvisosEmergentes;
 import Paneles.PanelEmpleados;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
+import java.sql.SQLException;
+import javax.swing.JTable;
 
 public class SubcontroladorEmpleados {
     
@@ -25,21 +35,134 @@ public class SubcontroladorEmpleados {
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    protected int selectedId;
+    protected int selectedRow;
+    protected Empleado registroSeleccionado = null;      
+    
     public SubcontroladorEmpleados(PanelEmpleados panel){
         this.panel = panel;
         
         panel.addListenerVolver(oyenteMostrarPanelAvanzado);
+        panel.addListenerBuscar(oyenteBuscar);
+        panel.addListenerNuevo(oyenteNuevo);
+        panel.addListenerEditar(oyenteEditar);
+        panel.addListenerBorrar(oyenteBorrar);
+        panel.addListenerGuardar(oyenteGuardar);
+        panel.addListenerCancelar(oyenteCancelar);
+        panel.addListenerFilasTabla(oyenteFilasTabla);     
+        
+        cargarRegistros();
+        panel.modoPasivo();        
         
     }
     
+    // ------------------ METODOS ------------------    
     // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
     public void setListener(ComunicadorClases listener) {
         this.decirAInstanciaSuperior = listener;
     }
     
+    /**
+     * Funcion para dar el panel a la instancia superior (Vista)
+     * @return El panel que maneja el subcontrolador
+     */
     public javax.swing.JPanel getPanel(){
         return panel;
     }
+    
+    public void cargarModoInicial(){
+        panel.limpiarTabla();
+        panel.limpiarCampos();
+        cargarRegistros();
+        panel.modoPasivo();        
+    } 
+    
+    /**
+     * Transforma un objeto a una fila de la tabla y lo agrega
+     * @param e El objeto que transformará 
+     */
+    public void cargarObjetoEnTabla(Empleado e){
+        String id = e.getIdEmpleado();
+        String nombre = e.getNombre();
+        String cargo = e.getCargo();
+        
+        panel.nuevaFilaTabla(id, nombre, cargo);
+    }  
+    
+    /**
+     * Carga todos los registros a la tabla
+     */
+    public void cargarRegistros(){
+        List<Empleado> empleados;
+        
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        
+        EmpleadoDao dao = new EmpleadoDao(conexion);
+        empleados = dao.obtenerTodos();
+        
+        for(Empleado empleadoActual: empleados){
+            cargarObjetoEnTabla(empleadoActual);
+        }
+    }   
+    
+    public void buscar(){
+        
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        
+        String parametro = panel.getTxtf_buscar().getText();
+        
+        EmpleadoDao dao = new EmpleadoDao(conexion);
+        
+        if (parametro.isEmpty()) { // Si no hay parametro recargar la tabla
+            cargarModoInicial();            
+        } else {
+            Empleado empleadoBuscado = dao.obtener(parametro);
+            
+            if (empleadoBuscado == null) { // Si no se encontró una ubicacion entonces recargar la tabla
+                AvisosEmergentes.mostrarMensaje("No se ha encontrado ningun registro con ese Id");
+                
+                cargarModoInicial();
+            } else {
+                panel.limpiarTabla();   
+                panel.limpiarCampos();
+                cargarObjetoEnTabla(empleadoBuscado);
+            }
+        }
+    }   
+    
+    // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
+    public boolean txtfEstaVacio(String contenido, String nombreCampo){
+        boolean resultado = true;
+        
+        if(contenido.isEmpty())
+            AvisosEmergentes.mostrarMensaje("El campo de " + nombreCampo + " esta vacio. Digite algo.");
+        else 
+            resultado = false;
+        
+        
+        return resultado;
+    }
+
+    public boolean txtfTieneNumero(String contenido, String nombreCampo){
+        boolean resultado = false;
+        
+        try{
+            Integer.parseInt(contenido);
+            if (Integer.parseInt(contenido) >=0){
+                resultado = true;
+            } else {
+                AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
+            }
+        } catch(NumberFormatException ex){
+            AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
+        }
+        return resultado;
+    }       
+    
+    // ------------------ LISTENERS ------------------
+    /**
+     * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
+     */    
     
     ActionListener oyenteMostrarPanelAvanzado = new ActionListener(){
         @Override
@@ -47,4 +170,180 @@ public class SubcontroladorEmpleados {
             decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAvanzado");
         }
     };
+    
+    ActionListener oyenteBuscar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buscar();
+        }
+    };     
+    
+    ActionListener oyenteNuevo = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panel.modoInsertar();
+        }
+    };
+
+        ActionListener oyenteEditar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panel.setId(registroSeleccionado.getIdEmpleado());
+            panel.setNombre(registroSeleccionado.getNombre());
+            panel.setCargo(registroSeleccionado.getCargo());
+            
+            panel.modoEditar();
+        }
+    };
+        
+    ActionListener oyenteBorrar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String mensaje = "¿Seguro que deseas eliminar este registro? \n"
+                    + "Esta operacion es irreversible";
+            try{
+                if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
+                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+
+                    EmpleadoDao dao = new EmpleadoDao(conexion);
+
+                    dao.eliminar(registroSeleccionado);
+                    registroSeleccionado = null;
+
+                    panel.limpiarTabla();
+                    cargarRegistros();
+                    panel.modoPasivo();
+
+                    BibliotecaManager.detenerConexion(conexion);
+                }
+            } catch (SQLException ex){
+                System.out.println(ex.getMessage());
+            }
+
+        }
+    }; 
+    
+    ActionListener oyenteGuardar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+            // Variables que guardan los campos
+            String id = panel.getId().getText();
+            String nombre = panel.getNombre().getText();
+            String cargo = panel.getCargo().getText();
+            
+            //Comprobacion de campos vacios
+            boolean camposVacios = true;
+            
+            if(!txtfEstaVacio(id, "Id empleado")){ 
+                if(!txtfEstaVacio(nombre, "Nombre")){  
+                    if(!txtfEstaVacio(cargo, "Cargo")){ 
+                        camposVacios = false;                           
+                    }
+                }
+            }
+       
+            // Obtencion de campos dificiles
+            boolean datosValidados = false;
+            datosValidados = true;
+            
+            // Insercion o modificacion
+            
+            registroSeleccionado = new Empleado(id, nombre, cargo);
+            
+            try{
+                if (datosValidados && !camposVacios) {
+
+                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+                    EmpleadoDao dao = new EmpleadoDao(conexion);
+
+                    if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
+
+                        dao.insertar(registroSeleccionado);
+
+                        registroSeleccionado = null;
+                        cargarModoInicial();
+
+                        BibliotecaManager.detenerConexion(conexion);
+                    } else{ // El id es fijo por lo que se esta realizando una actualizacion
+                        String mensaje = "¿Seguro que deseas editar la informacion de este registro? \n"
+                                + "Esta operacion es irreversible";
+
+                        if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
+
+                            dao.modificar(registroSeleccionado);
+
+                            registroSeleccionado = null;
+                            cargarModoInicial();
+                        }
+                    }
+
+                    BibliotecaManager.detenerConexion(conexion);
+                }
+            }catch(SQLException ex){
+                System.out.println(ex.getMessage());
+                if(ex.getMessage().contains("llave duplicada viola restricción de unicidad")){
+                    AvisosEmergentes.mostrarMensaje("Ya hay un empleado registrado con ese id");
+                } else if(ex.getMessage().contains("viola la llave foránea")){
+                    AvisosEmergentes.mostrarMensaje("No puedes agregar un area o una editorial que no esta registrada");
+                }
+            }
+        }
+    };    
+    
+    ActionListener oyenteCancelar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            panel.modoPasivo();
+            panel.limpiarCampos();
+        }
+    };  
+    
+    /**
+     * Gestiona los clics en las filas de la tabla
+     */
+    MouseListener oyenteFilasTabla = new MouseListener() {
+        @Override
+        public void mousePressed(MouseEvent Mouse_evt) {
+            
+            JTable table = (JTable) Mouse_evt.getSource();
+            selectedRow = table.getSelectedRow();
+            Point point = Mouse_evt.getPoint();
+            
+            int row = table.rowAtPoint(point);
+            
+            try {
+                selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+            } catch (NumberFormatException e) {
+                
+            }
+
+            if (Mouse_evt.getClickCount() == 1) {
+                String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+                String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
+                String cargo = table.getValueAt(table.getSelectedRow(), 2).toString();
+                
+                registroSeleccionado = new Empleado(id, nombre, cargo);
+                
+                panel.limpiarCampos();
+                panel.modoRegistroTablaSeleccionado();
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    };     
 }

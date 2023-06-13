@@ -72,7 +72,7 @@ public class EjemplarDao{
         }
     }
     
-    public void insertar(Ejemplar e) { 
+    public void insertar(Ejemplar e) throws SQLException { 
         String INSERT = "INSERT INTO ejemplar (isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -91,15 +91,13 @@ public class EjemplarDao{
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex + " - Excepcion en insertar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void modificar(Ejemplar e) {
+    public void modificar(Ejemplar e) throws SQLException{
         String UPDATE = "UPDATE ejemplar SET sala = ? , nro_pasillo = ? , estante = ? , nro_cajon = ?  WHERE isbn = ? AND nro_ejemplar = ?";
 
         PreparedStatement statement = null;
@@ -117,15 +115,13 @@ public class EjemplarDao{
                 System.out.println("Es posible que no se haya modificado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex + " - Excepcion en modificar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void eliminar(Ejemplar e) {
+    public void eliminar(Ejemplar e) throws SQLException{
         
         String DELETE = "DELETE FROM ejemplar WHERE isbn = ? AND nro_ejemplar = ?";
 
@@ -140,15 +136,13 @@ public class EjemplarDao{
                 System.out.println("Es posible que no se haya eliminado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex + " - Excepcion en eliminar");
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public List<Ejemplar> obtenerTodos() {
+    public List<Ejemplar> obtenerTodos(){
         List<Ejemplar> ejemplares = new ArrayList<>();
 
         String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar ORDER BY isbn, nro_ejemplar ASC";
@@ -175,10 +169,10 @@ public class EjemplarDao{
         return ejemplares;
     }
 
-    public List<Ejemplar> obtener(String isbn, String nro_ejemplar) {
+    public List<Ejemplar> obtener(String isbn) {
         List<Ejemplar> ejemplares = new ArrayList<>();
 
-        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ? AND nro_ejemplar = ?";
+        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
@@ -187,7 +181,6 @@ public class EjemplarDao{
 
             statement = conexion.prepareStatement(GETALL);
             statement.setString(1, isbn);
-            statement.setString(2, nro_ejemplar);
             result = statement.executeQuery();
 
             while (result.next()) {

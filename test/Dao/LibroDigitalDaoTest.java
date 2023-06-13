@@ -18,7 +18,10 @@ package Dao;
 import BasesDeDatos.BibliotecaManager;
 import Modelos.LibroDigital;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LibroDigitalDaoTest {
     
@@ -35,7 +38,11 @@ public class LibroDigitalDaoTest {
         LibroDigitalDao daoInsertar = new LibroDigitalDao(conexionInsertar);
 
         LibroDigital libroInsertar = new LibroDigital("978-0307476463", "http://milibro_ejemplo.com/libro", 1024, "PDF");
-        daoInsertar.insertar(libroInsertar);
+        try {
+            daoInsertar.insertar(libroInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDigitalDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro insertado correctamente.");
     }
 
@@ -44,7 +51,11 @@ public class LibroDigitalDaoTest {
         LibroDigitalDao daoModificar = new LibroDigitalDao(conexionModificar);
 
         LibroDigital libroModificar = new LibroDigital("978-0307476463", "http://milibro_ejemplo.com/libro", 2048, "EPUB");
-        daoModificar.modificar(libroModificar);
+        try {
+            daoModificar.modificar(libroModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDigitalDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro modificado correctamente.");
     }
 
@@ -52,15 +63,14 @@ public class LibroDigitalDaoTest {
         Connection conexionObtener = BibliotecaManager.iniciarConexion();
         LibroDigitalDao daoObtener = new LibroDigitalDao(conexionObtener);
 
-        LibroDigital libroObtener = daoObtener.obtener("978-0307476463", "http://milibro_ejemplo.com/libro");
-        if (libroObtener != null) {
-            System.out.println("Libro encontrado:");
-            System.out.println("ISBN: " + libroObtener.getIsbn());
-            System.out.println("Dirección URL: " + libroObtener.getDireccionUrl());
-            System.out.println("Tamaño en bytes: " + libroObtener.getTamanioBytes());
-            System.out.println("Formato: " + libroObtener.getFormato());
-        } else {
-            System.out.println("No se encontró ningún libro con ese ISBN y dirección URL.");
+        List<LibroDigital> libros = daoObtener.obtener("978-0307476463");
+        System.out.println("Lista de libros:");
+        for (LibroDigital libro : libros) {
+            System.out.println("ISBN: " + libro.getIsbn());
+            System.out.println("Dirección URL: " + libro.getDireccionUrl());
+            System.out.println("Tamaño en bytes: " + libro.getTamanioBytes());
+            System.out.println("Formato: " + libro.getFormato());
+            System.out.println();
         }
     }
 
@@ -69,7 +79,11 @@ public class LibroDigitalDaoTest {
         LibroDigitalDao daoEliminar = new LibroDigitalDao(conexionEliminar);
 
         LibroDigital libroEliminar = new LibroDigital("978-0307476463", "http://milibro_ejemplo.com/libro", 0, "");
-        daoEliminar.eliminar(libroEliminar);
+        try {
+            daoEliminar.eliminar(libroEliminar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDigitalDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro eliminado correctamente.");
     }
 

@@ -66,7 +66,7 @@ public class UsuarioDaoTest {
         UsuarioDao daoEliminar = new UsuarioDao(conexionEliminar);
 
         try {
-            daoEliminar.eliminar("2100");
+            daoEliminar.eliminar(new Usuario("2100", "", "", "", "", ""));
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }

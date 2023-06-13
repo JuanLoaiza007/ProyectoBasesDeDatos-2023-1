@@ -105,6 +105,14 @@ public class PanelEjemplares extends javax.swing.JPanel {
         txtf_isbn = new javax.swing.JTextField();
         lbl_numeroEjemplar = new javax.swing.JLabel();
         txtf_numeroEjemplar = new javax.swing.JTextField();
+        lbl_sala = new javax.swing.JLabel();
+        txtf_sala = new javax.swing.JTextField();
+        lbl_numeroPasillo = new javax.swing.JLabel();
+        txtf_numeroPasillo = new javax.swing.JTextField();
+        txtf_numeroCajon = new javax.swing.JTextField();
+        lbl_numeroCajon = new javax.swing.JLabel();
+        txtf_numeroEstante = new javax.swing.JTextField();
+        lbl_numeroEstante = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -344,10 +352,40 @@ public class PanelEjemplares extends javax.swing.JPanel {
         lbl_numeroEjemplar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_numeroEjemplar.setText("Número ejemplar:");
 
+        lbl_sala.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_sala.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_sala.setText("Sala:");
+
+        txtf_sala.setEnabled(false);
+
+        lbl_numeroPasillo.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_numeroPasillo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_numeroPasillo.setText("Número pasillo:");
+
+        lbl_numeroCajon.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_numeroCajon.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_numeroCajon.setText("Número cajón:");
+
+        txtf_numeroEstante.setEnabled(false);
+
+        lbl_numeroEstante.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_numeroEstante.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_numeroEstante.setText("Número estante:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_guardar)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_cancelar))
+                .addGap(62, 62, 62))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,22 +396,14 @@ public class PanelEjemplares extends javax.swing.JPanel {
                             .addComponent(lbl_numeroEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtf_numeroEjemplar))
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_guardar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(89, 89, 89)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbl_cancelar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)))
-                        .addContainerGap(54, Short.MAX_VALUE))))
+                    .addComponent(lbl_sala, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_sala)
+                    .addComponent(lbl_numeroPasillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_numeroPasillo)
+                    .addComponent(lbl_numeroEstante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_numeroEstante)
+                    .addComponent(lbl_numeroCajon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_numeroCajon)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,15 +416,31 @@ public class PanelEjemplares extends javax.swing.JPanel {
                 .addComponent(lbl_numeroEjemplar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_numeroEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(201, 201, 201)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_sala)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(txtf_sala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_numeroPasillo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_numeroPasillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_numeroEstante)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_numeroEstante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_numeroCajon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_numeroCajon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_cancelar)
                     .addComponent(lbl_guardar))
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -466,7 +512,7 @@ public class PanelEjemplares extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
     
-    public JTextField getTxtf_isbn() {
+    public JTextField getIsbn() {
         return txtf_isbn;
     }
     
@@ -474,19 +520,51 @@ public class PanelEjemplares extends javax.swing.JPanel {
         txtf_isbn.setText(texto);
     }
 
-    public JTextField getTxtf_numeroEjemplar() {
+    public JTextField getNroEjemplar() {
         return txtf_numeroEjemplar;
     }
     
-    public void setNumeroEjemplar(String texto) {
+    public void setNroEjemplar(String texto) {
         txtf_numeroEjemplar.setText(texto);
+    }    
+
+    public JTextField getNroCajon() {
+        return txtf_numeroCajon;
+    }
+
+    public void setNroCajon(String texto) {
+        txtf_numeroCajon.setText(texto);
+    }
+
+    public JTextField getNroEstante() {
+        return txtf_numeroEstante;
+    }
+
+    public void setNroEstante(String texto) {
+        txtf_numeroEstante.setText(texto);
+    }
+
+    public JTextField getNroPasillo() {
+        return txtf_numeroPasillo;
+    }
+
+    public void setNroPasillo(String texto) {
+        txtf_numeroPasillo.setText(texto);
+    }
+
+    public JTextField getSala() {
+        return txtf_sala;
+    }
+
+    public void setSala(String texto) {
+        txtf_sala.setText(texto);
     }
    
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
@@ -532,11 +610,20 @@ public class PanelEjemplares extends javax.swing.JPanel {
         lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
         txtf_numeroEjemplar.setEnabled(true);
         lbl_numeroEjemplar.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_sala.setEnabled(true);
+        lbl_sala.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_numeroPasillo.setEnabled(true);
+        lbl_numeroPasillo.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_numeroEstante.setEnabled(true);
+        lbl_numeroEstante.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_numeroCajon.setEnabled(true);
+        lbl_numeroCajon.setForeground(new java.awt.Color(0, 0, 0));        
     }
     
     public void modoEditar(){
         modoInsertar();
         txtf_isbn.setEnabled(false);
+        txtf_numeroEjemplar.setEnabled(false);
     }
     
     public void modoRegistroTablaSeleccionado(){
@@ -566,11 +653,23 @@ public class PanelEjemplares extends javax.swing.JPanel {
         lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
         txtf_numeroEjemplar.setEnabled(false);
         lbl_numeroEjemplar.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_sala.setEnabled(false);
+        lbl_sala.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_numeroPasillo.setEnabled(false);
+        lbl_numeroPasillo.setForeground(new java.awt.Color(102, 102, 102));        
+        txtf_numeroEstante.setEnabled(false);
+        lbl_numeroEstante.setForeground(new java.awt.Color(102, 102, 102));        
+        txtf_numeroCajon.setEnabled(false);
+        lbl_numeroCajon.setForeground(new java.awt.Color(102, 102, 102));                
     }
     
     public void limpiarCampos(){
         txtf_isbn.setText("");
         txtf_numeroEjemplar.setText("");
+        txtf_sala.setText("");
+        txtf_numeroPasillo.setText("");
+        txtf_numeroEstante.setText("");
+        txtf_numeroCajon.setText("");        
     }
     
     public boolean idEsManual(){
@@ -598,7 +697,11 @@ public class PanelEjemplares extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_guardar;
     private javax.swing.JLabel lbl_isbn;
     private javax.swing.JLabel lbl_nuevo;
+    private javax.swing.JLabel lbl_numeroCajon;
     private javax.swing.JLabel lbl_numeroEjemplar;
+    private javax.swing.JLabel lbl_numeroEstante;
+    private javax.swing.JLabel lbl_numeroPasillo;
+    private javax.swing.JLabel lbl_sala;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
@@ -606,7 +709,11 @@ public class PanelEjemplares extends javax.swing.JPanel {
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
     private javax.swing.JTextField txtf_isbn;
+    private javax.swing.JTextField txtf_numeroCajon;
     private javax.swing.JTextField txtf_numeroEjemplar;
+    private javax.swing.JTextField txtf_numeroEstante;
+    private javax.swing.JTextField txtf_numeroPasillo;
+    private javax.swing.JTextField txtf_sala;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -19,8 +19,11 @@ package Dao;
 import BasesDeDatos.BibliotecaManager;
 import Modelos.Solicitud;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SolicitudDaoTest {
     
@@ -39,7 +42,11 @@ public class SolicitudDaoTest {
         SolicitudDao daoInsertar = new SolicitudDao(conexionInsertar);
 
         Solicitud solicitudInsertar = new Solicitud("2100", "1", "1", "isbn", "titulo", "descripcion", fechaActual);
-        daoInsertar.insertar(solicitudInsertar);
+        try {
+            daoInsertar.insertar(solicitudInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(SolicitudDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Solicitud insertada correctamente.");
     }
 
@@ -48,7 +55,11 @@ public class SolicitudDaoTest {
         SolicitudDao daoModificar = new SolicitudDao(conexionModificar);
 
         Solicitud solicitudModificar = new Solicitud("2100", "1", "1", "isbn_modificado", "titulo_modificado", "descripcion_modificada", fechaActual);
-        daoModificar.modificar(solicitudModificar);
+        try {
+            daoModificar.modificar(solicitudModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(SolicitudDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Solicitud modificada correctamente.");
     }
 
@@ -75,7 +86,11 @@ public class SolicitudDaoTest {
         Connection conexionEliminar = BibliotecaManager.iniciarConexion();
         SolicitudDao daoEliminar = new SolicitudDao(conexionEliminar);
 
-        daoEliminar.eliminar("2100");
+        try {
+            daoEliminar.eliminar(new Solicitud("2100", "", "", "", "", "", fechaActual));
+        } catch (SQLException ex) {
+            Logger.getLogger(SolicitudDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Solicitud eliminada correctamente.");
     }
 

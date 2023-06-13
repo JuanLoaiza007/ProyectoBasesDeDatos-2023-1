@@ -57,7 +57,7 @@ public class LibroDigitalDao {
         }
     }
 
-    public void insertar(LibroDigital libroDigital) {
+    public void insertar(LibroDigital libroDigital) throws SQLException {
         String INSERT = "INSERT INTO libro_digital (isbn, direccion_url, tamanio_bytes, formato) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -73,15 +73,13 @@ public class LibroDigitalDao {
                 System.out.println("Es posible que no se haya guardado la inserción");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void modificar(LibroDigital libroDigital) {
+    public void modificar(LibroDigital libroDigital) throws SQLException {
         String UPDATE = "UPDATE libro_digital SET tamanio_bytes = ?, formato = ? WHERE isbn = ? AND direccion_url = ?";
 
         PreparedStatement statement = null;
@@ -97,15 +95,13 @@ public class LibroDigitalDao {
                 System.out.println("Es posible que no se haya modificado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void eliminar(LibroDigital libroDigital) {
+    public void eliminar(LibroDigital libroDigital) throws SQLException {
         String DELETE = "DELETE FROM libro_digital WHERE isbn = ? AND direccion_url = ?";
 
         PreparedStatement statement = null;
@@ -119,8 +115,6 @@ public class LibroDigitalDao {
                 System.out.println("Es posible que no se haya eliminado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
@@ -153,24 +147,28 @@ public class LibroDigitalDao {
         return librosDigitales;
     }
 
-    public LibroDigital obtener(String isbn, String direccionUrl) {
-        LibroDigital libroDigital = null;
+    public List<LibroDigital> obtener(String isbn) {
+        List<LibroDigital> librosDigitales = new ArrayList<>();
 
-        String GETONE = "SELECT isbn, direccion_url, tamanio_bytes, formato FROM libro_digital WHERE isbn = ? AND direccion_url = ?";
+        String GETALL = "SELECT isbn, direccion_url, tamanio_bytes, formato FROM libro_digital WHERE isbn = ?";
 
         PreparedStatement statement = null;
         ResultSet result = null;
 
         try {
-            statement = conexion.prepareStatement(GETONE);
+            statement = conexion.prepareStatement(GETALL);
             statement.setString(1, isbn);
-            statement.setString(2, direccionUrl);
             result = statement.executeQuery();
+            /*
 
             if (result.next()) {
-                libroDigital = convertir(result);
+                //librosDigitales = convertir(result);
             } else {
                 System.out.println("No se ha encontrado un registro con ese ISBN y dirección URL");
+            }*/
+            
+            while (result.next()) {
+                librosDigitales.add(convertir(result));
             }
 
         } catch (SQLException ex) {
@@ -180,6 +178,6 @@ public class LibroDigitalDao {
             cerrarStatement(statement);
         }
 
-        return libroDigital;
+        return librosDigitales;
     }
 }

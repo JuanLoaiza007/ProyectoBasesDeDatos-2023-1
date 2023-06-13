@@ -458,14 +458,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_id" max="32767" attributes="0"/>
-                                  <Component id="txtf_id" max="32767" attributes="0"/>
-                                  <Component id="lbl_nombreSala" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_nombreSala" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbl_nroPasillo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_nroPasillo" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lbl_estante" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtf_estante" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lbl_isbn" max="32767" attributes="0"/>
+                                  <Component id="txtf_isbn" max="32767" attributes="0"/>
+                                  <Component id="lbl_url" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtf_url" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lbl_bytes" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtf_bytes" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lbl_formato" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtf_formato" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -499,21 +499,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbl_id" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_isbn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_id" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_isbn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_nombreSala" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_url" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_nombreSala" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_url" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_nroPasillo" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_bytes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_nroPasillo" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_bytes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lbl_estante" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbl_formato" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtf_estante" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtf_formato" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btn_guardar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -604,7 +604,7 @@
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_id">
+            <Component class="javax.swing.JLabel" name="lbl_isbn">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -615,12 +615,12 @@
                 <Property name="text" type="java.lang.String" value="ISBN:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_id">
+            <Component class="javax.swing.JTextField" name="txtf_isbn">
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_nombreSala">
+            <Component class="javax.swing.JLabel" name="lbl_url">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -631,9 +631,9 @@
                 <Property name="text" type="java.lang.String" value="Direcci&#xf3;n URL:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_nombreSala">
+            <Component class="javax.swing.JTextField" name="txtf_url">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_nroPasillo">
+            <Component class="javax.swing.JLabel" name="lbl_bytes">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -644,9 +644,9 @@
                 <Property name="text" type="java.lang.String" value="Tama&#xf1;o en Bytes:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_nroPasillo">
+            <Component class="javax.swing.JTextField" name="txtf_bytes">
             </Component>
-            <Component class="javax.swing.JLabel" name="lbl_estante">
+            <Component class="javax.swing.JLabel" name="lbl_formato">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -657,7 +657,7 @@
                 <Property name="text" type="java.lang.String" value="Formato: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtf_estante">
+            <Component class="javax.swing.JTextField" name="txtf_formato">
             </Component>
           </SubComponents>
         </Container>

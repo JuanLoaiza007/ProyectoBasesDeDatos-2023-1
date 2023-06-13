@@ -72,7 +72,7 @@ public class LibroDao{
         }
     }
 
-    public void insertar(Libro e) {        
+    public void insertar(Libro e) throws SQLException {        
         String INSERT = "INSERT INTO libro (isbn, codigo_area, codigo_editorial, titulo, anio_publicacion, nro_paginas) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -90,16 +90,13 @@ public class LibroDao{
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void modificar(Libro e) {
+    public void modificar(Libro e) throws SQLException {
         String UPDATE = "UPDATE libro SET codigo_area = ?, codigo_editorial = ?, titulo = ?, anio_publicacion = ?, nro_paginas = ? WHERE isbn = ?";
 
         PreparedStatement statement = null;
@@ -116,16 +113,13 @@ public class LibroDao{
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
             }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void eliminar(Libro e) {
+    public void eliminar(Libro e) throws SQLException {
         String DELETE = "DELETE FROM libro WHERE isbn = ?";
 
         PreparedStatement statement = null;
@@ -137,9 +131,6 @@ public class LibroDao{
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");
             }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

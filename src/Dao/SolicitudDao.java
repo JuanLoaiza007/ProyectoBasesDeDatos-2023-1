@@ -60,7 +60,7 @@ public class SolicitudDao {
         }
     }
 
-    public void insertar(Solicitud solicitud) {
+    public void insertar(Solicitud solicitud) throws SQLException {
         String INSERT = "INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -87,7 +87,7 @@ public class SolicitudDao {
         }
     }
     
-    public void modificar(Solicitud solicitud) {
+    public void modificar(Solicitud solicitud) throws SQLException{
         String UPDATE = "UPDATE solicitud SET id_usuario = ?, id_empleado = ?, isbn = ?, titulo = ?, descripcion = ?, fecha = ? WHERE nro_consecutivo_solicitud = ?";
 
         PreparedStatement statement = null;
@@ -114,14 +114,14 @@ public class SolicitudDao {
         }
     }
 
-    public void eliminar(String nroConsecutivoSolicitud) {
+    public void eliminar(Solicitud solicitud) throws SQLException{
         String DELETE = "DELETE FROM solicitud WHERE nro_consecutivo_solicitud = ?";
 
         PreparedStatement statement = null;
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, nroConsecutivoSolicitud);
+            statement.setString(1, solicitud.getNroConsecutivoSolicitud());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Error al eliminar el registro");
@@ -162,8 +162,6 @@ public class SolicitudDao {
     }
 
     public Solicitud obtenerPorNroConsecutivo(String nroConsecutivoSolicitud) {
-        Solicitud solicitud = null;
-
         String GET_BY_NRO_CONSECUTIVO = "SELECT nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha FROM solicitud WHERE nro_consecutivo_solicitud = ?";
 
         PreparedStatement statement = null;
@@ -175,7 +173,7 @@ public class SolicitudDao {
             result = statement.executeQuery();
 
             if (result.next()) {
-                solicitud = convertir(result);
+                return convertir(result);
             }
 
         } catch (SQLException ex) {
@@ -185,7 +183,7 @@ public class SolicitudDao {
             cerrarStatement(statement);
         }
 
-        return solicitud;
+        return null;
     }
 }
 
