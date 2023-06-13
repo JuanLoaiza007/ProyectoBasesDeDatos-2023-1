@@ -1,6 +1,7 @@
 package Paneles;
 
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -38,7 +39,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
      */
     public void configurarTabla() {
         
-        String[] titulosTabla = new String[]{"Id", "Nombre", "No. Pasillo", "Estante", "No. Cajon", };
+        String[] titulosTabla = new String[]{"Id", "Nombre", "Cargo"};
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -49,9 +50,9 @@ public class PanelEmpleados extends javax.swing.JPanel {
         }
     }
     
-    public void nuevaFilaTabla(String id, String nombre, String pasillo, String estante, String cajon) {
+    public void nuevaFilaTabla(String id, String nombre, String cargo) {
         modeloTabla.addRow(new Object[]{
-            id, nombre, pasillo, estante, cajon
+            id, nombre, cargo
         });
     }
     
@@ -88,18 +89,24 @@ public class PanelEmpleados extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtf_buscar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        btn_negar = new javax.swing.JButton();
-        btn_aprobar = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        btn_negar1 = new javax.swing.JButton();
+        btn_borrar = new javax.swing.JButton();
+        btn_nuevo = new javax.swing.JButton();
+        lbl_nuevo = new javax.swing.JLabel();
+        lbl_editar = new javax.swing.JLabel();
+        lbl_borrar = new javax.swing.JLabel();
+        btn_editar = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btn_negar2 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        btn_negar3 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        btn_guardar = new javax.swing.JButton();
+        lbl_cancelar = new javax.swing.JLabel();
+        btn_cancelar = new javax.swing.JButton();
+        lbl_guardar = new javax.swing.JLabel();
+        lbl_id = new javax.swing.JLabel();
+        txtf_id = new javax.swing.JTextField();
+        lbl_nombre = new javax.swing.JLabel();
+        txtf_nombre = new javax.swing.JTextField();
+        lbl_cargo = new javax.swing.JLabel();
+        txtf_cargo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -176,7 +183,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGap(0, 411, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -203,44 +210,44 @@ public class PanelEmpleados extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_negar.setBackground(new java.awt.Color(204, 0, 51));
-        btn_negar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_negar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_negar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete_16px.png"))); // NOI18N
-        btn_negar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_negar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_negar.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_borrar.setBackground(new java.awt.Color(204, 0, 51));
+        btn_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_borrar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete_16px.png"))); // NOI18N
+        btn_borrar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_borrar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_borrar.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        btn_aprobar.setBackground(new java.awt.Color(0, 153, 0));
-        btn_aprobar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_aprobar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_aprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus_16px.png"))); // NOI18N
-        btn_aprobar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_aprobar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_aprobar.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_nuevo.setBackground(new java.awt.Color(0, 153, 0));
+        btn_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_nuevo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus_16px.png"))); // NOI18N
+        btn_nuevo.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_nuevo.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_nuevo.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        jLabel3.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Nuevo");
+        lbl_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_nuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_nuevo.setText("Nuevo");
 
-        jLabel4.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Editar");
+        lbl_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_editar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_editar.setText("Editar");
 
-        jLabel5.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Borrar");
+        lbl_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_borrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_borrar.setText("Borrar");
 
-        btn_negar1.setBackground(new java.awt.Color(0, 102, 102));
-        btn_negar1.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_negar1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_negar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil_16px.png"))); // NOI18N
-        btn_negar1.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_negar1.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_negar1.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_editar.setBackground(new java.awt.Color(0, 102, 102));
+        btn_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_editar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil_16px.png"))); // NOI18N
+        btn_editar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_editar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_editar.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -250,18 +257,18 @@ public class PanelEmpleados extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lbl_nuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(lbl_editar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel5))
+                        .addComponent(lbl_borrar))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btn_aprobar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(btn_negar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(btn_negar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -269,14 +276,14 @@ public class PanelEmpleados extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_negar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_negar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_aprobar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(lbl_nuevo)
+                    .addComponent(lbl_editar)
+                    .addComponent(lbl_borrar))
                 .addContainerGap())
         );
 
@@ -306,31 +313,57 @@ public class PanelEmpleados extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_negar2.setBackground(new java.awt.Color(0, 204, 102));
-        btn_negar2.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_negar2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_negar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
-        btn_negar2.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_negar2.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_negar2.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_guardar.setBackground(new java.awt.Color(0, 204, 102));
+        btn_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_guardar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
+        btn_guardar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_guardar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_guardar.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        jLabel6.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Cancelar");
+        lbl_cancelar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_cancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_cancelar.setText("Cancelar");
 
-        btn_negar3.setBackground(new java.awt.Color(204, 0, 51));
-        btn_negar3.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_negar3.setForeground(new java.awt.Color(255, 255, 255));
-        btn_negar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
-        btn_negar3.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_negar3.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_negar3.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_cancelar.setBackground(new java.awt.Color(204, 0, 51));
+        btn_cancelar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
+        btn_cancelar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_cancelar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_cancelar.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        jLabel7.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Guardar");
+        lbl_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_guardar.setText("Guardar");
+
+        lbl_id.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_id.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_id.setText("Id:");
+
+        txtf_id.setEnabled(false);
+
+        lbl_nombre.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_nombre.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_nombre.setText("Nombre:");
+
+        txtf_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtf_nombreActionPerformed(evt);
+            }
+        });
+
+        lbl_cargo.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_cargo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_cargo.setText("Cargo:");
+
+        txtf_cargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtf_cargoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -340,28 +373,49 @@ public class PanelEmpleados extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(62, 62, 62)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                        .addComponent(jLabel6))
+                        .addComponent(lbl_guardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                        .addComponent(lbl_cancelar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
-                        .addComponent(btn_negar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_negar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24)))
                 .addGap(56, 56, 56))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_id, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                    .addComponent(lbl_cargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_cargo)
+                    .addComponent(lbl_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_nombre))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(314, Short.MAX_VALUE)
+                .addComponent(lbl_id)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_nombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_cargo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_cargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_negar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_negar3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(lbl_cancelar)
+                    .addComponent(lbl_guardar))
                 .addContainerGap())
         );
 
@@ -384,7 +438,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,44 +465,178 @@ public class PanelEmpleados extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtfBuscar(){
+    private void txtf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_nombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtf_nombreActionPerformed
+
+    private void txtf_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_cargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtf_cargoActionPerformed
+
+    public JTextField getTxtf_buscar(){
         return txtf_buscar;
     }
+    
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+
+    public JTextField getId() {
+        return txtf_id;
+    }
+    
+    public void setId(String texto) {
+        txtf_id.setText(texto);
+    }        
+    
+    public JTextField getNombre() {
+        return txtf_nombre;
+    }
+    
+    public void setNombre(String texto) {
+        txtf_nombre.setText(texto);
+    }    
+    
+    public JTextField getCargo() {
+        return txtf_cargo;
+    }
+    
+    public void setCargo(String texto) {
+        txtf_cargo.setText(texto);
+    }       
     
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscarUbicacion(ActionListener listener){
+    public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
     
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    } 
+    
+    public void modoInsertar(){
+        table_principal.setEnabled(false);
+        
+        btn_nuevo.setEnabled(false);
+        lbl_nuevo.setForeground(new java.awt.Color(102, 102, 102));
+        btn_editar.setEnabled(false);
+        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_borrar.setEnabled(false);
+        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_guardar.setEnabled(true);
+        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_cancelar.setEnabled(true);
+        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
+        
+        txtf_id.setEnabled(true);
+        lbl_id.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_nombre.setEnabled(true);
+        lbl_nombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_cargo.setEnabled(true);
+        lbl_cargo.setForeground(new java.awt.Color(0, 0, 0));                   
+    }    
+    
+    public void modoEditar(){
+        modoInsertar();
+        txtf_id.setEnabled(false);
+    }   
+    
+    public void modoRegistroTablaSeleccionado(){
+        modoPasivo();
+        
+        btn_editar.setEnabled(true);
+        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_borrar.setEnabled(true);
+        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
+    }   
+    
+    public void modoPasivo(){
+        table_principal.setEnabled(true);
+        
+        btn_nuevo.setEnabled(true);
+        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
+        btn_editar.setEnabled(false);
+        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_borrar.setEnabled(false);
+        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_guardar.setEnabled(false);
+        lbl_guardar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cancelar.setEnabled(false);
+        lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
+        
+        txtf_id.setEnabled(false);
+        lbl_id.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_nombre.setEnabled(false);
+        lbl_nombre.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_cargo.setEnabled(false);
+        lbl_cargo.setForeground(new java.awt.Color(102, 102, 102));
+    }    
+    
+    public void limpiarCampos(){
+        txtf_id.setText("");
+        txtf_nombre.setText("");
+        txtf_cargo.setText("");
+    }  
+    
+    public boolean idEsManual(){
+        return txtf_id.isEnabled();
+    }    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_aprobar;
+    private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_negar;
-    private javax.swing.JButton btn_negar1;
-    private javax.swing.JButton btn_negar2;
-    private javax.swing.JButton btn_negar3;
+    private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_editar;
+    private javax.swing.JButton btn_guardar;
+    private javax.swing.JButton btn_nuevo;
     private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_borrar;
+    private javax.swing.JLabel lbl_cancelar;
+    private javax.swing.JLabel lbl_cargo;
+    private javax.swing.JLabel lbl_editar;
+    private javax.swing.JLabel lbl_guardar;
+    private javax.swing.JLabel lbl_id;
+    private javax.swing.JLabel lbl_nombre;
+    private javax.swing.JLabel lbl_nuevo;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
+    private javax.swing.JTextField txtf_cargo;
+    private javax.swing.JTextField txtf_id;
+    private javax.swing.JTextField txtf_nombre;
     // End of variables declaration//GEN-END:variables
 
 }

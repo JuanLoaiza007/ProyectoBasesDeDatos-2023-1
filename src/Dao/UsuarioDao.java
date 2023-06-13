@@ -109,25 +109,44 @@ public class UsuarioDao {
         }
     }
 
-    public void eliminar(String id) throws SQLException {
-        String DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
+    public void eliminar(Usuario usuario) throws SQLException {
+        String DELETE_ESTUDIANTE = "DELETE FROM estudiante WHERE id_usuario = ?"; 
+        String DELETE_USUARIO = "DELETE FROM usuario WHERE id_usuario = ?";
+        String DELETE_PROFESOR = "DELETE FROM profesor WHERE id_usuario = ?";
 
-        PreparedStatement statement = null;
+        PreparedStatement statementEstudiante = null;
+        PreparedStatement statementProfesor = null;
+        PreparedStatement statementUsuario = null;        
 
         try {
-            statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, id);
+            statementProfesor = conexion.prepareStatement(DELETE_PROFESOR);
+            statementProfesor.setString(1, usuario.getIdUsuario());
+            statementEstudiante = conexion.prepareStatement(DELETE_ESTUDIANTE);
+            statementEstudiante.setString(1, usuario.getIdUsuario());
+            statementUsuario = conexion.prepareStatement(DELETE_USUARIO);
+            statementUsuario.setString(1, usuario.getIdUsuario());
+                        
+            
+            if (statementProfesor.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya eliminado el profesor");
+            } 
 
-            if (statement.executeUpdate() == 0) {
+            if (statementEstudiante.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya eliminado el eliminar");
+            }             
+
+            if (statementUsuario.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el usuario");
-            }
+            }             
 
         } catch (SQLException ex) {
             System.out.println(ex);
+            AvisosEmergentes.mostrarMensaje("Es posible que el usuario que desea borrar tenga dependencias "
+                    + "sin borrar aún (ej.multas). Asegurese de eliminarlas antes de eliminar el usuario");
         } finally {
             cerrarConexion(conexion);
-            cerrarStatement(statement);
-        }
+            cerrarStatement(statementUsuario);
+        }        
     }
 
     public List<Usuario> obtenerTodos() {

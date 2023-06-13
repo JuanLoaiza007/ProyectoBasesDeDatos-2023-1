@@ -69,7 +69,7 @@ public class EmpleadoDao{
         }
     }
 
-    public void insertar(Empleado e) {
+    public void insertar(Empleado e) throws SQLException{
         String INSERT = "INSERT INTO empleado (id_empleado, nombre, cargo) VALUES (?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -85,15 +85,13 @@ public class EmpleadoDao{
                 System.out.println("Es posible que no se haya guardado la insercion");
             }
 
-        } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void modificar(Empleado e) {
+    public void modificar(Empleado e) throws SQLException{
         String UPDATE = "UPDATE empleado SET nombre = ?, cargo = ? WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
@@ -108,15 +106,13 @@ public class EmpleadoDao{
                 System.out.println("Es posible que no se haya modificado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);
         }
     }
 
-    public void eliminar(Empleado e) {
+    public void eliminar(Empleado e) throws SQLException{
         String DELETE = "DELETE FROM empleado WHERE id_empleado = ?";
 
         PreparedStatement statement = null;
@@ -129,8 +125,6 @@ public class EmpleadoDao{
                 System.out.println("Es posible que no se haya eliminado el registro");
             }
 
-        } catch (SQLException ex) {
-            System.out.println(ex);
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

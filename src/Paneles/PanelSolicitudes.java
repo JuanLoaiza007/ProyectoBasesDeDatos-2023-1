@@ -5,6 +5,14 @@
 
 package Paneles;
 
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.sql.Timestamp;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  * Bases de datos 750006C-01
  * Proyecto de curso
@@ -22,9 +30,52 @@ package Paneles;
 
 public class PanelSolicitudes extends javax.swing.JPanel {
 
+    
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Nro. consecutivo", "Usuario", "Empleado", "ISBN", "Titulo", "Descripcion", "Fecha"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }  
+        
+    public void nuevaFilaTabla(String nroConsecutivoSolicitud, String idUsuario, 
+            String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
+        modeloTabla.addRow(new Object[]{
+            nroConsecutivoSolicitud, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha
+        });
+    }
+    
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }    
+    
     /** Creates new form PanelAdministrar */
     public PanelSolicitudes() {
         initComponents();
+        table_principal.setModel(modeloTabla);
+        configurarTabla();
     }
 
     /** This method is called from within the constructor to
@@ -40,14 +91,14 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_buscar = new javax.swing.JLabel();
         btn_negar = new javax.swing.JButton();
         btn_aprobar = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtf_buscar = new javax.swing.JTextField();
+        btn_buscar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        table_principal = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(687, 500));
@@ -90,9 +141,9 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(687, 60));
 
-        jLabel2.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel2.setText("Buscar:");
+        lbl_buscar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_buscar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_buscar.setText("Buscar:");
 
         btn_negar.setBackground(new java.awt.Color(204, 0, 51));
         btn_negar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -109,17 +160,17 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         btn_aprobar.setForeground(new java.awt.Color(255, 255, 255));
         btn_aprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/check.png"))); // NOI18N
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_buscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtf_buscar.setForeground(new java.awt.Color(0, 0, 0));
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(26, 26));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_buscar.setBackground(new java.awt.Color(0, 102, 102));
+        btn_buscar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_buscar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
+        btn_buscar.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_buscarActionPerformed(evt);
             }
         });
 
@@ -129,11 +180,11 @@ public class PanelSolicitudes extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(78, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lbl_buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(btn_aprobar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,19 +196,19 @@ public class PanelSolicitudes extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
+                        .addComponent(lbl_buscar)
                         .addComponent(btn_negar)
                         .addComponent(btn_aprobar)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtf_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
         );
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
 
-        jTable2.setForeground(new java.awt.Color(0, 0, 0));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        table_principal.setForeground(new java.awt.Color(0, 0, 0));
+        table_principal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -168,10 +219,10 @@ public class PanelSolicitudes extends javax.swing.JPanel {
 
             }
         ));
-        jTable2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTable2.getTableHeader().setResizingAllowed(false);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
+        table_principal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table_principal.getTableHeader().setResizingAllowed(false);
+        table_principal.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(table_principal);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -181,7 +232,7 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -193,24 +244,67 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_negarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
+   public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }    
+
+    public void modoInsertar(){
+        table_principal.setEnabled(false);
+        
+        //btn_borrar.setEnabled(false);
+        //lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+    }   
+    
+    public void modoEditar(){
+        modoInsertar();
+    }
+    
+    public void modoRegistroTablaSeleccionado(){
+        modoPasivo();
+        
+        //btn_borrar.setEnabled(true);
+        //lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
+    }   
+    
+    public void modoPasivo(){
+        table_principal.setEnabled(true);
+        
+        //btn_borrar.setEnabled(false);
+        //lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+    }    
+
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_aprobar;
+    private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_negar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbl_buscar;
     private javax.swing.JPanel panelAdministrar_titulo;
+    private javax.swing.JTable table_principal;
+    private javax.swing.JTextField txtf_buscar;
     // End of variables declaration//GEN-END:variables
 
 }
