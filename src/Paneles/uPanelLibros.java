@@ -1,9 +1,10 @@
 package Paneles;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,52 +23,21 @@ import javax.swing.table.DefaultTableModel;
  * 
  */
 
-public class PanelLibros extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
-        modeloTabla.addRow(new Object[]{
-            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
+public class uPanelLibros extends javax.swing.JPanel {
     
     /** Creates new form PanelAdministrar */
-    public PanelLibros() {
+    public uPanelLibros() {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
+        
+        inicializarAnio();
+        reiniciarBoxes();
+        
+        // Listener para el JComboBox de años
+        box_anio.addActionListener(oyenteAnio);
+        // Listener para el JComboBox de mes
+        box_mes.addActionListener(oyenteMes);
     }
 
     /** This method is called from within the constructor to
@@ -89,32 +59,29 @@ public class PanelLibros extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtf_buscar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        btn_borrar = new javax.swing.JButton();
-        btn_nuevo = new javax.swing.JButton();
-        lbl_nuevo = new javax.swing.JLabel();
-        lbl_editar = new javax.swing.JLabel();
-        lbl_borrar = new javax.swing.JLabel();
-        btn_editar = new javax.swing.JButton();
+        lbl_solicitar = new javax.swing.JLabel();
+        btn_solicitar = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btn_guardar = new javax.swing.JButton();
+        btn_enviar = new javax.swing.JButton();
         lbl_cancelar = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
         lbl_guardar = new javax.swing.JLabel();
         lbl_isbn = new javax.swing.JLabel();
         txtf_isbn = new javax.swing.JTextField();
-        lbl_idEmpleado = new javax.swing.JLabel();
-        txtf_idEmpleado = new javax.swing.JTextField();
         lbl_titulo = new javax.swing.JLabel();
         txtf_titulo = new javax.swing.JTextField();
-        lbl_anioPublicacion = new javax.swing.JLabel();
-        txtf_anioPublicacion = new javax.swing.JTextField();
-        txtf_nroPaginas = new javax.swing.JTextField();
-        lbl_nroPaginas = new javax.swing.JLabel();
-        txtf_codigoEditorial = new javax.swing.JTextField();
-        lbl_codigoEditorial = new javax.swing.JLabel();
-        txtf_codigoArea = new javax.swing.JTextField();
-        lbl_codigoArea = new javax.swing.JLabel();
+        lbl_fechaPublicacion = new javax.swing.JLabel();
+        lbl_descripcion = new javax.swing.JLabel();
+        box_dia = new javax.swing.JComboBox<>();
+        box_mes = new javax.swing.JComboBox<>();
+        box_anio = new javax.swing.JComboBox<>();
+        lbl_dia = new javax.swing.JLabel();
+        lbl_mes = new javax.swing.JLabel();
+        lbl_anio = new javax.swing.JLabel();
+        lbl_detalles = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtA_descripcion = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -149,13 +116,13 @@ public class PanelLibros extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_volver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         panel_tituloLayout.setVerticalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
+            .addGroup(panel_tituloLayout.createSequentialGroup()
                 .addGroup(panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_tituloLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,44 +182,18 @@ public class PanelLibros extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_borrar.setBackground(new java.awt.Color(204, 0, 51));
-        btn_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_borrar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete_16px.png"))); // NOI18N
-        btn_borrar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_borrar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_borrar.setPreferredSize(new java.awt.Dimension(30, 30));
+        lbl_solicitar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_solicitar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_solicitar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_solicitar.setText("Solicitar nuevo");
 
-        btn_nuevo.setBackground(new java.awt.Color(0, 153, 0));
-        btn_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_nuevo.setForeground(new java.awt.Color(255, 255, 255));
-        btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus_16px.png"))); // NOI18N
-        btn_nuevo.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_nuevo.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_nuevo.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        lbl_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_nuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_nuevo.setText("Nuevo");
-
-        lbl_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_editar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_editar.setText("Editar");
-
-        lbl_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_borrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_borrar.setText("Borrar");
-
-        btn_editar.setBackground(new java.awt.Color(0, 102, 102));
-        btn_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_editar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil_16px.png"))); // NOI18N
-        btn_editar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_editar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_editar.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_solicitar.setBackground(new java.awt.Color(0, 153, 0));
+        btn_solicitar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_solicitar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_solicitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus_16px.png"))); // NOI18N
+        btn_solicitar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_solicitar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_solicitar.setPreferredSize(new java.awt.Dimension(30, 30));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -261,35 +202,20 @@ public class PanelLibros extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_solicitar)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lbl_nuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_editar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_borrar))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                        .addGap(44, 44, 44)
+                        .addComponent(btn_solicitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btn_solicitar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nuevo)
-                    .addComponent(lbl_editar)
-                    .addComponent(lbl_borrar))
-                .addContainerGap())
+                .addComponent(lbl_solicitar)
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout panel_botonesLayout = new javax.swing.GroupLayout(panel_botones);
@@ -318,13 +244,13 @@ public class PanelLibros extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_guardar.setBackground(new java.awt.Color(0, 204, 102));
-        btn_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_guardar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
-        btn_guardar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_guardar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_guardar.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_enviar.setBackground(new java.awt.Color(0, 204, 102));
+        btn_enviar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_enviar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_enviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
+        btn_enviar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_enviar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_enviar.setPreferredSize(new java.awt.Dimension(30, 30));
 
         lbl_cancelar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
@@ -342,49 +268,47 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
         lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_guardar.setText("Guardar");
+        lbl_guardar.setText("Enviar");
 
         lbl_isbn.setBackground(new java.awt.Color(0, 0, 0));
         lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_isbn.setText("ISBN:");
 
-        txtf_isbn.setEnabled(false);
-
-        lbl_idEmpleado.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_idEmpleado.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_idEmpleado.setText("Id Empleado:");
-
         lbl_titulo.setBackground(new java.awt.Color(0, 0, 0));
         lbl_titulo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_titulo.setText("Titulo:");
 
-        lbl_anioPublicacion.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_anioPublicacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_anioPublicacion.setText("Año publicación:");
+        lbl_fechaPublicacion.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_fechaPublicacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_fechaPublicacion.setText("Fecha de publicación:");
 
-        lbl_nroPaginas.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroPaginas.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPaginas.setText("Número de páginas");
+        lbl_descripcion.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_descripcion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_descripcion.setText("Descripcion:");
 
-        txtf_codigoEditorial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_codigoEditorialActionPerformed(evt);
-            }
-        });
+        lbl_dia.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_dia.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_dia.setText("Dia");
 
-        lbl_codigoEditorial.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_codigoEditorial.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_codigoEditorial.setText("Codigo Editorial:");
+        lbl_mes.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_mes.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_mes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_mes.setText("Mes");
 
-        txtf_codigoArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_codigoAreaActionPerformed(evt);
-            }
-        });
+        lbl_anio.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_anio.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_anio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_anio.setText("Año");
 
-        lbl_codigoArea.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_codigoArea.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_codigoArea.setText("Codigo Area:");
+        lbl_detalles.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_detalles.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_detalles.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_detalles.setText("Detalles de la solicitud");
+
+        txtA_descripcion.setColumns(20);
+        txtA_descripcion.setRows(5);
+        jScrollPane2.setViewportView(txtA_descripcion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -393,77 +317,81 @@ public class PanelLibros extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtf_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(lbl_idEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_idEmpleado)
                     .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtf_titulo)
-                    .addComponent(lbl_anioPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_anioPublicacion)
-                    .addComponent(lbl_nroPaginas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_nroPaginas)
+                    .addComponent(lbl_fechaPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_dia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(box_dia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(box_mes, 0, 90, Short.MAX_VALUE)
+                            .addComponent(lbl_mes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(box_anio, 0, 100, Short.MAX_VALUE)
+                            .addComponent(lbl_anio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lbl_detalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_guardar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(89, 89, 89)
+                                .addGap(9, 9, 9)
+                                .addComponent(btn_enviar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(58, 58, 58)
                                 .addComponent(lbl_cancelar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
-                    .addComponent(lbl_codigoEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_codigoEditorial)
-                    .addComponent(lbl_codigoArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_codigoArea))
+                                .addGap(78, 78, 78)
+                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lbl_detalles)
+                .addGap(18, 18, 18)
                 .addComponent(lbl_isbn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_codigoArea)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_codigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_codigoEditorial)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_codigoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_idEmpleado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_titulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_anioPublicacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_anioPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroPaginas)
+                .addComponent(lbl_fechaPublicacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_dia)
+                    .addComponent(lbl_mes)
+                    .addComponent(lbl_anio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(box_dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_mes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_descripcion)
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_enviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_cancelar)
                     .addComponent(lbl_guardar))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -500,11 +428,11 @@ public class PanelLibros extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_contenidoLayout = new javax.swing.GroupLayout(panel_contenido);
@@ -527,196 +455,306 @@ public class PanelLibros extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtf_codigoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoEditorialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_codigoEditorialActionPerformed
-
-    private void txtf_codigoAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoAreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_codigoAreaActionPerformed
-
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
+    
+    // ------------------ AJUSTAR FECHA ------------------
+    /**
+     * Se encarga de llenar el box_anio con los años disponibles para elegir
+     */
+    public void inicializarAnio(){
+        int anioActual = LocalDate.now().getYear();
+        for (int i = anioActual; i >= 1900; i--) { // Empezando por el año actual y retrocediendo hasta 1900
+            box_anio.addItem(i);
+        }
     }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
-    }
-
-    public JTextField getTxtf_isbn() {
-        return txtf_isbn;
-    }
+    
+    /**
+     * Se encarga de llenar los meses y los dias segun el año (permite hasta el mes del año actual)
+     * @see llenarDias() Invoca esta funcion para cargar los dias del mes actual
+     */
+    private void llenarMesesYDias() {
+        // Obtener el año y mes seleccionados
+        int anioSeleccionado = (int) box_anio.getSelectedItem();
+        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
         
-    public void setISBN(String texto) {
-        txtf_isbn.setText(texto);
-    }
-
-    public JTextField getTxtf_anioPublicacion() {
-        return txtf_anioPublicacion;
-    }
-    
-    public void setAnioPublicacion(String texto) {
-        txtf_anioPublicacion.setText(texto);
-    }
-    
-    public JTextField getTxtf_codigoArea() {
-        return txtf_codigoArea;
-    }
-    
-    public void setCodigoArea(String texto) {
-        txtf_codigoArea.setText(texto);
-    }    
-
-    public JTextField getTxtf_codigoEditorial() {
-        return txtf_codigoEditorial;
-    }
-    
-    public void setCodigoEditorial(String texto) {
-        txtf_codigoEditorial.setText(texto);
-    }       
-
-    public JTextField getTxtf_idEmpleado() {
-        return txtf_idEmpleado;
-    }
-    
-    public void setIdEmpleado(String texto) {
-        txtf_idEmpleado.setText(texto);
-    }
-    
-    public JTextField getTxtf_nroPaginas() {
-        return txtf_nroPaginas;
-    }
-    
-    public void setNroPaginas(String texto) {
-        txtf_nroPaginas.setText(texto);
-    }    
-
-    public JTextField getTxtf_titulo() {
-        return txtf_titulo;
-    }
-    
-    public void setTitulo(String texto) {
-        txtf_titulo.setText(texto);
-    }
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscarUbicacion(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
-    public void modoInsertar(){
-        table_principal.setEnabled(false);
+        int anioActual = LocalDate.now().getYear();
         
-        btn_nuevo.setEnabled(false);
-        lbl_nuevo.setForeground(new java.awt.Color(102, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(true);
-        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_cancelar.setEnabled(true);
-        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
+        // Limpiar el JComboBox de meses
+        box_mes.removeAllItems();
         
-        txtf_isbn.setEnabled(true);
-        lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_idEmpleado.setEnabled(true);
-        lbl_idEmpleado.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_titulo.setEnabled(true);
-        lbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_anioPublicacion.setEnabled(true);
-        lbl_anioPublicacion.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroPaginas.setEnabled(true);
-        lbl_nroPaginas.setForeground(new java.awt.Color(0, 0, 0));
+        // Llenar el JComboBox de meses
+        int mesesMax;
+        
+        if (anioSeleccionado == anioActual)
+            mesesMax = LocalDate.now().getMonthValue(); // Si es el año actual solo se puede hasta este mes
+        else
+            mesesMax = 12; // Si es un año anterior al actual entonces se puede cualquier mes
+        
+        for (int i = 1; i <= mesesMax; i++) { 
+            box_mes.addItem(i);
+        }
+        
+        // Llenar el JComboBox de días
+        llenarDias();
+        
+        // Seleccionar el mes previamente seleccionado si aún está disponible
+        if (mesSeleccionado <= mesesMax) {
+            box_mes.setSelectedIndex(mesSeleccionado - 1);
+        } else {
+            box_mes.setSelectedIndex(mesesMax - 1);
+        }
+    }
+    
+    /**
+     * Se encarga de llenar los dias dependiendo del mes y año seleccionados
+     */
+    private void llenarDias() {
+        // Obtener el año y mes seleccionados
+        int anioSeleccionado = (int) box_anio.getSelectedItem();
+        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
+        
+        int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        
+        // Si el mes seleccionado no es valido lo asigna a 1 (enero)
+        if(mesSeleccionado < 1 || mesSeleccionado > 12)
+            mesSeleccionado = 1;
+        
+        // Obtenemos la representacion de unicamente el mes y el año
+        YearMonth yearMonth = YearMonth.of(anioSeleccionado, mesSeleccionado);
+        
+        // Obtener el número máximo de días para el año y mes seleccionados
+        int diasMax;
+        
+        if(mesSeleccionado == mesActual && anioSeleccionado == anioActual)
+            diasMax = LocalDate.now().getDayOfMonth(); // Si el mes es el actual entonces se puede el dia actual
+        else 
+            diasMax = yearMonth.lengthOfMonth(); // Si el mes es antes del actual entonces se pueden todos los dias
+        
+        box_dia.removeAllItems(); // Se limpia el JComboBox
+        
+        // Llenar el JComboBox de días
+        for (int i = 1; i <= diasMax; i++) {
+            box_dia.addItem(i);
+        }
+    }
+    
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }
+    
+    /**
+     * Crea una nueva fila para la tabla, cada parametro de entrada representa una columna
+     */
+    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
+        modeloTabla.addRow(new Object[]{
+            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
+        });
+    }
+    
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    /**
+     * Se encarga de eliminar todas las filas de la tabla
+     */
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }
+    
+    /**
+     * Se encarga de limpiar todos los campos JTextField y JTextArea
+     */
+    public void limpiarCampos(){
+        txtf_isbn.setText("");
+        txtf_titulo.setText("");
+        txtA_descripcion.setText("");
+    }
+    
+    /**
+     * Se encarga de reestablecer a una fecha predeterminada
+     */
+    public void reiniciarBoxes(){              
+        //Seleccionar el primer mes
+        box_anio.setSelectedIndex(0);
+        llenarMesesYDias();
+        box_mes.setSelectedIndex(0);
+        llenarDias();
+        box_dia.setSelectedIndex(0);
         
     }
     
-    public void modoEditar(){
-        modoInsertar();
-        txtf_isbn.setEnabled(false);
-    }
     
-    public void modoRegistroTablaSeleccionado(){
-        modoPasivo();
-        
-        btn_editar.setEnabled(true);
-        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_borrar.setEnabled(true);
-        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-    }
-    
+    // ------------------ MODOS ------------------
     public void modoPasivo(){
         table_principal.setEnabled(true);
         
-        btn_nuevo.setEnabled(true);
-        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(false);
+        btn_solicitar.setEnabled(true);
+        lbl_solicitar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_enviar.setEnabled(false);
         lbl_guardar.setForeground(new java.awt.Color(102, 102, 102));
         btn_cancelar.setEnabled(false);
         lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
         
         txtf_isbn.setEnabled(false);
         lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_idEmpleado.setEnabled(false);
-        lbl_idEmpleado.setForeground(new java.awt.Color(102, 102, 102));
         txtf_titulo.setEnabled(false);
         lbl_titulo.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_anioPublicacion.setEnabled(false);
-        lbl_anioPublicacion.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroPaginas.setEnabled(false);
-        lbl_nroPaginas.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_fechaPublicacion.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_dia.setForeground(new java.awt.Color(102, 102, 102));
+        box_dia.setEnabled(false);
+        lbl_mes.setForeground(new java.awt.Color(102, 102, 102));
+        box_mes.setEnabled(false);
+        lbl_anio.setForeground(new java.awt.Color(102, 102, 102));
+        box_anio.setEnabled(false);
+        txtA_descripcion.setEnabled(false);
+        lbl_descripcion.setForeground(new java.awt.Color(102, 102, 102));
     }
     
-    public void limpiarCampos(){
-        txtf_isbn.setText("");
-        txtf_idEmpleado.setText("");
-        txtf_nroPaginas.setText("");
-        txtf_anioPublicacion.setText("");
-        txtf_titulo.setText("");
+    public void modoSolicitar(){
+        table_principal.setEnabled(false);
+        
+        btn_solicitar.setEnabled(false);
+        lbl_solicitar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_enviar.setEnabled(true);
+        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_cancelar.setEnabled(true);
+        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
+        
+        lbl_detalles.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_isbn.setEnabled(true);
+        lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
+        txtf_titulo.setEnabled(true);
+        lbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_fechaPublicacion.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_dia.setForeground(new java.awt.Color(0, 0, 0));
+        box_dia.setEnabled(true);
+        lbl_mes.setForeground(new java.awt.Color(0, 0, 0));
+        box_mes.setEnabled(true);
+        lbl_anio.setForeground(new java.awt.Color(0, 0, 0));
+        box_anio.setEnabled(true);
+        lbl_descripcion.setForeground(new java.awt.Color(0, 0, 0));
+        txtA_descripcion.setEnabled(true);
+        
     }
     
-    public boolean idEsManual(){
-        return txtf_isbn.isEnabled();
+    
+    // ------------------ LISTENERS ------------------    
+    ActionListener oyenteAnio = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            llenarMesesYDias();
+        }
+    };
+
+    ActionListener oyenteMes = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            llenarDias();
+        }
+    };
+
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
     }
-            
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerSolicitar(ActionListener listener){
+        btn_solicitar.addActionListener(listener);
+    }
+    
+    public void addListenerEnviar(ActionListener listener){
+        btn_enviar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    /**
+     * Prepara la fecha usando los JComboBox de dia, mes y anio.
+     * @return La fecha escogida de tipo java.sql.Timestamp
+     */
+    public java.sql.Timestamp getFecha() {
+        int anio = (int) box_anio.getSelectedItem();
+        int mes = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
+        int dia = (int) box_dia.getSelectedItem();
+
+        java.sql.Timestamp fechaTimestamp = java.sql.Timestamp.valueOf(anio + "-" + mes + "-" + dia + " 00:00:00");
+
+        return fechaTimestamp;
+    }
+
+    public String getTxtf_buscar() {
+        return txtf_buscar.getText();
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+
+    public String getTxtf_descripcion() {
+        return txtA_descripcion.getText();
+    }
+
+    public void setTxtf_descripcion(String texto) {
+        txtA_descripcion.setText(texto);
+    }
+
+    public String getTxtf_isbn() {
+        return txtf_isbn.getText();
+    }
+
+    public void setTxtf_isbn(String texto) {
+        txtf_isbn.setText(texto);
+    }
+
+    public String getTxtf_titulo() {
+        return txtf_titulo.getText();
+    }
+
+    public void setTxtf_titulo(String texto) {
+        txtf_titulo.setText(texto);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_borrar;
+    private javax.swing.JComboBox<Integer> box_anio;
+    private javax.swing.JComboBox<Integer> box_dia;
+    private javax.swing.JComboBox<Integer> box_mes;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
-    private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_guardar;
-    private javax.swing.JButton btn_nuevo;
+    private javax.swing.JButton btn_enviar;
+    private javax.swing.JButton btn_solicitar;
     private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -725,30 +763,26 @@ public class PanelLibros extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_anioPublicacion;
-    private javax.swing.JLabel lbl_borrar;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_anio;
     private javax.swing.JLabel lbl_cancelar;
-    private javax.swing.JLabel lbl_codigoArea;
-    private javax.swing.JLabel lbl_codigoEditorial;
-    private javax.swing.JLabel lbl_editar;
+    private javax.swing.JLabel lbl_descripcion;
+    private javax.swing.JLabel lbl_detalles;
+    private javax.swing.JLabel lbl_dia;
+    private javax.swing.JLabel lbl_fechaPublicacion;
     private javax.swing.JLabel lbl_guardar;
-    private javax.swing.JLabel lbl_idEmpleado;
     private javax.swing.JLabel lbl_isbn;
-    private javax.swing.JLabel lbl_nroPaginas;
-    private javax.swing.JLabel lbl_nuevo;
+    private javax.swing.JLabel lbl_mes;
+    private javax.swing.JLabel lbl_solicitar;
     private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
-    private javax.swing.JTextField txtf_anioPublicacion;
+    private javax.swing.JTextArea txtA_descripcion;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_codigoArea;
-    private javax.swing.JTextField txtf_codigoEditorial;
-    private javax.swing.JTextField txtf_idEmpleado;
     private javax.swing.JTextField txtf_isbn;
-    private javax.swing.JTextField txtf_nroPaginas;
     private javax.swing.JTextField txtf_titulo;
     // End of variables declaration//GEN-END:variables
 
