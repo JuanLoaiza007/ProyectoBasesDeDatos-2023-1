@@ -213,7 +213,7 @@ public class SubcontroladorRegistrarse {
         public void actionPerformed(ActionEvent evt) {
             
             // Recoleccion de atributos
-            String email = panel.getTxtf_correo().getText();
+            String email = panel.getTxtf_correo().getText().toLowerCase();
             String password = panel.getTxtf_contrasena().getText();
             String nombre = panel.getTxtf_nombre().getText();
             String direccion = panel.getTxtf_direccion().getText();
