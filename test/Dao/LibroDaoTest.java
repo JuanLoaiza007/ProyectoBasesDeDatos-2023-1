@@ -3,7 +3,10 @@ package Dao;
 import BasesDeDatos.BibliotecaManager;
 import Modelos.Autor;
 import Modelos.Libro;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LibroDaoTest {
     
@@ -21,7 +24,11 @@ public class LibroDaoTest {
         LibroDao daoInsertar = new LibroDao(conexionInsertar);
 
         Libro libroInsertar = new Libro("1234567890", "1", "1", "Título", "2023", 100);
-        daoInsertar.insertar(libroInsertar);
+        try {
+            daoInsertar.insertar(libroInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro insertado correctamente.");
     }
 
@@ -30,7 +37,11 @@ public class LibroDaoTest {
         LibroDao daoModificar = new LibroDao(conexionModificar);
 
         Libro libroModificar = new Libro("1234567890", "2", "2", "Nuevo Título", "2024", 200);
-        daoModificar.modificar(libroModificar);
+        try {
+            daoModificar.modificar(libroModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro modificado correctamente.");
     }
 
@@ -57,7 +68,11 @@ public class LibroDaoTest {
         LibroDao daoEliminar = new LibroDao(conexionEliminar);
 
         Libro libroEliminar = new Libro("1234567890", "", "", "", "", 0);
-        daoEliminar.eliminar(libroEliminar);
+        try {
+            daoEliminar.eliminar(libroEliminar);
+        } catch (SQLException ex) {
+            Logger.getLogger(LibroDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Libro eliminado correctamente.");
     }
 
