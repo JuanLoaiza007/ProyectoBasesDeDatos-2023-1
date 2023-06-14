@@ -495,16 +495,16 @@ VALUES
 --- SOLICITUDES  
 INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
 VALUES
-('1', '1', '3', '978-3161484100', 'El Gran Gatsby', 'Solicitud de préstamo para el libro El Gran Gatsby', '2023-05-14 14:30:00'),
-('2', '2', '3', '978-8466331844', 'Harry Potter y la piedra filosofal', 'Solicitud de préstamo para el libro Harry Potter y la piedra filosofal', '2023-05-14 15:30:00'),
-('3', '3', '3', '978-0544272996', 'El hobbit', 'Solicitud de préstamo para el libro El hobbit', '2023-05-15 10:00:00'),
-('4', '4', '3', '978-6075277254', 'La insoportable levedad del ser', 'Solicitud de préstamo para el libro La insoportable levedad del ser', '2023-05-15 11:00:00'),
-('5', '5', '3', '978-0307278466', '1984', 'Solicitud de préstamo para el libro 1984', '2023-05-16 13:00:00'),
-('6', '6', '3', '978-0307476463', 'Cien años de soledad', 'Solicitud de préstamo para el libro Cien años de soledad', '2023-05-16 14:00:00'),
-('7', '7', '3', '978-8437604947', 'La ciudad y los perros', 'Solicitud de préstamo para el libro La ciudad y los perros', '2023-05-17 10:30:00'),
-('8', '8', '3', '978-8408163172', 'Origen', 'Solicitud de préstamo para el libro Origen', '2023-05-17 11:30:00'),
-('9', '9', '3', '978-8420407437', 'Crimen y castigo', 'Solicitud de préstamo para el libro Crimen y castigo', '2023-05-18 12:00:00'),
-('10', '10', '3', '978-8498383620', 'Los hombres que no amaban a las mujeres', 'Solicitud de préstamo para el libro Los hombres que no amaban a las mujeres', '2023-05-18 13:00:00');
+('1', '1', '3', '978-3161484100', 'El Gran Gatsby', 'Solicitud de adquisicion para el libro El Gran Gatsby', '2023-05-14 14:30:00'),
+('2', '2', '3', '978-8466331844', 'Harry Potter y la piedra filosofal', 'Solicitud de adquisicion para el libro Harry Potter y la piedra filosofal', '2023-05-14 15:30:00'),
+('3', '3', '3', '978-0544272996', 'El hobbit', 'Solicitud de adquisicion para el libro El hobbit', '2023-05-15 10:00:00'),
+('4', '4', '3', '978-6075277254', 'La insoportable levedad del ser', 'Solicitud de adquisicion para el libro La insoportable levedad del ser', '2023-05-15 11:00:00'),
+('5', '5', '3', '978-0307278466', '1984', 'Solicitud de adquisicion para el libro 1984', '2023-05-16 13:00:00'),
+('6', '6', '3', '978-0307476463', 'Cien años de soledad', 'Solicitud de adquisicion para el libro Cien años de soledad', '2023-05-16 14:00:00'),
+('7', '7', '3', '978-8437604947', 'La ciudad y los perros', 'Solicitud de adquisicion para el libro La ciudad y los perros', '2023-05-17 10:30:00'),
+('8', '8', '3', '978-8408163172', 'Origen', 'Solicitud de adquisicion para el libro Origen', '2023-05-17 11:30:00'),
+('9', '9', '3', '978-8420407437', 'Crimen y castigo', 'Solicitud de adquisicion para el libro Crimen y castigo', '2023-05-18 12:00:00'),
+('10', '10', '3', '978-8498383620', 'Los hombres que no amaban a las mujeres', 'Solicitud de adquisicion para el libro Los hombres que no amaban a las mujeres', '2023-05-18 13:00:00');
 ------------------------------------------------
 --- MULTAS
 INSERT INTO multa (id_usuario, nro_consecutivo_prestamo, fecha, valor, descripcion)
