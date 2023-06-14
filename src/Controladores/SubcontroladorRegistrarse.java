@@ -313,10 +313,7 @@ public class SubcontroladorRegistrarse {
                 }
                 else if(tipoUsuarioSeleccionado == "Profesor"){
                     panel.setAtributosProfesor();
-                }
-                
-                AvisosEmergentes.mostrarMensaje("Registro exitoso!");
-                
+                }                
             } catch(NullPointerException e) {
                 System.out.println(e);
             }
