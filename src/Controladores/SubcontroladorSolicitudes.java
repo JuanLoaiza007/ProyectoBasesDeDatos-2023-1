@@ -47,14 +47,13 @@ public final class SubcontroladorSolicitudes {
     public SubcontroladorSolicitudes(PanelSolicitudes panel){        
         this.panel = panel;
         
-        //panel.addListenerVolver(oyenteMostrarPanelAvanzado);
         panel.addListenerBuscar(oyenteBuscar);
-        //panel.addListenerBorrar(oyenteBorrar);
+        panel.addListenerAprobar(oyenteAprobar);
+        panel.addListenerNegar(oyenteNegar);
         panel.addListenerFilasTabla(oyenteFilasTabla);         
         
         cargarRegistros();
         panel.modoPasivo();         
-        
     }
     
     // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
@@ -67,6 +66,7 @@ public final class SubcontroladorSolicitudes {
     }
     
     public void cargarModoInicial(){
+        registroSeleccionado = null;
         panel.limpiarTabla();
         cargarRegistros();
         panel.modoPasivo();        
@@ -102,7 +102,7 @@ public final class SubcontroladorSolicitudes {
         solicitudes = dao.obtenerTodos();
         
         for(Solicitud solicitudActual: solicitudes){
-//            if(solicitudActual.getIdEmpleado().isEmpty())
+            if(solicitudActual.getIdEmpleado().isEmpty())
                 cargarObjetoEnTabla(solicitudActual);
         }
     }      
@@ -135,17 +135,11 @@ public final class SubcontroladorSolicitudes {
         }
     }    
     
+    
     // ------------------ LISTENERS ------------------
     /**
      * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
      */      
-    ActionListener oyenteMostrarPanelAvanzado = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAvanzado");
-        }
-    };    
-    
     ActionListener oyenteBuscar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -153,32 +147,49 @@ public final class SubcontroladorSolicitudes {
         }
     };
 
-    ActionListener oyenteBorrar = new ActionListener(){
+    ActionListener oyenteAprobar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            String mensaje = "¿Seguro que deseas eliminar este registro? \n"
-                    + "Esta operacion es irreversible";
+            String mensaje = "¿Seguro que desea aprobar esta solicitud? \n"
+                    + "(Advertencia) La solicitud no se mostrará más, recuerde \n"
+                    + " anotar los datos para crear el nuevo registro.";
             try{
                 if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
 
                     SolicitudDao dao = new SolicitudDao(conexion);
+                    registroSeleccionado.setIdEmpleado(idInterno);                    
+                    dao.modificar(registroSeleccionado);
 
-                    dao.eliminar(registroSeleccionado);
-                    registroSeleccionado = null;
-
-                    panel.limpiarTabla();
-                    cargarRegistros();
-                    panel.modoPasivo();
-
-                    BibliotecaManager.detenerConexion(conexion);
+                    cargarModoInicial();
+                    
+                    AvisosEmergentes.mostrarMensaje("Solicitud aprobada con exito");
                 }
             } catch (SQLException ex){
                 System.out.println(ex.getMessage());
-                AvisosEmergentes.mostrarMensaje("Es posible que el usuario a borrar tenga otras dependencias "
-                        + "(ej.multas) asegurese de eliminarlas antes de eliminar el usuario");
             }
+        }
+    };    
+    
+    ActionListener oyenteNegar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String mensaje = "¿Seguro que desea negar esta solicitud? \n"
+                    + "La solicitud será eliminada.";
+            try{
+                if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
+                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
 
+                    SolicitudDao dao = new SolicitudDao(conexion);                                      
+                    dao.eliminar(registroSeleccionado);
+
+                    cargarModoInicial();
+                    
+                    AvisosEmergentes.mostrarMensaje("La solicitud ha sido denegada.");
+                }
+            } catch (SQLException ex){
+                System.out.println(ex.getMessage());
+            }
         }
     };    
     

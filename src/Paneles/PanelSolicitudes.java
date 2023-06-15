@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 package Paneles;
 
 import java.awt.event.ActionListener;
@@ -30,46 +25,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelSolicitudes extends javax.swing.JPanel {
 
-    
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        String[] titulosTabla = new String[]{"Nro. consecutivo", "Usuario", "Empleado", "ISBN", "Titulo", "Descripcion", "Fecha"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }  
-        
-    public void nuevaFilaTabla(String nroConsecutivoSolicitud, String idUsuario, 
-            String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
-        modeloTabla.addRow(new Object[]{
-            nroConsecutivoSolicitud, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }    
-    
     /** Creates new form PanelAdministrar */
     public PanelSolicitudes() {
         initComponents();
@@ -148,11 +103,6 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         btn_negar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         btn_negar.setForeground(new java.awt.Color(255, 255, 255));
         btn_negar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
-        btn_negar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_negarActionPerformed(evt);
-            }
-        });
 
         btn_aprobar.setBackground(new java.awt.Color(0, 153, 0));
         btn_aprobar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -167,11 +117,6 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         btn_buscar.setForeground(new java.awt.Color(255, 255, 255));
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
         btn_buscar.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -239,54 +184,88 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_negarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_negarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_negarActionPerformed
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        String[] titulosTabla = new String[]{"Nro. consecutivo", "Usuario", "Empleado", "ISBN", "Titulo", "Descripcion", "Fecha"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }  
+        
+    public void nuevaFilaTabla(String nroConsecutivoSolicitud, String idUsuario,
+            String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
+        modeloTabla.addRow(new Object[]{
+            nroConsecutivoSolicitud, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha
+        });
+    }
 
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_buscarActionPerformed
-
-   public JTextField getTxtf_buscar() {
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
+    }    
+    
+    
+    // ------------------ MODOS ------------------
+    public void modoRegistroTablaSeleccionado(){        
+        btn_aprobar.setEnabled(true);
+        btn_negar.setEnabled(true);
+    }
+    
+    public void modoPasivo(){
+        btn_aprobar.setEnabled(false);
+        btn_negar.setEnabled(false);
+    }
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerAprobar(ActionListener listener){
+        btn_aprobar.addActionListener(listener);
+    }
+    
+    public void addListenerNegar(ActionListener listener){
+        btn_negar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }   
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
         return txtf_buscar;
     }
 
     public void setTxtf_buscar(String texto) {
         txtf_buscar.setText(texto);
     }
-    
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }    
-
-    public void modoInsertar(){
-        table_principal.setEnabled(false);
-        
-        //btn_borrar.setEnabled(false);
-        //lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-    }   
-    
-    public void modoEditar(){
-        modoInsertar();
-    }
-    
-    public void modoRegistroTablaSeleccionado(){
-        modoPasivo();
-        
-        //btn_borrar.setEnabled(true);
-        //lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-    }   
-    
-    public void modoPasivo(){
-        table_principal.setEnabled(true);
-        
-        //btn_borrar.setEnabled(false);
-        //lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_aprobar;

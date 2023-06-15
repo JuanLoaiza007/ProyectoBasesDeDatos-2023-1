@@ -172,9 +172,6 @@
                   <Image iconType="3" name="/icons/cross.png"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_negarActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btn_aprobar">
               <Properties>
@@ -220,9 +217,6 @@
                   <Dimension value="[26, 26]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
