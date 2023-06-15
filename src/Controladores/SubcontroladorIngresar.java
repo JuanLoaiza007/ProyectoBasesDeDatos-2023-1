@@ -101,8 +101,6 @@ public class SubcontroladorIngresar {
         
         if(!respuesta)
             AvisosEmergentes.mostrarError("No existe ningun usuario registrado con este correo.");
-        else
-            System.out.println("Si existe un correo");
             
         return respuesta;
     }

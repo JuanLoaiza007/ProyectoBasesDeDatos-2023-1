@@ -266,7 +266,6 @@ public class UsuarioDao {
                 Usuario actual = convertir(result);
                 
                 if(password.equals(actual.getPassword())){
-                    System.out.println("Coincide el password");
                     return true;
                 }
             }
