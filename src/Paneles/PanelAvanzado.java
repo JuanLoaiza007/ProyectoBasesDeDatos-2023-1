@@ -38,12 +38,12 @@ public class PanelAvanzado extends javax.swing.JPanel {
         panelAdministrar_titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         panelAdministrar_contenido = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lbl_usuarios = new javax.swing.JLabel();
         btn_usuarios = new javax.swing.JButton();
         btn_empleados = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lbl_empleados = new javax.swing.JLabel();
         btn_cambiarContrasena = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        lbl_cambiarPassword = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(687, 500));
@@ -82,10 +82,10 @@ public class PanelAvanzado extends javax.swing.JPanel {
         panelAdministrar_contenido.setOpaque(false);
         panelAdministrar_contenido.setPreferredSize(new java.awt.Dimension(687, 500));
 
-        jLabel4.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Gestionar usuarios");
+        lbl_usuarios.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
+        lbl_usuarios.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_usuarios.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_usuarios.setText("Gestionar usuarios");
 
         btn_usuarios.setBackground(new java.awt.Color(255, 255, 255));
         btn_usuarios.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -109,10 +109,10 @@ public class PanelAvanzado extends javax.swing.JPanel {
         btn_empleados.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_empleados.setVerifyInputWhenFocusTarget(false);
 
-        jLabel5.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Gestionar empleados");
+        lbl_empleados.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
+        lbl_empleados.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_empleados.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_empleados.setText("Gestionar empleados");
 
         btn_cambiarContrasena.setBackground(new java.awt.Color(255, 255, 255));
         btn_cambiarContrasena.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -125,10 +125,10 @@ public class PanelAvanzado extends javax.swing.JPanel {
         btn_cambiarContrasena.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_cambiarContrasena.setVerifyInputWhenFocusTarget(false);
 
-        jLabel6.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Cambiar contraseña");
+        lbl_cambiarPassword.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
+        lbl_cambiarPassword.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_cambiarPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_cambiarPassword.setText("Cambiar contraseña");
 
         javax.swing.GroupLayout panelAdministrar_contenidoLayout = new javax.swing.GroupLayout(panelAdministrar_contenido);
         panelAdministrar_contenido.setLayout(panelAdministrar_contenidoLayout);
@@ -138,15 +138,15 @@ public class PanelAvanzado extends javax.swing.JPanel {
                 .addContainerGap(113, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_usuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbl_usuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_empleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
+                    .addComponent(lbl_empleados))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_cambiarContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6))
+                    .addComponent(lbl_cambiarPassword))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
         panelAdministrar_contenidoLayout.setVerticalGroup(
@@ -157,16 +157,16 @@ public class PanelAvanzado extends javax.swing.JPanel {
                     .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
                         .addComponent(btn_cambiarContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6))
+                        .addComponent(lbl_cambiarPassword))
                     .addGroup(panelAdministrar_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
                             .addComponent(btn_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel5))
+                            .addComponent(lbl_empleados))
                         .addGroup(panelAdministrar_contenidoLayout.createSequentialGroup()
                             .addComponent(btn_usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel4))))
+                            .addComponent(lbl_usuarios))))
                 .addContainerGap(342, Short.MAX_VALUE))
         );
 
@@ -177,7 +177,19 @@ public class PanelAvanzado extends javax.swing.JPanel {
         add(panelScrolleable);
     }// </editor-fold>//GEN-END:initComponents
 
-
+    
+    // ------------------ MODOS ------------------
+    public void habilitarVerEmpleados(){
+        btn_empleados.setVisible(true);
+        lbl_empleados.setVisible(true);
+    }
+    
+    public void deshabilitarVerEmpleados(){
+        btn_empleados.setVisible(false);
+        lbl_empleados.setVisible(false);
+    }
+    
+    
     // ------------------ LISTENERS ------------------
     public void addListenerUsuarios(ActionListener listener){
         btn_usuarios.addActionListener(listener);
@@ -196,9 +208,9 @@ public class PanelAvanzado extends javax.swing.JPanel {
     private javax.swing.JButton btn_empleados;
     private javax.swing.JButton btn_usuarios;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel lbl_cambiarPassword;
+    private javax.swing.JLabel lbl_empleados;
+    private javax.swing.JLabel lbl_usuarios;
     private javax.swing.JPanel panelAdministrar_contenido;
     private javax.swing.JPanel panelAdministrar_titulo;
     private javax.swing.JScrollPane panelScrolleable;

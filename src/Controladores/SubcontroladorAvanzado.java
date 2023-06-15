@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 public class SubcontroladorAvanzado {
     
     protected PanelAvanzado panel = new PanelAvanzado();
+    protected String idInterno;
     protected ComunicadorClases decirAInstanciaSuperior;
     
     /**
@@ -37,6 +38,13 @@ public class SubcontroladorAvanzado {
         panel.addListenerCambiarContrasena(oyenteCambiarContrasena);
     }
     
+    // ------------------ METODOS ------------------
+    public void comprobarAcceso(){
+        if(idInterno.equals("admin"))
+            panel.habilitarVerEmpleados();
+        else
+            panel.deshabilitarVerEmpleados();
+    }
     
     // ------------------ LISTENERS ------------------
     ActionListener oyenteMostrarPanelUsuarios = new ActionListener(){
@@ -60,9 +68,17 @@ public class SubcontroladorAvanzado {
                     + " de bases de datos para hacer el cambio de contraseña manualmente.");
         }
     };
-    
-    
+   
+
     // ------------------ SETTERS Y GETTERS  ------------------
+     public String getIdInterno() {    
+        return idInterno;
+    }
+     
+    public void setIdInterno(String idInterno) {    
+        this.idInterno = idInterno;
+    }
+
     public void setListener(ComunicadorClases listener) {
         this.decirAInstanciaSuperior = listener;
     }

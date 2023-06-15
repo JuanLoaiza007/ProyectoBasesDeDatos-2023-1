@@ -19,6 +19,7 @@ import Paneles.*;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 
 public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
 
@@ -170,6 +171,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             SubcontroladorAvanzado subcontrolador = new SubcontroladorAvanzado(panel);
             
             subcontrolador.setListener(getComunicadorClases());
+            subcontrolador.setIdInterno(idInterno);
+            subcontrolador.comprobarAcceso();
             
             vista.cambiarPanel(subcontrolador.getPanel());
         }
