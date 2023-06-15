@@ -23,22 +23,16 @@ import java.awt.event.ActionListener;
 public class uSubcontroladorAvanzado {
     
     protected uPanelAvanzado panel = new uPanelAvanzado();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public uSubcontroladorAvanzado(uPanelAvanzado panel){        
         this.panel = panel;
           
         panel.addListenerCambiarContrasena(oyenteCambiarContrasena);
-    }
-    
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    public javax.swing.JPanel getPanel(){
-        return panel;
     }
     
     
@@ -50,5 +44,16 @@ public class uSubcontroladorAvanzado {
                     + " de bases de datos para hacer el cambio de contraseña manualmente.");
         }
     };
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }
 

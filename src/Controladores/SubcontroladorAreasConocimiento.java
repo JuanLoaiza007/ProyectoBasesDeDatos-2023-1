@@ -31,7 +31,6 @@ import javax.swing.JTable;
 public class SubcontroladorAreasConocimiento {
     
     protected PanelAreasConocimiento panel = new PanelAreasConocimiento();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -39,6 +38,10 @@ public class SubcontroladorAreasConocimiento {
     protected int selectedRow;
     protected AreaConocimiento registroSeleccionado = null;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorAreasConocimiento(PanelAreasConocimiento panel){
         this.panel = panel;
         

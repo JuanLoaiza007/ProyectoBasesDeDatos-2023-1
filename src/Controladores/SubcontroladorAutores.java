@@ -31,7 +31,6 @@ import javax.swing.JTable;
 public class SubcontroladorAutores {
     
     protected PanelAutores panel = new PanelAutores();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -39,6 +38,10 @@ public class SubcontroladorAutores {
     protected int selectedRow;
     protected Autor registroSeleccionado = null;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorAutores(PanelAutores panel){
         this.panel = panel;
         
@@ -56,6 +59,7 @@ public class SubcontroladorAutores {
         panel.modoPasivo();
         
     }
+    
     
     // ------------------ METODOS ------------------
     // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion

@@ -34,9 +34,7 @@ import javax.swing.JTable;
 public final class SubcontroladorSolicitudes { 
     
     protected PanelSolicitudes panel = new PanelSolicitudes();
-    
     protected String idInterno;
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -44,6 +42,10 @@ public final class SubcontroladorSolicitudes {
     protected int selectedRow;
     protected Solicitud registroSeleccionado = null;       
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorSolicitudes(PanelSolicitudes panel){        
         this.panel = panel;
         
@@ -56,15 +58,8 @@ public final class SubcontroladorSolicitudes {
         panel.modoPasivo();         
     }
     
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
     
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
+    // ------------------ METODOS ------------------    
     public void cargarModoInicial(){
         registroSeleccionado = null;
         panel.limpiarTabla();
@@ -267,12 +262,23 @@ public final class SubcontroladorSolicitudes {
         }
     };  
 
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
     public String getIdInterno() {
         return idInterno;
     }
 
     public void setIdInterno(String idInterno) {
         this.idInterno = idInterno;
+    }
+    
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
     }
     
 }

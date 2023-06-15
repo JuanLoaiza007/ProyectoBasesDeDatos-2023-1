@@ -33,13 +33,17 @@ import javax.swing.JTable;
 public class SubcontroladorEmpleados {
     
     protected PanelEmpleados panel = new PanelEmpleados();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    // Datos del elemento seleccionado para modificar
     protected int selectedId;
     protected int selectedRow;
     protected Empleado registroSeleccionado = null;      
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorEmpleados(PanelEmpleados panel){
         this.panel = panel;
         
@@ -57,20 +61,8 @@ public class SubcontroladorEmpleados {
         
     }
     
+    
     // ------------------ METODOS ------------------    
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    /**
-     * Funcion para dar el panel a la instancia superior (Vista)
-     * @return El panel que maneja el subcontrolador
-     */
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
     public void cargarModoInicial(){
         panel.limpiarTabla();
         panel.limpiarCampos();
@@ -130,6 +122,7 @@ public class SubcontroladorEmpleados {
             }
         }
     }   
+    
     
     // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
     public boolean txtfEstaVacio(String contenido, String nombreCampo){
@@ -368,4 +361,20 @@ public class SubcontroladorEmpleados {
         public void mouseExited(MouseEvent e) {
         }
     };     
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    /**
+     * Funcion para dar el panel a la instancia superior (Vista)
+     * @return El panel que maneja el subcontrolador
+     */
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
+    
 }

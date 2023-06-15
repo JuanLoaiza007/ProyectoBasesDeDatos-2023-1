@@ -22,24 +22,18 @@ import java.awt.event.ActionListener;
 public class uSubcontroladorPrincipal {
    
     protected uPanelPrincipal panel = new uPanelPrincipal();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public uSubcontroladorPrincipal(uPanelPrincipal panel){
         this.panel = panel;
         
         panel.addListenerLibros(oyenteMostrarPanelLibros);
         panel.addListenerEjemplares(oyenteMostrarPanelEjemplares);
         panel.addListenerLibrosDigitales(oyenteMostrarPanelLibrosDigitales); 
-    }
-    
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    public javax.swing.JPanel getPanel(){
-        return panel;
     }
     
     
@@ -64,4 +58,15 @@ public class uSubcontroladorPrincipal {
             decirAInstanciaSuperior.mensaje("SolicitudMostraruPanelLibrosDigitales");
         }
     };
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }

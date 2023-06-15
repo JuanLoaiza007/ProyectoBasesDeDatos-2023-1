@@ -28,7 +28,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import javax.swing.JTable;
 
@@ -38,10 +37,15 @@ public final class uSubcontroladorLibrosDigitales {
     protected String idInterno;
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    // Datos del elemento seleccionado para modificar
     protected int selectedId;
     protected int selectedRow;
     protected LibroDigital registroSeleccionado = null;       
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public uSubcontroladorLibrosDigitales(uPanelLibrosDigitales panel){
         this.panel = panel;
         
@@ -56,15 +60,8 @@ public final class uSubcontroladorLibrosDigitales {
         panel.modoPasivo();
     }
     
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
     
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
+    // ------------------ METODOS ------------------    
     public void cargarModoInicial(){
         registroSeleccionado = null;
         panel.limpiarTabla();
@@ -133,6 +130,8 @@ public final class uSubcontroladorLibrosDigitales {
 
     }
     
+    
+    // ------------------ LISTENERS ------------------
     ActionListener oyenteVolver = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -230,13 +229,24 @@ public final class uSubcontroladorLibrosDigitales {
         public void mouseExited(MouseEvent e) {
         }
     };      
-
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
     public String getIdInterno() {
         return idInterno;
     }
 
     public void setIdInterno(String idInterno) {
         this.idInterno = idInterno;
+    }
+    
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
     }
     
     

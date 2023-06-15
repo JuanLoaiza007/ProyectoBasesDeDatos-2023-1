@@ -26,9 +26,12 @@ import java.util.Random;
 public class SubcontroladorRegistrarse {
     
     protected PanelRegistrarse panel = new PanelRegistrarse();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorRegistrarse(PanelRegistrarse panel){
         this.panel = panel;
         
@@ -319,5 +322,4 @@ public class SubcontroladorRegistrarse {
             }
         } 
     };
-
 }

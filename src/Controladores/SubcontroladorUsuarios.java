@@ -16,8 +16,6 @@ package Controladores;
  */
 
 import BasesDeDatos.BibliotecaManager;
-import Dao.EstudianteDao;
-import Dao.ProfesorDao;
 import Dao.UsuarioDao;
 import Modelos.Usuario;
 import Paneles.AvisosEmergentes;
@@ -34,7 +32,6 @@ import java.sql.SQLException;
 public class SubcontroladorUsuarios {
     
     protected PanelUsuarios panel = new PanelUsuarios();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -42,6 +39,10 @@ public class SubcontroladorUsuarios {
     protected int selectedRow;
     protected Usuario registroSeleccionado = null;        
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorUsuarios(PanelUsuarios panel){
         this.panel = panel;
         
@@ -54,15 +55,8 @@ public class SubcontroladorUsuarios {
         panel.modoPasivo();        
     }
     
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
     
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
+    // ------------------ METODOS ------------------    
     public void cargarModoInicial(){
         panel.limpiarTabla();
         cargarRegistros();
@@ -128,6 +122,7 @@ public class SubcontroladorUsuarios {
         }
 
     }    
+    
     
     // ------------------ LISTENERS ------------------
     /**
@@ -225,4 +220,15 @@ public class SubcontroladorUsuarios {
         public void mouseExited(MouseEvent e) {
         }
     };       
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }

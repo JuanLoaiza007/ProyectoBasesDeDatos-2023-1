@@ -33,7 +33,6 @@ public final class uSubcontroladorDescargas {
     
     protected uPanelDescargas panel = new uPanelDescargas();
     protected String idInterno;
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -41,6 +40,10 @@ public final class uSubcontroladorDescargas {
     protected int selectedRow;
     protected DescargaUsuarioLibro registroSeleccionado = null;       
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public uSubcontroladorDescargas(uPanelDescargas panel){        
         this.panel = panel;
         
@@ -54,15 +57,8 @@ public final class uSubcontroladorDescargas {
         
     }
     
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
+
+    // ------------------ METODOS ------------------    
     public void cargarModoInicial(){
         panel.limpiarTabla();
         cargarRegistros();
@@ -134,6 +130,7 @@ public final class uSubcontroladorDescargas {
         }
     }    
     
+    
     // ------------------ LISTENERS ------------------
     /**
      * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
@@ -202,12 +199,23 @@ public final class uSubcontroladorDescargas {
         }
     };      
 
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
     public String getIdInterno() {
         return idInterno;
     }
 
     public void setIdInterno(String idInterno) {
         this.idInterno = idInterno;
+    }
+    
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
     }
 }
 

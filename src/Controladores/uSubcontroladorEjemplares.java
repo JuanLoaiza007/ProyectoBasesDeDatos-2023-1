@@ -23,9 +23,12 @@ import java.awt.event.ActionListener;
 public class uSubcontroladorEjemplares {
     
     protected uPanelEjemplares panel = new uPanelEjemplares();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public uSubcontroladorEjemplares(uPanelEjemplares panel){        
         this.panel = panel;
         
@@ -35,18 +38,6 @@ public class uSubcontroladorEjemplares {
         panel.modoPasivo();
         
     }
-    
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
-    
-    // ------------------ METODOS ------------------
     
     
     // ------------------ LISTENERS ------------------
@@ -63,4 +54,15 @@ public class uSubcontroladorEjemplares {
             AvisosEmergentes.mostrarMensaje("Esta opcion aun se encuentra en desarrollo");
         }
     };
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }

@@ -32,7 +32,6 @@ import javax.swing.JTable;
 public class SubcontroladorLibros {
     
     protected PanelLibros panel = new PanelLibros();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -40,6 +39,10 @@ public class SubcontroladorLibros {
     protected int selectedRow;
     protected Libro registroSeleccionado = null;    
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorLibros(PanelLibros panel){        
         this.panel = panel;
         
@@ -57,20 +60,8 @@ public class SubcontroladorLibros {
         
     }
     
+    
     // ------------------ METODOS ------------------
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
-    
-    /**
-     * Funcion para dar el panel a la instancia superior (Vista)
-     * @return El panel que maneja el subcontrolador
-     */
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
     public void cargarModoInicial(){
         panel.limpiarTabla();
         panel.limpiarCampos();
@@ -139,6 +130,7 @@ public class SubcontroladorLibros {
 
     }
     
+    
     // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
     public boolean txtfEstaVacio(String contenido, String nombreCampo){
         boolean resultado = true;
@@ -167,6 +159,7 @@ public class SubcontroladorLibros {
         }
         return resultado;
     }    
+    
     
     // ------------------ LISTENERS ------------------
     /**
@@ -371,4 +364,19 @@ public class SubcontroladorLibros {
         public void mouseExited(MouseEvent e) {
         }
     };    
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    /**
+     * Funcion para dar el panel a la instancia superior (Vista)
+     * @return El panel que maneja el subcontrolador
+     */
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }

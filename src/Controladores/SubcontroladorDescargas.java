@@ -32,7 +32,6 @@ import javax.swing.JTable;
 public final class SubcontroladorDescargas { 
     
     protected PanelDescargas panel = new PanelDescargas();
-    
     protected ComunicadorClases decirAInstanciaSuperior;
     
     // Datos del elemento seleccionado para modificar
@@ -40,12 +39,15 @@ public final class SubcontroladorDescargas {
     protected int selectedRow;
     protected DescargaUsuarioLibro registroSeleccionado = null;       
     
+    /**
+     * Constructor de la clase
+     * @param panel Un JPanel
+     */
     public SubcontroladorDescargas(PanelDescargas panel){        
         this.panel = panel;
         
         panel.addListenerVolver(oyenteVolver);
         panel.addListenerBuscar(oyenteBuscar);
-        //panel.addListenerBorrar(oyenteBorrar);
         panel.addListenerFilasTabla(oyenteFilasTabla);         
         
         cargarRegistros();
@@ -53,15 +55,8 @@ public final class SubcontroladorDescargas {
         
     }
     
-    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
-    public void setListener(ComunicadorClases listener) {
-        this.decirAInstanciaSuperior = listener;
-    }
     
-    public javax.swing.JPanel getPanel(){
-        return panel;
-    }
-    
+    // ------------------ METODOS ------------------
     public void cargarModoInicial(){
         panel.limpiarTabla();
         cargarRegistros();
@@ -134,6 +129,7 @@ public final class SubcontroladorDescargas {
         }
     }    
     
+    
     // ------------------ LISTENERS ------------------
     /**
      * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
@@ -201,5 +197,16 @@ public final class SubcontroladorDescargas {
         public void mouseExited(MouseEvent e) {
         }
     };        
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    // Recibe el listener de la interfaz superior con la que se quiere mantener comunicacion
+    public void setListener(ComunicadorClases listener) {
+        this.decirAInstanciaSuperior = listener;
+    }
+    
+    public javax.swing.JPanel getPanel(){
+        return panel;
+    }
 }
 
