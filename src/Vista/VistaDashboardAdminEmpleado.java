@@ -21,6 +21,7 @@ package Vista;
  */
 
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 
 public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
 
@@ -299,6 +300,15 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         });
     }
 
+    public String setRol() {
+        return lbl_rol.getText();
+    }
+
+    public void setRol(String rol) {
+        this.lbl_rol.setText(rol);
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_administrar;
     private javax.swing.JButton btn_avanzado;

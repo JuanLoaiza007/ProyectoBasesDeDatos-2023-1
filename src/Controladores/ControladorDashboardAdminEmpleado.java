@@ -19,7 +19,6 @@ import Paneles.*;
 import Vista.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
 
 public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
 
@@ -136,6 +135,15 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         subcontrolador.setListener(getComunicadorClases());
         
         vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void comprobarRol(){
+        if(idInterno.equals("admin")){
+            vista.setRol("Administrador");
+        }
+        else{
+            vista.setRol("Empleado");
+        }
     }
     
     

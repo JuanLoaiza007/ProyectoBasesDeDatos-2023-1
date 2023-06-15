@@ -40,10 +40,14 @@ public class SubcontroladorAvanzado {
     
     // ------------------ METODOS ------------------
     public void comprobarAcceso(){
-        if(idInterno.equals("admin"))
+        if(idInterno.equals("admin")){
+            decirAInstanciaSuperior.mensaje("soyAdmin");
             panel.habilitarVerEmpleados();
-        else
+        }
+        else{
+            decirAInstanciaSuperior.mensaje("soyEmpleado");
             panel.deshabilitarVerEmpleados();
+        }
     }
     
     // ------------------ LISTENERS ------------------

@@ -77,6 +77,8 @@ public class ControladorLogin implements ComunicadorClases{
         VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
         ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
         nuevoControlador.setIdInterno(id);
+        
+        nuevoControlador.comprobarRol();
     }
     
     public String obtenerIdUsuarioEmpleado(String cadena) {
