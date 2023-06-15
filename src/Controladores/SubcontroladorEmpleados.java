@@ -157,7 +157,7 @@ public class SubcontroladorEmpleados {
     public static String generarPasswordAleatorio() {
 
         Random random = new Random();
-        int longitud = 8 + random.nextInt(7) ; // longitud entre 8 y 14 caracteres
+        int longitud = 4 + random.nextInt(5) ; // longitud entre 8 y 14 caracteres
         StringBuilder conjunto = new StringBuilder(); // Nota: Esto es una clase de String más eficiente para meter caracteres usando append
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%";
 
