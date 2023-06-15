@@ -23,6 +23,10 @@ public class ControladorLogin implements ComunicadorClases{
     
     protected VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();    
     
+    /**
+     * Constructor de la clase
+     * @param vista Una vista de tipo JFrame
+     */
     public ControladorLogin(VistaIngresarRegistrarse vista){
         this.vista = vista;
         
@@ -38,6 +42,8 @@ public class ControladorLogin implements ComunicadorClases{
         Modelos.GenerarMultasDao.generarMultas(BasesDeDatos.BibliotecaManager.iniciarConexion());
     }
     
+    
+    // ------------------ METODOS ------------------
     public void cambiarALogin(){
         PanelIngresar panel = new PanelIngresar();
         SubcontroladorIngresar subcontrolador = new SubcontroladorIngresar(panel);
@@ -81,7 +87,7 @@ public class ControladorLogin implements ComunicadorClases{
         return "";
     }
     
-    // Capturador de solicitudes de controladores internos
+    // ------------ MANEJADOR DE SOLICITUDES DE SUBCONTROLADORES -------------
     @Override
     public void mensaje(String solicitud) {
         String opcion = solicitud;
@@ -107,5 +113,4 @@ public class ControladorLogin implements ComunicadorClases{
                 break;
         }
     }
-
 }
