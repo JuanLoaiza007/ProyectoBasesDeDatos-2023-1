@@ -23,46 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class PanelUsuarios extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"Id", "Nombre", "Telefono", "Dirección", "Email", "Password"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
  
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String id, String nombre, String telefono, String direccion, String email, String password) {
-        modeloTabla.addRow(new Object[]{
-            id, nombre, telefono, direccion, email, password
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelUsuarios() {
         initComponents();
@@ -325,30 +286,49 @@ public class PanelUsuarios extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Id", "Nombre", "Telefono", "Dirección", "Email", "Password"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
+    public void nuevaFilaTabla(String id, String nombre, String telefono, String direccion, String email, String password) {
+        modeloTabla.addRow(new Object[]{
+            id, nombre, telefono, direccion, email, password
+        });
     }
     
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
     
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -372,6 +352,34 @@ public class PanelUsuarios extends javax.swing.JPanel {
         
         btn_borrar.setEnabled(false);
         lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+    }
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+   
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

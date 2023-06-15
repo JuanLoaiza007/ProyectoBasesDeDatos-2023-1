@@ -183,9 +183,6 @@
                       <Dimension value="[120, 120]"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_librosActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_ejemplares">
                   <Properties>
@@ -216,9 +213,6 @@
                       <Dimension value="[120, 120]"/>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ejemplaresActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_librosDigitales">
                   <Properties>
@@ -252,9 +246,6 @@
                     </Property>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_librosDigitalesActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>

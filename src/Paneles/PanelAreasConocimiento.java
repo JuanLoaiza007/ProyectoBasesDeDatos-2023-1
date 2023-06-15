@@ -24,45 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelAreasConocimiento extends javax.swing.JPanel {
 
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"Cod. Area", "C.A. Padre", "Nombre", "Descripción"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String codigoArea, String codigoAreaPadre, String nombreArea, String descripcionArea) {
-        modeloTabla.addRow(new Object[]{
-            codigoArea, codigoAreaPadre, nombreArea, descripcionArea
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelAreasConocimiento() {
         initComponents();
@@ -482,78 +443,51 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Cod. Area", "C.A. Padre", "Nombre", "Descripción"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public JTextField getCodigoArea() {
-        return txtf_codigoArea;
+    public void nuevaFilaTabla(String codigoArea, String codigoAreaPadre, String nombreArea, String descripcionArea) {
+        modeloTabla.addRow(new Object[]{
+            codigoArea, codigoAreaPadre, nombreArea, descripcionArea
+        });
     }
     
-    public void setCodigoArea(String texto) {
-        txtf_codigoArea.setText(texto);
-    }
-
-    public JTextField getDescripcion() {
-        return txtf_descripcion;
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setDescripcion(String texto) {
-        txtf_descripcion.setText(texto);
-    }
-
-    public JTextField getCodigoAreaPadre() {
-        return txtf_codigoAreaPadre;
-    }
     
-    public void setCodigoAreaPadre(String texto) {
-        txtf_codigoAreaPadre.setText(texto);
-    }
-
-    public JTextField getNombre() {
-        return txtf_nombreArea;
-    }
-    
-    public void setNombre(String texto) {
-        txtf_nombreArea.setText(texto);
-    }
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -617,6 +551,8 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
         lbl_descripcion.setForeground(new java.awt.Color(102, 102, 102));
     }
     
+    
+    // ------------------ METODOS ------------------
     public void limpiarCampos(){
         txtf_codigoArea.setText("");
         txtf_codigoAreaPadre.setText("");
@@ -627,6 +563,82 @@ public class PanelAreasConocimiento extends javax.swing.JPanel {
     
     public boolean idEsManual(){
         return txtf_codigoArea.isEnabled();
+    }
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+    
+    public JTextField getCodigoArea() {
+        return txtf_codigoArea;
+    }
+    
+    public void setCodigoArea(String texto) {
+        txtf_codigoArea.setText(texto);
+    }
+
+    public JTextField getDescripcion() {
+        return txtf_descripcion;
+    }
+    
+    public void setDescripcion(String texto) {
+        txtf_descripcion.setText(texto);
+    }
+
+    public JTextField getCodigoAreaPadre() {
+        return txtf_codigoAreaPadre;
+    }
+    
+    public void setCodigoAreaPadre(String texto) {
+        txtf_codigoAreaPadre.setText(texto);
+    }
+
+    public JTextField getNombre() {
+        return txtf_nombreArea;
+    }
+    
+    public void setNombre(String texto) {
+        txtf_nombreArea.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

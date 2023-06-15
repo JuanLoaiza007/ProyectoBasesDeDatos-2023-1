@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 package Paneles;
 
 import java.awt.event.ActionListener;
@@ -102,11 +97,6 @@ public class PanelAvanzado extends javax.swing.JPanel {
         btn_usuarios.setOpaque(true);
         btn_usuarios.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_usuarios.setVerifyInputWhenFocusTarget(false);
-        btn_usuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_usuariosActionPerformed(evt);
-            }
-        });
 
         btn_empleados.setBackground(new java.awt.Color(255, 255, 255));
         btn_empleados.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -118,11 +108,6 @@ public class PanelAvanzado extends javax.swing.JPanel {
         btn_empleados.setOpaque(true);
         btn_empleados.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_empleados.setVerifyInputWhenFocusTarget(false);
-        btn_empleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_empleadosActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -139,11 +124,6 @@ public class PanelAvanzado extends javax.swing.JPanel {
         btn_cambiarContrasena.setOpaque(true);
         btn_cambiarContrasena.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_cambiarContrasena.setVerifyInputWhenFocusTarget(false);
-        btn_cambiarContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cambiarContrasenaActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -197,19 +177,8 @@ public class PanelAvanzado extends javax.swing.JPanel {
         add(panelScrolleable);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_empleadosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_empleadosActionPerformed
 
-    private void btn_usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_usuariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_usuariosActionPerformed
-
-    private void btn_cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarContrasenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cambiarContrasenaActionPerformed
-
-
+    // ------------------ LISTENERS ------------------
     public void addListenerUsuarios(ActionListener listener){
         btn_usuarios.addActionListener(listener);
     }

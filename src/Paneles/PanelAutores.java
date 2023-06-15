@@ -23,45 +23,6 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class PanelAutores extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"Id", "1er nombre", "2do Nombre", "1er apellido", "2do apellido"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String id, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido) {
-        modeloTabla.addRow(new Object[]{
-            id, primerNombre, segundoNombre, primerApellido, segundoApellido
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
     
     /** Creates new form PanelAdministrar */
     public PanelAutores() {
@@ -494,86 +455,59 @@ public class PanelAutores extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Id", "1er nombre", "2do Nombre", "1er apellido", "2do apellido"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public JTextField getId() {
-        return id;
+    public void nuevaFilaTabla(String id, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido) {
+        modeloTabla.addRow(new Object[]{
+            id, primerNombre, segundoNombre, primerApellido, segundoApellido
+        });
     }
     
-    public void setId(String texto) {
-        id.setText(texto);
-    }
-
-    public JTextField getPrimerApellido() {
-        return primerApellido;
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setPrimerApellido(String texto) {
-        primerApellido.setText(texto);
-    }
-
-    public JTextField getPrimerNombre() {
-        return primerNombre;
-    }
-    
-    public void setPrimerNombre(String texto) {
-        primerNombre.setText(texto);
-    }
-
-    public JTextField getSegundoApellido() {
-        return segundoApellido;
+    public void limpiarCampos(){
+        id.setText("");
+        primerNombre.setText("");
+        segundoApellido.setText("");
+        primerApellido.setText("");
+        segundoNombre.setText("");
     }
     
-    public void setSegundoApellido(String texto) {
-        segundoApellido.setText(texto);
-    }
-
-    public JTextField getSegundoNombre() {
-        return segundoNombre;
-    }
     
-    public void setSegundoNombre(String texto) {
-        segundoNombre.setText(texto);
-    }
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -641,16 +575,94 @@ public class PanelAutores extends javax.swing.JPanel {
         lbl_segundoApellido.setForeground(new java.awt.Color(102, 102, 102));
     }
     
-    public void limpiarCampos(){
-        id.setText("");
-        primerNombre.setText("");
-        segundoApellido.setText("");
-        primerApellido.setText("");
-        segundoNombre.setText("");
-    }
     
+    // ------------------ METODOS ------------------
     public boolean idEsManual(){
         return id.isEnabled();
+    }
+    
+
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+    
+    public JTextField getId() {
+        return id;
+    }
+    
+    public void setId(String texto) {
+        id.setText(texto);
+    }
+
+    public JTextField getPrimerApellido() {
+        return primerApellido;
+    }
+    
+    public void setPrimerApellido(String texto) {
+        primerApellido.setText(texto);
+    }
+
+    public JTextField getPrimerNombre() {
+        return primerNombre;
+    }
+    
+    public void setPrimerNombre(String texto) {
+        primerNombre.setText(texto);
+    }
+
+    public JTextField getSegundoApellido() {
+        return segundoApellido;
+    }
+    
+    public void setSegundoApellido(String texto) {
+        segundoApellido.setText(texto);
+    }
+
+    public JTextField getSegundoNombre() {
+        return segundoNombre;
+    }
+    
+    public void setSegundoNombre(String texto) {
+        segundoNombre.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

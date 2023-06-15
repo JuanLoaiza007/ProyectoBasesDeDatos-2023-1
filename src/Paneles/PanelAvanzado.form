@@ -205,9 +205,6 @@
                     </Property>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_usuariosActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_empleados">
                   <Properties>
@@ -240,9 +237,6 @@
                     </Property>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_empleadosActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
                   <Properties>
@@ -287,9 +281,6 @@
                     </Property>
                     <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cambiarContrasenaActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel6">
                   <Properties>

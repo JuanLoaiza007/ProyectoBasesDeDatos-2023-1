@@ -17,13 +17,18 @@ package Paneles;
 
 import java.awt.Dimension;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Funcion que automatiza el proceso de solicitar JFrames para mostrar texto en
+ * una miniventana que se superpone a la pantalla
+ * @author ihuntgore
+ */
 public class MiniVentana extends JDialog {
 
     public MiniVentana(String titulo, String texto) {
+        
         // Configurar propiedades de la ventana
         setModal(true);
         setResizable(false);

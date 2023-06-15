@@ -24,45 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelEmpleados extends javax.swing.JPanel {
 
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"Id", "Nombre", "Cargo"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String id, String nombre, String cargo) {
-        modeloTabla.addRow(new Object[]{
-            id, nombre, cargo
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelEmpleados() {
         initComponents();
@@ -349,21 +310,9 @@ public class PanelEmpleados extends javax.swing.JPanel {
         lbl_nombre.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
 
-        txtf_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_nombreActionPerformed(evt);
-            }
-        });
-
         lbl_cargo.setBackground(new java.awt.Color(0, 0, 0));
         lbl_cargo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_cargo.setText("Cargo:");
-
-        txtf_cargo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_cargoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -465,78 +414,57 @@ public class PanelEmpleados extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtf_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_nombreActionPerformed
-
-    private void txtf_cargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_cargoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_cargoActionPerformed
-
-    public JTextField getTxtf_buscar(){
-        return txtf_buscar;
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"Id", "Nombre", "Cargo"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
-    }
-
-    public JTextField getId() {
-        return txtf_id;
+    public void nuevaFilaTabla(String id, String nombre, String cargo) {
+        modeloTabla.addRow(new Object[]{
+            id, nombre, cargo
+        });
     }
     
-    public void setId(String texto) {
-        txtf_id.setText(texto);
-    }        
     
-    public JTextField getNombre() {
-        return txtf_nombre;
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setNombre(String texto) {
-        txtf_nombre.setText(texto);
-    }    
+    public void limpiarCampos(){
+        txtf_id.setText("");
+        txtf_nombre.setText("");
+        txtf_cargo.setText("");
+    }  
     
-    public JTextField getCargo() {
-        return txtf_cargo;
-    }
     
-    public void setCargo(String texto) {
-        txtf_cargo.setText(texto);
-    }       
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    } 
-    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -595,15 +523,79 @@ public class PanelEmpleados extends javax.swing.JPanel {
         lbl_cargo.setForeground(new java.awt.Color(102, 102, 102));
     }    
     
-    public void limpiarCampos(){
-        txtf_id.setText("");
-        txtf_nombre.setText("");
-        txtf_cargo.setText("");
-    }  
     
+    // ------------------ METODOS ------------------
     public boolean idEsManual(){
         return txtf_id.isEnabled();
+    }  
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }   
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar(){
+        return txtf_buscar;
+    }
+    
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+
+    public JTextField getId() {
+        return txtf_id;
+    }
+    
+    public void setId(String texto) {
+        txtf_id.setText(texto);
+    }        
+    
+    public JTextField getNombre() {
+        return txtf_nombre;
+    }
+    
+    public void setNombre(String texto) {
+        txtf_nombre.setText(texto);
     }    
+    
+    public JTextField getCargo() {
+        return txtf_cargo;
+    }
+    
+    public void setCargo(String texto) {
+        txtf_cargo.setText(texto);
+    }     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_borrar;

@@ -3,7 +3,6 @@ package Paneles;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 

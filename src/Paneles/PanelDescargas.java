@@ -25,45 +25,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelDescargas extends javax.swing.JPanel {
 
-    
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        String[] titulosTabla = new String[]{"isbn", "Direccion Url", "Id Usuario", "fecha", "Direccion Ip"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }  
-        
-    public void nuevaFilaTabla(String isbn, String direccionUrl, String idUsuario, Timestamp fecha, String direccionIp) {
-        modeloTabla.addRow(new Object[]{
-            isbn, direccionUrl, idUsuario, fecha, direccionIp
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }    
-    
     /** Creates new form PanelAdministrar */
     public PanelDescargas() {
         initComponents();
@@ -153,11 +114,6 @@ public class PanelDescargas extends javax.swing.JPanel {
         btn_buscar.setForeground(new java.awt.Color(255, 255, 255));
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search.png"))); // NOI18N
         btn_buscar.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -219,30 +175,50 @@ public class PanelDescargas extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_buscarActionPerformed
-
-   public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        String[] titulosTabla = new String[]{"isbn", "Direccion Url", "Id Usuario", "fecha", "Direccion Ip"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
+    }  
+        
+    public void nuevaFilaTabla(String isbn, String direccionUrl, String idUsuario, Timestamp fecha, String direccionIp) {
+        modeloTabla.addRow(new Object[]{
+            isbn, direccionUrl, idUsuario, fecha, direccionIp
+        });
     }
     
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
     
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }    
-
+    
+    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -266,7 +242,31 @@ public class PanelDescargas extends javax.swing.JPanel {
         
         //btn_borrar.setEnabled(false);
         //lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
+    } 
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
     }    
+
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;

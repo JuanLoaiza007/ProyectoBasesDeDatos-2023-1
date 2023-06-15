@@ -1,27 +1,20 @@
 package Paneles;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 import java.awt.event.ActionListener;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
+ * Bases de datos 750006C-01
+ * Proyecto de curso
+ * Profesor: Oswaldo Solarte
  * 
  * Archivo: PanelLogin.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
+ * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
+ * @author Juan Sebastian Muñoz Rojas   (202177436-3743) {@literal <"juan.munoz.rojas@correounivalle.edu.co">} 
  * 
- */
-
-/**
- * Este objeto se creo como un objeto de tipo JPane Form por lo que puede ser importado en un objeto de JFrameForm
- * @author ihuntgore
  */
 
 public class PanelIngresar extends javax.swing.JPanel{
@@ -200,6 +193,18 @@ public class PanelIngresar extends javax.swing.JPanel{
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // ------------------ LISTENERS ------------------
+    public void addActionIngresar(ActionListener listener){
+        btn_ingresar.addActionListener(listener);
+    }
+    
+    public void addActionRegistrarse(ActionListener listener){
+        btn_registrarse.addActionListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
     public String getPassF_password() {
         return new String(passF_password.getPassword());
     }
@@ -214,14 +219,6 @@ public class PanelIngresar extends javax.swing.JPanel{
 
     public void setTxtf_email(String email) {
         txtf_email.setText(email);
-    }
-    
-    public void addActionIngresar(ActionListener listener){
-        btn_ingresar.addActionListener(listener);
-    }
-    
-    public void addActionRegistrarse(ActionListener listener){
-        btn_registrarse.addActionListener(listener);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

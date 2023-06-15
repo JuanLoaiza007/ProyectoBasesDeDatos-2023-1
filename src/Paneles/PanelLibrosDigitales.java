@@ -24,45 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelLibrosDigitales extends javax.swing.JPanel {
 
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"ISBN", "URL", "Tamaño Bytes", "Formato"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String isbn, String url, String tamanio, String formato) {
-        modeloTabla.addRow(new Object[]{
-            isbn, url, tamanio, formato
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelLibrosDigitales() {
         initComponents();
@@ -492,82 +453,58 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"ISBN", "URL", "Tamaño Bytes", "Formato"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public JTextField getIsbn() {
-        return txtf_isbn;
+    public void nuevaFilaTabla(String isbn, String url, String tamanio, String formato) {
+        modeloTabla.addRow(new Object[]{
+            isbn, url, tamanio, formato
+        });
     }
     
-    public void setIsbn(String texto) {
-        txtf_isbn.setText(texto);
-    }
-
-    public JTextField getFormato() {
-        return txtf_formato;
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setFormato(String texto) {
-        txtf_formato.setText(texto);
-    }
-
-    public JTextField getDireccionUrl() {
-        return txtf_url;
-    }
-    
-    public void setDireccionUrl(String texto) {
-        txtf_url.setText(texto);
-    }
-
-    public JTextField getTamanioBytes() {
-        return txtf_bytes;
+    public void limpiarCampos(){
+        txtf_isbn.setText("");
+        txtf_url.setText("");
+        txtf_formato.setText("");
+        txtf_bytes.setText("");
     }
     
-    public void setTamanioBytes(String texto) {
-        txtf_bytes.setText(texto);
-    }
-    
-    public void addListenerDescargas(ActionListener listener){
-        btn_descargas.addActionListener(listener);
-    }
-    
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
-    
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
+        
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -629,16 +566,91 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         txtf_formato.setEnabled(false);
         lbl_formato.setForeground(new java.awt.Color(102, 102, 102));
     }
+        
     
-    public void limpiarCampos(){
-        txtf_isbn.setText("");
-        txtf_url.setText("");
-        txtf_formato.setText("");
-        txtf_bytes.setText("");
-    }
-    
+    // ------------------ METODOS ------------------
     public boolean idEsManual(){
         return txtf_isbn.isEnabled();
+    }
+    
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerDescargas(ActionListener listener){
+        btn_descargas.addActionListener(listener);
+    }
+    
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+    
+    public JTextField getIsbn() {
+        return txtf_isbn;
+    }
+    
+    public void setIsbn(String texto) {
+        txtf_isbn.setText(texto);
+    }
+
+    public JTextField getFormato() {
+        return txtf_formato;
+    }
+    
+    public void setFormato(String texto) {
+        txtf_formato.setText(texto);
+    }
+
+    public JTextField getDireccionUrl() {
+        return txtf_url;
+    }
+    
+    public void setDireccionUrl(String texto) {
+        txtf_url.setText(texto);
+    }
+
+    public JTextField getTamanioBytes() {
+        return txtf_bytes;
+    }
+    
+    public void setTamanioBytes(String texto) {
+        txtf_bytes.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

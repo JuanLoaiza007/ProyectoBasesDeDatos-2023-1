@@ -23,46 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class PanelLibros extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
  
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
-        modeloTabla.addRow(new Object[]{
-            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelLibros() {
         initComponents();
@@ -360,21 +321,9 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_nroPaginas.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_nroPaginas.setText("Número de páginas");
 
-        txtf_codigoEditorial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_codigoEditorialActionPerformed(evt);
-            }
-        });
-
         lbl_codigoEditorial.setBackground(new java.awt.Color(0, 0, 0));
         lbl_codigoEditorial.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_codigoEditorial.setText("Codigo Editorial:");
-
-        txtf_codigoArea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtf_codigoAreaActionPerformed(evt);
-            }
-        });
 
         lbl_codigoArea.setBackground(new java.awt.Color(0, 0, 0));
         lbl_codigoArea.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -451,7 +400,7 @@ public class PanelLibros extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_cancelar)
                     .addComponent(lbl_guardar))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -515,70 +464,60 @@ public class PanelLibros extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtf_codigoEditorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoEditorialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_codigoEditorialActionPerformed
-
-    private void txtf_codigoAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtf_codigoAreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtf_codigoAreaActionPerformed
-
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
-    }
-
-    public JTextField getIsbn() {
-        return txtf_isbn;
-    }
+    
+     // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
         
-    public void setISBN(String texto) {
-        txtf_isbn.setText(texto);
-    }
-
-    public JTextField getAnioPublicacion() {
-        return txtf_anioPublicacion;
-    }
-    
-    public void setAnioPublicacion(String texto) {
-        txtf_anioPublicacion.setText(texto);
-    }
-    
-    public JTextField getCodigoArea() {
-        return txtf_codigoArea;
+        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public void setCodigoArea(String texto) {
-        txtf_codigoArea.setText(texto);
-    }    
-
-    public JTextField getCodigoEditorial() {
-        return txtf_codigoEditorial;
+    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
+        modeloTabla.addRow(new Object[]{
+            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
+        });
     }
     
-    public void setCodigoEditorial(String texto) {
-        txtf_codigoEditorial.setText(texto);
-    }       
     
-    public JTextField getNroPaginas() {
-        return txtf_nroPaginas;
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setNroPaginas(String texto) {
-        txtf_nroPaginas.setText(texto);
-    }    
-
-    public JTextField getTitulo() {
-        return txtf_titulo;
+    public void limpiarCampos(){
+        txtf_isbn.setText("");
+        txtf_codigoArea.setText("");
+        txtf_codigoEditorial.setText("");
+        txtf_nroPaginas.setText("");
+        txtf_anioPublicacion.setText("");
+        txtf_titulo.setText("");
     }
     
-    public void setTitulo(String texto) {
-        txtf_titulo.setText(texto);
-    }
     
+    // ------------------ LISTENERS ------------------
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
@@ -611,6 +550,8 @@ public class PanelLibros extends javax.swing.JPanel {
         table_principal.addMouseListener(listener);
     }
     
+    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -682,17 +623,68 @@ public class PanelLibros extends javax.swing.JPanel {
         lbl_nroPaginas.setForeground(new java.awt.Color(102, 102, 102));
     }
     
-    public void limpiarCampos(){
-        txtf_isbn.setText("");
-        txtf_codigoArea.setText("");
-        txtf_codigoEditorial.setText("");
-        txtf_nroPaginas.setText("");
-        txtf_anioPublicacion.setText("");
-        txtf_titulo.setText("");
-    }
     
+    // ------------------ METODOS ------------------
     public boolean idEsManual(){
         return txtf_isbn.isEnabled();
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+
+    public JTextField getIsbn() {
+        return txtf_isbn;
+    }
+        
+    public void setISBN(String texto) {
+        txtf_isbn.setText(texto);
+    }
+
+    public JTextField getAnioPublicacion() {
+        return txtf_anioPublicacion;
+    }
+    
+    public void setAnioPublicacion(String texto) {
+        txtf_anioPublicacion.setText(texto);
+    }
+    
+    public JTextField getCodigoArea() {
+        return txtf_codigoArea;
+    }
+    
+    public void setCodigoArea(String texto) {
+        txtf_codigoArea.setText(texto);
+    }    
+
+    public JTextField getCodigoEditorial() {
+        return txtf_codigoEditorial;
+    }
+    
+    public void setCodigoEditorial(String texto) {
+        txtf_codigoEditorial.setText(texto);
+    }       
+    
+    public JTextField getNroPaginas() {
+        return txtf_nroPaginas;
+    }
+    
+    public void setNroPaginas(String texto) {
+        txtf_nroPaginas.setText(texto);
+    }    
+
+    public JTextField getTitulo() {
+        return txtf_titulo;
+    }
+    
+    public void setTitulo(String texto) {
+        txtf_titulo.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

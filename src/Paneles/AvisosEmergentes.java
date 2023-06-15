@@ -17,6 +17,11 @@ import javax.swing.JOptionPane;
  * 
  */
 
+/**
+ * Funcion que automatiza el proceso de solicitar JOptionPane para mostrar mensajes de uso
+ * general en pantalla
+ * @author Juan David
+ */
 public class AvisosEmergentes {
     
     public static void mostrarMensaje(String mensaje){

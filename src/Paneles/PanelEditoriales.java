@@ -23,16 +23,6 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class PanelEditoriales extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
     
     /** Creates new form PanelAdministrar */
     public PanelEditoriales() {
@@ -454,6 +444,16 @@ public class PanelEditoriales extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
     /**
      * Crea los titulos de la tabla
      */

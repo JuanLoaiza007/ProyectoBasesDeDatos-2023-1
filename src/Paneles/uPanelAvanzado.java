@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 package Paneles;
 
 import java.awt.event.ActionListener;
@@ -93,11 +88,6 @@ public class uPanelAvanzado extends javax.swing.JPanel {
         btn_cambiarContrasena.setOpaque(true);
         btn_cambiarContrasena.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_cambiarContrasena.setVerifyInputWhenFocusTarget(false);
-        btn_cambiarContrasena.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cambiarContrasenaActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -132,10 +122,8 @@ public class uPanelAvanzado extends javax.swing.JPanel {
         add(panelScrolleable);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cambiarContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cambiarContrasenaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cambiarContrasenaActionPerformed
-
+    
+    // ------------------ LISTENERS ------------------
     public void addListenerCambiarContrasena(ActionListener listener){
         btn_cambiarContrasena.addActionListener(listener);
     }

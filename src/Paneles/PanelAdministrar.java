@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 package Paneles;
 
 import java.awt.event.ActionListener;
-import javax.swing.JTextArea;
 
 /**
  * Bases de datos 750006C-01
@@ -102,11 +96,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_editoriales.setMaximumSize(new java.awt.Dimension(120, 120));
         btn_editoriales.setMinimumSize(new java.awt.Dimension(120, 120));
         btn_editoriales.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_editoriales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editorialesActionPerformed(evt);
-            }
-        });
 
         btn_autores.setBackground(new java.awt.Color(255, 255, 255));
         btn_autores.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -118,11 +107,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_autores.setOpaque(true);
         btn_autores.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_autores.setVerifyInputWhenFocusTarget(false);
-        btn_autores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_autoresActionPerformed(evt);
-            }
-        });
 
         btn_libros.setBackground(new java.awt.Color(255, 255, 255));
         btn_libros.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -132,11 +116,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_libros.setMaximumSize(new java.awt.Dimension(120, 120));
         btn_libros.setMinimumSize(new java.awt.Dimension(120, 120));
         btn_libros.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_libros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_librosActionPerformed(evt);
-            }
-        });
 
         btn_ejemplares.setBackground(new java.awt.Color(255, 255, 255));
         btn_ejemplares.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -146,11 +125,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_ejemplares.setMaximumSize(new java.awt.Dimension(120, 120));
         btn_ejemplares.setMinimumSize(new java.awt.Dimension(120, 120));
         btn_ejemplares.setPreferredSize(new java.awt.Dimension(120, 120));
-        btn_ejemplares.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ejemplaresActionPerformed(evt);
-            }
-        });
 
         btn_librosDigitales.setBackground(new java.awt.Color(255, 255, 255));
         btn_librosDigitales.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
@@ -163,11 +137,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_librosDigitales.setOpaque(true);
         btn_librosDigitales.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_librosDigitales.setVerifyInputWhenFocusTarget(false);
-        btn_librosDigitales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_librosDigitalesActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -204,11 +173,6 @@ public class PanelAdministrar extends javax.swing.JPanel {
         btn_areasConocimiento.setOpaque(true);
         btn_areasConocimiento.setPreferredSize(new java.awt.Dimension(120, 120));
         btn_areasConocimiento.setVerifyInputWhenFocusTarget(false);
-        btn_areasConocimiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_areasConocimientoActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("San Francisco Text", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -283,31 +247,8 @@ public class PanelAdministrar extends javax.swing.JPanel {
         add(panelScrolleable);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_autoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_autoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_autoresActionPerformed
-
-    private void btn_editorialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editorialesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_editorialesActionPerformed
-
-    private void btn_ejemplaresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ejemplaresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_ejemplaresActionPerformed
-
-    private void btn_librosDigitalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosDigitalesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_librosDigitalesActionPerformed
-
-    private void btn_areasConocimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_areasConocimientoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_areasConocimientoActionPerformed
-
-    private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_librosActionPerformed
-
     
+    // ------------------ LISTENERS ------------------    
     public void addListenerEditoriales(ActionListener listener){
         btn_editoriales.addActionListener(listener);
     }

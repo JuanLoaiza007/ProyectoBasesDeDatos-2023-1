@@ -1,32 +1,23 @@
 package Paneles;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
-
-
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 /**
+ * Bases de datos 750006C-01
+ * Proyecto de curso
+ * Profesor: Oswaldo Solarte
  * 
- * Archivo: PanelLogin.java
+ * Archivo: PanelRegistrarse.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
+ * @author Alejandro Guerrero Cano      (202179652-3743) {@literal <"alejandro.cano@correounivalle.edu.co">} 
  * @author Juan David Loaiza Santiago   (202177570-3743) {@literal <"juan.loaiza.santiago@correounivalle.edu.co">} 
+ * @author Juan Sebastian Muñoz Rojas   (202177436-3743) {@literal <"juan.munoz.rojas@correounivalle.edu.co">} 
  * 
- */
-
-
-/**
- * Este objeto se creo como un objeto de tipo JPane Form por lo que puede ser importado en un objeto de JFrameForm
- * @author ihuntgore
  */
 
 public class PanelRegistrarse extends javax.swing.JPanel{
@@ -379,6 +370,8 @@ public class PanelRegistrarse extends javax.swing.JPanel{
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     
+    
+    // ------------------ LISTENERS ------------------
     public void addActionRegistrar(ActionListener listener){
         btn_registrar.addActionListener(listener);
     }
@@ -391,15 +384,6 @@ public class PanelRegistrarse extends javax.swing.JPanel{
         box_tipoUsuario.addActionListener(listener);
     }
     
-    public void setAtributosEstudiante(){
-        lbl_usuarioAtrib1.setText("Carrera: *");
-        lbl_usuarioAtrib2.setText("Universidad: *");
-    }
-    
-    public void setAtributosProfesor(){
-        lbl_usuarioAtrib1.setText("Titulo: *");
-        lbl_usuarioAtrib2.setText("Dependencia: *");
-    }
 
     // ------------------ GETTERS Y SETTERS  ------------------
     public JTextField getTxtf_contrasena() {
@@ -462,7 +446,15 @@ public class PanelRegistrarse extends javax.swing.JPanel{
         txtf_usuarioAtrib2.setText(atrib2);
     }
     
+    public void setAtributosEstudiante(){
+        lbl_usuarioAtrib1.setText("Carrera: *");
+        lbl_usuarioAtrib2.setText("Universidad: *");
+    }
     
+    public void setAtributosProfesor(){
+        lbl_usuarioAtrib1.setText("Titulo: *");
+        lbl_usuarioAtrib2.setText("Dependencia: *");
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> box_tipoUsuario;

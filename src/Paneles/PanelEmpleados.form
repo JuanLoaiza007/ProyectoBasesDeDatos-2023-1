@@ -625,9 +625,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtf_nombre">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_nombreActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_cargo">
               <Properties>
@@ -641,9 +638,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtf_cargo">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_cargoActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

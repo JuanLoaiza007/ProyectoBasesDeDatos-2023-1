@@ -24,45 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class PanelEjemplares extends javax.swing.JPanel {
 
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"ISBN", "Nro Ejemplar", "Sala", "Nro Pasillo", "Nro Estante", "Nro Cajon"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String isbn, String nroEjemplar, String sala, String nroPasillo, String nroEstante, String nroCajon) {
-        modeloTabla.addRow(new Object[]{
-            isbn, nroEjemplar, sala, nroPasillo, nroEstante, nroCajon
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
     /** Creates new form PanelAdministrar */
     public PanelEjemplares() {
         initComponents();
@@ -504,94 +465,60 @@ public class PanelEjemplares extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"ISBN", "Nro Ejemplar", "Sala", "Nro Pasillo", "Nro Estante", "Nro Cajon"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public JTextField getIsbn() {
-        return txtf_isbn;
+    public void nuevaFilaTabla(String isbn, String nroEjemplar, String sala, String nroPasillo, String nroEstante, String nroCajon) {
+        modeloTabla.addRow(new Object[]{
+            isbn, nroEjemplar, sala, nroPasillo, nroEstante, nroCajon
+        });
     }
     
-    public void setIsbn(String texto) {
-        txtf_isbn.setText(texto);
-    }
-
-    public JTextField getNroEjemplar() {
-        return txtf_numeroEjemplar;
+    
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setNroEjemplar(String texto) {
-        txtf_numeroEjemplar.setText(texto);
-    }    
-
-    public JTextField getNroCajon() {
-        return txtf_numeroCajon;
-    }
-
-    public void setNroCajon(String texto) {
-        txtf_numeroCajon.setText(texto);
-    }
-
-    public JTextField getNroEstante() {
-        return txtf_numeroEstante;
-    }
-
-    public void setNroEstante(String texto) {
-        txtf_numeroEstante.setText(texto);
-    }
-
-    public JTextField getNroPasillo() {
-        return txtf_numeroPasillo;
-    }
-
-    public void setNroPasillo(String texto) {
-        txtf_numeroPasillo.setText(texto);
-    }
-
-    public JTextField getSala() {
-        return txtf_sala;
-    }
-
-    public void setSala(String texto) {
-        txtf_sala.setText(texto);
-    }
-   
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
+    public void limpiarCampos(){
+        txtf_isbn.setText("");
+        txtf_numeroEjemplar.setText("");
+        txtf_sala.setText("");
+        txtf_numeroPasillo.setText("");
+        txtf_numeroEstante.setText("");
+        txtf_numeroCajon.setText("");        
     }
     
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
     
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
-    }
-    
-    public void addListenerCancelar(ActionListener listener){
-        btn_cancelar.addActionListener(listener);
-    }
-    
-    public void addListenerFilasTabla(MouseListener listener){
-        table_principal.addMouseListener(listener);
-    }
-    
+    // ------------------ MODOS ------------------
     public void modoInsertar(){
         table_principal.setEnabled(false);
         
@@ -663,17 +590,102 @@ public class PanelEjemplares extends javax.swing.JPanel {
         lbl_numeroCajon.setForeground(new java.awt.Color(102, 102, 102));                
     }
     
-    public void limpiarCampos(){
-        txtf_isbn.setText("");
-        txtf_numeroEjemplar.setText("");
-        txtf_sala.setText("");
-        txtf_numeroPasillo.setText("");
-        txtf_numeroEstante.setText("");
-        txtf_numeroCajon.setText("");        
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
     }
     
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
+    }
+    
+    public void addListenerNuevo(ActionListener listener){
+        btn_nuevo.addActionListener(listener);
+    }
+    
+    public void addListenerEditar(ActionListener listener){
+        btn_editar.addActionListener(listener);
+    }
+    
+    public void addListenerBorrar(ActionListener listener){
+        btn_borrar.addActionListener(listener);
+    }
+    
+    public void addListenerGuardar(ActionListener listener){
+        btn_guardar.addActionListener(listener);
+    }
+    
+    public void addListenerCancelar(ActionListener listener){
+        btn_cancelar.addActionListener(listener);
+    }
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
+    
+    
+    // ------------------ METODOS ------------------
     public boolean idEsManual(){
         return txtf_isbn.isEnabled();
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
+    }
+    
+    public JTextField getIsbn() {
+        return txtf_isbn;
+    }
+    
+    public void setIsbn(String texto) {
+        txtf_isbn.setText(texto);
+    }
+
+    public JTextField getNroEjemplar() {
+        return txtf_numeroEjemplar;
+    }
+    
+    public void setNroEjemplar(String texto) {
+        txtf_numeroEjemplar.setText(texto);
+    }    
+
+    public JTextField getNroCajon() {
+        return txtf_numeroCajon;
+    }
+
+    public void setNroCajon(String texto) {
+        txtf_numeroCajon.setText(texto);
+    }
+
+    public JTextField getNroEstante() {
+        return txtf_numeroEstante;
+    }
+
+    public void setNroEstante(String texto) {
+        txtf_numeroEstante.setText(texto);
+    }
+
+    public JTextField getNroPasillo() {
+        return txtf_numeroPasillo;
+    }
+
+    public void setNroPasillo(String texto) {
+        txtf_numeroPasillo.setText(texto);
+    }
+
+    public JTextField getSala() {
+        return txtf_sala;
+    }
+
+    public void setSala(String texto) {
+        txtf_sala.setText(texto);
     }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables

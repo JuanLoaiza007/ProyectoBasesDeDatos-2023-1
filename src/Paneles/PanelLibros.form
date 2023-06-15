@@ -667,9 +667,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtf_codigoEditorial">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_codigoEditorialActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_codigoEditorial">
               <Properties>
@@ -683,9 +680,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtf_codigoArea">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtf_codigoAreaActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_codigoArea">
               <Properties>
