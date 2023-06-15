@@ -25,6 +25,10 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     protected VistaDashboardUsuario vista = new VistaDashboardUsuario();
     private String idInterno;
     
+    /**
+     * Constructor de la clase
+     * @param vista Una vista de tipo JFrame
+     */
     public ControladorDashboardUsuario(VistaDashboardUsuario vista){
         this.vista = vista;       
         
@@ -42,10 +46,8 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         vista.setVisible(true);
     }
     
-    public ComunicadorClases getComunicadorClases(){
-        return this;
-    }
     
+    // ------------------ METODOS ------------------
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
         vista.dispose();
@@ -94,6 +96,8 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    
+    // ------------------ LISTENERS ------------------
     ActionListener oyentePrincipal = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -134,15 +138,8 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         
     };
 
-    public String getIdInterno() {
-        return idInterno;
-    }
-
-    public void setIdInterno(String idInterno) {
-        this.idInterno = idInterno;
-    }
     
-    // Capturador de solicitudes de controladores internos
+    // ------------ MANEJADOR DE SOLICITUDES DE SUBCONTROLADORES -------------
     @Override
     public void mensaje(String solicitud) {
         System.out.println("Capture algo: " + solicitud);
@@ -174,5 +171,19 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
                 System.out.println("Solicitud " + solicitud + " imposible de atender");
                 break;
         }
+    }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
+    }
+    
+    public ComunicadorClases getComunicadorClases(){
+        return this;
     }
 }
