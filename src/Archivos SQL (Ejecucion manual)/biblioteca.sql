@@ -378,8 +378,7 @@ VALUES ('978-0307476463', '1'),
 ------------------------------------------------
 --- USUARIOS       
 INSERT INTO usuario (id_usuario, nombre, telefono, direccion, email, password)
-VALUES  ('0', 'Alejandro', '555-1234', 'Cali', 'default@gmail.com', 'default'),
-        ('1', 'Juan Perez', '555-1234', 'Av. 123, Lima', 'juan.perez@gmail.com', 'miGato123'),
+VALUES  ('1', 'Alejandro', '555-1234', 'Cali', 'default@gmail.com', 'default'),
         ('2', 'Maria Rodriguez', '555-5678', 'Jr. 456, Lima', 'maria.rodriguez@yahoo.com', '12345678'),
         ('3', 'Pedro Gomez', '555-9876', 'Calle 789, Lima', 'pedro.gomez@hotmail.com', 'contraseña1'),
         ('4', 'Ana Garcia', '555-4321', 'Av. 234, Lima', 'ana.garcia@gmail.com', 'soyAna'),
