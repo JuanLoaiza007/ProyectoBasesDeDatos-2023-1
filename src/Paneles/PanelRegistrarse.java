@@ -36,6 +36,16 @@ public class PanelRegistrarse extends javax.swing.JPanel{
                 }
             }
         });
+        
+        txtf_contrasena.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (c == KeyEvent.VK_SPACE) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     /** This method is called from within the constructor to

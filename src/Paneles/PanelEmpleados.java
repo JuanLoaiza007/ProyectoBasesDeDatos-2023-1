@@ -381,6 +381,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_principal.setRowHeight(30);
         jScrollPane1.setViewportView(table_principal);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

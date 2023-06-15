@@ -164,6 +164,7 @@ public class PanelSolicitudes extends javax.swing.JPanel {
             }
         ));
         table_principal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table_principal.setRowHeight(40);
         table_principal.getTableHeader().setResizingAllowed(false);
         table_principal.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(table_principal);

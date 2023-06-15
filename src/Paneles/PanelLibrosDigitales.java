@@ -413,6 +413,7 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        table_principal.setRowHeight(30);
         table_principal.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(table_principal);
         if (table_principal.getColumnModel().getColumnCount() > 0) {
