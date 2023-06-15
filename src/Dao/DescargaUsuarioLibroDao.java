@@ -41,8 +41,6 @@ public class DescargaUsuarioLibroDao {
 
         return descarga;
     }
-
-
     
     /**
      * Cierra la conexion que se le pase como parametro

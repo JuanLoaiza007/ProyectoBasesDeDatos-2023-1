@@ -200,6 +200,31 @@ public class UsuarioDao {
         return null;
     }
     
+    public String obtenerIdPorCorreo(String correo){
+        String GET_BY_ID = "SELECT id_usuario, nombre, telefono, direccion, email, password FROM usuario WHERE email = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_BY_ID);
+            statement.setString(1, correo);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return convertir(result).getIdUsuario();
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return null;
+    }
+    
     public boolean existeCorreo(String correo){
         String GET_BY_ID = "SELECT * FROM usuario WHERE email = ?";
 

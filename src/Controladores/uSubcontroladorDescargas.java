@@ -5,7 +5,7 @@ package Controladores;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: SubcontroladorSolicitudes.java
+ * Archivo: SubcontroladorDescargas.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -16,25 +16,22 @@ package Controladores;
  */
 
 import BasesDeDatos.BibliotecaManager;
-import Dao.SolicitudDao;
-import Modelos.Solicitud;
+import Dao.DescargaUsuarioLibroDao;
+import Modelos.DescargaUsuarioLibro;
 import Paneles.AvisosEmergentes;
 import Paneles.MiniVentana;
-import Paneles.PanelSolicitudes;
-import java.awt.Point;
+import Paneles.uPanelDescargas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Timestamp;
 import java.util.List;
-import java.sql.SQLException;
 import javax.swing.JTable;
 
-public final class SubcontroladorSolicitudes { 
+public final class uSubcontroladorDescargas { 
     
-    protected PanelSolicitudes panel = new PanelSolicitudes();
-    
+    protected uPanelDescargas panel = new uPanelDescargas();
     protected String idInterno;
     
     protected ComunicadorClases decirAInstanciaSuperior;
@@ -42,12 +39,12 @@ public final class SubcontroladorSolicitudes {
     // Datos del elemento seleccionado para modificar
     protected int selectedId;
     protected int selectedRow;
-    protected Solicitud registroSeleccionado = null;       
+    protected DescargaUsuarioLibro registroSeleccionado = null;       
     
-    public SubcontroladorSolicitudes(PanelSolicitudes panel){        
+    public uSubcontroladorDescargas(uPanelDescargas panel){        
         this.panel = panel;
         
-        //panel.addListenerVolver(oyenteMostrarPanelAvanzado);
+        panel.addListenerVolver(oyenteVolver);
         panel.addListenerBuscar(oyenteBuscar);
         //panel.addListenerBorrar(oyenteBorrar);
         panel.addListenerFilasTabla(oyenteFilasTabla);         
@@ -76,33 +73,30 @@ public final class SubcontroladorSolicitudes {
      * Transforma un objeto a una fila de la tabla y lo agrega
      * @param e El objeto que transformará 
      */
-    public void cargarObjetoEnTabla(Solicitud e){
-        String nroConsecutivo = e.getNroConsecutivoSolicitud();
-        String idUsuario = e.getIdUsuario();
-        String idEmpleado = e.getIdEmpleado();
+    public void cargarObjetoEnTabla(DescargaUsuarioLibro e){
         String isbn = e.getIsbn();
-        String titulo = e.getTitulo();
-        String descripcion = e.getDescripcion();
+        String direccionUrl = e.getDireccionUrl();
+        String idUsuario = e.getIdUsuario();
         Timestamp fecha = e.getFecha();
+        String direccionIp = e.getDireccionIp();
         
-        panel.nuevaFilaTabla(nroConsecutivo, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha);      
+        panel.nuevaFilaTabla(isbn, direccionUrl, idUsuario, fecha, direccionIp);      
         
         
     }      
     
     /**
-     * Carga los registros de solicitudes que no han sido atendidos
+     * Carga los registros de descargas que no han sido atendidos
      */
     public void cargarRegistros(){
-        List<Solicitud> solicitudes;
+        List<DescargaUsuarioLibro> descargas;
         
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
         
-        SolicitudDao dao = new SolicitudDao(conexion);
-        solicitudes = dao.obtenerTodos();
+        DescargaUsuarioLibroDao dao = new DescargaUsuarioLibroDao(conexion);
+        descargas = dao.obtener(idInterno);
         
-        for(Solicitud solicitudActual: solicitudes){
-//            if(solicitudActual.getIdEmpleado().isEmpty())
+        for(DescargaUsuarioLibro solicitudActual: descargas){
                 cargarObjetoEnTabla(solicitudActual);
         }
     }      
@@ -117,21 +111,26 @@ public final class SubcontroladorSolicitudes {
         
         String parametro = panel.getTxtf_buscar().getText();
         
-        SolicitudDao dao = new SolicitudDao(conexion);
+        DescargaUsuarioLibroDao dao = new DescargaUsuarioLibroDao(conexion);
         
         if (parametro.isEmpty()) { // Si no hay parametro recargar la tabla
             cargarModoInicial();            
         } else {
-            Solicitud solicitudBuscada = dao.obtenerPorNroConsecutivo(parametro);
             
-            if (solicitudBuscada == null) { // Si no se encontró una ubicacion entonces recargar la tabla
-                AvisosEmergentes.mostrarMensaje("No se ha encontrado ningun registro con ese Id");
-                
-                cargarModoInicial();
-            } else {
+            
+            List<DescargaUsuarioLibro> descargas = dao.obtener(parametro);
+            if(descargas.isEmpty()){
+                AvisosEmergentes.mostrarMensaje("No se ha encontrado ninguna descarga de\n"
+                                                + "un usuario con ese id");
+                panel.setTxtf_buscar("");
+            } else{
                 panel.limpiarTabla();
-                cargarObjetoEnTabla(solicitudBuscada);
+                panel.setTxtf_buscar("");
+                for(DescargaUsuarioLibro descargaActual: descargas){
+                cargarObjetoEnTabla(descargaActual);
             }
+            }
+            
         }
     }    
     
@@ -142,45 +141,23 @@ public final class SubcontroladorSolicitudes {
     ActionListener oyenteMostrarPanelAvanzado = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAvanzado");
+            decirAInstanciaSuperior.mensaje("DescargaUsuarioLibroMostrarPanelAvanzado");
         }
     };    
+    
+    ActionListener oyenteVolver = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            decirAInstanciaSuperior.mensaje("SolicitudMostraruPanelLibrosDigitales");
+        }
+    };
     
     ActionListener oyenteBuscar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
             buscar();
         }
-    };
-
-    ActionListener oyenteBorrar = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String mensaje = "¿Seguro que deseas eliminar este registro? \n"
-                    + "Esta operacion es irreversible";
-            try{
-                if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-
-                    SolicitudDao dao = new SolicitudDao(conexion);
-
-                    dao.eliminar(registroSeleccionado);
-                    registroSeleccionado = null;
-
-                    panel.limpiarTabla();
-                    cargarRegistros();
-                    panel.modoPasivo();
-
-                    BibliotecaManager.detenerConexion(conexion);
-                }
-            } catch (SQLException ex){
-                System.out.println(ex.getMessage());
-                AvisosEmergentes.mostrarMensaje("Es posible que el usuario a borrar tenga otras dependencias "
-                        + "(ej.multas) asegurese de eliminarlas antes de eliminar el usuario");
-            }
-
-        }
-    };    
+    };   
     
     /**
      * Gestiona los clics en las filas de la tabla
@@ -188,32 +165,6 @@ public final class SubcontroladorSolicitudes {
     MouseListener oyenteFilasTabla = new MouseListener() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
-            
-            JTable table = (JTable) Mouse_evt.getSource();
-            selectedRow = table.getSelectedRow();
-            Point point = Mouse_evt.getPoint();
-            
-            int row = table.rowAtPoint(point);
-            
-            try {
-                selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
-            } catch (NumberFormatException e) {
-                
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
-                String nroConsecutivo = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String idUsuario = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String idEmpleado = table.getValueAt(table.getSelectedRow(), 2).toString();
-                String isbn = table.getValueAt(table.getSelectedRow(), 3).toString();
-                String titulo = table.getValueAt(table.getSelectedRow(), 4).toString();  
-                String descripcion = table.getValueAt(table.getSelectedRow(), 5).toString();    
-                Timestamp fecha = (Timestamp) table.getValueAt(table.getSelectedRow(), 6);                    
-                
-                registroSeleccionado = new  Solicitud(nroConsecutivo, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha);
-                
-                panel.modoRegistroTablaSeleccionado();
-            }
         }
 
         @Override
@@ -249,7 +200,7 @@ public final class SubcontroladorSolicitudes {
         @Override
         public void mouseExited(MouseEvent e) {
         }
-    };  
+    };      
 
     public String getIdInterno() {
         return idInterno;
@@ -258,6 +209,5 @@ public final class SubcontroladorSolicitudes {
     public void setIdInterno(String idInterno) {
         this.idInterno = idInterno;
     }
-    
 }
 

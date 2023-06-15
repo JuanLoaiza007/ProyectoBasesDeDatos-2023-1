@@ -61,7 +61,11 @@ public class ControladorLogin implements ComunicadorClases{
                 
         VistaDashboardUsuario nuevaVista = new VistaDashboardUsuario();
         ControladorDashboardUsuario nuevoControlador = new ControladorDashboardUsuario(nuevaVista);
-        nuevoControlador.setId(id);
+        
+        nuevoControlador.setIdInterno(id);
+        
+        //DESARROLLADOR
+        System.out.println("Se asignó el id: " + nuevoControlador.getIdInterno());
     }
     
     public void cambiarADashboardEmpleado(String id){
@@ -69,12 +73,16 @@ public class ControladorLogin implements ComunicadorClases{
                 
         VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
         ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
-        nuevoControlador.setId(id);
+        nuevoControlador.setIdInterno(id);
+        
+        //DESARROLLADOR
+        System.out.println("Se asignó el id: " + nuevoControlador.getIdInterno());
     }
     
     public String obtenerIdUsuarioEmpleado(String cadena) {
         int indiceArroba = cadena.indexOf("@");
         if (indiceArroba >= 0 && indiceArroba < cadena.length() - 1) {
+            System.out.println("Descifrado: " + cadena.substring(indiceArroba + 1));
             return cadena.substring(indiceArroba + 1);
         }
         return "";
@@ -94,6 +102,7 @@ public class ControladorLogin implements ComunicadorClases{
                 break;
             default:
                 if (opcion.contains("SolicitudCambioVistaDashboardUsuario")) {
+                    
                     String id = obtenerIdUsuarioEmpleado(opcion);
                     cambiarADashboardUsuario(id);
                 } else if (opcion.contains("SolicitudCambioVistaDashboardEmpleado")) {

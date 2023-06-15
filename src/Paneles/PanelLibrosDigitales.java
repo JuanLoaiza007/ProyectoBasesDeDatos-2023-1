@@ -95,6 +95,7 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         lbl_editar = new javax.swing.JLabel();
         lbl_borrar = new javax.swing.JLabel();
         btn_editar = new javax.swing.JButton();
+        btn_descargas = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btn_guardar = new javax.swing.JButton();
@@ -143,9 +144,9 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_volver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
         panel_tituloLayout.setVerticalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,6 +249,11 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         btn_editar.setMinimumSize(new java.awt.Dimension(30, 30));
         btn_editar.setPreferredSize(new java.awt.Dimension(30, 30));
 
+        btn_descargas.setBackground(new java.awt.Color(0, 102, 102));
+        btn_descargas.setForeground(new java.awt.Color(255, 255, 255));
+        btn_descargas.setText("Descargas");
+        btn_descargas.setBorder(null);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -260,21 +266,25 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_editar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_borrar))
+                        .addComponent(lbl_borrar)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                        .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(btn_descargas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_descargas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -455,7 +465,7 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,6 +530,10 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
     
     public void setTamanioBytes(String texto) {
         txtf_bytes.setText(texto);
+    }
+    
+    public void addListenerDescargas(ActionListener listener){
+        btn_descargas.addActionListener(listener);
     }
     
     public void addListenerVolver(ActionListener listener){
@@ -631,6 +645,7 @@ public class PanelLibrosDigitales extends javax.swing.JPanel {
     private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_descargas;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_nuevo;

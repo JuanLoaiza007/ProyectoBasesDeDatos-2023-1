@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
 public class ControladorDashboardUsuario implements ComunicadorClases{
     
     protected VistaDashboardUsuario vista = new VistaDashboardUsuario();
-    private String id;
+    private String idInterno;
     
     public ControladorDashboardUsuario(VistaDashboardUsuario vista){
         this.vista = vista;       
@@ -45,16 +45,6 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     public ComunicadorClases getComunicadorClases(){
         return this;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    
     
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
@@ -82,10 +72,22 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     }
     
     public void cambiarAPanelLibrosDigitales(){
-        PanelLibrosDigitales panel = new PanelLibrosDigitales();
-        SubcontroladorLibrosDigitales subcontrolador = new SubcontroladorLibrosDigitales( panel);
+        uPanelLibrosDigitales panel = new uPanelLibrosDigitales();
+        uSubcontroladorLibrosDigitales subcontrolador = new uSubcontroladorLibrosDigitales(panel);
         
         subcontrolador.setListener(getComunicadorClases());
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelDescargas(){
+        uPanelDescargas panel = new uPanelDescargas();
+        uSubcontroladorDescargas subcontrolador = new uSubcontroladorDescargas(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.setIdInterno(idInterno);
+        
+        subcontrolador.cargarModoInicial();
         
         vista.cambiarPanel(subcontrolador.getPanel());
     }
@@ -129,6 +131,14 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         }
         
     };
+
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
+    }
     
     // Capturador de solicitudes de controladores internos
     @Override
@@ -154,6 +164,9 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
                 break;
             case "SolicitudMostraruPanelLibrosDigitales":
                 cambiarAPanelLibrosDigitales();
+                break;
+            case "SolicitudMostraruPanelDescargas":
+                cambiarAPanelDescargas();
                 break;
             default:
                 System.out.println("Solicitud " + solicitud + " imposible de atender");

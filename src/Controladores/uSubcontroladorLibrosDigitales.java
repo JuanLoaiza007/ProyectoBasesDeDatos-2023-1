@@ -19,7 +19,7 @@ import BasesDeDatos.BibliotecaManager;
 import Dao.LibroDigitalDao;
 import Modelos.LibroDigital;
 import Paneles.AvisosEmergentes;
-import Paneles.PanelLibrosDigitales;
+import Paneles.uPanelLibrosDigitales;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,9 +29,9 @@ import java.util.List;
 import java.sql.SQLException;
 import javax.swing.JTable;
 
-public final class SubcontroladorLibrosDigitales {
+public final class uSubcontroladorLibrosDigitales {
     
-    protected PanelLibrosDigitales panel = new PanelLibrosDigitales();
+    protected uPanelLibrosDigitales panel = new uPanelLibrosDigitales();
     
     protected ComunicadorClases decirAInstanciaSuperior;
     
@@ -39,10 +39,10 @@ public final class SubcontroladorLibrosDigitales {
     protected int selectedRow;
     protected LibroDigital registroSeleccionado = null;       
     
-    public SubcontroladorLibrosDigitales(PanelLibrosDigitales panel){
+    public uSubcontroladorLibrosDigitales(uPanelLibrosDigitales panel){
         this.panel = panel;
         
-        panel.addListenerVolver(oyenteMostrarPanelAdministrar);
+        panel.addListenerVolver(oyenteVolver);
         panel.addListenerDescargas(oyenteMostrarPanelDescargas);
         panel.addListenerBuscar(oyenteBuscar);
         panel.addListenerNuevo(oyenteNuevo);
@@ -163,17 +163,17 @@ public final class SubcontroladorLibrosDigitales {
         return resultado;
     } 
     
-    ActionListener oyenteMostrarPanelAdministrar = new ActionListener(){
+    ActionListener oyenteVolver = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAdministrar");
+            decirAInstanciaSuperior.mensaje("SolicitudMostraruPanelPrincipal");
         }
     };
     
     ActionListener oyenteMostrarPanelDescargas = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelDescargas");
+            decirAInstanciaSuperior.mensaje("SolicitudMostraruPanelDescargas");
         }
     };
     

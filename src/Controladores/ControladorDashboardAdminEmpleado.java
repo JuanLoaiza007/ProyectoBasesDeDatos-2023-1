@@ -24,10 +24,11 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
 
     protected VistaDashboardAdminEmpleado vista = new VistaDashboardAdminEmpleado();
     
-    private String id;
+    private String idInterno;
     
     public ControladorDashboardAdminEmpleado(VistaDashboardAdminEmpleado vista){
         this.vista = vista;      
+
         
         // Añadir controladores
         vista.addActionAdministrar(oyenteAdministrar);
@@ -45,15 +46,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     
     public ComunicadorClases getComunicadorClases(){
         return this;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }    
+    } 
     
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
@@ -107,6 +100,15 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarAPanelDescargas(){
+        PanelDescargas panel = new PanelDescargas();
+        SubcontroladorDescargas subcontrolador = new SubcontroladorDescargas(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     public void cambiarAPanelAreasConocimiento(){
         PanelAreasConocimiento panel = new PanelAreasConocimiento();
         SubcontroladorAreasConocimiento subcontrolador = new SubcontroladorAreasConocimiento(panel);
@@ -152,6 +154,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             PanelSolicitudes panel = new PanelSolicitudes();
             SubcontroladorSolicitudes subcontrolador = new SubcontroladorSolicitudes(panel);
             
+            subcontrolador.setIdInterno(idInterno);
+            
             vista.cambiarPanel(subcontrolador.getPanel());
         }
     };
@@ -175,6 +179,14 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         }
         
     };
+
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
+    }
     
     // Capturador de solicitudes de controladores internos
     @Override
@@ -206,6 +218,9 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 break;
             case "SolicitudMostrarPanelLibrosDigitales":
                 cambiarAPanelLibrosDigitales();
+                break;
+            case "SolicitudMostrarPanelDescargas":
+                cambiarAPanelDescargas();
                 break;
             case "SolicitudMostrarPanelAreasConocimiento":
                 cambiarAPanelAreasConocimiento();

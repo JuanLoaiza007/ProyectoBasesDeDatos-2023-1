@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-
 package Paneles;
 
 import java.awt.event.ActionListener;
@@ -28,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  */
 
-public class PanelSolicitudes extends javax.swing.JPanel {
+public class PanelDescargas extends javax.swing.JPanel {
 
     
     /**
@@ -45,7 +40,7 @@ public class PanelSolicitudes extends javax.swing.JPanel {
      * Crea los titulos de la tabla
      */
     public void configurarTabla() {
-        String[] titulosTabla = new String[]{"Nro. consecutivo", "Usuario", "Empleado", "ISBN", "Titulo", "Descripcion", "Fecha"};
+        String[] titulosTabla = new String[]{"isbn", "Direccion Url", "Id Usuario", "fecha", "Direccion Ip"};
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -56,10 +51,9 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         }
     }  
         
-    public void nuevaFilaTabla(String nroConsecutivoSolicitud, String idUsuario, 
-            String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
+    public void nuevaFilaTabla(String isbn, String direccionUrl, String idUsuario, Timestamp fecha, String direccionIp) {
         modeloTabla.addRow(new Object[]{
-            nroConsecutivoSolicitud, idUsuario, idEmpleado, isbn, titulo, descripcion, fecha
+            isbn, direccionUrl, idUsuario, fecha, direccionIp
         });
     }
     
@@ -71,7 +65,7 @@ public class PanelSolicitudes extends javax.swing.JPanel {
     }    
     
     /** Creates new form PanelAdministrar */
-    public PanelSolicitudes() {
+    public PanelDescargas() {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
@@ -88,11 +82,10 @@ public class PanelSolicitudes extends javax.swing.JPanel {
 
         panelAdministrar_titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btn_volver = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lbl_buscar = new javax.swing.JLabel();
-        btn_negar = new javax.swing.JButton();
-        btn_aprobar = new javax.swing.JButton();
         txtf_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -111,9 +104,13 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("San Francisco Text", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Solicitudes de Libros");
+        jLabel1.setText("Descargas");
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
+
+        btn_volver.setBackground(new java.awt.Color(0, 102, 102));
+        btn_volver.setForeground(new java.awt.Color(255, 255, 255));
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/angle-left_16px.png"))); // NOI18N
 
         javax.swing.GroupLayout panelAdministrar_tituloLayout = new javax.swing.GroupLayout(panelAdministrar_titulo);
         panelAdministrar_titulo.setLayout(panelAdministrar_tituloLayout);
@@ -121,14 +118,18 @@ public class PanelSolicitudes extends javax.swing.JPanel {
             panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministrar_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btn_volver)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAdministrar_tituloLayout.setVerticalGroup(
             panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministrar_tituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addGroup(panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_volver, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -143,21 +144,6 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         lbl_buscar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_buscar.setForeground(new java.awt.Color(0, 102, 102));
         lbl_buscar.setText("Buscar:");
-
-        btn_negar.setBackground(new java.awt.Color(204, 0, 51));
-        btn_negar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_negar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_negar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
-        btn_negar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_negarActionPerformed(evt);
-            }
-        });
-
-        btn_aprobar.setBackground(new java.awt.Color(0, 153, 0));
-        btn_aprobar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_aprobar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_aprobar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/check.png"))); // NOI18N
 
         txtf_buscar.setBackground(new java.awt.Color(255, 255, 255));
         txtf_buscar.setForeground(new java.awt.Color(0, 0, 0));
@@ -178,17 +164,13 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(134, Short.MAX_VALUE)
                 .addComponent(lbl_buscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(btn_aprobar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_negar)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,8 +180,6 @@ public class PanelSolicitudes extends javax.swing.JPanel {
                     .addComponent(btn_buscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_buscar)
-                        .addComponent(btn_negar)
-                        .addComponent(btn_aprobar)
                         .addComponent(txtf_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14))
         );
@@ -239,10 +219,6 @@ public class PanelSolicitudes extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_negarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_negarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_negarActionPerformed
-
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_buscarActionPerformed
@@ -253,6 +229,10 @@ public class PanelSolicitudes extends javax.swing.JPanel {
 
     public void setTxtf_buscar(String texto) {
         txtf_buscar.setText(texto);
+    }
+    
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
     }
     
     public void addListenerBuscar(ActionListener listener){
@@ -289,9 +269,8 @@ public class PanelSolicitudes extends javax.swing.JPanel {
     }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_aprobar;
     private javax.swing.JButton btn_buscar;
-    private javax.swing.JButton btn_negar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -49,10 +49,12 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         btn_solicitudes = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btn_prestamos = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 700));
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         panel_cabecera.setBackground(new java.awt.Color(0, 102, 102));
         panel_cabecera.setForeground(new java.awt.Color(255, 255, 255));
@@ -121,6 +123,11 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         btn_avanzado.setBorderPainted(false);
         btn_avanzado.setContentAreaFilled(false);
         btn_avanzado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_avanzado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_avanzadoActionPerformed(evt);
+            }
+        });
 
         btn_solicitudes.setBackground(new java.awt.Color(255, 255, 255));
         btn_solicitudes.setForeground(new java.awt.Color(255, 255, 255));
@@ -142,33 +149,49 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/library_64px.png"))); // NOI18N
         jLabel4.setOpaque(true);
 
+        btn_prestamos.setBackground(new java.awt.Color(255, 255, 255));
+        btn_prestamos.setForeground(new java.awt.Color(255, 255, 255));
+        btn_prestamos.setText("Prestamos");
+        btn_prestamos.setBorder(null);
+        btn_prestamos.setBorderPainted(false);
+        btn_prestamos.setContentAreaFilled(false);
+        btn_prestamos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_prestamos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_prestamosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_lateralLayout = new javax.swing.GroupLayout(panel_lateral);
         panel_lateral.setLayout(panel_lateralLayout);
         panel_lateralLayout.setHorizontalGroup(
             panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_solicitudes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_avanzado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-            .addGroup(panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(btn_administrar, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+            .addGroup(panel_lateralLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_prestamos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_solicitudes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_administrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(btn_avanzado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panel_lateralLayout.setVerticalGroup(
             panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_lateralLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addContainerGap()
+                .addComponent(btn_administrar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_prestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_solicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_avanzado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_lateralLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(btn_administrar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(514, Short.MAX_VALUE)))
         );
 
         getContentPane().add(panel_lateral, java.awt.BorderLayout.LINE_START);
@@ -181,7 +204,7 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         panel_contenido.setLayout(panel_contenidoLayout);
         panel_contenidoLayout.setHorizontalGroup(
             panel_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 751, Short.MAX_VALUE)
+            .addGap(0, 739, Short.MAX_VALUE)
         );
         panel_contenidoLayout.setVerticalGroup(
             panel_contenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,6 +215,14 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_avanzadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_avanzadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_avanzadoActionPerformed
+
+    private void btn_prestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_prestamosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_prestamosActionPerformed
 
     public void doClickAdministrar(){
         btn_administrar.doClick();
@@ -271,6 +302,7 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_administrar;
     private javax.swing.JButton btn_avanzado;
+    private javax.swing.JButton btn_prestamos;
     private javax.swing.JButton btn_salir;
     private javax.swing.JButton btn_solicitudes;
     private javax.swing.JLabel jLabel1;

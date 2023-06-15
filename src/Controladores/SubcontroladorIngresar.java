@@ -85,6 +85,15 @@ public class SubcontroladorIngresar {
         return false;
     }
     
+    public static String getIdUsuario(String correo){
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        Dao.UsuarioDao dao = new Dao.UsuarioDao(conexion);
+        
+        String idInterno = dao.obtenerIdPorCorreo(correo);
+            
+        return idInterno;
+    }
+    
     public static boolean existeCorreo(String correo){
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
         Dao.UsuarioDao dao = new Dao.UsuarioDao(conexion);
@@ -145,9 +154,9 @@ public class SubcontroladorIngresar {
 
                 if (esCorreoValido(correo)) {
                     if (existeCorreo(correo) && coincidePasswordCorreo(password, correo))
-                        decirAInstanciaSuperior.mensaje("SolicitudCambioVistaDashboardUsuario @" + correo);
+                        decirAInstanciaSuperior.mensaje("SolicitudCambioVistaDashboardUsuario @" + getIdUsuario(correo));
                 } else if (existeIdEmpleado(correo) && coincidePasswordId(password, correo)) {
-                    decirAInstanciaSuperior.mensaje("SolicitudCambioVistaDashboardEmpleado @" + password);
+                    decirAInstanciaSuperior.mensaje("SolicitudCambioVistaDashboardEmpleado @" + correo);
                 }
             }
         }
