@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.12
--- Fecha de última modificacion: 2023-06-13 13:55
+-- Version: 1.0.13
+-- Fecha de última modificacion: 2023-06-15 10:10
 
 -- Registro de cambios
+-- Clausula NOT NULL de id_empleado eliminada en tabla solicitud (v.1.0.13)
 -- Atributo de password añadido a empleado (v.1.0.12)
 -- Atributo de nro_consecutivo_prestamo añadido a devuelve_usuario_ejemplar (v1.0.11)
 -- Longitud email aumentada en la tabla usuario (v1.0.10)
@@ -239,7 +240,7 @@ DROP TABLE IF EXISTS solicitud CASCADE;
 CREATE TABLE solicitud (
   nro_consecutivo_solicitud VARCHAR (15) NOT NULL PRIMARY KEY,
   id_usuario VARCHAR (15) NOT NULL,
-  id_empleado VARCHAR (15) NOT NULL,
+  id_empleado VARCHAR (15),
   isbn VARCHAR (15) NOT NULL,
   titulo VARCHAR (50) NOT NULL,
   descripcion VARCHAR (250),
@@ -519,3 +520,8 @@ VALUES
       ('8', '8', '2023-05-21 14:20:00', 40000, 'Retraso en devolución'),
       ('9', '9', '2023-05-22 15:30:00', 40000, 'Retraso en devolución'),
       ('10', '10', '2023-05-23 16:40:00', 40000, 'Retraso en devolución');
+	  
+INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha) 
+VALUES ('11', '1', null, '978-3161484100', 'El Gran Gatsby', 'Apruebame prro', '2023-05-15 14:30:00'),
+	('12', '1', null, '978-3161484100', 'El Gran Gatsby', 'Niegame parasito', '2023-05-15 14:31:00'),
+	('13', '1', null, '978-3161484100', 'El Gran Gatsby', 'Otra por si acaso', '2023-05-15 14:32:00');
