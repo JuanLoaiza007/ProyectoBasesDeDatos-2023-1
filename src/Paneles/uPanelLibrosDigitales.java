@@ -23,46 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 public class uPanelLibrosDigitales extends javax.swing.JPanel {
-
-    /**
-     * Creacion de un modelo de tabla NO editable
-     */
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column){
-            return false;
-        }
-    };
-    
-    /**
-     * Crea los titulos de la tabla
-     */
-    public void configurarTabla() {
-        
-        String[] titulosTabla = new String[]{"ISBN", "URL", "Tamaño Bytes", "Formato"};
-        modeloTabla.setColumnIdentifiers(titulosTabla);        
- 
-        // CENTRAR CONTENIDO DE COLUMNAS
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < titulosTabla.length; i++){
-            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
-        }
-    }
-    
-    public void nuevaFilaTabla(String isbn, String url, String tamanio, String formato) {
-        modeloTabla.addRow(new Object[]{
-            isbn, url, tamanio, formato
-        });
-    }
-    
-    public void limpiarTabla() {
-        int filasTabla = modeloTabla.getRowCount();
-        for (int i = 0; i < filasTabla; i++) {
-            modeloTabla.removeRow(0);
-        }
-    }
-    
+   
     /** Creates new form PanelAdministrar */
     public uPanelLibrosDigitales() {
         initComponents();
@@ -89,27 +50,13 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtf_buscar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        btn_borrar = new javax.swing.JButton();
-        btn_nuevo = new javax.swing.JButton();
-        lbl_nuevo = new javax.swing.JLabel();
-        lbl_editar = new javax.swing.JLabel();
-        lbl_borrar = new javax.swing.JLabel();
-        btn_editar = new javax.swing.JButton();
         btn_descargas = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btn_guardar = new javax.swing.JButton();
+        btn_descargar = new javax.swing.JButton();
         lbl_cancelar = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
-        lbl_guardar = new javax.swing.JLabel();
-        lbl_isbn = new javax.swing.JLabel();
-        txtf_isbn = new javax.swing.JTextField();
-        lbl_url = new javax.swing.JLabel();
-        txtf_url = new javax.swing.JTextField();
-        lbl_bytes = new javax.swing.JLabel();
-        txtf_bytes = new javax.swing.JTextField();
-        lbl_formato = new javax.swing.JLabel();
-        txtf_formato = new javax.swing.JTextField();
+        lbl_descargar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -144,9 +91,9 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btn_volver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         panel_tituloLayout.setVerticalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,90 +157,26 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_borrar.setBackground(new java.awt.Color(204, 0, 51));
-        btn_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_borrar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete_16px.png"))); // NOI18N
-        btn_borrar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_borrar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_borrar.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        btn_nuevo.setBackground(new java.awt.Color(0, 153, 0));
-        btn_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_nuevo.setForeground(new java.awt.Color(255, 255, 255));
-        btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/plus_16px.png"))); // NOI18N
-        btn_nuevo.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_nuevo.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_nuevo.setPreferredSize(new java.awt.Dimension(30, 30));
-
-        lbl_nuevo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_nuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_nuevo.setText("Nuevo");
-
-        lbl_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_editar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_editar.setText("Editar");
-
-        lbl_borrar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_borrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_borrar.setText("Borrar");
-
-        btn_editar.setBackground(new java.awt.Color(0, 102, 102));
-        btn_editar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_editar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_editar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pencil_16px.png"))); // NOI18N
-        btn_editar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_editar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_editar.setPreferredSize(new java.awt.Dimension(30, 30));
-
         btn_descargas.setBackground(new java.awt.Color(0, 102, 102));
         btn_descargas.setForeground(new java.awt.Color(255, 255, 255));
-        btn_descargas.setText("Descargas");
+        btn_descargas.setText("Mis Descargas");
         btn_descargas.setBorder(null);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(lbl_nuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_editar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_borrar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btn_editar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btn_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(btn_descargas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(112, Short.MAX_VALUE)
+                .addComponent(btn_descargas, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_descargas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nuevo)
-                    .addComponent(lbl_editar)
-                    .addComponent(lbl_borrar))
-                .addContainerGap())
+                .addComponent(btn_descargas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panel_botonesLayout = new javax.swing.GroupLayout(panel_botones);
@@ -322,13 +205,13 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_guardar.setBackground(new java.awt.Color(0, 204, 102));
-        btn_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        btn_guardar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
-        btn_guardar.setMaximumSize(new java.awt.Dimension(30, 30));
-        btn_guardar.setMinimumSize(new java.awt.Dimension(30, 30));
-        btn_guardar.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_descargar.setBackground(new java.awt.Color(0, 204, 102));
+        btn_descargar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        btn_descargar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_descargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/diskette_16px.png"))); // NOI18N
+        btn_descargar.setMaximumSize(new java.awt.Dimension(30, 30));
+        btn_descargar.setMinimumSize(new java.awt.Dimension(30, 30));
+        btn_descargar.setPreferredSize(new java.awt.Dimension(30, 30));
 
         lbl_cancelar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
@@ -343,92 +226,41 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
         btn_cancelar.setMinimumSize(new java.awt.Dimension(30, 30));
         btn_cancelar.setPreferredSize(new java.awt.Dimension(30, 30));
 
-        lbl_guardar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
-        lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_guardar.setText("Guardar");
-
-        lbl_isbn.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_isbn.setText("ISBN:");
-
-        txtf_isbn.setEnabled(false);
-
-        lbl_url.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_url.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_url.setText("Dirección URL:");
-
-        lbl_bytes.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_bytes.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_bytes.setText("Tamaño en Bytes:");
-
-        lbl_formato.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_formato.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_formato.setText("Formato: ");
+        lbl_descargar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_descargar.setForeground(new java.awt.Color(0, 102, 102));
+        lbl_descargar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_descargar.setText("Descargar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_isbn)
-                            .addComponent(lbl_url, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_url)
-                            .addComponent(lbl_bytes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_bytes)
-                            .addComponent(lbl_formato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtf_formato))
-                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbl_descargar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_guardar)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(89, 89, 89)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbl_cancelar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)))
-                        .addContainerGap(54, Short.MAX_VALUE))))
+                        .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_descargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbl_isbn)
+                .addComponent(btn_descargar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_url)
+                .addComponent(lbl_descargar)
+                .addGap(35, 35, 35)
+                .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_bytes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_bytes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_formato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_formato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_cancelar)
-                    .addComponent(lbl_guardar))
-                .addGap(81, 81, 81))
+                .addComponent(lbl_cancelar)
+                .addGap(223, 223, 223))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -465,7 +297,7 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,72 +323,82 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
 
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+    
 
-    public JTextField getTxtf_buscar() {
-        return txtf_buscar;
-    }
-
-    public void setTxtf_buscar(String texto) {
-        txtf_buscar.setText(texto);
+    // ------------------ CONFIGURACION DE LA TABLA ------------------
+    /**
+     * Creacion de un modelo de tabla NO editable
+     */
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column){
+            return false;
+        }
+    };
+    
+    /**
+     * Crea los titulos de la tabla
+     */
+    public void configurarTabla() {
+        
+        String[] titulosTabla = new String[]{"ISBN", "URL", "Tamaño Bytes", "Formato"};
+        modeloTabla.setColumnIdentifiers(titulosTabla);        
+ 
+        // CENTRAR CONTENIDO DE COLUMNAS
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < titulosTabla.length; i++){
+            table_principal.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
+        }
     }
     
-    public JTextField getIsbn() {
-        return txtf_isbn;
+    public void nuevaFilaTabla(String isbn, String url, String tamanio, String formato) {
+        modeloTabla.addRow(new Object[]{
+            isbn, url, tamanio, formato
+        });
     }
     
-    public void setIsbn(String texto) {
-        txtf_isbn.setText(texto);
-    }
 
-    public JTextField getFormato() {
-        return txtf_formato;
+    // ------------------ FUNCIONES DE LIMPIEZA ------------------
+    public void limpiarTabla() {
+        int filasTabla = modeloTabla.getRowCount();
+        for (int i = 0; i < filasTabla; i++) {
+            modeloTabla.removeRow(0);
+        }
     }
     
-    public void setFormato(String texto) {
-        txtf_formato.setText(texto);
-    }
-
-    public JTextField getDireccionUrl() {
-        return txtf_url;
+    
+    // ------------------ MODOS ------------------
+    public void modoRegistroTablaSeleccionado(){        
+        btn_descargar.setEnabled(true);
+        lbl_descargar.setForeground(new java.awt.Color(0, 102, 102));
+        btn_cancelar.setEnabled(true);
+        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
     }
     
-    public void setDireccionUrl(String texto) {
-        txtf_url.setText(texto);
-    }
-
-    public JTextField getTamanioBytes() {
-        return txtf_bytes;
+    public void modoPasivo(){
+        btn_descargar.setEnabled(false);
+        lbl_descargar.setForeground(new java.awt.Color(102, 102, 102));
+        btn_cancelar.setEnabled(false);
+        lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
     }
     
-    public void setTamanioBytes(String texto) {
-        txtf_bytes.setText(texto);
+    
+    // ------------------ LISTENERS ------------------
+    public void addListenerBuscar(ActionListener listener){
+        btn_buscar.addActionListener(listener);
     }
     
     public void addListenerDescargas(ActionListener listener){
         btn_descargas.addActionListener(listener);
     }
+    
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);
     }
     
-    public void addListenerBuscar(ActionListener listener){
-        btn_buscar.addActionListener(listener);
-    }
-    
-    public void addListenerNuevo(ActionListener listener){
-        btn_nuevo.addActionListener(listener);
-    }
-    
-    public void addListenerEditar(ActionListener listener){
-        btn_editar.addActionListener(listener);
-    }
-    
-    public void addListenerBorrar(ActionListener listener){
-        btn_borrar.addActionListener(listener);
-    }
-    
-    public void addListenerGuardar(ActionListener listener){
-        btn_guardar.addActionListener(listener);
+    public void addListenerDescargar(ActionListener listener){
+        btn_descargar.addActionListener(listener);
     }
     
     public void addListenerCancelar(ActionListener listener){
@@ -567,87 +409,22 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
         table_principal.addMouseListener(listener);
     }
     
-    public void modoInsertar(){
-        table_principal.setEnabled(false);
-        
-        btn_nuevo.setEnabled(false);
-        lbl_nuevo.setForeground(new java.awt.Color(102, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(true);
-        lbl_guardar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_cancelar.setEnabled(true);
-        lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
-        
-        txtf_isbn.setEnabled(true);
-        lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_url.setEnabled(true);
-        lbl_url.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_bytes.setEnabled(true);
-        lbl_bytes.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_formato.setEnabled(true);
-        lbl_formato.setForeground(new java.awt.Color(0, 0, 0));
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public JTextField getTxtf_buscar() {
+        return txtf_buscar;
+    }
+
+    public void setTxtf_buscar(String texto) {
+        txtf_buscar.setText(texto);
     }
     
-    public void modoEditar(){
-        modoInsertar();
-        txtf_isbn.setEnabled(false);
-    }
-    
-    public void modoRegistroTablaSeleccionado(){
-        modoPasivo();
-        
-        btn_editar.setEnabled(true);
-        lbl_editar.setForeground(new java.awt.Color(0, 102, 102));
-        btn_borrar.setEnabled(true);
-        lbl_borrar.setForeground(new java.awt.Color(0, 102, 102));
-    }
-    
-    public void modoPasivo(){
-        table_principal.setEnabled(true);
-        
-        btn_nuevo.setEnabled(true);
-        lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
-        btn_editar.setEnabled(false);
-        lbl_editar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_borrar.setEnabled(false);
-        lbl_borrar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_guardar.setEnabled(false);
-        lbl_guardar.setForeground(new java.awt.Color(102, 102, 102));
-        btn_cancelar.setEnabled(false);
-        lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
-        
-        txtf_isbn.setEnabled(false);
-        lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_url.setEnabled(false);
-        lbl_url.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_bytes.setEnabled(false);
-        lbl_bytes.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_formato.setEnabled(false);
-        lbl_formato.setForeground(new java.awt.Color(102, 102, 102));
-    }
-    
-    public void limpiarCampos(){
-        txtf_isbn.setText("");
-        txtf_url.setText("");
-        txtf_formato.setText("");
-        txtf_bytes.setText("");
-    }
-    
-    public boolean idEsManual(){
-        return txtf_isbn.isEnabled();
-    }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
+    private javax.swing.JButton btn_descargar;
     private javax.swing.JButton btn_descargas;
-    private javax.swing.JButton btn_editar;
-    private javax.swing.JButton btn_guardar;
-    private javax.swing.JButton btn_nuevo;
     private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -656,25 +433,14 @@ public class uPanelLibrosDigitales extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_borrar;
-    private javax.swing.JLabel lbl_bytes;
     private javax.swing.JLabel lbl_cancelar;
-    private javax.swing.JLabel lbl_editar;
-    private javax.swing.JLabel lbl_formato;
-    private javax.swing.JLabel lbl_guardar;
-    private javax.swing.JLabel lbl_isbn;
-    private javax.swing.JLabel lbl_nuevo;
-    private javax.swing.JLabel lbl_url;
+    private javax.swing.JLabel lbl_descargar;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_bytes;
-    private javax.swing.JTextField txtf_formato;
-    private javax.swing.JTextField txtf_isbn;
-    private javax.swing.JTextField txtf_url;
     // End of variables declaration//GEN-END:variables
 
 }

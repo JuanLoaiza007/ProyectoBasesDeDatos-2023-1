@@ -566,9 +566,7 @@ public class PanelEditoriales extends javax.swing.JPanel {
      * En este modo solo esta habilitado la seleccion de elementos en la tabla
      * y el boton para empezar a insertar registros
      */
-    public void modoPasivo(){
-        table_principal.setEnabled(true);
-        
+    public void modoPasivo(){        
         btn_nuevo.setEnabled(true);
         lbl_nuevo.setForeground(new java.awt.Color(0, 102, 102));
         btn_editar.setEnabled(false);

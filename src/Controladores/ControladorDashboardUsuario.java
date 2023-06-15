@@ -77,6 +77,8 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         
         subcontrolador.setListener(getComunicadorClases());
         
+        subcontrolador.setIdInterno(idInterno);
+        
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     

@@ -16,7 +16,9 @@ package Controladores;
  */
 
 import BasesDeDatos.BibliotecaManager;
+import Dao.DescargaUsuarioLibroDao;
 import Dao.LibroDigitalDao;
+import Modelos.DescargaUsuarioLibro;
 import Modelos.LibroDigital;
 import Paneles.AvisosEmergentes;
 import Paneles.uPanelLibrosDigitales;
@@ -27,12 +29,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import javax.swing.JTable;
 
 public final class uSubcontroladorLibrosDigitales {
     
     protected uPanelLibrosDigitales panel = new uPanelLibrosDigitales();
-    
+    protected String idInterno;
     protected ComunicadorClases decirAInstanciaSuperior;
     
     protected int selectedId;
@@ -45,10 +48,7 @@ public final class uSubcontroladorLibrosDigitales {
         panel.addListenerVolver(oyenteVolver);
         panel.addListenerDescargas(oyenteMostrarPanelDescargas);
         panel.addListenerBuscar(oyenteBuscar);
-        panel.addListenerNuevo(oyenteNuevo);
-        panel.addListenerEditar(oyenteEditar);
-        panel.addListenerBorrar(oyenteBorrar);
-        panel.addListenerGuardar(oyenteGuardar);
+        panel.addListenerDescargar(oyenteDescargar);
         panel.addListenerCancelar(oyenteCancelar);
         panel.addListenerFilasTabla(oyenteFilasTabla);     
         
@@ -66,8 +66,8 @@ public final class uSubcontroladorLibrosDigitales {
     }
     
     public void cargarModoInicial(){
+        registroSeleccionado = null;
         panel.limpiarTabla();
-        panel.limpiarCampos();
         cargarRegistros();
         panel.modoPasivo();        
     } 
@@ -123,8 +123,7 @@ public final class uSubcontroladorLibrosDigitales {
                 
                 cargarModoInicial();
             } else {
-                panel.limpiarTabla();   
-                panel.limpiarCampos();
+                panel.limpiarTabla();                   
                 for(LibroDigital libroDigitalActual: librosDigitalesBuscados){
                     cargarObjetoEnTabla(libroDigitalActual);
                 }
@@ -132,36 +131,7 @@ public final class uSubcontroladorLibrosDigitales {
             }
         }
 
-    } 
-
-        // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
-    public boolean txtfEstaVacio(String contenido, String nombreCampo){
-        boolean resultado = true;
-        
-        if(contenido.isEmpty())
-            AvisosEmergentes.mostrarMensaje("El campo de " + nombreCampo + " esta vacio. Digite algo.");
-        else 
-            resultado = false;
-        
-        
-        return resultado;
     }
-
-    public boolean txtfTieneNumero(String contenido, String nombreCampo){
-        boolean resultado = false;
-        
-        try{
-            Integer.parseInt(contenido);
-            if (Integer.parseInt(contenido) >=0){
-                resultado = true;
-            } else {
-                AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
-            }
-        } catch(NumberFormatException ex){
-            AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
-        }
-        return resultado;
-    } 
     
     ActionListener oyenteVolver = new ActionListener(){
         @Override
@@ -183,131 +153,33 @@ public final class uSubcontroladorLibrosDigitales {
             buscar();
         }
     };
-
-    ActionListener oyenteNuevo = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            panel.modoInsertar();
-        }
-    };
-
-    ActionListener oyenteEditar = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            panel.setIsbn(registroSeleccionado.getIsbn());     
-            panel.setDireccionUrl(registroSeleccionado.getDireccionUrl());
-            panel.setTamanioBytes(Integer.toString(registroSeleccionado.getTamanioBytes()));
-            panel.setFormato(registroSeleccionado.getFormato());
-            
-            panel.modoEditar();
-        }
-    }; 
     
-    ActionListener oyenteBorrar = new ActionListener(){
+    ActionListener oyenteDescargar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            String mensaje = "¿Seguro que deseas eliminar este registro? \n"
-                    + "Esta operacion es irreversible";
-            try{
-                if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-
-                    LibroDigitalDao dao = new LibroDigitalDao(conexion);
-
-                    dao.eliminar(registroSeleccionado);
-                    registroSeleccionado = null;
-
-                    panel.limpiarTabla();
-                    cargarRegistros();
-                    panel.modoPasivo();
-
-                    BibliotecaManager.detenerConexion(conexion);
-                }
-            } catch (SQLException ex){
-                System.out.println(ex.getMessage());
-            }
-
-        }
-    };  
-    
-    ActionListener oyenteGuardar = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
+            String isbn = registroSeleccionado.getIsbn();
+            String direccionUrl = registroSeleccionado.getDireccionUrl();
+            Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
+            String direccionIp = "localhost";
             
-            // Variables que guardan los campos
-            String isbn = panel.getIsbn().getText();
-            String direccionUrl = panel.getDireccionUrl().getText();
-            String tamanioBytes = panel.getTamanioBytes().getText();
-            String formato = panel.getFormato().getText();
+            DescargaUsuarioLibro descargaActual = new DescargaUsuarioLibro(isbn, direccionUrl, idInterno, fechaActual, direccionIp);
             
-            //Comprobacion de campos vacios
-            boolean camposVacios = true;
+            java.sql.Connection conexion = BibliotecaManager.iniciarConexion();            
+            DescargaUsuarioLibroDao dao = new DescargaUsuarioLibroDao(conexion);
             
-            if(!txtfEstaVacio(isbn, "ISBN")){ 
-                if(!txtfEstaVacio(direccionUrl, "Dirección URL")){  
-                    if(!txtfEstaVacio(tamanioBytes, "Tamaño Bytes")){                           
-                        if(!txtfEstaVacio(formato, "Formato")){    
-                            if(txtfTieneNumero(tamanioBytes, "Tamaño Bytes")){
-                                camposVacios = false;                           
-                            }
-                        }    
-                    }
-                }    
-            }
-       
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;
+            dao.insertar(descargaActual);
+
+            registroSeleccionado = null;
+            cargarModoInicial();  
             
-            // Insercion o modificacion
-            
-            registroSeleccionado = new LibroDigital(isbn, direccionUrl, Integer.parseInt(tamanioBytes), formato);
-            
-            try{
-                if (datosValidados && !camposVacios) {
-
-                    java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-                    LibroDigitalDao dao = new LibroDigitalDao(conexion);
-
-                    if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
-
-                        dao.insertar(registroSeleccionado);
-
-                        registroSeleccionado = null;
-                        cargarModoInicial();
-
-                        BibliotecaManager.detenerConexion(conexion);
-                    } else{ // El id es fijo por lo que se esta realizando una actualizacion
-                        String mensaje = "¿Seguro que deseas editar la informacion de este registro? \n"
-                                + "Esta operacion es irreversible";
-
-                        if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-
-                            dao.modificar(registroSeleccionado);
-
-                            registroSeleccionado = null;
-                            cargarModoInicial();
-                        }
-                    }
-
-                    BibliotecaManager.detenerConexion(conexion);
-                }
-            }catch(SQLException ex){
-                System.out.println(ex.getMessage());
-                if(ex.getMessage().contains("llave duplicada viola restricción de unicidad «ejemplar_nro_ejemplar_key»")){
-                    AvisosEmergentes.mostrarMensaje("Ya hay un ejemplar con ese número");
-                } else if(ex.getMessage().contains("viola la llave foránea")){
-                    AvisosEmergentes.mostrarMensaje("No puedes agregar un area o una editorial que no esta registrada");
-                }
-            }
+            AvisosEmergentes.mostrarMensaje("La descarga se ha efectuado con éxito.");
         }
     };    
     
     ActionListener oyenteCancelar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            panel.modoPasivo();
-            panel.limpiarCampos();
+            cargarModoInicial();
         }
     };
 
@@ -338,7 +210,6 @@ public final class uSubcontroladorLibrosDigitales {
                 
                 registroSeleccionado = new LibroDigital(isbn, direccionUrl, tamanioBytes, formato); 
                 
-                panel.limpiarCampos();
                 panel.modoRegistroTablaSeleccionado();
             }
         }
@@ -359,4 +230,14 @@ public final class uSubcontroladorLibrosDigitales {
         public void mouseExited(MouseEvent e) {
         }
     };      
+
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
+    }
+    
+    
 }
