@@ -23,9 +23,12 @@ import java.awt.event.ActionListener;
 public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
 
     protected VistaDashboardAdminEmpleado vista = new VistaDashboardAdminEmpleado();
-    
     private String idInterno;
     
+    /**
+     * Constructor de la clase
+     * @param vista Una vista de tipo JFrame
+     */
     public ControladorDashboardAdminEmpleado(VistaDashboardAdminEmpleado vista){
         this.vista = vista;      
 
@@ -44,10 +47,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.setVisible(true);
     }
     
-    public ComunicadorClases getComunicadorClases(){
-        return this;
-    } 
     
+    // ------------------ METODOS ------------------
     public void cambiarALogin(){
         VistaIngresarRegistrarse nuevaVista = new VistaIngresarRegistrarse();
         vista.dispose();
@@ -136,6 +137,8 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    
+    // ------------------ LISTENERS ------------------
     ActionListener oyenteAdministrar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -178,17 +181,10 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             cambiarALogin();
         }
         
-    };
+    };    
 
-    public String getIdInterno() {
-        return idInterno;
-    }
-
-    public void setIdInterno(String idInterno) {
-        this.idInterno = idInterno;
-    }
     
-    // Capturador de solicitudes de controladores internos
+    // ------------ MANEJADOR DE SOLICITUDES DE SUBCONTROLADORES -------------
     @Override
     public void mensaje(String solicitud) {
         System.out.println("Capture algo: " + solicitud);
@@ -236,4 +232,18 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 break;
         }
     }
+    
+    
+    // ------------------ SETTERS Y GETTERS  ------------------
+    public String getIdInterno() {
+        return idInterno;
+    }
+
+    public void setIdInterno(String idInterno) {
+        this.idInterno = idInterno;
+    }
+    
+    public ComunicadorClases getComunicadorClases(){
+        return this;
+    } 
 }
