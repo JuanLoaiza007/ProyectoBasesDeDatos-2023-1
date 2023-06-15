@@ -102,7 +102,7 @@ public final class SubcontroladorSolicitudes {
         solicitudes = dao.obtenerTodos();
         
         for(Solicitud solicitudActual: solicitudes){
-            if(solicitudActual.getIdEmpleado().isEmpty())
+            if(solicitudActual.getIdEmpleado() == null)
                 cargarObjetoEnTabla(solicitudActual);
         }
     }      
@@ -215,7 +215,12 @@ public final class SubcontroladorSolicitudes {
             if (Mouse_evt.getClickCount() == 1) {
                 String nroConsecutivo = table.getValueAt(table.getSelectedRow(), 0).toString();
                 String idUsuario = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String idEmpleado = table.getValueAt(table.getSelectedRow(), 2).toString();
+                String idEmpleado = null;
+                try {
+                    idEmpleado = table.getValueAt(table.getSelectedRow(), 2).toString();
+                } catch (java.lang.NullPointerException exception) {
+                    // Reposarse
+                }
                 String isbn = table.getValueAt(table.getSelectedRow(), 3).toString();
                 String titulo = table.getValueAt(table.getSelectedRow(), 4).toString();  
                 String descripcion = table.getValueAt(table.getSelectedRow(), 5).toString();    
