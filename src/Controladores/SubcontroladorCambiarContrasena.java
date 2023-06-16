@@ -5,7 +5,7 @@ package Controladores;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: SubcontroladorAdministrar.java
+ * Archivo: SubcontroladorCambiarContrasena.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -44,6 +44,7 @@ public class SubcontroladorCambiarContrasena {
         panel.addListenerCambiar(oyenteCambiar);
         
     }
+    
     
     // ------------------ METODOS ------------------
     public void cargarUsuario(String idUsuario){
@@ -105,12 +106,12 @@ public class SubcontroladorCambiarContrasena {
         decirAInstanciaSuperior.mensaje("SolicitudMostrarVistaLogin");
     }
     
+    
+    // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
     public boolean esEmpleado(){
         return empleadoActual != null;
     }
     
-    
-    // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
     public static boolean campoEstaVacio(String contenido, String nombreCampo) {
         if (contenido.isEmpty()) {
             AvisosEmergentes.mostrarError("El campo de " + nombreCampo + " esta vacio. Digite algo.");
