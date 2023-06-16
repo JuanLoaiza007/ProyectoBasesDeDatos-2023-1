@@ -38,8 +38,7 @@ public class BibliotecaManager {
                     postgres_user,
                     postgres_password);
         } catch (Exception e) {
-            System.out.println("Error conectando a la base de datos " + nombreBaseDatos + ": \n"
-                    + e.getMessage());
+            System.out.println("Error en iniciar conexion: " + e);
             return null;
         }
         return connection;

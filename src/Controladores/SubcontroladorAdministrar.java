@@ -36,6 +36,7 @@ public class SubcontroladorAdministrar {
         panel.addListenerLibros(oyenteMostrarPanelLibros);
         panel.addListenerEjemplares(oyenteMostrarPanelEjemplares);
         panel.addListenerLibrosDigitales(oyenteMostrarPanelLibrosDigitales);
+        panel.addListenerLibrosAutores(oyenteMostrarPanelLibrosAutores);
         panel.addListenerAreasConocimiento(oyenteMostrarPanelAreasConocimiento);
         
     }
@@ -81,6 +82,13 @@ public class SubcontroladorAdministrar {
         @Override
         public void actionPerformed(ActionEvent e) {
             decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAreasConocimiento");
+        }
+    };
+    
+    ActionListener oyenteMostrarPanelLibrosAutores = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelLibrosAutores");
         }
     };
     

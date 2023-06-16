@@ -101,6 +101,15 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarAPanelLibrosAutores(){
+        PanelLibrosAutores panel = new PanelLibrosAutores();
+        SubcontroladorLibrosAutores subcontrolador = new SubcontroladorLibrosAutores(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     public void cambiarAPanelDescargas(){
         PanelDescargas panel = new PanelDescargas();
         SubcontroladorDescargas subcontrolador = new SubcontroladorDescargas(panel);
@@ -236,12 +245,16 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             case "SolicitudMostrarPanelLibrosDigitales":
                 cambiarAPanelLibrosDigitales();
                 break;
+            case "SolicitudMostrarPanelLibrosAutores":
+                cambiarAPanelLibrosAutores();
+                break;
             case "SolicitudMostrarPanelDescargas":
                 cambiarAPanelDescargas();
                 break;
             case "SolicitudMostrarPanelAreasConocimiento":
                 cambiarAPanelAreasConocimiento();
                 break;
+                
             case "SolicitudMostrarPanelUsuarios":
                 cambiarAPanelUsuarios();
                 break;

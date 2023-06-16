@@ -233,4 +233,43 @@ public class LibroDao{
         return autores;
         
     }
+    
+    public void insertarLibroAutor(Libro libro, Autor autor) throws SQLException{
+        String INSERT = "INSERT INTO libro_autor (isbn, codigo_autor) VALUES (?, ?)";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(INSERT);
+            statement.setString(1, libro.getIsbn());
+            statement.setString(2, autor.getCodigoAutor());
+
+            if (statement.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya guardado la insercion");
+            }
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+    }
+    
+    public void eliminarLibroAutor(Libro libro, Autor autor) throws SQLException {
+        String DELETE = "DELETE FROM libro_autor WHERE isbn = ? AND codigo_autor = ?";
+
+        PreparedStatement statement = null;
+
+        try {
+            statement = conexion.prepareStatement(DELETE);
+            statement.setString(1, libro.getIsbn());
+            statement.setString(2, autor.getCodigoAutor());
+
+            if (statement.executeUpdate() == 0) {
+                System.out.println("Es posible que no se haya eliminado el registro");
+            }
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+    }
 }
