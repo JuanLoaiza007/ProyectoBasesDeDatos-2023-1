@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: PanelCambiarContrasena.java
+ * Archivo: PanelLibrosAutores.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 

@@ -5,7 +5,7 @@ package Controladores;
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: SubcontroladorLibros.java
+ * Archivo: SubcontroladorLibrosAutores.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -302,36 +302,6 @@ public class SubcontroladorLibrosAutores {
             }
         }
     }
-    
-    
-    // ------------------ METODOS AUXILIARES DE SEGURIDAD ------------------
-    public boolean txtfEstaVacio(String contenido, String nombreCampo){
-        boolean resultado = true;
-        
-        if(contenido.isEmpty())
-            AvisosEmergentes.mostrarMensaje("El campo de " + nombreCampo + " esta vacio. Digite algo.");
-        else 
-            resultado = false;
-        
-        
-        return resultado;
-    }
-
-    public boolean txtfTieneNumero(String contenido, String nombreCampo){
-        boolean resultado = false;
-        
-        try{
-            Integer.parseInt(contenido);
-            if (Integer.parseInt(contenido) >=0){
-                resultado = true;
-            } else {
-                AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
-            }
-        } catch(NumberFormatException ex){
-            AvisosEmergentes.mostrarMensaje("Error en el campo " + nombreCampo + ". "+ contenido + " no es un número válido, digite un numero entero mayor a cero");
-        }
-        return resultado;
-    }    
     
     
     // ------------------ LISTENERS ------------------
