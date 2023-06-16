@@ -96,6 +96,16 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarACambiarContrasena(){
+        PanelCambiarContrasena panel = new PanelCambiarContrasena();
+        SubcontroladorCambiarContrasena subcontrolador = new SubcontroladorCambiarContrasena(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.cargarUsuario(idInterno);
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     
     // ------------------ LISTENERS ------------------
     ActionListener oyentePrincipal = new ActionListener(){
@@ -166,6 +176,12 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
                 break;
             case "SolicitudMostraruPanelDescargas":
                 cambiarAPanelDescargas();
+                break;
+            case "SolicitudMostrarVistaLogin":
+                cambiarALogin();
+                break;
+            case "SolicitudMostrarPanelCambiarContrasena":
+                cambiarACambiarContrasena();
                 break;
             default:
                 System.out.println("Solicitud " + solicitud + " imposible de atender");

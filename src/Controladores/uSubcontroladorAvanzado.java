@@ -40,8 +40,7 @@ public class uSubcontroladorAvanzado {
     ActionListener oyenteCambiarContrasena = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            AvisosEmergentes.mostrarMensaje("Esta opción aún está en desarrollo, consulte a su administrador \n"
-                    + " de bases de datos para hacer el cambio de contraseña manualmente.");
+            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelCambiarContrasena");
         }
     };
     

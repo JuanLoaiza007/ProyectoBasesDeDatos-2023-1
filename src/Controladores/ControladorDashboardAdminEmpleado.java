@@ -137,6 +137,16 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarACambiarContrasena(){
+        PanelCambiarContrasena panel = new PanelCambiarContrasena();
+        SubcontroladorCambiarContrasena subcontrolador = new SubcontroladorCambiarContrasena(panel);
+        
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.cargarEmpleado(idInterno);
+        
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     public void comprobarRol(){
         if(idInterno.equals("admin")){
             vista.setRol("Administrador");
@@ -237,6 +247,12 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 break;
             case "SolicitudMostrarPanelEmpleados":
                 cambiarAPanelEmpleados();
+                break;
+            case "SolicitudMostrarVistaLogin": 
+                cambiarALogin();
+                break;
+            case "SolicitudMostrarPanelCambiarContrasena":
+                cambiarACambiarContrasena();
                 break;
             default:
                 System.out.println("Solicitud " + solicitud + " imposible de atender");

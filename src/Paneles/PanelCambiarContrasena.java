@@ -3,20 +3,13 @@ package Paneles;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
-import java.sql.Timestamp;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * Bases de datos 750006C-01
  * Proyecto de curso
  * Profesor: Oswaldo Solarte
  * 
- * Archivo: PanelAdministrar.java
+ * Archivo: PanelCambiarContrasena.java
  * Licencia: GNU-GPL
  * @version 1.0
  * 
@@ -48,6 +41,7 @@ public class PanelCambiarContrasena extends javax.swing.JPanel {
 
         panelAdministrar_titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btn_volver = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         lbl_contrasenaActual = new javax.swing.JLabel();
         lbl_nuevaContrasena = new javax.swing.JLabel();
@@ -73,20 +67,28 @@ public class PanelCambiarContrasena extends javax.swing.JPanel {
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
 
+        btn_volver.setBackground(new java.awt.Color(0, 102, 102));
+        btn_volver.setForeground(new java.awt.Color(255, 255, 255));
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/angle-left_16px.png"))); // NOI18N
+
         javax.swing.GroupLayout panelAdministrar_tituloLayout = new javax.swing.GroupLayout(panelAdministrar_titulo);
         panelAdministrar_titulo.setLayout(panelAdministrar_tituloLayout);
         panelAdministrar_tituloLayout.setHorizontalGroup(
             panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAdministrar_tituloLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdministrar_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(btn_volver)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(213, Short.MAX_VALUE))
         );
         panelAdministrar_tituloLayout.setVerticalGroup(
             panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdministrar_tituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addGroup(panelAdministrar_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(btn_volver, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -179,6 +181,14 @@ public class PanelCambiarContrasena extends javax.swing.JPanel {
         }
     };
     
+    public void addListenerVolver(ActionListener listener){
+        btn_volver.addActionListener(listener);
+    }
+    
+    public void addListenerCambiar(ActionListener listener){
+        btn_cambiar.addActionListener(listener);
+    }
+    
     
     // ------------------ SETTERS Y GETTERS  ------------------
     public String getPass_anterior() {
@@ -207,6 +217,7 @@ public class PanelCambiarContrasena extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cambiar;
+    private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lbl_contrasenaActual;
