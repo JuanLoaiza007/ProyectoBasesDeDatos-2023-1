@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 public class Solicitud {
     
-    private String nroConsecutivoSolicitud;
+    private int nroConsecutivoSolicitud;
     private String idUsuario;
     private String idEmpleado;
     private String isbn;
@@ -27,7 +27,7 @@ public class Solicitud {
     private String descripcion;
     private Timestamp fecha;
     
-    public Solicitud(String nroConsecutivoSolicitud, String idUsuario, String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
+    public Solicitud(int nroConsecutivoSolicitud, String idUsuario, String idEmpleado, String isbn, String titulo, String descripcion, Timestamp fecha) {
         this.nroConsecutivoSolicitud = nroConsecutivoSolicitud;
         this.idUsuario = idUsuario;
         this.idEmpleado = idEmpleado;
@@ -37,11 +37,11 @@ public class Solicitud {
         this.fecha = fecha;
     }
 
-    public String getNroConsecutivoSolicitud() {
+    public int getNroConsecutivoSolicitud() {
         return nroConsecutivoSolicitud;
     }
 
-    public void setNroConsecutivoSolicitud(String nroConsecutivoSolicitud) {
+    public void setNroConsecutivoSolicitud(int nroConsecutivoSolicitud) {
         this.nroConsecutivoSolicitud = nroConsecutivoSolicitud;
     }
 

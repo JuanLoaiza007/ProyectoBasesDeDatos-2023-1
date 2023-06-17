@@ -280,5 +280,32 @@ public class UsuarioDao {
         return false;
     }
     
+    
+    public String obtenerIdUsuarioActual(Usuario usuario){
+        String GET_ID = "SELECT id_usuario FROM usuario WHERE id_usuario = ?";
+        
+        PreparedStatement statement = null;
+        ResultSet result = null;   
+        
+        try {
+            statement = conexion.prepareStatement(GET_ID);
+            statement.setString(1, usuario.getIdUsuario());
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                String idUsuarioActual = result.getString("id_usuario");
+                
+                return idUsuarioActual;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return null;        
+    }
 }
 

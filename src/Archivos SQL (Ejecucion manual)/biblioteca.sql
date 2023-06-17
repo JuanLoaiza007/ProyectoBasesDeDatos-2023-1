@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.13
--- Fecha de última modificacion: 2023-06-15 10:10
+-- Version: 1.0.14
+-- Fecha de última modificacion: 2023-06-17 11:35
 
 -- Registro de cambios
+-- Los atributos nro_consecutivo_solicitud y nro_consecutivo_prestamo son convertidos de VARCHAR a INTEGER (v.1.0.14)
 -- Clausula NOT NULL de id_empleado eliminada en tabla solicitud (v.1.0.13)
 -- Atributo de password añadido a empleado (v.1.0.12)
 -- Atributo de nro_consecutivo_prestamo añadido a devuelve_usuario_ejemplar (v1.0.11)
@@ -187,7 +188,7 @@ ALTER TABLE descarga_usuario_libro
 ------------------------------------------------
 DROP TABLE IF EXISTS prestamo CASCADE;
 CREATE TABLE prestamo (
-  nro_consecutivo_prestamo VARCHAR (15) NOT NULL PRIMARY KEY,
+  nro_consecutivo_prestamo INTEGER NOT NULL PRIMARY KEY,
   id_usuario VARCHAR (15) NOT NULL,
   id_empleado VARCHAR (15) NOT NULL,
   fecha_realizacion TIMESTAMP
@@ -201,7 +202,7 @@ ALTER TABLE prestamo
 ------------------------------------------------
 DROP TABLE IF EXISTS prestamo_ejemplar CASCADE;
 CREATE TABLE prestamo_ejemplar (
-  nro_consecutivo_prestamo VARCHAR (15) NOT NULL,
+  nro_consecutivo_prestamo INTEGER NOT NULL,
   isbn VARCHAR (15) NOT NULL,
   nro_ejemplar VARCHAR (15) NOT NULL,
   fecha_devolucion TIMESTAMP
@@ -218,7 +219,7 @@ ALTER TABLE prestamo_ejemplar
 ------------------------------------------------
 DROP TABLE IF EXISTS devuelve_usuario_ejemplar CASCADE;
 CREATE TABLE devuelve_usuario_ejemplar (
-  nro_consecutivo_prestamo VARCHAR(15) NOT NULL,
+  nro_consecutivo_prestamo INTEGER NOT NULL,
   id_usuario VARCHAR (15) NOT NULL,
   isbn VARCHAR (15) NOT NULL,
   nro_ejemplar VARCHAR (15) NOT NULL,
@@ -238,7 +239,7 @@ ALTER TABLE devuelve_usuario_ejemplar
 -----------------------------------------------
 DROP TABLE IF EXISTS solicitud CASCADE;
 CREATE TABLE solicitud (
-  nro_consecutivo_solicitud VARCHAR (15) NOT NULL PRIMARY KEY,
+  nro_consecutivo_solicitud INTEGER NOT NULL PRIMARY KEY,
   id_usuario VARCHAR (15) NOT NULL,
   id_empleado VARCHAR (15),
   isbn VARCHAR (15) NOT NULL,
@@ -256,7 +257,7 @@ ALTER TABLE solicitud
 DROP TABLE IF EXISTS multa CASCADE;
 CREATE TABLE multa (
   id_usuario VARCHAR (15) NOT NULL,
-  nro_consecutivo_prestamo VARCHAR (15),
+  nro_consecutivo_prestamo INTEGER,
   fecha TIMESTAMP,
   valor INTEGER,
   descripcion VARCHAR (250)
@@ -455,73 +456,73 @@ VALUES
 ------------------------------------------------
 --- PRESTAMOS
 INSERT INTO prestamo (nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion)
-VALUES ('1', '1', '1', '2023-05-14 10:30:00'),
-      ('2', '2', '2', '2023-05-14 11:00:00'),
-      ('3', '3', '1', '2023-05-14 11:30:00'),
-      ('4', '4', '1', '2023-05-14 12:00:00'),
-      ('5', '5', '2', '2023-05-14 13:00:00'),
-      ('6', '6', '1', '2023-05-14 14:00:00'),
-      ('7', '7', '1', '2023-05-14 15:00:00'),
-      ('8', '8', '2', '2023-05-14 16:00:00'),
-      ('9', '9', '1', '2023-05-14 17:00:00'),
-      ('10', '10', '1', '2023-05-14 18:00:00');
+VALUES (1, '1', '1', '2023-05-14 10:30:00'),
+      (2, '2', '2', '2023-05-14 11:00:00'),
+      (3, '3', '1', '2023-05-14 11:30:00'),
+      (4, '4', '1', '2023-05-14 12:00:00'),
+      (5, '5', '2', '2023-05-14 13:00:00'),
+      (6, '6', '1', '2023-05-14 14:00:00'),
+      (7, '7', '1', '2023-05-14 15:00:00'),
+      (8, '8', '2', '2023-05-14 16:00:00'),
+      (9, '9', '1', '2023-05-14 17:00:00'),
+      (10, '10', '1', '2023-05-14 18:00:00');
 ------------------------------------------------
 --- PRESTAMOS EJEMPLARES      
 INSERT INTO prestamo_ejemplar (nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion)
-VALUES ('1', '978-0307476463', '1', '2023-05-16 10:30:00'),
-      ('2', '978-8437620629', '2', '2023-05-16 10:30:00'),
-      ('3', '978-9507317181', '3', '2023-05-17 11:00:00'),
-      ('4', '978-9875805174', '4', '2023-05-18 11:30:00'),
-      ('5', '978-8420471839', '5', '2023-05-18 11:30:00'),
-      ('6', '978-8432248138', '6', '2023-05-19 12:00:00'),
-      ('7', '978-8432212429', '7', '2023-05-20 13:00:00'),
-      ('8', '978-8420441146', '8', '2023-05-21 14:00:00'),
-      ('9', '978-6071502919', '9', '2023-05-22 15:00:00'),
-      ('10', '978-8433920228', '10', '2023-05-23 16:00:00');
+VALUES (1, '978-0307476463', '1', '2023-05-16 10:30:00'),
+      (2, '978-8437620629', '2', '2023-05-16 10:30:00'),
+      (3, '978-9507317181', '3', '2023-05-17 11:00:00'),
+      (4, '978-9875805174', '4', '2023-05-18 11:30:00'),
+      (5, '978-8420471839', '5', '2023-05-18 11:30:00'),
+      (6, '978-8432248138', '6', '2023-05-19 12:00:00'),
+      (7, '978-8432212429', '7', '2023-05-20 13:00:00'),
+      (8, '978-8420441146', '8', '2023-05-21 14:00:00'),
+      (9, '978-6071502919', '9', '2023-05-22 15:00:00'),
+      (10, '978-8433920228', '10', '2023-05-23 16:00:00');
 ------------------------------------------------
 --- DEVOLUCIONES EJEMPLARES
 INSERT INTO devuelve_usuario_ejemplar (nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar, fecha)
 VALUES 
-      ('1', '1', '978-0307476463', '1', '2023-05-16 10:35:00'),
-      ('2', '2', '978-8437620629', '2', '2023-05-16 10:40:00'),
-      ('3', '3', '978-9507317181', '3', '2023-05-17 11:05:00'),
-      ('4', '4', '978-9875805174', '4', '2023-05-18 11:35:00'),
-      ('5', '5', '978-8420471839', '5', '2023-05-18 11:35:00'),
-      ('6', '6', '978-8432248138', '6', '2023-05-19 12:15:00'),
-      ('7', '7', '978-8432212429', '7', '2023-05-20 13:10:00'),
-      ('8', '8', '978-8420441146', '8', '2023-05-21 14:20:00'),
-      ('9', '9', '978-6071502919', '9', '2023-05-22 15:30:00'),
-      ('10', '10', '978-8433920228', '10', '2023-05-23 16:40:00');  
+      (1, '1', '978-0307476463', '1', '2023-05-16 10:35:00'),
+      (2, '2', '978-8437620629', '2', '2023-05-16 10:40:00'),
+      (3, '3', '978-9507317181', '3', '2023-05-17 11:05:00'),
+      (4, '4', '978-9875805174', '4', '2023-05-18 11:35:00'),
+      (5, '5', '978-8420471839', '5', '2023-05-18 11:35:00'),
+      (6, '6', '978-8432248138', '6', '2023-05-19 12:15:00'),
+      (7, '7', '978-8432212429', '7', '2023-05-20 13:10:00'),
+      (8, '8', '978-8420441146', '8', '2023-05-21 14:20:00'),
+      (9, '9', '978-6071502919', '9', '2023-05-22 15:30:00'),
+      (10, '10', '978-8433920228', '10', '2023-05-23 16:40:00');
 ------------------------------------------------
 --- SOLICITUDES  
 INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
 VALUES
-('1', '1', '3', '978-3161484100', 'El Gran Gatsby', 'Solicitud de adquisicion para el libro El Gran Gatsby', '2023-05-14 14:30:00'),
-('2', '2', '3', '978-8466331844', 'Harry Potter y la piedra filosofal', 'Solicitud de adquisicion para el libro Harry Potter y la piedra filosofal', '2023-05-14 15:30:00'),
-('3', '3', '3', '978-0544272996', 'El hobbit', 'Solicitud de adquisicion para el libro El hobbit', '2023-05-15 10:00:00'),
-('4', '4', '3', '978-6075277254', 'La insoportable levedad del ser', 'Solicitud de adquisicion para el libro La insoportable levedad del ser', '2023-05-15 11:00:00'),
-('5', '5', '3', '978-0307278466', '1984', 'Solicitud de adquisicion para el libro 1984', '2023-05-16 13:00:00'),
-('6', '6', '3', '978-0307476463', 'Cien años de soledad', 'Solicitud de adquisicion para el libro Cien años de soledad', '2023-05-16 14:00:00'),
-('7', '7', '3', '978-8437604947', 'La ciudad y los perros', 'Solicitud de adquisicion para el libro La ciudad y los perros', '2023-05-17 10:30:00'),
-('8', '8', '3', '978-8408163172', 'Origen', 'Solicitud de adquisicion para el libro Origen', '2023-05-17 11:30:00'),
-('9', '9', '3', '978-8420407437', 'Crimen y castigo', 'Solicitud de adquisicion para el libro Crimen y castigo', '2023-05-18 12:00:00'),
-('10', '10', '3', '978-8498383620', 'Los hombres que no amaban a las mujeres', 'Solicitud de adquisicion para el libro Los hombres que no amaban a las mujeres', '2023-05-18 13:00:00');
+(1, '1', '3', '978-3161484100', 'El Gran Gatsby', 'Solicitud de adquisicion para el libro El Gran Gatsby', '2023-05-14 14:30:00'),
+(2, '2', '3', '978-8466331844', 'Harry Potter y la piedra filosofal', 'Solicitud de adquisicion para el libro Harry Potter y la piedra filosofal', '2023-05-14 15:30:00'),
+(3, '3', '3', '978-0544272996', 'El hobbit', 'Solicitud de adquisicion para el libro El hobbit', '2023-05-15 10:00:00'),
+(4, '4', '3', '978-6075277254', 'La insoportable levedad del ser', 'Solicitud de adquisicion para el libro La insoportable levedad del ser', '2023-05-15 11:00:00'),
+(5, '5', '3', '978-0307278466', '1984', 'Solicitud de adquisicion para el libro 1984', '2023-05-16 13:00:00'),
+(6, '6', '3', '978-0307476463', 'Cien años de soledad', 'Solicitud de adquisicion para el libro Cien años de soledad', '2023-05-16 14:00:00'),
+(7, '7', '3', '978-8437604947', 'La ciudad y los perros', 'Solicitud de adquisicion para el libro La ciudad y los perros', '2023-05-17 10:30:00'),
+(8, '8', '3', '978-8408163172', 'Origen', 'Solicitud de adquisicion para el libro Origen', '2023-05-17 11:30:00'),
+(9, '9', '3', '978-8420407437', 'Crimen y castigo', 'Solicitud de adquisicion para el libro Crimen y castigo', '2023-05-18 12:00:00'),
+(10, '10', '3', '978-8498383620', 'Los hombres que no amaban a las mujeres', 'Solicitud de adquisicion para el libro Los hombres que no amaban a las mujeres', '2023-05-18 13:00:00');
 ------------------------------------------------
 --- MULTAS
 INSERT INTO multa (id_usuario, nro_consecutivo_prestamo, fecha, valor, descripcion)
 VALUES 
-      ('1', '1', '2023-05-16 10:35:00', 40000, 'Retraso en devolución'),
-      ('2', '2', '2023-05-16 10:40:00', 40000, 'Retraso en devolución'),
-      ('3', '3', '2023-05-17 11:05:00', 40000, 'Retraso en devolución'),
-      ('4', '4', '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
-      ('5', '5', '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
-      ('6', '6', '2023-05-19 12:15:00', 40000, 'Retraso en devolución'),
-      ('7', '7', '2023-05-20 13:10:00', 40000, 'Retraso en devolución'),
-      ('8', '8', '2023-05-21 14:20:00', 40000, 'Retraso en devolución'),
-      ('9', '9', '2023-05-22 15:30:00', 40000, 'Retraso en devolución'),
-      ('10', '10', '2023-05-23 16:40:00', 40000, 'Retraso en devolución');
+      ('1', 1, '2023-05-16 10:35:00', 40000, 'Retraso en devolución'),
+      ('2', 2, '2023-05-16 10:40:00', 40000, 'Retraso en devolución'),
+      ('3', 3, '2023-05-17 11:05:00', 40000, 'Retraso en devolución'),
+      ('4', 4, '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
+      ('5', 5, '2023-05-18 11:35:00', 40000, 'Retraso en devolución'),
+      ('6', 6, '2023-05-19 12:15:00', 40000, 'Retraso en devolución'),
+      ('7', 7, '2023-05-20 13:10:00', 40000, 'Retraso en devolución'),
+      ('8', 8, '2023-05-21 14:20:00', 40000, 'Retraso en devolución'),
+      ('9', 9, '2023-05-22 15:30:00', 40000, 'Retraso en devolución'),
+      ('10', 10, '2023-05-23 16:40:00', 40000, 'Retraso en devolución');
 	  
-INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha) 
-VALUES ('11', '1', null, '978-3161484100', 'El Gran Gatsby', 'Apruebame prro', '2023-05-15 14:30:00'),
-	('12', '1', null, '978-3161484100', 'El Gran Gatsby', 'Niegame parasito', '2023-05-15 14:31:00'),
-	('13', '1', null, '978-3161484100', 'El Gran Gatsby', 'Otra por si acaso', '2023-05-15 14:32:00');
+INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
+VALUES (11, '1', null, '978-3161484100', 'El Gran Gatsby', 'Apruebame prro', '2023-05-15 14:30:00'),
+       (12, '1', null, '978-3161484100', 'El Gran Gatsby', 'Niegame parasito', '2023-05-15 14:31:00'),
+       (13, '1', null, '978-3161484100', 'El Gran Gatsby', 'Otra por si acaso', '2023-05-15 14:32:00');

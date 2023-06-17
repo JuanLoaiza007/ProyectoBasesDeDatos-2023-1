@@ -33,7 +33,7 @@ public class PrestamoEjemplarDao {
         PrestamoEjemplar prestamoEjemplar = null;
         
         
-        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
+        int nroConsecutivoPrestamo = result.getInt("nro_consecutivo_prestamo");
         String isbn = result.getString("isbn");
         String nroEjemplar = result.getString("nro_ejemplar");
         Timestamp fechaDevolucion = result.getTimestamp("fecha_devolucion");
@@ -80,7 +80,7 @@ public class PrestamoEjemplarDao {
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setInt(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
             statement.setTimestamp(4, e.getFechaDevolucion());
@@ -104,7 +104,7 @@ public class PrestamoEjemplarDao {
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setInt(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIsbn());
             statement.setString(3, e.getNroEjemplar());
             statement.setTimestamp(4, e.getFechaDevolucion());

@@ -72,7 +72,7 @@ public final class SubcontroladorSolicitudes {
      * @param e El objeto que transformará 
      */
     public void cargarObjetoEnTabla(Solicitud e){
-        String nroConsecutivo = e.getNroConsecutivoSolicitud();
+        String nroConsecutivo = Integer.toString(e.getNroConsecutivoSolicitud());
         String idUsuario = e.getIdUsuario();
         String idEmpleado = e.getIdEmpleado();
         String isbn = e.getIsbn();
@@ -208,7 +208,7 @@ public final class SubcontroladorSolicitudes {
             }
 
             if (Mouse_evt.getClickCount() == 1) {
-                String nroConsecutivo = table.getValueAt(table.getSelectedRow(), 0).toString();
+                int nroConsecutivo = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
                 String idUsuario = table.getValueAt(table.getSelectedRow(), 1).toString();
                 String idEmpleado = null;
                 try {

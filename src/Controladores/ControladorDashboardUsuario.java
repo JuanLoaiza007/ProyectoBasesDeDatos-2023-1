@@ -60,6 +60,7 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         uSubcontroladorLibros subcontrolador = new uSubcontroladorLibros(panel);
         
         subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.cargarUsuario(idInterno);
         
         vista.cambiarPanel(subcontrolador.getPanel());
     }

@@ -29,7 +29,7 @@ public class SolicitudDao {
     }
 
     private Solicitud convertir(ResultSet result) throws SQLException {
-        String nroConsecutivoSolicitud = result.getString("nro_consecutivo_solicitud");
+        int nroConsecutivoSolicitud = result.getInt("nro_consecutivo_solicitud");
         String idUsuario = result.getString("id_usuario");
         String idEmpleado = result.getString("id_empleado");
         String isbn = result.getString("isbn");
@@ -67,7 +67,7 @@ public class SolicitudDao {
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, solicitud.getNroConsecutivoSolicitud());
+            statement.setInt(1, solicitud.getNroConsecutivoSolicitud());
             statement.setString(2, solicitud.getIdUsuario());
             statement.setString(3, solicitud.getIdEmpleado());
             statement.setString(4, solicitud.getIsbn());
@@ -100,7 +100,7 @@ public class SolicitudDao {
             statement.setString(4, solicitud.getTitulo());
             statement.setString(5, solicitud.getDescripcion());
             statement.setTimestamp(6, solicitud.getFecha());
-            statement.setString(7, solicitud.getNroConsecutivoSolicitud());
+            statement.setInt(7, solicitud.getNroConsecutivoSolicitud());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Error al actualizar el registro");
@@ -121,7 +121,7 @@ public class SolicitudDao {
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, solicitud.getNroConsecutivoSolicitud());
+            statement.setInt(1, solicitud.getNroConsecutivoSolicitud());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Error al eliminar el registro");
@@ -159,6 +159,29 @@ public class SolicitudDao {
         }
 
         return solicitudes;
+    }
+    
+    public int obtenerUltimoNroConsecutivo() {
+        String GET_MAX_NRO_CONSECUTIVO = "SELECT MAX(nro_consecutivo_solicitud) FROM solicitud";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_MAX_NRO_CONSECUTIVO);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return 0;
     }
 
     public Solicitud obtenerPorNroConsecutivo(String nroConsecutivoSolicitud) {
