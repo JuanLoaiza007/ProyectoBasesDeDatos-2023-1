@@ -195,5 +195,33 @@ public class PrestamoDao{
         }
         return prestamo;
     }
+    
+    public List<Prestamo> obtenerPorUsuario(String id) {
+        List<Prestamo> prestamos = new ArrayList<>();
 
+        String GET_BY_USER = "SELECT nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion FROM prestamo WHERE id_usuario = ? ORDER BY fecha_realizacion DESC";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GET_BY_USER);
+            statement.setString(1, id);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                prestamos.add(convertir(result));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return prestamos;
+    }
+    
 }

@@ -35,6 +35,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         
         // Añadir controladores
         vista.addActionAdministrar(oyenteAdministrar);
+        vista.addActionPrestamos(oyentePrestamos);
         vista.addActionSolicitudes(oyenteSolicitudes);
         vista.addActionMultas(oyenteMultas);
         vista.addActionAvanzado(oyenteAvanzado);
@@ -62,6 +63,15 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         SubcontroladorAdministrar subcontrolador = new SubcontroladorAdministrar(panel);
 
         subcontrolador.setListener(getComunicadorClases());
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelPrestamos() {
+        PanelPrestamos panel = new PanelPrestamos();
+        SubcontroladorPrestamos subcontrolador = new SubcontroladorPrestamos(panel);
+
+        subcontrolador.setIdInterno(idInterno);
 
         vista.cambiarPanel(subcontrolador.getPanel());
     }
@@ -210,6 +220,13 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         @Override
         public void actionPerformed(ActionEvent e) {
             cambiarAPanelAdministrar();
+        }
+    };
+    
+    ActionListener oyentePrestamos = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cambiarAPanelPrestamos();
         }
     };
     

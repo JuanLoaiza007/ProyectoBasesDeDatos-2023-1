@@ -65,6 +65,17 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         vista.cambiarPanel(subcontrolador.getPanel());
     }
     
+    public void cambiarAPanelPrestamos() {
+        uPanelPrestamos panel = new uPanelPrestamos();
+        uSubcontroladorPrestamos subcontrolador = new uSubcontroladorPrestamos(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.setIdInterno(idInterno);
+        subcontrolador.cargarRegistros();
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
     public void cambiarAPanelMultas() {
         uPanelMultas panel = new uPanelMultas();
         uSubcontroladorMultas subcontrolador = new uSubcontroladorMultas(panel);
@@ -149,8 +160,7 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     ActionListener oyentePrestamo = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-//            PanelPrestamo panel = new PanelPrestamo();
-//            vista.cambiarPanel(panel);
+            cambiarAPanelPrestamos();
         }
     };
     

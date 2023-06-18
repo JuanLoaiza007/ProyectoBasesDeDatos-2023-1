@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package Vista;
 
 /**
@@ -269,6 +264,10 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
     
     public void addActionAdministrar(ActionListener listener){
         btn_administrar.addActionListener(listener);
+    }
+    
+    public void addActionPrestamos(ActionListener listener){
+        btn_prestamos.addActionListener(listener);
     }
     
     public void addActionSolicitudes(ActionListener listener){
