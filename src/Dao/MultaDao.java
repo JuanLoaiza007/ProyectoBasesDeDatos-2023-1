@@ -32,7 +32,7 @@ public class MultaDao {
         Multa multa = null;
         
         String idUsuario = result.getString("id_usuario");
-        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
+        int nroConsecutivoPrestamo = result.getInt("nro_consecutivo_prestamo");
         Timestamp fecha = result.getTimestamp("fecha");
         int valor = result.getInt("valor");
         String descripcion = result.getString("descripcion");
@@ -70,7 +70,7 @@ public class MultaDao {
         try {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, multa.getIdUsuario());
-            statement.setString(2, multa.getNroConsecutivoPrestamo());
+            statement.setInt(2, multa.getNroConsecutivoPrestamo());
             statement.setTimestamp(3, multa.getFecha());
             statement.setInt(4, multa.getValor());
             statement.setString(5, multa.getDescripcion());
@@ -97,7 +97,7 @@ public class MultaDao {
             statement.setInt(1, multa.getValor());
             statement.setString(2, multa.getDescripcion());
             statement.setString(3, multa.getIdUsuario());
-            statement.setString(4, multa.getNroConsecutivoPrestamo());
+            statement.setInt(4, multa.getNroConsecutivoPrestamo());
             statement.setTimestamp(5, multa.getFecha());
 
             if (statement.executeUpdate() == 0) {
@@ -120,7 +120,7 @@ public class MultaDao {
         try {
             statement = conexion.prepareStatement(DELETE);
             statement.setString(1, multa.getIdUsuario());
-            statement.setString(2, multa.getNroConsecutivoPrestamo());
+            statement.setInt(2, multa.getNroConsecutivoPrestamo());
             statement.setTimestamp(3, multa.getFecha());
 
             if (statement.executeUpdate() == 0) {

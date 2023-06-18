@@ -36,7 +36,7 @@ public class PrestamoEjemplarDaoTest {
         Connection conexion = BibliotecaManager.iniciarConexion();
         PrestamoEjemplarDao dao = new PrestamoEjemplarDao(conexion);
 
-        PrestamoEjemplar prestamo = new PrestamoEjemplar("1", "978-0307476463", "1", fechaActual);
+        PrestamoEjemplar prestamo = new PrestamoEjemplar(1, "978-0307476463", "1", fechaActual);
         dao.insertar(prestamo);
         System.out.println("Prestamo insertado correctamente.");
     }
@@ -64,7 +64,7 @@ public class PrestamoEjemplarDaoTest {
         Connection conexion = BibliotecaManager.iniciarConexion();
         PrestamoEjemplarDao dao = new PrestamoEjemplarDao(conexion);
 
-        PrestamoEjemplar prestamo = new PrestamoEjemplar("1", "978-0307476463", "1", fechaActual);
+        PrestamoEjemplar prestamo = new PrestamoEjemplar(1, "978-0307476463", "1", fechaActual);
         dao.eliminar(prestamo);
         System.out.println("Prestamo eliminado correctamente.");
     }

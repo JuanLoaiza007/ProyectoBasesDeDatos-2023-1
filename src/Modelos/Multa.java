@@ -20,12 +20,12 @@ import java.sql.Timestamp;
 public class Multa {
 
     private String idUsuario;
-    private String nroConsecutivoPrestamo;
+    private int nroConsecutivoPrestamo;
     private Timestamp fecha;
     private int valor;
     private String descripcion;
 
-    public Multa(String idUsuario, String nroConsecutivoPrestamo, Timestamp fecha, int valor, String descripcion) {
+    public Multa(String idUsuario, int nroConsecutivoPrestamo, Timestamp fecha, int valor, String descripcion) {
         this.idUsuario = idUsuario;
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
         this.fecha = fecha;
@@ -41,11 +41,11 @@ public class Multa {
         this.idUsuario = idUsuario;
     }
 
-    public String getNroConsecutivoPrestamo() {
+    public int getNroConsecutivoPrestamo() {
         return nroConsecutivoPrestamo;
     }
 
-    public void setNroConsecutivoPrestamo(String nroConsecutivoPrestamo) {
+    public void setNroConsecutivoPrestamo(int nroConsecutivoPrestamo) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
     }
 

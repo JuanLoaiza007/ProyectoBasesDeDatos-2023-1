@@ -41,7 +41,7 @@ public class SolicitudDaoTest {
         Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         SolicitudDao daoInsertar = new SolicitudDao(conexionInsertar);
 
-        Solicitud solicitudInsertar = new Solicitud("2100", "1", "1", "isbn", "titulo", "descripcion", fechaActual);
+        Solicitud solicitudInsertar = new Solicitud(2100, "1", "1", "isbn", "titulo", "descripcion", fechaActual);
         try {
             daoInsertar.insertar(solicitudInsertar);
         } catch (SQLException ex) {
@@ -54,7 +54,7 @@ public class SolicitudDaoTest {
         Connection conexionModificar = BibliotecaManager.iniciarConexion();
         SolicitudDao daoModificar = new SolicitudDao(conexionModificar);
 
-        Solicitud solicitudModificar = new Solicitud("2100", "1", "1", "isbn_modificado", "titulo_modificado", "descripcion_modificada", fechaActual);
+        Solicitud solicitudModificar = new Solicitud(2100, "1", "1", "isbn_modificado", "titulo_modificado", "descripcion_modificada", fechaActual);
         try {
             daoModificar.modificar(solicitudModificar);
         } catch (SQLException ex) {
@@ -87,7 +87,7 @@ public class SolicitudDaoTest {
         SolicitudDao daoEliminar = new SolicitudDao(conexionEliminar);
 
         try {
-            daoEliminar.eliminar(new Solicitud("2100", "", "", "", "", "", fechaActual));
+            daoEliminar.eliminar(new Solicitud(2100, "", "", "", "", "", fechaActual));
         } catch (SQLException ex) {
             Logger.getLogger(SolicitudDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }

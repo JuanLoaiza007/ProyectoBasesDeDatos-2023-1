@@ -22,7 +22,7 @@ public class MultaDaoTest {
         Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         MultaDao daoInsertar = new MultaDao(conexionInsertar);
 
-        Multa multaInsertar = new Multa("1", "1", fechaActual, 100, "Descripción de la multa");
+        Multa multaInsertar = new Multa("1", 1, fechaActual, 100, "Descripción de la multa");
         daoInsertar.insertar(multaInsertar);
         System.out.println("Multa insertada correctamente.");
     }
@@ -31,7 +31,7 @@ public class MultaDaoTest {
         Connection conexionModificar = BibliotecaManager.iniciarConexion();
         MultaDao daoModificar = new MultaDao(conexionModificar);
 
-        Multa multaModificar = new Multa("1", "1", fechaActual, 200, "Nueva descripción de la multa");
+        Multa multaModificar = new Multa("1", 1, fechaActual, 200, "Nueva descripción de la multa");
         daoModificar.modificar(multaModificar);
         System.out.println("Multa modificada correctamente.");
     }
@@ -56,7 +56,7 @@ public class MultaDaoTest {
         Connection conexionEliminar = BibliotecaManager.iniciarConexion();
         MultaDao daoEliminar = new MultaDao(conexionEliminar);
 
-        Multa multaEliminar = new Multa("1", "1", fechaActual, 0, "");
+        Multa multaEliminar = new Multa("1", 1, fechaActual, 0, "");
         daoEliminar.eliminar(multaEliminar);
         System.out.println("Multa eliminada correctamente.");
     }

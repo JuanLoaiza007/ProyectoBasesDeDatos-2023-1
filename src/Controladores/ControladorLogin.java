@@ -37,9 +37,6 @@ public class ControladorLogin implements ComunicadorClases{
         vista.setLocationRelativeTo(null);
         vista.setResizable(false);
         vista.setVisible(true);   
-        
-        // Rutina para actualizar multas
-        Modelos.GenerarMultasDao.generarMultas(BasesDeDatos.BibliotecaManager.iniciarConexion());
     }
     
     

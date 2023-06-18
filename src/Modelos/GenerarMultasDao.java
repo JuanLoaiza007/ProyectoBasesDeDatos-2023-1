@@ -51,7 +51,7 @@ public class GenerarMultasDao {
             result = statement.executeQuery();
 
             while (result.next()) {
-                String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
+                int nroConsecutivoPrestamo = result.getInt("nro_consecutivo_prestamo");
                 String idUsuario = result.getString("id_usuario");
 
                 if (!existeMulta(idUsuario, nroConsecutivoPrestamo, conexion)) {
@@ -68,7 +68,7 @@ public class GenerarMultasDao {
         }
     }
 
-    private static boolean existeMulta(String idUsuario, String nroConsecutivoPrestamo, Connection conexion) {
+    private static boolean existeMulta(String idUsuario, int nroConsecutivoPrestamo, Connection conexion) {
         String SELECT = "SELECT * FROM multa WHERE id_usuario = ? AND nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
@@ -77,7 +77,7 @@ public class GenerarMultasDao {
         try {
             statement = conexion.prepareStatement(SELECT);
             statement.setString(1, idUsuario);
-            statement.setString(2, nroConsecutivoPrestamo);
+            statement.setInt(2, nroConsecutivoPrestamo);
 
             result = statement.executeQuery();
 
@@ -100,7 +100,7 @@ public class GenerarMultasDao {
         try {
             statement = conexion.prepareStatement(INSERT);
             statement.setString(1, multa.getIdUsuario());
-            statement.setString(2, multa.getNroConsecutivoPrestamo());
+            statement.setInt(2, multa.getNroConsecutivoPrestamo());
             statement.setTimestamp(3, multa.getFecha());
             statement.setInt(4, multa.getValor());
             statement.setString(5, multa.getDescripcion());
