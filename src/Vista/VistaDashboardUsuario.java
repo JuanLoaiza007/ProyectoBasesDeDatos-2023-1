@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package Vista;
 
 /**
@@ -49,6 +44,7 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
         btn_prestamo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        btn_multas = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,6 +138,14 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/library_64px.png"))); // NOI18N
         jLabel4.setOpaque(true);
 
+        btn_multas.setBackground(new java.awt.Color(255, 255, 255));
+        btn_multas.setForeground(new java.awt.Color(255, 255, 255));
+        btn_multas.setText("Multas");
+        btn_multas.setBorder(null);
+        btn_multas.setBorderPainted(false);
+        btn_multas.setContentAreaFilled(false);
+        btn_multas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout panel_lateralLayout = new javax.swing.GroupLayout(panel_lateral);
         panel_lateral.setLayout(panel_lateralLayout);
         panel_lateralLayout.setHorizontalGroup(
@@ -153,7 +157,8 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
                 .addGroup(panel_lateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_prestamo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_avanzado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_principal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_multas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panel_lateralLayout.setVerticalGroup(
@@ -161,11 +166,13 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
             .addGroup(panel_lateralLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(btn_principal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_prestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_avanzado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,12 +227,16 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
         btn_principal.addActionListener(listener);
     }
     
-    public void addActionAvanzado(ActionListener listener){
-        btn_avanzado.addActionListener(listener);
+    public void addActionPrestamo(ActionListener listener){
+        btn_prestamo.addActionListener(listener);
     }
     
-    public void addActionSolicitudes(ActionListener listener){
-        btn_prestamo.addActionListener(listener);
+    public void addActionMultas(ActionListener listener){
+        btn_multas.addActionListener(listener);
+    }
+    
+    public void addActionAvanzado(ActionListener listener){
+        btn_avanzado.addActionListener(listener);
     }
     
     public void addActionSalir(ActionListener listener){
@@ -275,6 +286,7 @@ public class VistaDashboardUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_avanzado;
+    private javax.swing.JButton btn_multas;
     private javax.swing.JButton btn_prestamo;
     private javax.swing.JButton btn_principal;
     private javax.swing.JButton btn_salir;

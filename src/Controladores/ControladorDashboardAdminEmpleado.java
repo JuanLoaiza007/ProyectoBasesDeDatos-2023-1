@@ -36,6 +36,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         // Añadir controladores
         vista.addActionAdministrar(oyenteAdministrar);
         vista.addActionSolicitudes(oyenteSolicitudes);
+        vista.addActionMultas(oyenteMultas);
         vista.addActionAvanzado(oyenteAvanzado);
         vista.addActionSalir(oyenteSalir);
         
@@ -55,6 +56,44 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
         
         ControladorLogin nuevoControlador = new ControladorLogin(nuevaVista);
     }    
+    
+    public void cambiarAPanelAdministrar() {
+        PanelAdministrar panel = new PanelAdministrar();
+        SubcontroladorAdministrar subcontrolador = new SubcontroladorAdministrar(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+
+    public void cambiarAPanelSolicitudes() {
+        PanelSolicitudes panel = new PanelSolicitudes();
+        SubcontroladorSolicitudes subcontrolador = new SubcontroladorSolicitudes(panel);
+
+        subcontrolador.setIdInterno(idInterno);
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelMultas(){
+        PanelMultas panel = new PanelMultas();
+        SubcontroladorMultas subcontrolador = new SubcontroladorMultas(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+
+    public void cambiarAPanelAvanzado() {
+        PanelAvanzado panel = new PanelAvanzado();
+        SubcontroladorAvanzado subcontrolador = new SubcontroladorAvanzado(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.setIdInterno(idInterno);
+        subcontrolador.comprobarAcceso();
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
     
     public void cambiarAPanelEditoriales(){
         PanelEditoriales panel = new PanelEditoriales();
@@ -170,38 +209,28 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
     ActionListener oyenteAdministrar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            PanelAdministrar panel = new PanelAdministrar();
-            SubcontroladorAdministrar subcontrolador = new SubcontroladorAdministrar(panel);
-            
-            subcontrolador.setListener(getComunicadorClases());
-            
-            vista.cambiarPanel(subcontrolador.getPanel());
+            cambiarAPanelAdministrar();
         }
     };
     
     ActionListener oyenteSolicitudes = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            PanelSolicitudes panel = new PanelSolicitudes();
-            SubcontroladorSolicitudes subcontrolador = new SubcontroladorSolicitudes(panel);
-            
-            subcontrolador.setIdInterno(idInterno);
-            
-            vista.cambiarPanel(subcontrolador.getPanel());
+            cambiarAPanelSolicitudes();
+        }
+    };
+    
+    ActionListener oyenteMultas = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cambiarAPanelMultas();
         }
     };
     
     ActionListener oyenteAvanzado = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            PanelAvanzado panel = new PanelAvanzado();
-            SubcontroladorAvanzado subcontrolador = new SubcontroladorAvanzado(panel);
-            
-            subcontrolador.setListener(getComunicadorClases());
-            subcontrolador.setIdInterno(idInterno);
-            subcontrolador.comprobarAcceso();
-            
-            vista.cambiarPanel(subcontrolador.getPanel());
+            cambiarAPanelAvanzado();
         }
     };
     
@@ -225,7 +254,7 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
                 vista.doClickAdministrar();
                 break;
             case "SolicitudMostrarPanelSolicitudes":
-                vista.doClickSoliciutdes();
+                vista.doClickSolicitudes();
                 break;
             case "SolicitudMostrarPanelAvanzado":
                 vista.doClickAvanzado();
@@ -254,7 +283,6 @@ public class ControladorDashboardAdminEmpleado implements ComunicadorClases{
             case "SolicitudMostrarPanelAreasConocimiento":
                 cambiarAPanelAreasConocimiento();
                 break;
-                
             case "SolicitudMostrarPanelUsuarios":
                 cambiarAPanelUsuarios();
                 break;

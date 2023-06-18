@@ -34,7 +34,8 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         
         // Añadir controladores
         vista.addActionPrincipal(oyentePrincipal);
-        vista.addActionSolicitudes(oyenteSolicitudes);
+        vista.addActionPrestamo(oyentePrestamo);
+        vista.addActionMultas(oyenteMultas);
         vista.addActionAvanzado(oyenteAvanzado);
         vista.addActionSalir(oyenteSalir);
         
@@ -54,6 +55,35 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
         
         ControladorLogin nuevoControlador = new ControladorLogin(nuevaVista);
     }    
+    
+    public void cambiarAPanelPrincipal(){
+        uPanelPrincipal panel = new uPanelPrincipal();
+        uSubcontroladorPrincipal subcontrolador = new uSubcontroladorPrincipal(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelMultas() {
+        uPanelMultas panel = new uPanelMultas();
+        uSubcontroladorMultas subcontrolador = new uSubcontroladorMultas(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+        subcontrolador.setIdInterno(idInterno);
+        subcontrolador.cargarRegistros();
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
+    
+    public void cambiarAPanelAvanzado() {
+        uPanelAvanzado panel = new uPanelAvanzado();
+        uSubcontroladorAvanzado subcontrolador = new uSubcontroladorAvanzado(panel);
+
+        subcontrolador.setListener(getComunicadorClases());
+
+        vista.cambiarPanel(subcontrolador.getPanel());
+    }
     
     public void cambiarAPanelLibros(){        
         uPanelLibros panel = new uPanelLibros();
@@ -112,32 +142,29 @@ public class ControladorDashboardUsuario implements ComunicadorClases{
     ActionListener oyentePrincipal = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            uPanelPrincipal panel = new uPanelPrincipal();
-            uSubcontroladorPrincipal subcontrolador = new uSubcontroladorPrincipal(panel);
-            
-            subcontrolador.setListener(getComunicadorClases());
-            
-            vista.cambiarPanel(subcontrolador.getPanel());
+            cambiarAPanelPrincipal();
         }
     };
     
-    ActionListener oyenteSolicitudes = new ActionListener(){
+    ActionListener oyentePrestamo = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            PanelSolicitudes panel = new PanelSolicitudes();
-            vista.cambiarPanel(panel);
+//            PanelPrestamo panel = new PanelPrestamo();
+//            vista.cambiarPanel(panel);
+        }
+    };
+    
+    ActionListener oyenteMultas = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cambiarAPanelMultas();
         }
     };
     
     ActionListener oyenteAvanzado = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            uPanelAvanzado panel = new uPanelAvanzado();
-            uSubcontroladorAvanzado subcontrolador = new uSubcontroladorAvanzado(panel);
-            
-            subcontrolador.setListener(getComunicadorClases());
-            
-            vista.cambiarPanel(subcontrolador.getPanel());
+            cambiarAPanelAvanzado();
         }
     };
     

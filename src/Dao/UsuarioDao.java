@@ -280,7 +280,6 @@ public class UsuarioDao {
         return false;
     }
     
-    
     public String obtenerIdUsuarioActual(Usuario usuario){
         String GET_ID = "SELECT id_usuario FROM usuario WHERE id_usuario = ?";
         

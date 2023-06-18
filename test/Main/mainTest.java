@@ -1,9 +1,9 @@
 package Main;
 
-import BasesDeDatos.BibliotecaManager;
-import Controladores.ControladorDashboardUsuario;
-import Modelos.GenerarMultasDao;
-import Vista.VistaDashboardUsuario;
+import BasesDeDatos.*;
+import Controladores.*;
+import Modelos.*;
+import Vista.*;
 
 /**
  * Bases de datos 750006C-01
@@ -23,8 +23,12 @@ import Vista.VistaDashboardUsuario;
         
 public class mainTest {
     public static void main(String[] args) {       
-        VistaDashboardUsuario nuevaVista = new VistaDashboardUsuario();
-        ControladorDashboardUsuario nuevoControlador = new ControladorDashboardUsuario(nuevaVista);
+        VistaDashboardAdminEmpleado nuevaVista = new VistaDashboardAdminEmpleado();
+        ControladorDashboardAdminEmpleado nuevoControlador = new ControladorDashboardAdminEmpleado(nuevaVista);
+        
+        nuevoControlador.setIdInterno("admin");
+        
+        nuevoControlador.cambiarAPanelMultas();
         
         GenerarMultasDao.generarMultas(BibliotecaManager.iniciarConexion());
     }
