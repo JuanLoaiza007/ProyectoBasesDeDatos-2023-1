@@ -528,6 +528,6 @@ VALUES
       ('10', 10, '2023-05-23 16:40:00', 40000, 'Retraso en devolución');
 	  
 INSERT INTO solicitud (nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha)
-VALUES (11, '1', null, '978-3161484100', 'El Gran Gatsby', 'Apruebame prro', '2023-05-15 14:30:00'),
-       (12, '1', null, '978-3161484100', 'El Gran Gatsby', 'Niegame parasito', '2023-05-15 14:31:00'),
-       (13, '1', null, '978-3161484100', 'El Gran Gatsby', 'Otra por si acaso', '2023-05-15 14:32:00');
+VALUES (11, '1', null, '978-3161484100', 'El Gran Gatsby', 'Apruebame', '2023-05-15 14:30:00'),
+       (12, '1', null, '978-3161484100', 'El Gran Gatsby', 'Niegame', '2023-05-15 14:31:00'),
+       (13, '1', null, '978-3161484100', 'El Gran Gatsby', 'Tu decides', '2023-05-15 14:32:00');
