@@ -15,13 +15,20 @@ package Modelos;
  * 
  */
 
+import BasesDeDatos.BibliotecaManager;
 import java.sql.*;
 
 public class GenerarMultasDao {
     
     private static Timestamp fechaActual = new Timestamp(System.currentTimeMillis());
-
+    
+    /**
+     * Genera multas para libros entregados tarde o no entregados con fecha expirada
+     * @param conexion La conexion a sql
+     */
     public static void generarMultas(Connection conexion) {
+        System.out.println("Actualizando multas");
+        
         String SELECT = ""
                 // Consulta para verificar prestamos retrasados que se devolvieron tarde
                 + "(SELECT * "
@@ -59,9 +66,8 @@ public class GenerarMultasDao {
                     insertarMulta(multa, conexion);
                 }
             }
-
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println("Error al actualizar multas: " + ex);
         } finally {
             cerrarStatement(statement);
             cerrarConexion(conexion);

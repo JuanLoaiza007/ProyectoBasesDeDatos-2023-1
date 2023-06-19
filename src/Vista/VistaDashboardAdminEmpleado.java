@@ -47,6 +47,7 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btn_prestamos = new javax.swing.JButton();
         btn_multas = new javax.swing.JButton();
+        btn_devoluciones = new javax.swing.JButton();
         panel_contenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -166,6 +167,14 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         btn_multas.setContentAreaFilled(false);
         btn_multas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        btn_devoluciones.setBackground(new java.awt.Color(255, 255, 255));
+        btn_devoluciones.setForeground(new java.awt.Color(255, 255, 255));
+        btn_devoluciones.setText("Devoluciones");
+        btn_devoluciones.setBorder(null);
+        btn_devoluciones.setBorderPainted(false);
+        btn_devoluciones.setContentAreaFilled(false);
+        btn_devoluciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout panel_lateralLayout = new javax.swing.GroupLayout(panel_lateral);
         panel_lateral.setLayout(panel_lateralLayout);
         panel_lateralLayout.setHorizontalGroup(
@@ -179,7 +188,8 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
                     .addComponent(btn_solicitudes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_administrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                     .addComponent(btn_avanzado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_multas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_multas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_devoluciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panel_lateralLayout.setVerticalGroup(
@@ -190,12 +200,14 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_prestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_devoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_solicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_multas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_avanzado, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,6 +251,10 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
         btn_prestamos.doClick();
     }
     
+    public void doClickDevoluciones(){
+        btn_devoluciones.doClick();
+    }
+    
     public void doClickMultas(){
         btn_multas.doClick();
     }
@@ -268,6 +284,10 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
     
     public void addActionPrestamos(ActionListener listener){
         btn_prestamos.addActionListener(listener);
+    }
+    
+    public void addActionDevoluciones(ActionListener listener){
+        btn_devoluciones.addActionListener(listener);
     }
     
     public void addActionSolicitudes(ActionListener listener){
@@ -335,6 +355,7 @@ public class VistaDashboardAdminEmpleado extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_administrar;
     private javax.swing.JButton btn_avanzado;
+    private javax.swing.JButton btn_devoluciones;
     private javax.swing.JButton btn_multas;
     private javax.swing.JButton btn_prestamos;
     private javax.swing.JButton btn_salir;

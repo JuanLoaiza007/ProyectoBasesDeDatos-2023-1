@@ -149,7 +149,7 @@ public class uPanelPrestamos extends javax.swing.JPanel {
         }
     }  
         
-    public void nuevaFilaTabla(String nroConsecutivoPrestamo, String idUsuario, String idEmpleado, Timestamp fechaRealizacion) {
+    public void nuevaFilaTabla(int nroConsecutivoPrestamo, String idUsuario, String idEmpleado, Timestamp fechaRealizacion) {
         modeloTabla.addRow(new Object[]{
             nroConsecutivoPrestamo, idUsuario, idEmpleado, fechaRealizacion
         });

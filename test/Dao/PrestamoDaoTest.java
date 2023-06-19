@@ -36,7 +36,7 @@ public class PrestamoDaoTest {
         java.sql.Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         PrestamoDao daoInsertar = new PrestamoDao(conexionInsertar);
 
-        Prestamo prestamoInsertar = new Prestamo("11", "1", "1", fechaActual);
+        Prestamo prestamoInsertar = new Prestamo(11, "1", "1", fechaActual);
         daoInsertar.insertar(prestamoInsertar);
         System.out.println("Prestamo insertado correctamente.");
     }
@@ -45,7 +45,7 @@ public class PrestamoDaoTest {
         java.sql.Connection conexionModificar = BibliotecaManager.iniciarConexion();
         PrestamoDao daoModificar = new PrestamoDao(conexionModificar);
 
-        Prestamo prestamoModificar = new Prestamo("11", "1", "1", fechaActual);
+        Prestamo prestamoModificar = new Prestamo(11, "1", "1", fechaActual);
         daoModificar.modificar(prestamoModificar);
         System.out.println("Prestamo modificado correctamente.");
     }
@@ -70,7 +70,7 @@ public class PrestamoDaoTest {
         java.sql.Connection conexionEliminar = BibliotecaManager.iniciarConexion();
         PrestamoDao daoEliminar = new PrestamoDao(conexionEliminar);
 
-        Prestamo prestamoEliminar = new Prestamo("11", "", "", null);
+        Prestamo prestamoEliminar = new Prestamo(11, "", "", null);
         daoEliminar.eliminar(prestamoEliminar);
         System.out.println("Prestamo eliminado correctamente.");
     }

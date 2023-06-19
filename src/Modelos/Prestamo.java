@@ -19,12 +19,12 @@ import java.sql.Timestamp;
 
 public class Prestamo {
     
-    private String nroConsecutivoPrestamo;
+    private int nroConsecutivoPrestamo;
     private String idUsuario;
     private String idEmpleado;
     private Timestamp fechaRealizacion;
     
-    public Prestamo(String nroConsecutivoPrestamo, String idUsuario, String idEmpleado, Timestamp fechaRealizacion) {
+    public Prestamo(int nroConsecutivoPrestamo, String idUsuario, String idEmpleado, Timestamp fechaRealizacion) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
         this.idUsuario = idUsuario;
         this.idEmpleado = idEmpleado;
@@ -33,11 +33,11 @@ public class Prestamo {
     
     // getters y setters
     
-    public String getNroConsecutivoPrestamo() {
+    public int getNroConsecutivoPrestamo() {
         return nroConsecutivoPrestamo;
     }
     
-    public void setNroConsecutivoPrestamo(String nroConsecutivoPrestamo) {
+    public void setNroConsecutivoPrestamo(int nroConsecutivoPrestamo) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
     }
     

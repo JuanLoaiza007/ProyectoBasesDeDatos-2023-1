@@ -18,8 +18,11 @@ package Dao;
 import BasesDeDatos.BibliotecaManager;
 import Modelos.DevuelveUsuarioEjemplar;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DevuelveUsuarioEjemplarDaoTest {
     
@@ -33,27 +36,35 @@ public class DevuelveUsuarioEjemplarDaoTest {
         Connection conexionInsertar = BibliotecaManager.iniciarConexion();
         DevuelveUsuarioEjemplarDao daoInsertar = new DevuelveUsuarioEjemplarDao(conexionInsertar);
 
-        DevuelveUsuarioEjemplar devolucionInsertar = new DevuelveUsuarioEjemplar("11", "1", "978-0307476463", "1", new Timestamp(System.currentTimeMillis()));
-        daoInsertar.insertar(devolucionInsertar);
+        DevuelveUsuarioEjemplar devolucionInsertar = new DevuelveUsuarioEjemplar(11, "1", "978-0307476463", "1", new Timestamp(System.currentTimeMillis()));
+        try {
+            daoInsertar.insertar(devolucionInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(DevuelveUsuarioEjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Devolución insertada correctamente.");
     }
     
     public static void pruebaObtener() {
-        Connection conexionObtener = BibliotecaManager.iniciarConexion();
-        DevuelveUsuarioEjemplarDao daoObtener = new DevuelveUsuarioEjemplarDao(conexionObtener);
-
-        List<DevuelveUsuarioEjemplar> devoluciones = daoObtener.obtener("1");
-        if (!devoluciones.isEmpty()) {
-            System.out.println("Devoluciones encontradas:");
-            for (DevuelveUsuarioEjemplar devolucion : devoluciones) {
-                System.out.println("ID Usuario: " + devolucion.getIdUsuario());
-                System.out.println("ISBN: " + devolucion.getIsbn());
-                System.out.println("Nro Ejemplar: " + devolucion.getNroEjemplar());
-                System.out.println("Fecha: " + devolucion.getFecha());
-                System.out.println();
+        try {
+            Connection conexionObtener = BibliotecaManager.iniciarConexion();
+            DevuelveUsuarioEjemplarDao daoObtener = new DevuelveUsuarioEjemplarDao(conexionObtener);
+            
+            List<DevuelveUsuarioEjemplar> devoluciones = daoObtener.obtener("1");
+            if (!devoluciones.isEmpty()) {
+                System.out.println("Devoluciones encontradas:");
+                for (DevuelveUsuarioEjemplar devolucion : devoluciones) {
+                    System.out.println("ID Usuario: " + devolucion.getIdUsuario());
+                    System.out.println("ISBN: " + devolucion.getIsbn());
+                    System.out.println("Nro Ejemplar: " + devolucion.getNroEjemplar());
+                    System.out.println("Fecha: " + devolucion.getFecha());
+                    System.out.println();
+                }
+            } else {
+                System.out.println("No se encontraron devoluciones para ese ID de usuario.");
             }
-        } else {
-            System.out.println("No se encontraron devoluciones para ese ID de usuario.");
+        } catch (SQLException ex) {
+            Logger.getLogger(DevuelveUsuarioEjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -61,15 +72,22 @@ public class DevuelveUsuarioEjemplarDaoTest {
         Connection conexionObtenerTodos = BibliotecaManager.iniciarConexion();
         DevuelveUsuarioEjemplarDao daoObtenerTodos = new DevuelveUsuarioEjemplarDao(conexionObtenerTodos);
 
-        List<DevuelveUsuarioEjemplar> devoluciones = daoObtenerTodos.obtenerTodos();
-        System.out.println("Lista de devoluciones:");
-        for (DevuelveUsuarioEjemplar devolucion : devoluciones) {
+        List<DevuelveUsuarioEjemplar> devoluciones;
+        try {
+            devoluciones = daoObtenerTodos.obtenerTodos();
+            
+            for (DevuelveUsuarioEjemplar devolucion : devoluciones) {
             System.out.println("ID Usuario: " + devolucion.getIdUsuario());
             System.out.println("ISBN: " + devolucion.getIsbn());
             System.out.println("Nro Ejemplar: " + devolucion.getNroEjemplar());
             System.out.println("Fecha: " + devolucion.getFecha());
             System.out.println();
         }
+        } catch (SQLException ex) {
+            Logger.getLogger(DevuelveUsuarioEjemplarDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Lista de devoluciones:");
+        
     }
 }
 

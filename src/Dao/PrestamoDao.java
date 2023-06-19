@@ -32,7 +32,7 @@ public class PrestamoDao{
     private Prestamo convertir(ResultSet result) throws SQLException{
         Prestamo prestamo = null;
         
-        String nroConsecutivoPrestamo = result.getString("nro_consecutivo_prestamo");
+        int nroConsecutivoPrestamo = result.getInt("nro_consecutivo_prestamo");
         String idUsuario = result.getString("id_usuario");
         String idEmpleado = result.getString("id_empleado");
         Timestamp fechaRealizacion = result.getTimestamp("fecha_realizacion");      
@@ -78,7 +78,7 @@ public class PrestamoDao{
 
         try {
             statement = conexion.prepareStatement(INSERT);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setInt(1, e.getNroConsecutivoPrestamo());
             statement.setString(2, e.getIdUsuario());
             statement.setString(3, e.getIdEmpleado());
             statement.setTimestamp(4, e.getFechaRealizacion());
@@ -105,7 +105,7 @@ public class PrestamoDao{
             statement.setString(1, e.getIdUsuario());
             statement.setString(2, e.getIdEmpleado());
             statement.setTimestamp(3, e.getFechaRealizacion());
-            statement.setString(4, e.getNroConsecutivoPrestamo());
+            statement.setInt(4, e.getNroConsecutivoPrestamo());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya modificado el registro");
@@ -126,7 +126,7 @@ public class PrestamoDao{
 
         try {
             statement = conexion.prepareStatement(DELETE);
-            statement.setString(1, e.getNroConsecutivoPrestamo());
+            statement.setInt(1, e.getNroConsecutivoPrestamo());
 
             if (statement.executeUpdate() == 0) {
                 System.out.println("Es posible que no se haya eliminado el registro");

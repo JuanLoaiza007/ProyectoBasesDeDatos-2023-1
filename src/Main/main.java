@@ -20,8 +20,6 @@ import Vista.VistaIngresarRegistrarse;
         
 public class main {
     public static void main(String[] args) {       
-        // Rutina para actualizar multas
-        System.out.println("Actualizando multas");
         Modelos.GenerarMultasDao.generarMultas(BasesDeDatos.BibliotecaManager.iniciarConexion());
         
         VistaIngresarRegistrarse vista = new VistaIngresarRegistrarse();

@@ -50,7 +50,7 @@ public final class uSubcontroladorPrestamos {
      * @param e El objeto que transformará 
      */
     public void cargarObjetoEnTabla(Prestamo e){
-        String nroConsecutivoPrestamo = e.getNroConsecutivoPrestamo();
+        int nroConsecutivoPrestamo = e.getNroConsecutivoPrestamo();
         String idUsuario = e.getIdUsuario();
         String idEmpleado = e.getIdEmpleado();
         Timestamp fechaRealizacion = e.getFechaRealizacion();

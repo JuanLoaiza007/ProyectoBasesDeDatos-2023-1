@@ -19,13 +19,13 @@ import java.sql.Timestamp;
 
 public class DevuelveUsuarioEjemplar {
     
-    private String nroConsecutivoPrestamo;
+    private int nroConsecutivoPrestamo;
     private String idUsuario;
     private String isbn;
     private String nroEjemplar;
     private Timestamp fecha;
 
-    public DevuelveUsuarioEjemplar(String nroConsecutivoPrestamo, String idUsuario, String isbn, String nroEjemplar, Timestamp fecha) {
+    public DevuelveUsuarioEjemplar(int nroConsecutivoPrestamo, String idUsuario, String isbn, String nroEjemplar, Timestamp fecha) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
         this.idUsuario = idUsuario;
         this.isbn = isbn;
@@ -33,11 +33,11 @@ public class DevuelveUsuarioEjemplar {
         this.fecha = fecha;
     }
 
-    public String getNroConsecutivoPrestamo() {
+    public int getNroConsecutivoPrestamo() {
         return nroConsecutivoPrestamo;
     }
 
-    public void setNroConsecutivoPrestamo(String nroConsecutivoPrestamo) {
+    public void setNroConsecutivoPrestamo(int nroConsecutivoPrestamo) {
         this.nroConsecutivoPrestamo = nroConsecutivoPrestamo;
     }
 
