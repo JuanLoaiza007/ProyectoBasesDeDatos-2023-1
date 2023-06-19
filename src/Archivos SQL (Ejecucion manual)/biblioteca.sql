@@ -2,10 +2,13 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.15
--- Fecha de última modificacion: 2023-06-19 10:09
+-- Version: 1.0.16
+-- Fecha de última modificacion: 2023-06-19 11:36
 
 -- Registro de cambios
+-- Actualizacion en contraints de devuelve_usuario_ejemplar, las devoluciones se adhieren a prestamos que existen (v.1.0.16)
+-- Actualizacion de PK prestamo_ejemplar, no se puede pedir el mismo ejemplar dos veces en el mismo prestamo (v.1.0.16)
+-- Actualizacion de PK de prestamo para conocer el usuario que lo hizo (v.1.0.16)
 -- Actualizacion de PK de devuelve_usuario_ejemplar, ahora no se puede devolver 2 veces el mismo libro en el mismo prestamo (v.1.0.15)
 -- Los atributos nro_consecutivo_solicitud y nro_consecutivo_prestamo son convertidos de VARCHAR a INTEGER (v.1.0.14)
 -- Clausula NOT NULL de id_empleado eliminada en tabla solicitud (v.1.0.13)
@@ -189,7 +192,7 @@ ALTER TABLE descarga_usuario_libro
 ------------------------------------------------
 DROP TABLE IF EXISTS prestamo CASCADE;
 CREATE TABLE prestamo (
-  nro_consecutivo_prestamo INTEGER NOT NULL PRIMARY KEY,
+  nro_consecutivo_prestamo INTEGER NOT NULL UNIQUE,
   id_usuario VARCHAR (15) NOT NULL,
   id_empleado VARCHAR (15) NOT NULL,
   fecha_realizacion TIMESTAMP
@@ -200,6 +203,9 @@ ALTER TABLE prestamo
 
 ALTER TABLE prestamo
   ADD CONSTRAINT empleado_fk FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado);
+
+ALTER TABLE prestamo
+  ADD CONSTRAINT prestamo_pk PRIMARY KEY (nro_consecutivo_prestamo, id_usuario);
 ------------------------------------------------
 DROP TABLE IF EXISTS prestamo_ejemplar CASCADE;
 CREATE TABLE prestamo_ejemplar (
@@ -216,7 +222,7 @@ ALTER TABLE prestamo_ejemplar
   ADD CONSTRAINT ejemplar_fk FOREIGN KEY (isbn, nro_ejemplar) REFERENCES ejemplar(isbn, nro_ejemplar);
 
 ALTER TABLE prestamo_ejemplar
-  ADD CONSTRAINT prestamo_ejemplar_pk PRIMARY KEY (nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion);
+  ADD CONSTRAINT prestamo_ejemplar_pk PRIMARY KEY (nro_consecutivo_prestamo, isbn, nro_ejemplar);
 ------------------------------------------------
 DROP TABLE IF EXISTS devuelve_usuario_ejemplar CASCADE;
 CREATE TABLE devuelve_usuario_ejemplar (
@@ -228,12 +234,10 @@ CREATE TABLE devuelve_usuario_ejemplar (
 );
 
 ALTER TABLE devuelve_usuario_ejemplar
-  ADD CONSTRAINT prestamo_fk FOREIGN KEY (nro_consecutivo_prestamo) REFERENCES prestamo(nro_consecutivo_prestamo);
-ALTER TABLE devuelve_usuario_ejemplar
-  ADD CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario);
+  ADD CONSTRAINT usuario_fk FOREIGN KEY (nro_consecutivo_prestamo, id_usuario) REFERENCES prestamo(nro_consecutivo_prestamo, id_usuario);
 
 ALTER TABLE devuelve_usuario_ejemplar
-  ADD CONSTRAINT ejemplar_fk FOREIGN KEY (isbn, nro_ejemplar) REFERENCES ejemplar(isbn, nro_ejemplar);
+  ADD CONSTRAINT prestamo_ejemplar_fk FOREIGN KEY (nro_consecutivo_prestamo, isbn, nro_ejemplar) REFERENCES prestamo_ejemplar(nro_consecutivo_prestamo, isbn, nro_ejemplar);
 
 ALTER TABLE devuelve_usuario_ejemplar
   ADD CONSTRAINT devuelve_usuario_ejemplar_pk PRIMARY KEY (nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar);
