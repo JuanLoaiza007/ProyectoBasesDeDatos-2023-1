@@ -49,6 +49,7 @@ public class uSubcontroladorLibros {
         panel.addListenerSolicitar(oyenteSolicitar);
         panel.addListenerCancelar(oyenteCancelar);
         panel.addListenerEnviar(oyenteEnviar);
+        panel.addListenerBuscar(oyenteBuscar);        
         
         cargarRegistros();        
         panel.modoPasivo();
@@ -180,16 +181,14 @@ public class uSubcontroladorLibros {
     
     public String idUsuarioActual(){
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-
         UsuarioDao dao = new UsuarioDao(conexion);
         idUsuarioActual = dao.obtenerIdUsuarioActual(usuarioActual);
-
         if (idUsuarioActual == null) { // Si no se encontró una ubicacion entonces recargar la tabla
             AvisosEmergentes.mostrarMensaje("Error interno, el usuario no se ha cargado correctamente");
             return null;
         } else {
-            return idUsuarioActual;
-        }
+            return idUsuarioActual;        
+        }   
     } 
      
     
@@ -217,6 +216,13 @@ public class uSubcontroladorLibros {
             panel.reiniciarBoxes();
         }
     };
+    
+    ActionListener oyenteBuscar = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            buscar();
+        }
+    };    
     
     ActionListener oyenteEnviar = new ActionListener(){
         @Override

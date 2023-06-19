@@ -15,6 +15,10 @@ package Controladores;
  * 
  */
 
+import BasesDeDatos.BibliotecaManager;
+import Dao.UsuarioDao;
+import Modelos.Usuario;
+import Paneles.AvisosEmergentes;
 import Paneles.uPanelPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +27,9 @@ public class uSubcontroladorPrincipal {
    
     protected uPanelPrincipal panel = new uPanelPrincipal();
     protected ComunicadorClases decirAInstanciaSuperior;
+        protected String idUsuarioActual;
+        protected String idInterno;   
+        protected Usuario usuarioActual = null;        
     
     /**
      * Constructor de la clase
@@ -58,6 +65,23 @@ public class uSubcontroladorPrincipal {
             decirAInstanciaSuperior.mensaje("SolicitudMostraruPanelLibrosDigitales");
         }
     };
+    
+    public String idUsuarioActual(){
+        try{
+            java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+
+            UsuarioDao dao = new UsuarioDao(conexion);
+            idUsuarioActual = dao.obtenerIdUsuarioActual(usuarioActual);
+            
+            System.out.println(idUsuarioActual);
+            
+            return idUsuarioActual;
+                
+        } catch (NullPointerException ex){
+            AvisosEmergentes.mostrarMensaje("Error interno, el usuario no se ha cargado correctamente");        
+        }
+        return null;     
+    }    
     
     
     // ------------------ SETTERS Y GETTERS  ------------------

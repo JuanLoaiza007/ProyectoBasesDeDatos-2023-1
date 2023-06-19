@@ -196,4 +196,31 @@ public class EjemplarDao{
 
         return ejemplares;
     }
+    
+    public Ejemplar obtenerEjemplar(String isbn, String nro_ejemplar) {
+        String GETALL = "SELECT isbn, nro_ejemplar, sala, nro_pasillo, estante, nro_cajon FROM ejemplar WHERE isbn = ? AND nro_ejemplar = ?";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+
+            statement = conexion.prepareStatement(GETALL);
+            statement.setString(1, isbn);
+            statement.setString(2, nro_ejemplar);
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                return convertir(result);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return null;
+    }    
 }

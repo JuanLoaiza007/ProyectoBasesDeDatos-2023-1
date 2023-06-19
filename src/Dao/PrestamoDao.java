@@ -70,7 +70,7 @@ public class PrestamoDao{
         }
     }
     
-    public void insertar(Prestamo e) {
+    public void insertar(Prestamo e) throws SQLException {
         String INSERT = "INSERT INTO prestamo (nro_consecutivo_prestamo, id_usuario, id_empleado, fecha_realizacion) VALUES (?, ?, ?, ?)";
 
         PreparedStatement statement = null;
@@ -95,7 +95,7 @@ public class PrestamoDao{
         }
     }
     
-    public void modificar(Prestamo e) {
+    public void modificar(Prestamo e) throws SQLException {
         String UPDATE = "UPDATE prestamo SET id_usuario = ?, id_empleado = ?, fecha_realizacion = ? WHERE nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
@@ -119,7 +119,7 @@ public class PrestamoDao{
         }
     }
 
-    public void eliminar(Prestamo e) {
+    public void eliminar(Prestamo e) throws SQLException {
         String DELETE = "DELETE FROM prestamo WHERE nro_consecutivo_prestamo = ?";
 
         PreparedStatement statement = null;
@@ -224,4 +224,27 @@ public class PrestamoDao{
         return prestamos;
     }
     
+    
+    public int obtenerUltimoNroConsecutivo() {
+        String GET_MAX_NRO_CONSECUTIVO = "SELECT MAX(nro_consecutivo_prestamo) FROM prestamo";
+
+        PreparedStatement statement = null;
+        ResultSet result = null;
+
+        try {
+            statement = conexion.prepareStatement(GET_MAX_NRO_CONSECUTIVO);
+            result = statement.executeQuery();
+
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            cerrarConexion(conexion);
+            cerrarStatement(statement);
+        }
+
+        return 0;
+    }    
 }

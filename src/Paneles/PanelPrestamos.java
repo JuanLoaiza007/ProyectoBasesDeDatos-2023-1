@@ -1,11 +1,15 @@
 package Paneles;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.YearMonth;
 
 /**
  * Bases de datos 750006C-01
@@ -29,6 +33,9 @@ public class PanelPrestamos extends javax.swing.JPanel {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
+        
+        inicializarAnio();
+        reiniciarBoxes();        
     }
 
     /** This method is called from within the constructor to
@@ -43,7 +50,6 @@ public class PanelPrestamos extends javax.swing.JPanel {
         panel_cabecera = new javax.swing.JPanel();
         panel_titulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btn_volver = new javax.swing.JButton();
         panel_botones = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
@@ -62,18 +68,19 @@ public class PanelPrestamos extends javax.swing.JPanel {
         lbl_cancelar = new javax.swing.JLabel();
         btn_cancelar = new javax.swing.JButton();
         lbl_guardar = new javax.swing.JLabel();
-        lbl_isbn = new javax.swing.JLabel();
+        lbl_idUsuario = new javax.swing.JLabel();
+        txtf_idUsuario = new javax.swing.JTextField();
+        txtf_nroEjemplar = new javax.swing.JTextField();
+        lbl_nroEjemplar = new javax.swing.JLabel();
         txtf_isbn = new javax.swing.JTextField();
-        lbl_titulo = new javax.swing.JLabel();
-        txtf_titulo = new javax.swing.JTextField();
-        lbl_anioPublicacion = new javax.swing.JLabel();
-        txtf_anioPublicacion = new javax.swing.JTextField();
-        txtf_nroPaginas = new javax.swing.JTextField();
-        lbl_nroPaginas = new javax.swing.JLabel();
-        txtf_codigoEditorial = new javax.swing.JTextField();
-        lbl_codigoEditorial = new javax.swing.JLabel();
-        txtf_codigoArea = new javax.swing.JTextField();
-        lbl_codigoArea = new javax.swing.JLabel();
+        lbl_isbn = new javax.swing.JLabel();
+        lbl_fechaRealizacion = new javax.swing.JLabel();
+        lbl_dia = new javax.swing.JLabel();
+        box_dia = new javax.swing.JComboBox<>();
+        box_mes = new javax.swing.JComboBox<>();
+        lbl_mes = new javax.swing.JLabel();
+        lbl_anio = new javax.swing.JLabel();
+        box_anio = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -97,33 +104,20 @@ public class PanelPrestamos extends javax.swing.JPanel {
         jLabel1.setMinimumSize(new java.awt.Dimension(130, 20));
         jLabel1.setPreferredSize(new java.awt.Dimension(130, 20));
 
-        btn_volver.setBackground(new java.awt.Color(0, 102, 102));
-        btn_volver.setForeground(new java.awt.Color(255, 255, 255));
-        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/angle-left_16px.png"))); // NOI18N
-
         javax.swing.GroupLayout panel_tituloLayout = new javax.swing.GroupLayout(panel_titulo);
         panel_titulo.setLayout(panel_tituloLayout);
         panel_tituloLayout.setHorizontalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_volver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGap(127, 127, 127))
         );
         panel_tituloLayout.setVerticalGroup(
             panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_tituloLayout.createSequentialGroup()
-                .addGroup(panel_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_tituloLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_tituloLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(btn_volver, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGroup(panel_tituloLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panel_cabecera.add(panel_titulo, java.awt.BorderLayout.PAGE_START);
@@ -303,31 +297,38 @@ public class PanelPrestamos extends javax.swing.JPanel {
         lbl_guardar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_guardar.setText("Guardar");
 
+        lbl_idUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_idUsuario.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_idUsuario.setText("Id usuario:");
+
+        txtf_idUsuario.setEnabled(false);
+
+        lbl_nroEjemplar.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_nroEjemplar.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_nroEjemplar.setText("Nro ejemplar:");
+
         lbl_isbn.setBackground(new java.awt.Color(0, 0, 0));
         lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_isbn.setText("ISBN:");
 
-        txtf_isbn.setEnabled(false);
+        lbl_fechaRealizacion.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_fechaRealizacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_fechaRealizacion.setText("Fecha de realización:");
 
-        lbl_titulo.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_titulo.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_titulo.setText("Titulo:");
+        lbl_dia.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_dia.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_dia.setText("Dia");
 
-        lbl_anioPublicacion.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_anioPublicacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_anioPublicacion.setText("Año publicación:");
+        lbl_mes.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_mes.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_mes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_mes.setText("Mes");
 
-        lbl_nroPaginas.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_nroPaginas.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_nroPaginas.setText("Número de páginas");
-
-        lbl_codigoEditorial.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_codigoEditorial.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_codigoEditorial.setText("Codigo Editorial:");
-
-        lbl_codigoArea.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_codigoArea.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_codigoArea.setText("Codigo Area:");
+        lbl_anio.setBackground(new java.awt.Color(0, 0, 0));
+        lbl_anio.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
+        lbl_anio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_anio.setText("Año");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -336,14 +337,8 @@ public class PanelPrestamos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addComponent(lbl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_titulo)
-                    .addComponent(lbl_anioPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_anioPublicacion)
-                    .addComponent(lbl_nroPaginas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_nroPaginas)
+                    .addComponent(lbl_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,39 +355,52 @@ public class PanelPrestamos extends javax.swing.JPanel {
                                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
-                    .addComponent(lbl_codigoEditorial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_codigoEditorial)
-                    .addComponent(lbl_codigoArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_codigoArea))
+                    .addComponent(lbl_nroEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_nroEjemplar)
+                    .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtf_isbn)
+                    .addComponent(lbl_fechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_dia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(box_dia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(box_mes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_mes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(box_anio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_anio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(lbl_idUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtf_idUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_isbn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_codigoArea)
+                .addComponent(lbl_nroEjemplar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_codigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtf_nroEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_codigoEditorial)
+                .addComponent(lbl_fechaRealizacion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_codigoEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_titulo)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_dia)
+                    .addComponent(lbl_mes)
+                    .addComponent(lbl_anio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_anioPublicacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_anioPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_nroPaginas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtf_nroPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(box_dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_mes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(box_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(119, 119, 119)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -466,6 +474,89 @@ public class PanelPrestamos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    // ------------------ AJUSTAR FECHA ------------------
+    /**
+     * Se encarga de llenar el box_anio con los años disponibles para elegir
+     */
+    public void inicializarAnio(){
+        int anioActual = LocalDate.now().getYear();
+        for (int i = anioActual; i >= 1900; i--) { // Empezando por el año actual y retrocediendo hasta 1900
+            box_anio.addItem(i);
+        }
+    }
+    
+    /**
+     * Se encarga de llenar los meses y los dias segun el año (permite hasta el mes del año actual)
+     * @see llenarDias() Invoca esta funcion para cargar los dias del mes actual
+     */
+    private void llenarMesesYDias() {
+        // Obtener el año y mes seleccionados
+        int anioSeleccionado = (int) box_anio.getSelectedItem();
+        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
+        
+        int anioActual = LocalDate.now().getYear();
+        
+        // Limpiar el JComboBox de meses
+        box_mes.removeAllItems();
+        
+        // Llenar el JComboBox de meses
+        int mesesMax;
+        
+        if (anioSeleccionado == anioActual)
+            mesesMax = LocalDate.now().getMonthValue(); // Si es el año actual solo se puede hasta este mes
+        else
+            mesesMax = 12; // Si es un año anterior al actual entonces se puede cualquier mes
+        
+        for (int i = 1; i <= mesesMax; i++) { 
+            box_mes.addItem(i);
+        }
+        
+        // Llenar el JComboBox de días
+        llenarDias();
+        
+        // Seleccionar el mes previamente seleccionado si aún está disponible
+        if (mesSeleccionado <= mesesMax) {
+            box_mes.setSelectedIndex(mesSeleccionado - 1);
+        } else {
+            box_mes.setSelectedIndex(mesesMax - 1);
+        }
+    }
+    
+    /**
+     * Se encarga de llenar los dias dependiendo del mes y año seleccionados
+     */
+    private void llenarDias() {
+        // Obtener el año y mes seleccionados
+        int anioSeleccionado = (int) box_anio.getSelectedItem();
+        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
+        
+        int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        
+        // Si el mes seleccionado no es valido lo asigna a 1 (enero)
+        if(mesSeleccionado < 1 || mesSeleccionado > 12)
+            mesSeleccionado = 1;
+        
+        // Obtenemos la representacion de unicamente el mes y el año
+        YearMonth yearMonth = YearMonth.of(anioSeleccionado, mesSeleccionado);
+        
+        // Obtener el número máximo de días para el año y mes seleccionados
+        int diasMax;
+        
+        if(mesSeleccionado == mesActual && anioSeleccionado == anioActual)
+            diasMax = LocalDate.now().getDayOfMonth(); // Si el mes es el actual entonces se puede el dia actual
+        else 
+            diasMax = yearMonth.lengthOfMonth(); // Si el mes es antes del actual entonces se pueden todos los dias
+        
+        box_dia.removeAllItems(); // Se limpia el JComboBox
+        
+        // Llenar el JComboBox de días
+        for (int i = 1; i <= diasMax; i++) {
+            box_dia.addItem(i);
+        }
+    }
+        
+    
      // ------------------ CONFIGURACION DE LA TABLA ------------------
     /**
      * Creacion de un modelo de tabla NO editable
@@ -482,7 +573,7 @@ public class PanelPrestamos extends javax.swing.JPanel {
      */
     public void configurarTabla() {
         
-        String[] titulosTabla = new String[]{"ISBN", "Cod. Area", "Cod. Editorial", "Titulo", "Año", "Páginas" };
+        String[] titulosTabla = new String[]{"Nro. consecutivo", "ID Usuario", "ID Empleado", "Fecha realizacion"};
         modeloTabla.setColumnIdentifiers(titulosTabla);        
  
         // CENTRAR CONTENIDO DE COLUMNAS
@@ -493,9 +584,10 @@ public class PanelPrestamos extends javax.swing.JPanel {
         }
     }
     
-    public void nuevaFilaTabla(String isbn, String codigoArea, String codigoEditorial, String titulo, String anio, String paginas) {
+    public void nuevaFilaTabla(String nro_consecutivo_prestamo, String idUsuario, 
+            String idEmpleado, Timestamp fechaDevolucion) {
         modeloTabla.addRow(new Object[]{
-            isbn, codigoArea, codigoEditorial, titulo, anio, paginas
+            nro_consecutivo_prestamo, idUsuario, idEmpleado, fechaDevolucion
         });
     }
     
@@ -509,19 +601,39 @@ public class PanelPrestamos extends javax.swing.JPanel {
     }
     
     public void limpiarCampos(){
+        txtf_idUsuario.setText("");
         txtf_isbn.setText("");
-        txtf_codigoArea.setText("");
-        txtf_codigoEditorial.setText("");
-        txtf_nroPaginas.setText("");
-        txtf_anioPublicacion.setText("");
-        txtf_titulo.setText("");
+        txtf_nroEjemplar.setText("");
     }
     
+    
+    /**
+     * Se encarga de reestablecer a una fecha predeterminada
+     */
+    public void reiniciarBoxes(){              
+        //Seleccionar el primer mes
+        box_anio.setSelectedIndex(0);
+        llenarMesesYDias();
+        box_mes.setSelectedIndex(0);
+        llenarDias();
+        box_dia.setSelectedIndex(0);
+        
+    }    
     
     // ------------------ LISTENERS ------------------
-    public void addListenerVolver(ActionListener listener){
-        btn_volver.addActionListener(listener);
-    }
+    
+    ActionListener oyenteAnio = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            llenarMesesYDias();
+        }
+    };
+
+    ActionListener oyenteMes = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            llenarDias();
+        }
+    };    
     
     public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
@@ -567,24 +679,17 @@ public class PanelPrestamos extends javax.swing.JPanel {
         btn_cancelar.setEnabled(true);
         lbl_cancelar.setForeground(new java.awt.Color(0, 102, 102));
         
+        txtf_idUsuario.setEnabled(true);
+        lbl_idUsuario.setForeground(new java.awt.Color(0, 0, 0));
         txtf_isbn.setEnabled(true);
         lbl_isbn.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_codigoArea.setEnabled(true);
-        lbl_codigoArea.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_codigoEditorial.setEnabled(true);
-        lbl_codigoEditorial.setForeground(new java.awt.Color(0, 0, 0));           
-        txtf_titulo.setEnabled(true);
-        lbl_titulo.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_anioPublicacion.setEnabled(true);
-        lbl_anioPublicacion.setForeground(new java.awt.Color(0, 0, 0));
-        txtf_nroPaginas.setEnabled(true);
-        lbl_nroPaginas.setForeground(new java.awt.Color(0, 0, 0));
-        
+        txtf_nroEjemplar.setEnabled(true);
+        lbl_nroEjemplar.setForeground(new java.awt.Color(0, 0, 0));           
     }
     
     public void modoEditar(){
         modoInsertar();
-        txtf_isbn.setEnabled(false);
+        txtf_idUsuario.setEnabled(false);
     }
     
     public void modoRegistroTablaSeleccionado(){
@@ -610,28 +715,45 @@ public class PanelPrestamos extends javax.swing.JPanel {
         btn_cancelar.setEnabled(false);
         lbl_cancelar.setForeground(new java.awt.Color(102, 102, 102));
         
+        txtf_idUsuario.setEnabled(false);
+        lbl_idUsuario.setForeground(new java.awt.Color(102, 102, 102));
         txtf_isbn.setEnabled(false);
         lbl_isbn.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_codigoArea.setEnabled(false);
-        lbl_codigoArea.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_codigoEditorial.setEnabled(false);
-        lbl_codigoEditorial.setForeground(new java.awt.Color(102, 102, 102));        
-        txtf_titulo.setEnabled(false);
-        lbl_titulo.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_anioPublicacion.setEnabled(false);
-        lbl_anioPublicacion.setForeground(new java.awt.Color(102, 102, 102));
-        txtf_nroPaginas.setEnabled(false);
-        lbl_nroPaginas.setForeground(new java.awt.Color(102, 102, 102));
+        txtf_nroEjemplar.setEnabled(false);
+        lbl_nroEjemplar.setForeground(new java.awt.Color(102, 102, 102));
     }
     
     
     // ------------------ METODOS ------------------
     public boolean idEsManual(){
-        return txtf_isbn.isEnabled();
+        return txtf_idUsuario.isEnabled();
     }
     
     
     // ------------------ SETTERS Y GETTERS  ------------------
+    /**
+     * Prepara la fecha usando los JComboBox de dia, mes y anio.
+     * @return La fecha escogida de tipo java.sql.Timestamp
+     */
+    public java.sql.Timestamp getFechaRealizacion() {
+        int anio = (int) box_anio.getSelectedItem();
+        int mes = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
+        int dia = (int) box_dia.getSelectedItem();
+
+        java.sql.Timestamp fechaTimestamp = java.sql.Timestamp.valueOf(anio + "-" + mes + "-" + dia + " 00:00:00");
+
+        return fechaTimestamp;
+    }          
+    
+public java.sql.Timestamp getFechaDevolucion() {
+    java.sql.Timestamp fechaRealizacion = getFechaRealizacion();
+    java.time.LocalDateTime fechaRealizacionLDT = fechaRealizacion.toLocalDateTime();
+    java.time.LocalDateTime fechaDevolucionLDT = fechaRealizacionLDT.plusDays(14);
+    java.sql.Timestamp fechaDevolucion = java.sql.Timestamp.valueOf(fechaDevolucionLDT);
+
+    return fechaDevolucion;
+}    
+    
     public JTextField getTxtf_buscar() {
         return txtf_buscar;
     }
@@ -640,62 +762,40 @@ public class PanelPrestamos extends javax.swing.JPanel {
         txtf_buscar.setText(texto);
     }
 
-    public JTextField getIsbn() {
-        return txtf_isbn;
+    public JTextField getIdUsuario() {
+        return txtf_idUsuario;
     }
         
+    public void setIdUsuario(String texto) {
+        txtf_idUsuario.setText(texto);
+    }
+    
+    public JTextField getISBN() {
+        return txtf_isbn;
+    }
+    
     public void setISBN(String texto) {
         txtf_isbn.setText(texto);
-    }
-
-    public JTextField getAnioPublicacion() {
-        return txtf_anioPublicacion;
-    }
-    
-    public void setAnioPublicacion(String texto) {
-        txtf_anioPublicacion.setText(texto);
-    }
-    
-    public JTextField getCodigoArea() {
-        return txtf_codigoArea;
-    }
-    
-    public void setCodigoArea(String texto) {
-        txtf_codigoArea.setText(texto);
     }    
 
-    public JTextField getCodigoEditorial() {
-        return txtf_codigoEditorial;
+    public JTextField getNroEjemplar() {
+        return txtf_nroEjemplar;
     }
     
-    public void setCodigoEditorial(String texto) {
-        txtf_codigoEditorial.setText(texto);
+    public void setNroEjemplar(String texto) {
+        txtf_nroEjemplar.setText(texto);
     }       
-    
-    public JTextField getNroPaginas() {
-        return txtf_nroPaginas;
-    }
-    
-    public void setNroPaginas(String texto) {
-        txtf_nroPaginas.setText(texto);
-    }    
-
-    public JTextField getTitulo() {
-        return txtf_titulo;
-    }
-    
-    public void setTitulo(String texto) {
-        txtf_titulo.setText(texto);
-    }
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Integer> box_anio;
+    private javax.swing.JComboBox<Integer> box_dia;
+    private javax.swing.JComboBox<Integer> box_mes;
     private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
     private javax.swing.JButton btn_editar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_nuevo;
-    private javax.swing.JButton btn_volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -703,29 +803,27 @@ public class PanelPrestamos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_anioPublicacion;
+    private javax.swing.JLabel lbl_anio;
     private javax.swing.JLabel lbl_borrar;
     private javax.swing.JLabel lbl_cancelar;
-    private javax.swing.JLabel lbl_codigoArea;
-    private javax.swing.JLabel lbl_codigoEditorial;
+    private javax.swing.JLabel lbl_dia;
     private javax.swing.JLabel lbl_editar;
+    private javax.swing.JLabel lbl_fechaRealizacion;
     private javax.swing.JLabel lbl_guardar;
+    private javax.swing.JLabel lbl_idUsuario;
     private javax.swing.JLabel lbl_isbn;
-    private javax.swing.JLabel lbl_nroPaginas;
+    private javax.swing.JLabel lbl_mes;
+    private javax.swing.JLabel lbl_nroEjemplar;
     private javax.swing.JLabel lbl_nuevo;
-    private javax.swing.JLabel lbl_titulo;
     private javax.swing.JPanel panel_botones;
     private javax.swing.JPanel panel_cabecera;
     private javax.swing.JPanel panel_contenido;
     private javax.swing.JPanel panel_titulo;
     private javax.swing.JTable table_principal;
-    private javax.swing.JTextField txtf_anioPublicacion;
     private javax.swing.JTextField txtf_buscar;
-    private javax.swing.JTextField txtf_codigoArea;
-    private javax.swing.JTextField txtf_codigoEditorial;
+    private javax.swing.JTextField txtf_idUsuario;
     private javax.swing.JTextField txtf_isbn;
-    private javax.swing.JTextField txtf_nroPaginas;
-    private javax.swing.JTextField txtf_titulo;
+    private javax.swing.JTextField txtf_nroEjemplar;
     // End of variables declaration//GEN-END:variables
 
 }

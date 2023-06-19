@@ -16,8 +16,16 @@ package Controladores;
  */
 
 import BasesDeDatos.BibliotecaManager;
+import Dao.EjemplarDao;
 import Dao.LibroDao;
+import Dao.PrestamoDao;
+import Dao.PrestamoEjemplarDao;
+import Dao.UsuarioDao;
+import Modelos.Ejemplar;
 import Modelos.Libro;
+import Modelos.Prestamo;
+import Modelos.PrestamoEjemplar;
+import Modelos.Usuario;
 import Paneles.AvisosEmergentes;
 import Paneles.PanelPrestamos;
 import java.awt.Point;
@@ -26,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import javax.swing.JTable;
 
@@ -38,7 +47,13 @@ public class SubcontroladorPrestamos {
     // Datos del elemento seleccionado para modificar
     protected int selectedId;
     protected int selectedRow;
-    protected Libro registroSeleccionado = null;    
+    protected Prestamo registroSeleccionado = null;    
+    protected PrestamoEjemplar registroSeleccionado2 = null;    
+    protected Usuario usuarioActual = null;
+    protected String idUsuarioActual = null;
+    protected String idUsuarioIngresado = null;    
+    protected Libro libroActual = null;
+    protected Ejemplar ejemplarActual = null;
     
     /**
      * Constructor de la clase
@@ -47,7 +62,7 @@ public class SubcontroladorPrestamos {
     public SubcontroladorPrestamos(PanelPrestamos panel){        
         this.panel = panel;
         
-        panel.addListenerVolver(oyenteMostrarPanelAdministrar);
+//        panel.addListenerVolver(oyenteMostrarPanelAdministrar);
         panel.addListenerBuscar(oyenteBuscar);
         panel.addListenerNuevo(oyenteNuevo);
         panel.addListenerEditar(oyenteEditar);
@@ -74,30 +89,28 @@ public class SubcontroladorPrestamos {
      * Transforma un objeto a una fila de la tabla y lo agrega
      * @param e El objeto que transformará 
      */
-    public void cargarObjetoEnTabla(Libro e){
-        String isbn = e.getIsbn();
-        String codigoArea = e.getCodigoArea();
-        String codigoEditorial = e.getCodigoEditorial();
-        String titulo = e.getTitulo();
-        String anioPublicacion = e.getAnioPublicacion();
-        String nroPaginas = Integer.toString(e.getNroPaginas());
+    public void cargarObjetoEnTabla(Prestamo e){
+        String nroConsecutivo = Integer.toString(e.getNroConsecutivoPrestamo());
+        String idUsuario = e.getIdUsuario();
+        String idEmpleado = e.getIdEmpleado();
+        Timestamp fechaRealizacion = e.getFechaRealizacion();
         
-        panel.nuevaFilaTabla(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, nroPaginas);
+        panel.nuevaFilaTabla(nroConsecutivo, idUsuario, idEmpleado, fechaRealizacion);
     }
     
     /**
      * Carga todos los registros a la tabla
      */
     public void cargarRegistros(){
-        List<Libro> libros;
+        List<Prestamo> prestamos;
         
         java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
         
-        LibroDao dao = new LibroDao(conexion);
-        libros = dao.obtenerTodos();
+        PrestamoDao dao = new PrestamoDao(conexion);
+        prestamos = dao.obtenerTodos();
         
-        for(Libro libroActual: libros){
-            cargarObjetoEnTabla(libroActual);
+        for(Prestamo prestamoActual: prestamos){
+            cargarObjetoEnTabla(prestamoActual);
         }
     }
     
@@ -111,21 +124,21 @@ public class SubcontroladorPrestamos {
         
         String parametro = panel.getTxtf_buscar().getText();
         
-        LibroDao dao = new LibroDao(conexion);
+        PrestamoDao dao = new PrestamoDao(conexion);
         
         if (parametro.isEmpty()) { // Si no hay parametro recargar la tabla
             cargarModoInicial();            
         } else {
-            Libro libroBuscado = dao.obtener(parametro);
+            Prestamo prestamoBuscado = dao.obtener(parametro);
             
-            if (libroBuscado == null) { // Si no se encontró una ubicacion entonces recargar la tabla
+            if (prestamoBuscado == null) { // Si no se encontró una ubicacion entonces recargar la tabla
                 AvisosEmergentes.mostrarMensaje("No se ha encontrado ningun registro con ese Id");
                 
                 cargarModoInicial();
             } else {
                 panel.limpiarTabla();   
                 panel.limpiarCampos();
-                cargarObjetoEnTabla(libroBuscado);
+                cargarObjetoEnTabla(prestamoBuscado);
             }
         }
 
@@ -161,6 +174,81 @@ public class SubcontroladorPrestamos {
         return resultado;
     }    
     
+    public void cargarUsuario(String idUsuario){
+        usuarioActual = null;        
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+
+        UsuarioDao dao = new UsuarioDao(conexion);
+        usuarioActual = dao.obtenerPorId(idUsuario);
+
+        if (usuarioActual == null) { // Si no se encontró una ubicacion entonces recargar la tabla
+            AvisosEmergentes.mostrarMensaje("Error interno, el usuario no se ha cargado correctamente");
+        }        
+    }    
+    
+    public int sgteNroConsecutivo(){
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        PrestamoDao dao = new PrestamoDao(conexion);        
+        
+        return dao.obtenerUltimoNroConsecutivo() + 1;
+    }
+   
+    public String idUsuarioActual(){
+        idUsuarioActual = null;
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        UsuarioDao dao = new UsuarioDao(conexion);
+        idUsuarioActual = dao.obtenerIdUsuarioActual(usuarioActual);
+        if (idUsuarioActual == null) { // Si no se encontró una ubicacion entonces recargar la tabla
+            AvisosEmergentes.mostrarMensaje("Error interno, el usuario no se ha cargado correctamente");
+            return null;
+        } else {
+            return idUsuarioActual;        
+        }   
+    }    
+    
+    public boolean existeLibro(String isbn){
+        libroActual = null;
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
+        LibroDao dao = new LibroDao(conexion);
+        libroActual = dao.obtener(isbn);
+        if(libroActual == null){
+            AvisosEmergentes.mostrarMensaje("El libro ingresado no existe en la biblioteca");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    public boolean existeUsuario(String idUsuario){
+        usuarioActual = null;
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();   
+        
+        UsuarioDao dao = new UsuarioDao(conexion);
+        usuarioActual = dao.obtenerPorId(idUsuario);
+        
+        if(usuarioActual == null){
+            AvisosEmergentes.mostrarMensaje("El usuario ingresado no se encuentra registrado");
+            return false;
+        }else{
+            return true;
+        }         
+    }
+    
+    public boolean existeEjemplar(String isbn, String nroEjemplar){
+        ejemplarActual = null;
+        
+        java.sql.Connection conexion = BibliotecaManager.iniciarConexion();   
+        
+        EjemplarDao dao = new EjemplarDao(conexion);  
+        ejemplarActual = dao.obtenerEjemplar(isbn, nroEjemplar);
+        
+        if(ejemplarActual == null){
+            AvisosEmergentes.mostrarMensaje("El ejemplar ingresado no pertenece a la biblioteca");
+            return false;
+        }else{
+            return true;
+        }          
+    }
     
     // ------------------ LISTENERS ------------------
     /**
@@ -190,12 +278,10 @@ public class SubcontroladorPrestamos {
     ActionListener oyenteEditar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
-            panel.setISBN(registroSeleccionado.getIsbn());
-            panel.setCodigoArea(registroSeleccionado.getCodigoArea());
-            panel.setCodigoEditorial(registroSeleccionado.getCodigoEditorial());            
-            panel.setTitulo(registroSeleccionado.getTitulo());
-            panel.setAnioPublicacion(registroSeleccionado.getAnioPublicacion());
-            panel.setNroPaginas(Integer.toString(registroSeleccionado.getNroPaginas()));
+            panel.setISBN(registroSeleccionado2.getIsbn());
+            panel.setIdUsuario(registroSeleccionado.getIdUsuario());            
+            panel.setNroEjemplar(registroSeleccionado2.getNroEjemplar());
+            //panel.setFecha(registroSeleccionado.getCodigoEditorial());            
             
             panel.modoEditar();
         }
@@ -210,10 +296,13 @@ public class SubcontroladorPrestamos {
                 if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
 
-                    LibroDao dao = new LibroDao(conexion);
+                    PrestamoDao dao = new PrestamoDao(conexion);
+                    PrestamoEjemplarDao dao2 = new PrestamoEjemplarDao(conexion);
 
                     dao.eliminar(registroSeleccionado);
+                    dao2.eliminar(registroSeleccionado2);
                     registroSeleccionado = null;
+                    registroSeleccionado2 = null;
 
                     panel.limpiarTabla();
                     cargarRegistros();
@@ -233,28 +322,27 @@ public class SubcontroladorPrestamos {
         public void actionPerformed(ActionEvent e) {
             
             // Variables que guardan los campos
-            String isbn = panel.getIsbn().getText();
-            String codigoArea = panel.getCodigoArea().getText();
-            String codigoEditorial = panel.getCodigoEditorial().getText();
-            String titulo = panel.getTitulo().getText();
-            String anioPublicacion = panel.getAnioPublicacion().getText();
-            String nroPaginas = panel.getNroPaginas().getText();
+            int nroConsecutivo = sgteNroConsecutivo();
+            String idUsuario = panel.getIdUsuario().getText();
+            String idEmpleado = idInterno;
+            String isbn = panel.getISBN().getText();
+            String nroEjemplar = panel.getNroEjemplar().getText();
+            Timestamp fechaRealizacion = panel.getFechaRealizacion();
+            Timestamp fechaDevolucion = panel.getFechaDevolucion();
             
             //Comprobacion de campos vacios
             boolean camposVacios = true;
             
             if(!txtfEstaVacio(isbn, "ISBN")){ 
-                if(!txtfEstaVacio(codigoArea, "Codigo Area")){  
-                    if(!txtfEstaVacio(codigoEditorial, "Codigo Editorial")){                           
-                        if(!txtfEstaVacio(titulo, "Titulo")){    
-                            if(!txtfEstaVacio(anioPublicacion, "Año de publicación")){
-                                if(txtfTieneNumero(anioPublicacion, "Año de publicación")){
-                                    if(txtfTieneNumero(nroPaginas, "Número de paginas")){
-                                        camposVacios = false;                           
-                                    }
+                if(!txtfEstaVacio(idUsuario, "idUsuario")){  
+                    if(!txtfEstaVacio(nroEjemplar, "Número de ejemplar")){
+                        if(existeUsuario(idUsuario)){
+                            if(existeLibro(isbn)){
+                                if(existeEjemplar(isbn, nroEjemplar)){
+                                    camposVacios = false; 
                                 }
                             }
-                        }
+                        }                                                  
                     }
                 }
             }
@@ -265,22 +353,30 @@ public class SubcontroladorPrestamos {
             
             // Insercion o modificacion
             
-            registroSeleccionado = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, Integer.parseInt(nroPaginas));
+            registroSeleccionado = new Prestamo(nroConsecutivo, idUsuario, idEmpleado, fechaRealizacion);
+            registroSeleccionado2 = new PrestamoEjemplar(nroConsecutivo, isbn, nroEjemplar, fechaDevolucion);
             
             try{
                 if (datosValidados && !camposVacios) {
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
-                    LibroDao dao = new LibroDao(conexion);
+                    java.sql.Connection conexion2 = BibliotecaManager.iniciarConexion();                    
+                    PrestamoDao dao = new PrestamoDao(conexion);
+                    PrestamoEjemplarDao dao2 = new PrestamoEjemplarDao(conexion2);
 
                     if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
 
                         dao.insertar(registroSeleccionado);
+                        
+                        dao2.insertar(registroSeleccionado2);
 
                         registroSeleccionado = null;
+                        registroSeleccionado2 = null;
+                        
                         cargarModoInicial();
 
                         BibliotecaManager.detenerConexion(conexion);
+                        BibliotecaManager.detenerConexion(conexion2);                        
                     } else{ // El id es fijo por lo que se esta realizando una actualizacion
                         String mensaje = "¿Seguro que deseas editar la informacion de este registro? \n"
                                 + "Esta operacion es irreversible";
@@ -288,6 +384,7 @@ public class SubcontroladorPrestamos {
                         if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
 
                             dao.modificar(registroSeleccionado);
+                           
 
                             registroSeleccionado = null;
                             cargarModoInicial();
@@ -321,7 +418,7 @@ public class SubcontroladorPrestamos {
     MouseListener oyenteFilasTabla = new MouseListener() {
         @Override
         public void mousePressed(MouseEvent Mouse_evt) {
-            
+        /*    
             JTable table = (JTable) Mouse_evt.getSource();
             selectedRow = table.getSelectedRow();
             Point point = Mouse_evt.getPoint();
@@ -346,7 +443,7 @@ public class SubcontroladorPrestamos {
                 
                 panel.limpiarCampos();
                 panel.modoRegistroTablaSeleccionado();
-            }
+            }*/
         }
 
         @Override

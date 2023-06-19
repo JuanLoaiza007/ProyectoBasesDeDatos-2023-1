@@ -157,7 +157,7 @@ public class PrestamoEjemplarDao {
         List<PrestamoEjemplar> prestamosEjemplares = new ArrayList<>();
 
         String GETALL = "SELECT nro_consecutivo_prestamo, isbn, nro_ejemplar, fecha_devolucion FROM prestamo_ejemplar WHERE nro_consecutivo_prestamo = ? ORDER BY fecha_devolucion DESC";
-
+        
         PreparedStatement statement = null;
         ResultSet result = null;
 
