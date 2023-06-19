@@ -2,10 +2,11 @@
 -- BASES DE DATOS DE UNA BIBLIOTECA 
 
 -- Archivo: biblioteca.sql
--- Version: 1.0.14
--- Fecha de última modificacion: 2023-06-17 11:35
+-- Version: 1.0.15
+-- Fecha de última modificacion: 2023-06-19 10:09
 
 -- Registro de cambios
+-- Actualizacion de PK de devuelve_usuario_ejemplar, ahora no se puede devolver 2 veces el mismo libro en el mismo prestamo (v.1.0.15)
 -- Los atributos nro_consecutivo_solicitud y nro_consecutivo_prestamo son convertidos de VARCHAR a INTEGER (v.1.0.14)
 -- Clausula NOT NULL de id_empleado eliminada en tabla solicitud (v.1.0.13)
 -- Atributo de password añadido a empleado (v.1.0.12)
@@ -235,7 +236,7 @@ ALTER TABLE devuelve_usuario_ejemplar
   ADD CONSTRAINT ejemplar_fk FOREIGN KEY (isbn, nro_ejemplar) REFERENCES ejemplar(isbn, nro_ejemplar);
 
 ALTER TABLE devuelve_usuario_ejemplar
-  ADD CONSTRAINT devuelve_usuario_ejemplar_pk PRIMARY KEY (id_usuario, isbn, nro_ejemplar, fecha);
+  ADD CONSTRAINT devuelve_usuario_ejemplar_pk PRIMARY KEY (nro_consecutivo_prestamo, id_usuario, isbn, nro_ejemplar);
 -----------------------------------------------
 DROP TABLE IF EXISTS solicitud CASCADE;
 CREATE TABLE solicitud (
