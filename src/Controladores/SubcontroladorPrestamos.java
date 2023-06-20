@@ -28,15 +28,14 @@ import Modelos.PrestamoEjemplar;
 import Modelos.Usuario;
 import Paneles.AvisosEmergentes;
 import Paneles.PanelPrestamos;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
-import javax.swing.JTable;
 
 public class SubcontroladorPrestamos {
     
@@ -250,17 +249,7 @@ public class SubcontroladorPrestamos {
         }          
     }
     
-    // ------------------ LISTENERS ------------------
-    /**
-     * Envia un mensaje a la instancia superior (Vista) para que cargue el panel de administrar
-     */    
-    ActionListener oyenteMostrarPanelAdministrar = new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelAdministrar");
-        }
-    };
-    
+    // ------------------ LISTENERS ------------------    
     ActionListener oyenteBuscar = new ActionListener(){
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -327,8 +316,15 @@ public class SubcontroladorPrestamos {
             String idEmpleado = idInterno;
             String isbn = panel.getISBN().getText();
             String nroEjemplar = panel.getNroEjemplar().getText();
-            Timestamp fechaRealizacion = panel.getFechaRealizacion();
-            Timestamp fechaDevolucion = panel.getFechaDevolucion();
+            Timestamp fechaRealizacion = new Timestamp(System.currentTimeMillis());
+            
+            // Crear un objeto Calendar a partir del Timestamp para dar un plazo de 
+            // 7 dias para devolver el libro
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaRealizacion);
+            calendar.add(Calendar.DAY_OF_YEAR, 7); // El amount es el plazo
+
+            Timestamp fechaDevolucion = new Timestamp(calendar.getTimeInMillis());
             
             //Comprobacion de campos vacios
             boolean camposVacios = true;

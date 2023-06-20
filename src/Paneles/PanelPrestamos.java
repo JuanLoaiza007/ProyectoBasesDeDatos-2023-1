@@ -33,9 +33,6 @@ public class PanelPrestamos extends javax.swing.JPanel {
         initComponents();
         table_principal.setModel(modeloTabla);
         configurarTabla();
-        
-        inicializarAnio();
-        reiniciarBoxes();        
     }
 
     /** This method is called from within the constructor to
@@ -74,13 +71,6 @@ public class PanelPrestamos extends javax.swing.JPanel {
         lbl_nroEjemplar = new javax.swing.JLabel();
         txtf_isbn = new javax.swing.JTextField();
         lbl_isbn = new javax.swing.JLabel();
-        lbl_fechaRealizacion = new javax.swing.JLabel();
-        lbl_dia = new javax.swing.JLabel();
-        box_dia = new javax.swing.JComboBox<>();
-        box_mes = new javax.swing.JComboBox<>();
-        lbl_mes = new javax.swing.JLabel();
-        lbl_anio = new javax.swing.JLabel();
-        box_anio = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_principal = new javax.swing.JTable();
@@ -311,68 +301,36 @@ public class PanelPrestamos extends javax.swing.JPanel {
         lbl_isbn.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
         lbl_isbn.setText("ISBN:");
 
-        lbl_fechaRealizacion.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_fechaRealizacion.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_fechaRealizacion.setText("Fecha de realización:");
-
-        lbl_dia.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_dia.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_dia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_dia.setText("Dia");
-
-        lbl_mes.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_mes.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_mes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_mes.setText("Mes");
-
-        lbl_anio.setBackground(new java.awt.Color(0, 0, 0));
-        lbl_anio.setFont(new java.awt.Font("San Francisco Text", 1, 16)); // NOI18N
-        lbl_anio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_anio.setText("Año");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_idUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(lbl_nroEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_nroEjemplar)
+                            .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtf_isbn))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_guardar)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(btn_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(89, 89, 89)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbl_cancelar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(lbl_cancelar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE))
-                    .addComponent(lbl_nroEjemplar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_nroEjemplar)
-                    .addComponent(lbl_isbn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtf_isbn)
-                    .addComponent(lbl_fechaRealizacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_dia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(box_dia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(box_mes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_mes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(box_anio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbl_anio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                                .addGap(23, 23, 23)))
+                        .addGap(55, 55, 55))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,19 +346,7 @@ public class PanelPrestamos extends javax.swing.JPanel {
                 .addComponent(lbl_nroEjemplar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtf_nroEjemplar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_fechaRealizacion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_dia)
-                    .addComponent(lbl_mes)
-                    .addComponent(lbl_anio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(box_dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(box_mes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(box_anio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(119, 119, 119)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -408,7 +354,7 @@ public class PanelPrestamos extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_cancelar)
                     .addComponent(lbl_guardar))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -446,11 +392,11 @@ public class PanelPrestamos extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panel_contenidoLayout = new javax.swing.GroupLayout(panel_contenido);
@@ -473,89 +419,7 @@ public class PanelPrestamos extends javax.swing.JPanel {
         add(panel_contenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    // ------------------ AJUSTAR FECHA ------------------
-    /**
-     * Se encarga de llenar el box_anio con los años disponibles para elegir
-     */
-    public void inicializarAnio(){
-        int anioActual = LocalDate.now().getYear();
-        for (int i = anioActual; i >= 1900; i--) { // Empezando por el año actual y retrocediendo hasta 1900
-            box_anio.addItem(i);
-        }
-    }
-    
-    /**
-     * Se encarga de llenar los meses y los dias segun el año (permite hasta el mes del año actual)
-     * @see llenarDias() Invoca esta funcion para cargar los dias del mes actual
-     */
-    private void llenarMesesYDias() {
-        // Obtener el año y mes seleccionados
-        int anioSeleccionado = (int) box_anio.getSelectedItem();
-        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
-        
-        int anioActual = LocalDate.now().getYear();
-        
-        // Limpiar el JComboBox de meses
-        box_mes.removeAllItems();
-        
-        // Llenar el JComboBox de meses
-        int mesesMax;
-        
-        if (anioSeleccionado == anioActual)
-            mesesMax = LocalDate.now().getMonthValue(); // Si es el año actual solo se puede hasta este mes
-        else
-            mesesMax = 12; // Si es un año anterior al actual entonces se puede cualquier mes
-        
-        for (int i = 1; i <= mesesMax; i++) { 
-            box_mes.addItem(i);
-        }
-        
-        // Llenar el JComboBox de días
-        llenarDias();
-        
-        // Seleccionar el mes previamente seleccionado si aún está disponible
-        if (mesSeleccionado <= mesesMax) {
-            box_mes.setSelectedIndex(mesSeleccionado - 1);
-        } else {
-            box_mes.setSelectedIndex(mesesMax - 1);
-        }
-    }
-    
-    /**
-     * Se encarga de llenar los dias dependiendo del mes y año seleccionados
-     */
-    private void llenarDias() {
-        // Obtener el año y mes seleccionados
-        int anioSeleccionado = (int) box_anio.getSelectedItem();
-        int mesSeleccionado = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
-        
-        int anioActual = LocalDate.now().getYear();
-        int mesActual = LocalDate.now().getMonthValue();
-        
-        // Si el mes seleccionado no es valido lo asigna a 1 (enero)
-        if(mesSeleccionado < 1 || mesSeleccionado > 12)
-            mesSeleccionado = 1;
-        
-        // Obtenemos la representacion de unicamente el mes y el año
-        YearMonth yearMonth = YearMonth.of(anioSeleccionado, mesSeleccionado);
-        
-        // Obtener el número máximo de días para el año y mes seleccionados
-        int diasMax;
-        
-        if(mesSeleccionado == mesActual && anioSeleccionado == anioActual)
-            diasMax = LocalDate.now().getDayOfMonth(); // Si el mes es el actual entonces se puede el dia actual
-        else 
-            diasMax = yearMonth.lengthOfMonth(); // Si el mes es antes del actual entonces se pueden todos los dias
-        
-        box_dia.removeAllItems(); // Se limpia el JComboBox
-        
-        // Llenar el JComboBox de días
-        for (int i = 1; i <= diasMax; i++) {
-            box_dia.addItem(i);
-        }
-    }
-        
+         
     
      // ------------------ CONFIGURACION DE LA TABLA ------------------
     /**
@@ -605,36 +469,9 @@ public class PanelPrestamos extends javax.swing.JPanel {
         txtf_isbn.setText("");
         txtf_nroEjemplar.setText("");
     }
+      
     
-    
-    /**
-     * Se encarga de reestablecer a una fecha predeterminada
-     */
-    public void reiniciarBoxes(){              
-        //Seleccionar el primer mes
-        box_anio.setSelectedIndex(0);
-        llenarMesesYDias();
-        box_mes.setSelectedIndex(0);
-        llenarDias();
-        box_dia.setSelectedIndex(0);
-        
-    }    
-    
-    // ------------------ LISTENERS ------------------
-    
-    ActionListener oyenteAnio = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            llenarMesesYDias();
-        }
-    };
-
-    ActionListener oyenteMes = new ActionListener() {
-        public void actionPerformed(ActionEvent event) {
-            llenarDias();
-        }
-    };    
-    
+    // ------------------ LISTENERS ------------------    
     public void addListenerBuscar(ActionListener listener){
         btn_buscar.addActionListener(listener);
     }
@@ -730,30 +567,7 @@ public class PanelPrestamos extends javax.swing.JPanel {
     }
     
     
-    // ------------------ SETTERS Y GETTERS  ------------------
-    /**
-     * Prepara la fecha usando los JComboBox de dia, mes y anio.
-     * @return La fecha escogida de tipo java.sql.Timestamp
-     */
-    public java.sql.Timestamp getFechaRealizacion() {
-        int anio = (int) box_anio.getSelectedItem();
-        int mes = box_mes.getSelectedIndex() + 1; // Indices de JComboBox comienzan en 0
-        int dia = (int) box_dia.getSelectedItem();
-
-        java.sql.Timestamp fechaTimestamp = java.sql.Timestamp.valueOf(anio + "-" + mes + "-" + dia + " 00:00:00");
-
-        return fechaTimestamp;
-    }          
-    
-public java.sql.Timestamp getFechaDevolucion() {
-    java.sql.Timestamp fechaRealizacion = getFechaRealizacion();
-    java.time.LocalDateTime fechaRealizacionLDT = fechaRealizacion.toLocalDateTime();
-    java.time.LocalDateTime fechaDevolucionLDT = fechaRealizacionLDT.plusDays(14);
-    java.sql.Timestamp fechaDevolucion = java.sql.Timestamp.valueOf(fechaDevolucionLDT);
-
-    return fechaDevolucion;
-}    
-    
+    // ------------------ SETTERS Y GETTERS  ------------------ 
     public JTextField getTxtf_buscar() {
         return txtf_buscar;
     }
@@ -787,9 +601,6 @@ public java.sql.Timestamp getFechaDevolucion() {
     }       
             
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Integer> box_anio;
-    private javax.swing.JComboBox<Integer> box_dia;
-    private javax.swing.JComboBox<Integer> box_mes;
     private javax.swing.JButton btn_borrar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_cancelar;
@@ -803,16 +614,12 @@ public java.sql.Timestamp getFechaDevolucion() {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_anio;
     private javax.swing.JLabel lbl_borrar;
     private javax.swing.JLabel lbl_cancelar;
-    private javax.swing.JLabel lbl_dia;
     private javax.swing.JLabel lbl_editar;
-    private javax.swing.JLabel lbl_fechaRealizacion;
     private javax.swing.JLabel lbl_guardar;
     private javax.swing.JLabel lbl_idUsuario;
     private javax.swing.JLabel lbl_isbn;
-    private javax.swing.JLabel lbl_mes;
     private javax.swing.JLabel lbl_nroEjemplar;
     private javax.swing.JLabel lbl_nuevo;
     private javax.swing.JPanel panel_botones;

@@ -17,8 +17,11 @@ package Dao;
 
 import BasesDeDatos.BibliotecaManager;
 import Modelos.Prestamo;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PrestamoDaoTest {
     
@@ -37,7 +40,11 @@ public class PrestamoDaoTest {
         PrestamoDao daoInsertar = new PrestamoDao(conexionInsertar);
 
         Prestamo prestamoInsertar = new Prestamo(11, "1", "1", fechaActual);
-        daoInsertar.insertar(prestamoInsertar);
+        try {
+            daoInsertar.insertar(prestamoInsertar);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Prestamo insertado correctamente.");
     }
     
@@ -46,7 +53,11 @@ public class PrestamoDaoTest {
         PrestamoDao daoModificar = new PrestamoDao(conexionModificar);
 
         Prestamo prestamoModificar = new Prestamo(11, "1", "1", fechaActual);
-        daoModificar.modificar(prestamoModificar);
+        try {
+            daoModificar.modificar(prestamoModificar);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Prestamo modificado correctamente.");
     }
     
@@ -71,7 +82,11 @@ public class PrestamoDaoTest {
         PrestamoDao daoEliminar = new PrestamoDao(conexionEliminar);
 
         Prestamo prestamoEliminar = new Prestamo(11, "", "", null);
-        daoEliminar.eliminar(prestamoEliminar);
+        try {
+            daoEliminar.eliminar(prestamoEliminar);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrestamoDaoTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Prestamo eliminado correctamente.");
     }
     
