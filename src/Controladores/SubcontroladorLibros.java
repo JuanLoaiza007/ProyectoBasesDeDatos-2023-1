@@ -19,6 +19,7 @@ import BasesDeDatos.BibliotecaManager;
 import Dao.LibroDao;
 import Modelos.Libro;
 import Paneles.AvisosEmergentes;
+import Paneles.MiniVentana;
 import Paneles.PanelLibros;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -350,6 +351,24 @@ public class SubcontroladorLibros {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            JTable tabla = (JTable) e.getSource();
+
+            int columnaSeleccionada = tabla.getSelectedColumn();
+
+            if (columnaSeleccionada == 0) {
+                int filaSeleccionada = tabla.getSelectedRow();
+
+                // Obtener el título de la columna
+                String tituloColumna = tabla.getColumnName(columnaSeleccionada);
+
+                // Obtener el contenido del campo específico
+                Object valorCampo = tabla.getValueAt(filaSeleccionada, columnaSeleccionada);
+                String texto = valorCampo.toString();
+
+                // Crear e mostrar la miniventana
+                MiniVentana miniVentana = new MiniVentana(tituloColumna, texto);
+                miniVentana.setVisible(true);
+            }
         }
 
         @Override

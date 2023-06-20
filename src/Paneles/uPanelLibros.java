@@ -2,6 +2,7 @@ package Paneles;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import javax.swing.JLabel;
@@ -678,6 +679,10 @@ public class uPanelLibros extends javax.swing.JPanel {
             llenarDias();
         }
     };
+    
+    public void addListenerFilasTabla(MouseListener listener){
+        table_principal.addMouseListener(listener);
+    }
 
     public void addListenerVolver(ActionListener listener){
         btn_volver.addActionListener(listener);

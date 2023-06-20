@@ -23,12 +23,16 @@ import Modelos.Libro;
 import Modelos.Solicitud;
 import Modelos.Usuario;
 import Paneles.AvisosEmergentes;
+import Paneles.MiniVentana;
 import Paneles.uPanelLibros;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.security.Timestamp;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JTable;
 
 public class uSubcontroladorLibros {
     
@@ -37,6 +41,10 @@ public class uSubcontroladorLibros {
     protected Usuario usuarioActual = null;    
     protected Solicitud registro = null;
     protected String idUsuarioActual = null;
+    
+    // Datos del elemento seleccionado para modificar
+    protected int selectedId;
+    protected int selectedRow;
     
     /**
      * Constructor de la clase
@@ -49,7 +57,8 @@ public class uSubcontroladorLibros {
         panel.addListenerSolicitar(oyenteSolicitar);
         panel.addListenerCancelar(oyenteCancelar);
         panel.addListenerEnviar(oyenteEnviar);
-        panel.addListenerBuscar(oyenteBuscar);        
+        panel.addListenerBuscar(oyenteBuscar); 
+        panel.addListenerFilasTabla(oyenteFilasTabla);
         
         cargarRegistros();        
         panel.modoPasivo();
@@ -278,6 +287,51 @@ public class uSubcontroladorLibros {
             }
         }
     
+    };
+    
+    MouseListener oyenteFilasTabla = new MouseListener(){
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            JTable tabla = (JTable) e.getSource();            
+            selectedRow = tabla.getSelectedRow();
+
+            int columnaSeleccionada = tabla.getSelectedColumn();
+
+            if (columnaSeleccionada == 0) {
+                int filaSeleccionada = tabla.getSelectedRow();
+
+                // Obtener el título de la columna
+                String tituloColumna = tabla.getColumnName(columnaSeleccionada);
+
+                // Obtener el contenido del campo específico
+                Object valorCampo = tabla.getValueAt(filaSeleccionada, columnaSeleccionada);
+                String texto = valorCampo.toString();
+
+                // Crear e mostrar la miniventana
+                MiniVentana miniVentana = new MiniVentana(tituloColumna, texto);
+                miniVentana.setVisible(true);
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            
+        }
     };
     
     
