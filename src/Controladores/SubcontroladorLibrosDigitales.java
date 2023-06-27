@@ -255,16 +255,12 @@ public final class SubcontroladorLibrosDigitales {
                 }    
             }
        
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;
             
             // Insercion o modificacion
-            
-            registroSeleccionado = new LibroDigital(isbn, direccionUrl, Integer.parseInt(tamanioBytes), formato);
-            
             try{
-                if (datosValidados && !camposVacios) {
+                if (!camposVacios) {
+
+                    registroSeleccionado = new LibroDigital(isbn, direccionUrl, Integer.parseInt(tamanioBytes), formato);
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     LibroDigitalDao dao = new LibroDigitalDao(conexion);
@@ -298,6 +294,7 @@ public final class SubcontroladorLibrosDigitales {
                 } else if(ex.getMessage().contains("violates foreign key constraint")){
                     AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
                 } else System.out.println(ex.getMessage());
+                cargarModoInicial();
             }
         }
     };    
@@ -325,21 +322,22 @@ public final class SubcontroladorLibrosDigitales {
             
             try {
                 selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+                if (Mouse_evt.getClickCount() == 1) {
+                    String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    String direccionUrl = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    int tamanioBytes = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());
+                    String formato = table.getValueAt(table.getSelectedRow(), 3).toString();
+
+                    registroSeleccionado = new LibroDigital(isbn, direccionUrl, tamanioBytes, formato);
+
+                    panel.limpiarCampos();
+                    panel.modoRegistroTablaSeleccionado();
+                }
             } catch (NumberFormatException e) {
                 
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
-                String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String direccionUrl = table.getValueAt(table.getSelectedRow(), 1).toString();
-                int tamanioBytes = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 2).toString());                
-                String formato = table.getValueAt(table.getSelectedRow(), 3).toString();
-                
-                registroSeleccionado = new LibroDigital(isbn, direccionUrl, tamanioBytes, formato); 
-                
-                panel.limpiarCampos();
-                panel.modoRegistroTablaSeleccionado();
-            }
+            }  catch (java.lang.ArrayIndexOutOfBoundsException e) {              
+                decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelLibrosDigitales");
+            } 
         }
 
         @Override

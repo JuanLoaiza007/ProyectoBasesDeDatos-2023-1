@@ -342,18 +342,11 @@ public class SubcontroladorPrestamos {
                     }
                 }
             }
-       
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;
-            
-            // Insercion o modificacion
-            
-            registroSeleccionado = new Prestamo(nroConsecutivo, idUsuario, idEmpleado, fechaRealizacion);
-            registroSeleccionado2 = new PrestamoEjemplar(nroConsecutivo, isbn, nroEjemplar, fechaDevolucion);
             
             try{
-                if (datosValidados && !camposVacios) {
+                if (!camposVacios) {
+                    registroSeleccionado = new Prestamo(nroConsecutivo, idUsuario, idEmpleado, fechaRealizacion);
+                    registroSeleccionado2 = new PrestamoEjemplar(nroConsecutivo, isbn, nroEjemplar, fechaDevolucion);
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     java.sql.Connection conexion2 = BibliotecaManager.iniciarConexion();                    

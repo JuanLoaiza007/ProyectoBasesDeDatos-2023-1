@@ -262,17 +262,11 @@ public final class SubcontroladorEjemplares {
                     }
                 }
             }
-       
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;
             
-            // Insercion o modificacion
-            
-            registroSeleccionado = new Ejemplar(isbn, nroEjemplar, sala, Integer.parseInt(nroPasillo), Integer.parseInt(nroEstante), Integer.parseInt(nroCajon));
-            
+            // Insercion o modificacion            
             try{
-                if (datosValidados && !camposVacios) {
+                if (!camposVacios) {
+                    registroSeleccionado = new Ejemplar(isbn, nroEjemplar, sala, Integer.parseInt(nroPasillo), Integer.parseInt(nroEstante), Integer.parseInt(nroCajon));
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     EjemplarDao dao = new EjemplarDao(conexion);
@@ -290,23 +284,22 @@ public final class SubcontroladorEjemplares {
                                 + "Esta operacion es irreversible";
 
                         if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-
                             dao.modificar(registroSeleccionado);
-
-                            registroSeleccionado = null;
-                            cargarModoInicial();
                         }
                     }
 
                     BibliotecaManager.detenerConexion(conexion);
                 }
-            }catch(SQLException ex){
-                System.out.println(ex.getMessage());
-                if(ex.getMessage().contains("llave duplicada viola restricción de unicidad «ejemplar_nro_ejemplar_key»")){
-                    AvisosEmergentes.mostrarMensaje("Ya hay un ejemplar con ese número");
-                } else if(ex.getMessage().contains("viola la llave foránea")){
-                    AvisosEmergentes.mostrarMensaje("No puedes agregar un area o una editorial que no esta registrada");
+            } catch (SQLException ex) {
+                if (ex.getMessage().contains("duplicate key value violates unique constraint")) {
+                    AvisosEmergentes.mostrarMensaje("Ya existe un registro con este id");
+                } else if (ex.getMessage().contains("violates foreign key constraint")) {
+                    AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
+                } else {
+                    System.out.println(ex.getMessage());
                 }
+                registroSeleccionado = null;
+                cargarModoInicial();
             }
         }
     };   
@@ -334,23 +327,24 @@ public final class SubcontroladorEjemplares {
             
             try {
                 selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+                if (Mouse_evt.getClickCount() == 1) {
+                    String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    String nroEjemplar = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    String sala = table.getValueAt(table.getSelectedRow(), 2).toString();
+                    int nroPasillo = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
+                    int nroEstante = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 4).toString());
+                    int nroCajon = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 5).toString());
+
+                    registroSeleccionado = new Ejemplar(isbn, nroEjemplar, sala, nroPasillo, nroEstante, nroCajon);
+
+                    panel.limpiarCampos();
+                    panel.modoRegistroTablaSeleccionado();
+                }
             } catch (NumberFormatException e) {
                 
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
-                String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String nroEjemplar = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String sala = table.getValueAt(table.getSelectedRow(), 2).toString();
-                int nroPasillo = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 3).toString());
-                int nroEstante = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 4).toString());
-                int nroCajon = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 5).toString());
-                
-                registroSeleccionado = new Ejemplar(isbn, nroEjemplar, sala, nroPasillo, nroEstante, nroCajon); 
-                
-                panel.limpiarCampos();
-                panel.modoRegistroTablaSeleccionado();
-            }
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEjemplares");
+            }            
         }
 
         @Override

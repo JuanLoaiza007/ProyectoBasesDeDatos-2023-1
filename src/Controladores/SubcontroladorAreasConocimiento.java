@@ -255,10 +255,8 @@ public class SubcontroladorAreasConocimiento {
             datosValidados = true;
             
             // Insercion o modificacion
-            
-            registroSeleccionado = new AreaConocimiento(id, codigoAreaPadre, nombre, descripcion);
-            
             if (datosValidados && !camposVacios) {
+                registroSeleccionado = new AreaConocimiento(id, codigoAreaPadre, nombre, descripcion);
                 
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                 AreaConocimientoDao dao = new AreaConocimientoDao(conexion);
@@ -266,9 +264,6 @@ public class SubcontroladorAreasConocimiento {
                 if(panel.idEsManual()){ // El id se asigna manualmente por lo que es una insercion
 
                     dao.insertar(registroSeleccionado);
-                    
-                    registroSeleccionado = null;
-                    cargarModoInicial();
 
                     BibliotecaManager.detenerConexion(conexion);
                 } else{ // El id es fijo por lo que se esta realizando una actualizacion
@@ -276,16 +271,15 @@ public class SubcontroladorAreasConocimiento {
                             + "Esta operacion es irreversible";
 
                     if (AvisosEmergentes.preguntarYesOrNo(mensaje)) {
-
-                        dao.modificar(registroSeleccionado);
-                        
-                        registroSeleccionado = null;
-                        cargarModoInicial();
+                        dao.modificar(registroSeleccionado);    
                     }
                 }
 
                 BibliotecaManager.detenerConexion(conexion);
             }
+            
+            registroSeleccionado = null;
+            cargarModoInicial();
             
         }
     };

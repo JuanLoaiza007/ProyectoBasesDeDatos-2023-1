@@ -263,9 +263,10 @@ public class SubcontroladorAutores {
             
             // Insercion o modificacion
             
-            registroSeleccionado = new Autor(id, primerNombre, segundoNombre, primerApellido, segundoApellido);
             
             if (datosValidados && !camposVacios) {
+                
+                registroSeleccionado = new Autor(id, primerNombre, segundoNombre, primerApellido, segundoApellido);
                 
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                 AutorDao dao = new AutorDao(conexion);

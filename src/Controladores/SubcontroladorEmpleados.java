@@ -261,10 +261,9 @@ public class SubcontroladorEmpleados {
             // Insercion o modificacion
             String password = generarPasswordAleatorio();
             
-            registroSeleccionado = new Empleado(id, nombre, cargo, password);
-            
             try{
                 if (datosValidados && !camposVacios) {
+                    registroSeleccionado = new Empleado(id, nombre, cargo, password);
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     EmpleadoDao dao = new EmpleadoDao(conexion);
@@ -328,20 +327,22 @@ public class SubcontroladorEmpleados {
             
             try {
                 selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+
+                if (Mouse_evt.getClickCount() == 1) {
+                    String id = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    String cargo = table.getValueAt(table.getSelectedRow(), 2).toString();
+
+                    registroSeleccionado = new Empleado(id, nombre, cargo, "");
+
+                    panel.limpiarCampos();
+                    panel.modoRegistroTablaSeleccionado();
+                }
             } catch (NumberFormatException e) {
                 
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
-                String id = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String cargo = table.getValueAt(table.getSelectedRow(), 2).toString();
-                
-                registroSeleccionado = new Empleado(id, nombre, cargo, "");
-                
-                panel.limpiarCampos();
-                panel.modoRegistroTablaSeleccionado();
-            }
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {              
+                decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEmpleados");
+            } 
         }
 
         @Override

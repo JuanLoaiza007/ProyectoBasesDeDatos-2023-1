@@ -256,17 +256,11 @@ public class uSubcontroladorLibros {
                     }
                 }
             }
-       
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;   
-            
-            // Insercion
-            
-            registro = new Solicitud(nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha);
-            
+           
             try {
-                if (datosValidados && !camposVacios) {
+                if (!camposVacios) {
+                    registro = new Solicitud(nro_consecutivo_solicitud, id_usuario, id_empleado, isbn, titulo, descripcion, fecha);
+                    
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     SolicitudDao dao = new SolicitudDao(conexion);
                     

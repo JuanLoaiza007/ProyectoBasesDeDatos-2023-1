@@ -238,17 +238,11 @@ public class SubcontroladorEditoriales {
                     }
                 }
             }
-       
-            // Obtencion de campos dificiles
-            boolean datosValidados = false;
-            datosValidados = true;
             
-            
-            // Insercion o modificacion
-            
-            registroSeleccionado = new Editorial(id, nombre, paginaWeb, paisOrigen);
-            
-            if (datosValidados && !camposVacios) {
+            // Insercion o modificacion            
+            if (!camposVacios) {
+                
+                registroSeleccionado = new Editorial(id, nombre, paginaWeb, paisOrigen);
                 
                 java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                 EditorialDao dao = new EditorialDao(conexion);
@@ -258,7 +252,7 @@ public class SubcontroladorEditoriales {
                     dao.insertar(registroSeleccionado);
                     
                     registroSeleccionado = null;
-                    cargarModoInicial();
+                    decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEditoriales");
 
                     BibliotecaManager.detenerConexion(conexion);
                 } else{ // El id es fijo por lo que se esta realizando una actualizacion
@@ -270,7 +264,7 @@ public class SubcontroladorEditoriales {
                         dao.modificar(registroSeleccionado);
                         
                         registroSeleccionado = null;
-                        cargarModoInicial();
+                        decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEditoriales");
                     }
                 }
 
@@ -303,11 +297,6 @@ public class SubcontroladorEditoriales {
             
             try {
                 selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
-            } catch (NumberFormatException e) {
-                
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
                 String id = table.getValueAt(table.getSelectedRow(), 0).toString();
                 String nombre = table.getValueAt(table.getSelectedRow(), 1).toString();
                 String paginaWeb = table.getValueAt(table.getSelectedRow(), 2).toString();
@@ -317,6 +306,11 @@ public class SubcontroladorEditoriales {
                 
                 panel.limpiarCampos();
                 panel.modoRegistroTablaSeleccionado();
+            } catch (NumberFormatException e) {
+                // No es necesario hacer nada
+            } catch (java.lang.ArrayIndexOutOfBoundsException e){
+                System.out.println("Excepcion: " + e);
+                decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelEditoriales");
             }
         }
 

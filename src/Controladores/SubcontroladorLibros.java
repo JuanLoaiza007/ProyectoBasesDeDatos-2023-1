@@ -265,10 +265,9 @@ public class SubcontroladorLibros {
             
             // Insercion o modificacion
             
-            registroSeleccionado = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, Integer.parseInt(nroPaginas));
-            
             try{
                 if (datosValidados && !camposVacios) {
+                    registroSeleccionado = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, Integer.parseInt(nroPaginas));
 
                     java.sql.Connection conexion = BibliotecaManager.iniciarConexion();
                     LibroDao dao = new LibroDao(conexion);
@@ -296,13 +295,15 @@ public class SubcontroladorLibros {
 
                     BibliotecaManager.detenerConexion(conexion);
                 }
-            }catch(SQLException ex){
-                System.out.println(ex.getMessage());
-                if(ex.getMessage().contains("duplicate key value violates unique constraint")){
-                    AvisosEmergentes.mostrarMensaje("Ya hay un libro registrado con ese ISBN");
-                } else if(ex.getMessage().contains("violates foreign key constraint")){
-                    AvisosEmergentes.mostrarMensaje("No puedes agregar un area o una editorial que no esta registrada");
+            } catch (SQLException ex) {
+                if (ex.getMessage().contains("duplicate key value violates unique constraint")) {
+                    AvisosEmergentes.mostrarMensaje("Ya existe un registro con este id");
+                } else if (ex.getMessage().contains("violates foreign key constraint")) {
+                    AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
+                } else {
+                    System.out.println(ex.getMessage());
                 }
+                cargarModoInicial();
             }
         }
     };    
@@ -330,23 +331,24 @@ public class SubcontroladorLibros {
             
             try {
                 selectedId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 0).toString());
+                if (Mouse_evt.getClickCount() == 1) {
+                    String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    String codigoArea = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    String codigoEditorial = table.getValueAt(table.getSelectedRow(), 2).toString();
+                    String titulo = table.getValueAt(table.getSelectedRow(), 3).toString();
+                    String anioPublicacion = table.getValueAt(table.getSelectedRow(), 4).toString();
+                    int nroPaginas = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 5).toString());
+
+                    registroSeleccionado = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, nroPaginas);
+
+                    panel.limpiarCampos();
+                    panel.modoRegistroTablaSeleccionado();
+                }
             } catch (NumberFormatException e) {
                 
-            }
-
-            if (Mouse_evt.getClickCount() == 1) {
-                String isbn = table.getValueAt(table.getSelectedRow(), 0).toString();
-                String codigoArea = table.getValueAt(table.getSelectedRow(), 1).toString();
-                String codigoEditorial = table.getValueAt(table.getSelectedRow(), 2).toString();
-                String titulo = table.getValueAt(table.getSelectedRow(), 3).toString();
-                String anioPublicacion = table.getValueAt(table.getSelectedRow(), 4).toString();
-                int nroPaginas = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 5).toString());
-                
-                registroSeleccionado = new Libro(isbn, codigoArea, codigoEditorial, titulo, anioPublicacion, nroPaginas);
-                
-                panel.limpiarCampos();
-                panel.modoRegistroTablaSeleccionado();
-            }
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {              
+                decirAInstanciaSuperior.mensaje("SolicitudMostrarPanelLibros");
+            } 
         }
 
         @Override
