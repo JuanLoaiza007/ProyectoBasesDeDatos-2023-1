@@ -45,4 +45,4 @@ rol puede usar los siguientes usuarios que estan predefinidos en el archivo .sql
 Este proyecto esta realizado con fines meramente académicos y educativos, el repositorio se hizo público únicamente para que el profesor de curso pueda analizarlo y realizar su evaluación.  
 
 En este proyecto hay recursos gráficos como los iconos del IDE y de otras herramientas que se usaron para su desarrollo, ninguno de estos fue creado por nosotros y no son usados con fines de lucro.  
-Los iconos del proyecto fueron extraidos de flaticon: https://www.flaticon.com/uicons/interface-icons
+Los iconos de la GUI fueron extraidos de flaticon: https://www.flaticon.com/uicons/interface-icons
