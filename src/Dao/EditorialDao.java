@@ -92,7 +92,12 @@ public class EditorialDao {
             }
 
         } catch (SQLException ex) {
-            AvisosEmergentes.mostrarMensaje("" + ex.getErrorCode());
+            if (ex.getMessage().contains("duplicate key value violates unique constraint")) {
+                AvisosEmergentes.mostrarMensaje("Ya existe un registro con este id");
+            } else if (ex.getMessage().contains("violates foreign key constraint")) {
+                AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
+            } else
+                System.out.println(ex.getMessage());
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

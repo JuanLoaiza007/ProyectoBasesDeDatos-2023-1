@@ -390,12 +390,11 @@ public class SubcontroladorPrestamos {
                     BibliotecaManager.detenerConexion(conexion);
                 }
             }catch(SQLException ex){
-                System.out.println(ex.getMessage());
-                if(ex.getMessage().contains("llave duplicada viola restricción de unicidad")){
-                    AvisosEmergentes.mostrarMensaje("Ya hay un libro registrado con ese ISBN");
-                } else if(ex.getMessage().contains("viola la llave foránea")){
-                    AvisosEmergentes.mostrarMensaje("No puedes agregar un area o una editorial que no esta registrada");
-                }
+                if(ex.getMessage().contains("duplicate key value violates unique constraint")){
+                    AvisosEmergentes.mostrarMensaje("Ya existe un registro con este id");
+                } else if(ex.getMessage().contains("violates foreign key constraint")){
+                    AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
+                } else System.out.println(ex.getMessage());
             }
         }
     };    

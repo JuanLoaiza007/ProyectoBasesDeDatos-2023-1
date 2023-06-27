@@ -1,6 +1,7 @@
 package Dao;
 
 import Modelos.Autor;
+import Paneles.AvisosEmergentes;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,11 @@ public class AutorDao {
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            if(ex.getMessage().contains("duplicate key value violates unique constraint")){
+                    AvisosEmergentes.mostrarMensaje("Ya existe un registro con este id");
+                } else if(ex.getMessage().contains("violates foreign key constraint")){
+                    AvisosEmergentes.mostrarMensaje("No puedes referenciar otro registro que no existe");
+                } else System.out.println(ex.getMessage());
         } finally {
             cerrarConexion(conexion);
             cerrarStatement(statement);

@@ -161,7 +161,9 @@ public final class SubcontroladorSolicitudes {
                     AvisosEmergentes.mostrarMensaje("Solicitud aprobada con exito");
                 }
             } catch (SQLException ex){
-                System.out.println(ex.getMessage());
+                if(ex.getMessage().contains("duplicate key value violates unique constraint")){
+                    AvisosEmergentes.mostrarMensaje("Ya existe una solicitud con este id");
+                } else System.out.println(ex.getMessage());
             }
         }
     };    
